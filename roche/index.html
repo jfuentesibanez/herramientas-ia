@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramientas de IA · Taller Roche</title>
+<style>
+
+:root {
+  color-scheme: light;
+  --roche-blue: #0066CC;
+  --roche-blue-dark: #004E9F;
+  --roche-blue-soft: #E8F1FA;
+  --ink: #1A1A1A;
+  --ink-soft: #4A5568;
+  --ink-mute: #6B7280;
+  --border: #E2E8F0;
+  --bg: #FFFFFF;
+  --bg-soft: #F8FAFC;
+  --tis-mask: var(--tis-mask);
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+}
+
+/* HEADER */
+.hero {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 32px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.hero__logo {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.hero__text { flex: 1; min-width: 260px; }
+.hero__eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--roche-blue);
+  margin: 0 0 8px;
+}
+.hero__title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+}
+.hero__subtitle {
+  font-size: 16px;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 640px;
+}
+.hero__meta {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--ink-mute);
+}
+.hero__meta strong { color: var(--ink-soft); font-weight: 600; }
+
+/* SECTIONS */
+.section { margin-top: 48px; }
+.section__title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--roche-blue);
+  margin: 0 0 4px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--roche-blue);
+  display: inline-block;
+}
+.section__desc {
+  font-size: 14px;
+  color: var(--ink-mute);
+  margin: 16px 0 24px;
+  max-width: 720px;
+}
+
+/* GRID OF TOOLS */
+.tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+.tool {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 22px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+.tool:hover {
+  border-color: var(--roche-blue);
+  box-shadow: 0 4px 14px rgba(0, 102, 204, 0.08);
+  transform: translateY(-1px);
+}
+.tool__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.tool__name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.tool__price {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: 100px;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.price--free { background: #E6F4EA; color: #137333; }
+.price--mixed { background: var(--roche-blue-soft); color: var(--roche-blue-dark); }
+.price--paid { background: #FEF3C7; color: #92400E; }
+.tool__desc {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0;
+  flex: 1;
+}
+.tool__features {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  color: var(--ink-mute);
+}
+.tool__features li { padding-left: 14px; position: relative; margin-bottom: 2px; }
+.tool__features li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 9px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--roche-blue);
+}
+.tool__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--roche-blue);
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  margin-top: 6px;
+  align-self: flex-start;
+}
+.tool__link:hover { text-decoration: underline; color: var(--roche-blue-dark); }
+.tool__link::after { content: "→"; transition: transform .15s ease; }
+.tool__link:hover::after { transform: translateX(3px); }
+
+/* NOTES */
+.notes {
+  margin-top: 56px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 28px;
+}
+.notes h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 10px;
+  color: var(--ink);
+}
+.notes ul { margin: 0; padding-left: 20px; color: var(--ink-soft); font-size: 14px; }
+.notes li { margin-bottom: 6px; }
+
+/* CTA / NEWSLETTER · ESTILO POMPEYA */
+.newsletter {
+  margin-top: 48px;
+  position: relative;
+  border-radius: 14px;
+  padding: 36px 40px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  justify-content: space-between;
+  align-items: center;
+  color: #FDF6E3;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(255, 140, 60, 0.45), transparent 55%),
+    radial-gradient(circle at 15% 85%, rgba(220, 60, 80, 0.35), transparent 50%),
+    linear-gradient(135deg, #1a0e08 0%, #2d1410 45%, #4a1d1a 100%);
+  box-shadow: 0 10px 30px rgba(74, 29, 26, 0.25), inset 0 0 60px rgba(0,0,0,0.35);
+  isolation: isolate;
+}
+.newsletter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(255, 180, 100, 0.18), transparent 40%);
+  z-index: -1;
+}
+.newsletter__text { flex: 1; min-width: 260px; }
+.newsletter__eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #F2B872;
+  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.newsletter__eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, #F2B872, transparent);
+}
+.newsletter__title {
+  margin: 0 0 12px;
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 820 / 161;
+  background-color: #FFF4E0;
+  -webkit-mask: var(--tis-mask) left center / contain no-repeat;
+  mask: var(--tis-mask) left center / contain no-repeat;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.45));
+}
+.newsletter__desc {
+  margin: 0 0 18px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: rgba(253, 246, 227, 0.82);
+  max-width: 480px;
+}
+.newsletter__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.newsletter__btn {
+  background: linear-gradient(135deg, #FFB347 0%, #FF7E47 100%);
+  color: #1a0e08;
+  text-decoration: none;
+  padding: 12px 22px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(255, 126, 71, 0.4);
+  transition: transform .15s ease, box-shadow .15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.newsletter__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 126, 71, 0.55);
+}
+.newsletter__url {
+  font-family: "SF Mono", "Menlo", "Monaco", monospace;
+  font-size: 12px;
+  color: rgba(253, 246, 227, 0.65);
+  letter-spacing: 0.02em;
+}
+.newsletter__qr {
+  flex-shrink: 0;
+  background: #FFF4E0;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  text-align: center;
+}
+.newsletter__qr img {
+  display: block;
+  width: 130px;
+  height: 130px;
+  border-radius: 4px;
+}
+.newsletter__qr span {
+  display: block;
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4a1d1a;
+}
+@media (max-width: 640px) {
+  .newsletter { padding: 28px 24px; }
+  .newsletter__title { max-width: 280px; }
+}
+
+/* FOOTER */
+.footer {
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--ink-mute);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.footer a { color: var(--ink-mute); text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .container { padding: 32px 20px 56px; }
+  .hero__title { font-size: 26px; }
+  .hero__logo { width: 72px; height: 72px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="hero">
+    <img class="hero__logo" src="data:image/webp;base64,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" alt="Roche">
+    <div class="hero__text">
+      <p class="hero__eyebrow">Taller de IA Generativa · Roche</p>
+      <h1 class="hero__title">Herramientas de IA</h1>
+      <p class="hero__subtitle">Selección de herramientas vistas en el taller, con enlaces directos y una breve descripción. Este recurso se actualiza periódicamente conforme el ecosistema de IA evoluciona.</p>
+      <p class="hero__meta"><strong>Última actualización:</strong> 20 mayo 2026 · <strong>Facilitador:</strong> Javier Fuentes (NCompany)</p>
+    </div>
+  </header>
+
+  <!-- SECCIÓN 1 · LLM GENERALISTAS -->
+  <section class="section">
+    <h2 class="section__title">Modelos de lenguaje generalistas</h2>
+    <p class="section__desc">Asistentes conversacionales para análisis de información, traducción, generación de contenido y resumen.</p>
+    <div class="tools">
+
+      <article class="tool">
+        <div class="tool__head">
+          <h3 class="tool__name">GPT 5.5 · Deep Research</h3>
+          <span class="tool__price price--paid">De pago</span>
+        </div>
+        <p class="tool__desc">Modelo generalista de OpenAI. Útil también para análisis de imágenes. Deep Research permite investigación en profundidad sobre un tema.</p>
+        <ul class="tool__features">
+          <li>Análisis de imágenes y generación de descripciones</li>
+          <li>Búsqueda y consolidación de fuentes (Deep Research)</li>
+          <li>Síntesis y generación de insights</li>
+        </ul>
+        <a class="tool__link" href="https://chat.openai.com/" target="_blank" rel="noopener">Abrir herramienta</a>
+      </article>
+
+      <article class="tool">
+        <div class="tool__head">
+          <h3 class="tool__name">Claude</h3>
+          <span class="tool__price price--mixed">Gratuito / De pago</span>
+        </div>
+        <p class="tool__desc">LLM de Anthropic. En el plan de pago, Claude Opus 4.7 y Claude Sonnet 4.7. Análisis de texto, resúmenes, programación y razonamiento avanzado.</p>
+        <a class="tool__link" href="https://claude.ai" target="_blank" rel="noopener">Abrir herramienta</a>
+      </article>
+
+      <article class="tool">
+        <div class="tool__head">
+          <h3 class="tool__name">Perplexity</h3>
+          <span class="tool__price price--mixed">Gratuito / De pago</span>
+        </div>
+        <p class="tool__desc">Motor de búsqueda con IA que comprende el significado de las consultas y entrega resultados contextualizados con fuentes citadas. Ideal para investigación rápida.</p>
+        <a class="tool__link" href="https://perplexity.ai/" target="_blank" rel="noopener">Abrir herramienta</a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN 2 · INVESTIGACIÓN CIENTÍFICA -->
+  <section class="section">
+    <h2 class="section__title">Investigación científica y evidencia</h2>
+    <p class="section__desc">Herramientas especializadas en literatura biomédica, evidencia clínica y mapeo de redes de investigación.</p>
+    <div class="tools">
+
+      <article class="tool">
+        <div class="tool__head">
+          <h3 class="tool__name">OpenEvidence</h3>
+          <span class="tool__price price--free">Gratis (sanitarios)</span>
+        </div>
+        <p class="tool__desc">Plataforma de respuestas basadas en evidencia científica verificada. Diseñada para médicos y personal sanitario, con acceso gratuito e ilimitado a profesionales verificados.</p>
+        <a class="tool__link" href="https://www.openevidence.com" target="_blank" rel="noopener">Abrir herramienta</a>
+      </article>
+
+      <article class="tool">
+        <div class="tool__head">
+          <h3 class="tool__name">Consensus</h3>
+          <span class="tool__price price--mixed">Gratuito / De pago</span>
+        </div>
+        <p class="tool__desc">Sintetiza la literatura científica publicada para contestar preguntas en lenguaje natural. Útil para un primer resumen de evidencia y localizar estudios clave.</p>
+        <a class="tool__link" href="https://consensus.app" target="_blank" rel="noopener">Abrir herramienta</a>
+      </article>
+
+      <article class="tool">
+        <div class="tool__head">
+          <h3 class="tool__name">Elicit</h3>
+          <span class="tool__price price--mixed">Gratuito / De pago</span>
+        </div>
+        <p class="tool__desc">Busca y resume artículos científicos y ensayos clínicos. Ayuda a formular preguntas de investigación y extraer información relevante de la literatura existente.</p>
+        <a class="tool__link" href="https://elicit.org" target="_blank" rel="noopener">Abrir herramienta</a>
+      </article>
+
+      <article class="tool">
+        <div class="tool__head">
+          <h3 class="tool__name">Research Rabbit</h3>
+          <span class="tool__price price--mixed">Gratuito / De pago</span>
+        </div>
+        <p class="tool__desc">Descubre, mapea y visualiza redes de investigación a partir de "papers semilla". Facilita explorar conexiones entre autores, temas y áreas del conocimiento.</p>
+        <a class="tool__link" href="https://www.researchrabbit.ai" target="_blank" rel="noopener">Abrir herramienta</a>
+      </article>
+
+      <article class="tool">
+        <div class="tool__head">
+          <h3 class="tool__name">Scite</h3>
+          <span class="tool__price price--mixed">Gratuito / De pago</span>
+        </div>
+        <p class="tool__desc">Especializada en la comprensión de lenguaje científico y técnico. Clasifica citas como de soporte, mención o contraste, aportando contexto crítico.</p>
+        <a class="tool__link" href="https://scite.ai/" target="_blank" rel="noopener">Abrir herramienta</a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN 3 · CONOCIMIENTO Y CONTENIDO -->
+  <section class="section">
+    <h2 class="section__title">Conocimiento, presentaciones y contenido visual</h2>
+    <p class="section__desc">Herramientas para construir bases de conocimiento propias y producir contenidos visuales de alto impacto.</p>
+    <div class="tools">
+
+      <article class="tool">
+        <div class="tool__head">
+          <h3 class="tool__name">NotebookLM</h3>
+          <span class="tool__price price--free">Gratuito</span>
+        </div>
+        <p class="tool__desc">Crea bases de conocimiento sobre las temáticas que elijas para conversar con ellas e incluso generar un podcast sintético sobre el contenido.</p>
+        <a class="tool__link" href="https://notebooklm.google.com" target="_blank" rel="noopener">Abrir herramienta</a>
+      </article>
+
+      <article class="tool">
+        <div class="tool__head">
+          <h3 class="tool__name">Gamma.app</h3>
+          <span class="tool__price price--mixed">Gratuito / De pago</span>
+        </div>
+        <p class="tool__desc">Asistente para crear webs y presentaciones estéticas usando IA, partiendo de un prompt o un documento.</p>
+        <a class="tool__link" href="https://gamma.app" target="_blank" rel="noopener">Abrir herramienta</a>
+      </article>
+
+      <article class="tool">
+        <div class="tool__head">
+          <h3 class="tool__name">Napkin.ai</h3>
+          <span class="tool__price price--mixed">Gratuito / De pago</span>
+        </div>
+        <p class="tool__desc">Genera infografías y diagramas a partir de texto. Espectacular para convertir ideas y datos en imágenes claras y compartibles.</p>
+        <a class="tool__link" href="https://www.napkin.ai/" target="_blank" rel="noopener">Abrir herramienta</a>
+      </article>
+
+      <article class="tool">
+        <div class="tool__head">
+          <h3 class="tool__name">HeyGen</h3>
+          <span class="tool__price price--mixed">Gratuito / De pago</span>
+        </div>
+        <p class="tool__desc">Traduce vídeos a diferentes idiomas conservando la voz y el lipsync. También genera vídeos nuevos a partir de un texto.</p>
+        <a class="tool__link" href="https://labs.heygen.com/video-translate" target="_blank" rel="noopener">Abrir herramienta</a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- NOTAS -->
+  <section class="notes">
+    <h3>Recomendaciones generales</h3>
+    <ul>
+      <li>Revisa la documentación de cada herramienta antes de usarla.</li>
+      <li>Algunas requieren cuenta de usuario de pago para acceder a todas las funcionalidades.</li>
+      <li>La mayoría están en fases iniciales, por lo que pueden experimentar errores o limitaciones.</li>
+      <li>Cuida la confidencialidad: no introduzcas datos sensibles o regulados sin antes verificar la política de privacidad de cada herramienta.</li>
+    </ul>
+  </section>
+
+  <!-- NEWSLETTER · ESTILO POMPEYA -->
+  <section class="newsletter">
+    <div class="newsletter__text">
+      <p class="newsletter__eyebrow">Mantente al día</p>
+      <div class="newsletter__title" role="img" aria-label="The Independent Sentinel"></div>
+      <p class="newsletter__desc">La newsletter de Javier Fuentes con los avances semanales en IA, ciencia de datos y las historias que conectan la tecnología con la cultura.</p>
+      <div class="newsletter__actions">
+        <a class="newsletter__btn" href="https://theindependentsentinel.substack.com/" target="_blank" rel="noopener">Suscribirse →</a>
+        <span class="newsletter__url">theindependentsentinel.substack.com</span>
+      </div>
+    </div>
+    <div class="newsletter__qr">
+      <img src="data:image/png;base64,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" alt="QR a The Independent Sentinel">
+      <span>Escanéame</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>© Javier Fuentes · NCompany · Material formativo para Roche</div>
+    <div>v2026.05 · Actualización continua</div>
+  </footer>
+
+</div>
+</body>
+</html>
