@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 1 · Fundamentos de IA · Curso de IA en Digestivo · SEPD</title>
+<meta name="description" content="Ficha de la sesión 1 del Curso de IA en Digestivo (SEPD): resumen, ideas fuerza, recorrido, herramientas, práctica con Teachable Machine, glosario y autoevaluación.">
+<link rel="stylesheet" href="assets/sepd.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="topbar__brand" href="index.html">
+      <img src="assets/sepd.png" alt="SEPD · Sociedad Española de Patología Digestiva">
+      <span>Curso de IA en Digestivo<br>2ª edición · 2026-2027</span>
+    </a>
+    <nav class="topbar__nav" aria-label="Navegación principal">
+      <a href="index.html#programa">Programa</a>
+      <a href="index.html#equipo">Equipo docente</a>
+      <a href="modulo-1.html" class="is-active">Módulo 1</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero__inner">
+    <div>
+      <p class="hero__eyebrow">Módulo 1 de 8 · Taller #1</p>
+      <h1 class="hero__title">Fundamentos de la IA: <em>¿cómo aprenden las máquinas?</em></h1>
+      <p class="hero__subtitle">La sesión más conceptual del curso, contada desde la intuición y no desde las matemáticas: de dónde viene la IA, cómo se entrena, qué hace bien y qué hace mal, qué cambió con la IA generativa y qué reglas del juego nos impone la regulación sanitaria europea.</p>
+      <div class="hero__meta">
+        <span><strong>Fecha</strong> 21 de septiembre de 2026</span>
+        <span><strong>Duración</strong> 2 h 48 min</span>
+        <span><strong>Ponente</strong> Javier Fuentes (NCompany)</span>
+        <span><strong>Con</strong> Dr. Javier Mendoza</span>
+      </div>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#practica">Ir a la práctica</a>
+        <a class="btn btn--ghost" href="#autoevaluacion">Hacer la autoevaluación</a>
+      </div>
+    </div>
+    <div class="hero__art">
+      <img src="assets/m1/mapa.jpg" alt="Mapa de la sesión: Presentación, La revolución en ciernes, IA en Digestivo, IA Generativa, Alcance y limitaciones, Ética y regulación, Cierre y futuro">
+    </div>
+  </div>
+</section>
+
+<main class="container">
+<div class="ficha">
+
+  <!-- ================= ÍNDICE LATERAL ================= -->
+  <nav class="toc" aria-label="Índice de la ficha">
+    <div class="toc__label">En esta ficha</div>
+    <a href="#resumen">Resumen</a>
+    <a href="#ideas">Ideas fuerza</a>
+    <a href="#recorrido">Recorrido de la sesión</a>
+    <a href="#diapositivas">Diapositivas clave</a>
+    <a href="#herramientas">Herramientas</a>
+    <a href="#practica">Práctica guiada</a>
+    <a href="#reglas">Reglas de oro</a>
+    <a href="#preguntas">Preguntas del chat</a>
+    <a href="#glosario">Glosario</a>
+    <a href="#autoevaluacion">Autoevaluación</a>
+    <a href="#referencias">Referencias</a>
+    <a href="#siguiente">Siguiente sesión</a>
+    <div class="toc__downloads">
+      <a class="btn btn--ghost no-arrow" href="assets/m1/presentacion-sesion-1.pdf" target="_blank" rel="noopener">📄 Presentación (PDF)</a>
+      <a class="btn btn--ghost no-arrow" href="assets/m1/PracticaIA_SEPD_Modulo1_alumnos.zip">🗂️ Material de la práctica</a>
+    </div>
+  </nav>
+
+  <div class="ficha__main">
+
+    <!-- ================= RESUMEN ================= -->
+    <section class="block" id="resumen">
+      <h2 class="block__title">Resumen</h2>
+      <p class="block__lead">La IA es más antigua de lo que parece y avanza más rápido de lo que intuimos</p>
+
+      <div class="facts">
+        <div class="fact"><div class="fact__k">Módulo</div><div class="fact__v">1 · Fundamentos</div></div>
+        <div class="fact"><div class="fact__k">Formato</div><div class="fact__v">Online · Zoom</div></div>
+        <div class="fact"><div class="fact__k">Nivel</div><div class="fact__v">Conceptual + demo</div></div>
+        <div class="fact"><div class="fact__k">Práctica</div><div class="fact__v">Detector de pólipos</div></div>
+        <div class="fact"><div class="fact__k">Diapositivas</div><div class="fact__v">140</div></div>
+      </div>
+
+      <p>La sesión abre la segunda edición del curso. Tras la bienvenida de la dirección (con un mensaje claro: dominar la IA es una necesidad, no una opción, y el médico que la use bien superará al que no la use), Javier Fuentes recorre en siete bloques los cimientos de la disciplina.</p>
+      <p>Arranca con una provocación: en las últimas semanas un modelo no publicado de OpenAI ha resuelto uno de los siete problemas del milenio (Navier-Stokes), algo que la mayoría de expertos situaba, como pronto, en 2050. Con esa velocidad como telón de fondo, define qué es la IA, la distingue del software clásico, explica la "cebolla" IA → machine learning → deep learning y las tres formas en que una máquina aprende (supervisado, no supervisado, refuerzo). La práctica hace tangible el aprendizaje supervisado: con Teachable Machine y recortes de colonoscopias reales, la clase etiqueta imágenes y entrena en directo un clasificador pólipo / mucosa normal.</p>
+      <p>La segunda mitad repasa décadas de IA pre-generativa en digestivo (CAD heurístico, NLP clínico, CADe en colonoscopia, fenotipado de EII, OMOP, Savana), explica qué cambió en 2017 con los transformers y el mecanismo de atención, por qué los modelos generativos son no deterministas y multimodales, y qué tres factores (datos, cómputo y nuevas arquitecturas) explican que la revolución ocurra ahora. Cierra con las limitaciones (alucinación, sesgos, falta de datos, caja negra), las cinco preguntas éticas, el AI Act europeo y las reglas concretas para el uso de IA en sanidad.</p>
+
+      <div class="callout callout--purple">
+        <h4>Si solo te llevas una frase</h4>
+        <p>Los modelos aprenden patrones a partir de ejemplos. Si el dato no representa la realidad, el modelo tampoco. Y en sanidad: la IA es apoyo a la decisión, nunca sustituto de la responsabilidad clínica.</p>
+      </div>
+    </section>
+
+    <!-- ================= IDEAS FUERZA ================= -->
+    <section class="block" id="ideas">
+      <h2 class="block__title">Ideas fuerza</h2>
+      <p class="block__lead">Doce conceptos para fijar</p>
+      <ol class="ideas">
+        <li><strong>La IA imita funciones cognitivas humanas.</strong><span>Percepción, comunicación, aprendizaje y creatividad. El término es de los años 50 y bajo su paraguas cabe desde la centralita del banco hasta GPT-6.</span></li>
+        <li><strong>Software clásico vs. IA.</strong><span>El software clásico ejecuta un algoritmo para problemas conocidos con solución analítica. La IA aprende de entradas y salidas para aproximar sistemas que no sabemos describir con una fórmula, como el lenguaje humano.</span></li>
+        <li><strong>La cebolla: IA ⊃ machine learning ⊃ deep learning.</strong><span>El machine learning usa matemáticas y estadística para aprender de datos. El deep learning son redes neuronales muy densas, la técnica detrás de la visión artificial y de los modelos de lenguaje.</span></li>
+        <li><strong>ANI, AGI, ASI.</strong><span>IA estrecha (Deep Blue solo sabe jugar al ajedrez), IA general (inteligencia y versatilidad humanas; el debate sobre si ya estamos ahí está abierto) y superinteligencia (será la AGI quien la construya, por eso el salto puede ser rápido).</span></li>
+        <li><strong>Tres formas de aprender.</strong><span>No supervisado (el modelo agrupa por su cuenta), supervisado (aprende de ejemplos etiquetados: spam, captchas, pólipos) y por refuerzo (reglas + objetivo + prueba y error: AlphaZero, AlphaFold, el robot que aprende a andar en una hora). Los LLM combinan las tres.</span></li>
+        <li><strong>En digestivo llevamos décadas usando IA sin llamarla así.</strong><span>CAD por reglas en cápsula (1999-2008), NLP clínico con cTAKES (2006-2014), datasets abiertos de pólipos (2015-2018), CADe en colonoscopia como GI Genius (2018-2021), fenotipado y predicción de recaídas en EII, modelo OMOP y Savana para real world evidence.</span></li>
+        <li><strong>La IA generativa crea contenido único y nuevo.</strong><span>Es una categoría del machine learning: aprende los patrones de un tipo de contenido y genera contenido similar. Cada respuesta es original, lo que inutiliza los detectores de plagio clásicos.</span></li>
+        <li><strong>No determinista por diseño.</strong><span>A la misma pregunta responde distinto cada vez porque muestrea de una distribución de probabilidad. Eso la hace natural y creativa, y también es la raíz de la alucinación.</span></li>
+        <li><strong>2017: "Attention Is All You Need".</strong><span>Google propone los transformers y el mecanismo de atención: el significado de una palabra depende de su contexto ("hoy estoy muy perro"). OpenAI escala la idea y entre GPT-2 y GPT-3 emergen capacidades inesperadas como el razonamiento causal.</span></li>
+        <li><strong>Escalado y niveles de madurez.</strong><span>Chatbots → razonadores (o1, octubre 2024, cadena de pensamiento) → agentes → innovadores → organizaciones. La hipótesis del escalado: más datos, más cómputo y más energía dan más inteligencia. Hoy la carrera es de infraestructura: acero, silicio y energía.</span></li>
+        <li><strong>Cuatro limitaciones que no desaparecen.</strong><span>Alucinación (respuesta plausible pero falsa; cae del 10 % al &lt;1 % pero exige verificar), sesgos (de entrenamiento, sistémicos y arbitrarios por filtros comerciales o políticos), falta de datos (dato sintético, exploración autónoma) y caja negra (modelos más potentes a cambio de menos explicabilidad).</span></li>
+        <li><strong>Regulación: la IA clínica es de alto riesgo.</strong><span>El AI Act define cuatro niveles. Sanidad está en "alto": permitido con restricciones. En España, la AESIA (A Coruña) supervisará y sancionará. Regla práctica: nunca datos de pacientes en herramientas generalistas; apoyo sí, decisión clínica no.</span></li>
+      </ol>
+    </section>
+
+    <!-- ================= RECORRIDO ================= -->
+    <section class="block" id="recorrido">
+      <h2 class="block__title">Recorrido de la sesión</h2>
+      <p class="block__lead">Los siete bloques del mapa</p>
+      <p class="block__desc">La presentación se organiza como un tablero con siete paradas. Aquí está lo esencial de cada una, con los ejemplos que se usaron en clase.</p>
+
+      <div class="timeline">
+
+        <div class="step">
+          <h3><small>Bloque 1</small> Presentación</h3>
+          <ul>
+            <li><strong>Grigori Perelman y los problemas del milenio.</strong> Solo un humano había resuelto uno (Poincaré, 2002). Hace unos días un modelo interno de OpenAI resolvió Navier-Stokes con unos 10.000 agentes trabajando 88 horas. Hay rumores fundados de que Hodge y Birch–Swinnerton-Dyer están cerca.</li>
+            <li><strong>Gráfica METR.</strong> Mide la duración de la tarea humana que un modelo puede completar: de segundos en 2023 a 16 horas con GPT-6 Astra y unas 80 horas con el modelo interno "Bel". La inteligencia de la IA es "espigada": sobresaliente en unas tareas y torpe en otras.</li>
+            <li><strong>FrontierMath saturado.</strong> Del 8 % (o4-mini, abril 2025) al 100 % (GPT-6 Astra) en año y medio. Los humanos somos malos entendiendo exponenciales; por eso conviene cautela sin alarmismo. Amodei: estamos en la "adolescencia" de la tecnología.</li>
+            <li><strong>Programa y equipo.</strong> Ocho módulos, preguntas por el Q&amp;A de Zoom, formulario de dudas entre sesiones y proyecto final opcional.</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h3><small>Bloque 2</small> La revolución en ciernes</h3>
+          <ul>
+            <li><strong>La predicción de Sam Altman (2021).</strong> La IA abarataría antes el trabajo intelectual que el físico, al contrario de lo esperado. ¿Pueden las máquinas ser creativas? Hace cinco años nadie lo creía; hoy lo imitan tan bien que la pregunta incomoda.</li>
+            <li><strong>Definición y cebolla.</strong> IA como imitación de funciones cognitivas; machine learning como su rama más fructífera; deep learning como redes neuronales densas.</li>
+            <li><strong>ANI / AGI / ASI</strong> y la portería que se mueve: GPT-6 Astra habría sido considerado AGI hace diez años.</li>
+            <li><strong>Cómo aprenden las máquinas.</strong> Demo de la red que reconoce dígitos manuscritos (un trazo pasa de "1" a "4" a "9" según se dibuja) y vídeo del robot cuadrúpedo de Unitree que, sin controlador, aprende a andar por refuerzo en una hora, como un bebé que quiere alcanzar un juguete.</li>
+          </ul>
+          <figure>
+            <img src="assets/m1/slide-tipos-aprendizaje.jpg" alt="Diapositiva: machine learning, aprendizaje no supervisado, supervisado y por refuerzo">
+            <figcaption>Los tres tipos de aprendizaje con su ejemplo canónico: clasificación de documentos, detector de spam y aprender a jugar.</figcaption>
+          </figure>
+        </div>
+
+        <div class="step step--hi">
+          <h3><small>Práctica en vivo</small> Entrenamos un detector de pólipos</h3>
+          <p>Con Teachable Machine (Google) se crean dos clases, <em>Pólipo</em> y <em>Mucosa normal</em>. La clase decide caso a caso dónde va cada imagen de la carpeta <code>para_etiquetar</code> (la número 3 dividió opiniones), se añaden unas 50 imágenes etiquetadas por clase, se entrena en un minuto y se prueba con imágenes que el modelo nunca vio. El test 5, sutil incluso para el ojo humano, falla: con 50 muestras por clase el dataset es pequeño. Un gato obtiene "mucosa normal 91 %": es un modelo especialista, solo sabe hacer una cosa. GI Genius funciona con esta misma intuición, mucho mejor entrenado. <a href="#practica">Guía paso a paso más abajo.</a></p>
+        </div>
+
+        <div class="step">
+          <h3><small>Bloque 3</small> IA en Digestivo: un recorrido por el tiempo</h3>
+          <ul>
+            <li><strong>Modelos pre-generativos del día a día.</strong> Regresión lineal, reconocimiento de imágenes, Face ID (puntos de referencia faciales; fallaba con mascarilla), predicción de series temporales (precio de la luz, hora de llegada en Glovo), motores de recomendación (Netflix personaliza incluso el tráiler).</li>
+            <li><strong>Imagen en endoscopia y cápsula (1999-2008).</strong> CAD heurístico por reglas de color y textura; sin entrenamiento, poca flexibilidad.</li>
+            <li><strong>NLP clínico (2006-2014).</strong> cTAKES extrae conceptos de historias clínicas; supervisado + reglas; alta precisión solo en dominios acotados.</li>
+            <li><strong>Detección de pólipos (2015-2018).</strong> Datasets abiertos y segmentación píxel a píxel; el etiquetado experto es muy costoso.</li>
+            <li><strong>CADe en colonoscopia (2018-2021).</strong> Redes convolucionales en tiempo real (GI Genius). Es detección, no diagnóstico: siempre con validación del endoscopista.</li>
+            <li><strong>Fenotipado y predicción en EII (2015-2021).</strong> Regresión y clasificación sobre HCE y variables temporales para predecir recaídas en Crohn; requiere validación clínica.</li>
+            <li><strong>Infraestructura de datos.</strong> OMOP/OHDSI como modelo común federado; SNOMED CT como terminología; Savana convierte texto de HCE en real world evidence con foco en cumplimiento.</li>
+          </ul>
+          <figure>
+            <img src="assets/m1/slide-cade-colonoscopia.jpg" alt="Diapositiva: CADe en colonoscopia, 2018-2021">
+            <figcaption>CADe en colonoscopia: la IA supervisada que muchos servicios ya usan sin llamarla IA.</figcaption>
+          </figure>
+        </div>
+
+        <div class="step">
+          <h3><small>Bloque 4</small> IA Generativa</h3>
+          <ul>
+            <li><strong>Qué es.</strong> Una categoría del machine learning que aprende los patrones de un tipo de contenido (texto, imagen, audio, vídeo) y genera contenido nuevo de características similares. Matemáticas y estadística, nada esotérico.</li>
+            <li><strong>No determinismo.</strong> Misma pregunta, respuestas distintas. Ventaja: naturalidad. Coste: detectores de IA poco fiables y complacencia comercial ("dime la verdad aunque no me guste" se corrige vía prompt, se verá en el módulo 2).</li>
+            <li><strong>Multimodalidad.</strong> Texto→texto, texto→imagen (DALL·E), imagen→texto (GPT Vision)… Cada dupla es una tipología con sus herramientas; las generalistas ya las combinan.</li>
+            <li><strong>Transformers y atención (2017).</strong> El significado de una palabra depende de las que la rodean. De GPT-2 (1.500 millones de parámetros) a GPT-3 (175.000 millones) emergen capacidades no previstas: el ejemplo del vaso volcado y la pelota de ping-pong.</li>
+            <li><strong>Cinco niveles de OpenAI.</strong> Chatbots (2024) → razonadores (o1, "October first") → agentes → innovadores (ya ocurre) → organizaciones enteras operadas por agentes.</li>
+            <li><strong>Razonamiento diagnóstico.</strong> Estudio de 2024: o1-preview supera a GPT-4 y a médicos con recursos convencionales, con una dispersión mucho menor que la humana. Hoy está más que superado.</li>
+          </ul>
+          <figure>
+            <img src="assets/m1/slide-atencion.jpg" alt="Diapositiva: mecanismo de atención, la palabra 'it' se relaciona con 'animal' y 'street'">
+            <figcaption>El mecanismo de atención relaciona cada palabra con las demás de la secuencia para captar su significado en contexto.</figcaption>
+          </figure>
+        </div>
+
+        <div class="step">
+          <h3><small>Bloque 5</small> Alcance y limitaciones</h3>
+          <ul>
+            <li><strong>Por qué ahora.</strong> Más datos (internet), más cómputo (el ordenador del Apolo tenía la memoria de un cuarto de foto de iPhone) y nuevas arquitecturas. La energía es el último cuello de botella: minirreactores nucleares y solar junto a los centros de datos.</li>
+            <li><strong>Batalla de infraestructura.</strong> CapEx trimestral 2024: Microsoft 76, Amazon 66, Google 53, Meta 34 mil millones de dólares. Las GPU de Nvidia como "el nuevo oro".</li>
+            <li><strong>Hipótesis del escalado (Amodei).</strong> 100 M$ → estudiante de secundaria; 1.000 M$ → universitario; 10.000 M$ → graduado brillante; 100.000 M$ → premio Nobel. Estamos entre el tercero y el cuarto.</li>
+            <li><strong>Alucinación.</strong> Respuesta plausible pero falsa. Claude 3 Opus ~10 %, GPT-4 1,8 %, Opus 4.8 / GPT-5 &lt;1 %. Se equivocan por diseño; hay que revisar y apoyarse en referencias.</li>
+            <li><strong>Sesgos.</strong> De entrenamiento (culturales), sistémicos y arbitrarios (filtros de salida: DeepSeek y Tiananmén; publicidad futura en las respuestas).</li>
+            <li><strong>Falta de datos.</strong> Datasets abiertos, data augmentation, transfer learning, datos sintéticos (pacientes sintéticos en enfermedades raras), robots que capturarán el mundo físico.</li>
+            <li><strong>Caja negra.</strong> El ejemplo de la hipoteca denegada sin explicación. Dilema actual: técnicas recursivas dan modelos más capaces pero inexplicables. Europa exige explicabilidad; otros no.</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h3><small>Bloque 6</small> Ética y regulación</h3>
+          <ul>
+            <li><strong>Las tres leyes de Asimov</strong> como punto de partida, y cinco preguntas nuevas: ¿quién decide? (siempre un humano responsable), ¿con qué datos? (nadie revela su receta; el caso YouTube y GPT-4), ¿para qué propósito? (servir o sustituir), ¿quién se beneficia? (el discurso del miedo también tiene intereses), ¿qué límites hay? (vigilancia masiva, manipulación de los feeds, armas autónomas).</li>
+            <li><strong>AI Act europeo.</strong> Objetivo: IA segura, transparente, trazable y no discriminatoria. Obligaciones: evaluación de conformidad previa, gestión de riesgos, gobernanza de datos, documentación, transparencia y explicabilidad, supervisión humana, robustez. Efecto colateral: herramientas como OpenEvidence o GPT-6 for Clinicians no están disponibles en Europa.</li>
+            <li><strong>Niveles de riesgo.</strong> Inaceptable (prohibido: manipulación cognitiva, puntuación social, reconocimiento facial en tiempo real), alto (sanidad, educación, justicia, crédito: permitido con restricciones), limitado (chatbots, recomendadores: transparencia), mínimo (spam, videojuegos).</li>
+            <li><strong>Salud.</strong> RGPD + reglamento de dispositivos médicos + AI Act. La IA clínica es alto riesgo; la de apoyo no. Nueva ley orgánica española aprobada en mayo con régimen sancionador; la AESIA será el organismo supervisor.</li>
+          </ul>
+          <figure>
+            <img src="assets/m1/slide-ai-act-riesgos.jpg" alt="Diapositiva: niveles de riesgo del AI Act (inaceptable, alto, limitado, mínimo) con ejemplos y tratamiento">
+            <figcaption>Los cuatro niveles de riesgo del AI Act. La IA en sanidad se sitúa en "alto": permitida con restricciones.</figcaption>
+          </figure>
+        </div>
+
+        <div class="step">
+          <h3><small>Bloque 7</small> Cierre y futuro</h3>
+          <ul>
+            <li><strong>Cuestionario en vivo</strong> con las ideas fuerza (recogido en la <a href="#autoevaluacion">autoevaluación</a>).</li>
+            <li><strong>Optimismo razonado.</strong> Frente al "Black Mirror" mediático haría falta un "White Mirror": cura de enfermedades, fusión nuclear, explosión de conocimiento. La esperanza del ponente: que la IA nos libere de lo que aburre para dedicar tiempo a lo que importa.</li>
+            <li><strong>Próxima sesión:</strong> modelos de lenguaje y prompting con Consuelo Verdú. Ven con tu ChatGPT, Gemini o Claude abierto.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= DIAPOSITIVAS ================= -->
+    <section class="block" id="diapositivas">
+      <h2 class="block__title">Diapositivas clave</h2>
+      <p class="block__lead">Las imágenes que conviene recordar</p>
+      <p class="block__desc">Selección de la presentación de 140 diapositivas. Haz clic para verlas a tamaño completo o descarga el <a href="assets/m1/presentacion-sesion-1.pdf" target="_blank" rel="noopener">PDF íntegro</a>.</p>
+      <div class="slides">
+        <figure><a href="assets/m1/slide-problemas-milenio.jpg" target="_blank"><img src="assets/m1/slide-problemas-milenio.jpg" alt="Estado de los problemas del milenio, septiembre 2026"></a><figcaption>Problemas del milenio: estado en septiembre de 2026.</figcaption></figure>
+        <figure><a href="assets/m1/slide-metr.jpg" target="_blank"><img src="assets/m1/slide-metr.jpg" alt="Gráfica METR de horizonte temporal de tareas"></a><figcaption>METR: horizonte temporal de las tareas que la IA completa.</figcaption></figure>
+        <figure><a href="assets/m1/slide-frontiermath.jpg" target="_blank"><img src="assets/m1/slide-frontiermath.jpg" alt="FrontierMath Tier 4 saturado"></a><figcaption>FrontierMath: un benchmark saturado en año y medio.</figcaption></figure>
+        <figure><a href="assets/m1/slide-cebolla-ia.jpg" target="_blank"><img src="assets/m1/slide-cebolla-ia.jpg" alt="Cebolla IA, machine learning, deep learning"></a><figcaption>La cebolla: IA, machine learning y deep learning.</figcaption></figure>
+        <figure><a href="assets/m1/slide-ani-agi-asi.jpg" target="_blank"><img src="assets/m1/slide-ani-agi-asi.jpg" alt="ANI, AGI y ASI"></a><figcaption>ANI, AGI y ASI: tres estadios de la inteligencia artificial.</figcaption></figure>
+        <figure><a href="assets/m1/slide-tipos-aprendizaje.jpg" target="_blank"><img src="assets/m1/slide-tipos-aprendizaje.jpg" alt="Tipos de aprendizaje automático"></a><figcaption>No supervisado, supervisado y por refuerzo.</figcaption></figure>
+        <figure><a href="assets/m1/slide-genai-multimodal.jpg" target="_blank"><img src="assets/m1/slide-genai-multimodal.jpg" alt="Modelo generativo multimodal"></a><figcaption>Multimodalidad: texto, imagen, audio y vídeo como entrada y salida.</figcaption></figure>
+        <figure><a href="assets/m1/slide-atencion.jpg" target="_blank"><img src="assets/m1/slide-atencion.jpg" alt="Mecanismo de atención"></a><figcaption>El mecanismo de atención de los transformers.</figcaption></figure>
+        <figure><a href="assets/m1/slide-niveles-openai.jpg" target="_blank"><img src="assets/m1/slide-niveles-openai.jpg" alt="Cinco niveles de IA según OpenAI"></a><figcaption>Los cinco niveles de madurez de la IA según OpenAI.</figcaption></figure>
+        <figure><a href="assets/m1/slide-hipotesis-escalado.jpg" target="_blank"><img src="assets/m1/slide-hipotesis-escalado.jpg" alt="Hipótesis del escalado de Dario Amodei"></a><figcaption>La hipótesis del escalado, según Dario Amodei.</figcaption></figure>
+        <figure><a href="assets/m1/slide-preguntas-etica.jpg" target="_blank"><img src="assets/m1/slide-preguntas-etica.jpg" alt="Las preguntas que debemos hacernos"></a><figcaption>Las cinco preguntas que debemos hacernos.</figcaption></figure>
+        <figure><a href="assets/m1/slide-leyes-robotica.jpg" target="_blank"><img src="assets/m1/slide-leyes-robotica.jpg" alt="Las tres leyes de la robótica"></a><figcaption>Las tres leyes de la robótica de Asimov.</figcaption></figure>
+        <figure><a href="assets/m1/slide-ai-act-obligaciones.jpg" target="_blank"><img src="assets/m1/slide-ai-act-obligaciones.jpg" alt="Obligaciones del AI Act"></a><figcaption>Las siete obligaciones del AI Act para operar en Europa.</figcaption></figure>
+        <figure><a href="assets/m1/slide-ai-act-riesgos.jpg" target="_blank"><img src="assets/m1/slide-ai-act-riesgos.jpg" alt="Niveles de riesgo del AI Act"></a><figcaption>Niveles de riesgo del AI Act.</figcaption></figure>
+        <figure><a href="assets/m1/slide-salud-reglas.jpg" target="_blank"><img src="assets/m1/slide-salud-reglas.jpg" alt="Implicaciones en salud: lo que nos importa"></a><figcaption>Implicaciones en salud: lo que nos importa.</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- ================= HERRAMIENTAS ================= -->
+    <section class="block" id="herramientas">
+      <h2 class="block__title">Herramientas y recursos</h2>
+      <p class="block__lead">Lo que se usó, se citó o se anticipó</p>
+      <p class="block__desc">Esta es la lista prometida al final de la sesión. Las etiquetas indican coste orientativo y en qué módulo se trabajará cada herramienta con detalle.</p>
+
+      <div class="tools">
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Teachable Machine</h3><div class="tool__tags"><span class="pill pill--ok">Gratis</span><span class="pill pill--orange">Práctica M1</span></div></div>
+          <p class="tool__desc">Herramienta didáctica de Google para entrenar en el navegador un modelo supervisado de imagen, audio o postura sin programar.</p>
+          <p class="tool__use"><strong>En clase:</strong> detector pólipo / mucosa normal con imágenes de Kvasir-SEG. Sirve para entender la intuición detrás de GI Genius o para enseñar IA a residentes y estudiantes.</p>
+          <a class="tool__link" href="https://teachablemachine.withgoogle.com" target="_blank" rel="noopener">teachablemachine.withgoogle.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">ChatGPT (OpenAI)</h3><div class="tool__tags"><span class="pill pill--warn">Freemium</span><span class="pill pill--purple">Módulo 2</span></div></div>
+          <p class="tool__desc">El asistente generalista de referencia. GPT-6 Astra es hoy el mejor modelo comercial (16 h de horizonte de tarea en METR, FrontierMath saturado).</p>
+          <p class="tool__use"><strong>Recomendación del ponente a día de hoy</strong> si un médico solo va a pagar una suscripción. Hace dos meses era Claude: el podio cambia cada pocos meses.</p>
+          <a class="tool__link" href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Claude (Anthropic)</h3><div class="tool__tags"><span class="pill pill--warn">Freemium</span><span class="pill pill--purple">Módulo 2</span></div></div>
+          <p class="tool__desc">Competidor directo de ChatGPT. Anthropic, dirigida por Dario Amodei, es autora de la hipótesis del escalado citada en la sesión.</p>
+          <p class="tool__use"><strong>Referencia en clase:</strong> Claude 3 Opus alucinaba ~10 %; Opus 4.8 está por debajo del 1 %.</p>
+          <a class="tool__link" href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Gemini (Google)</h3><div class="tool__tags"><span class="pill pill--warn">Freemium</span><span class="pill pill--purple">Módulo 2</span></div></div>
+          <p class="tool__desc">El modelo de Google, heredero directo de la arquitectura transformer que la propia compañía publicó en 2017.</p>
+          <p class="tool__use"><strong>Para la próxima sesión:</strong> vale cualquiera de los tres (ChatGPT, Claude o Gemini) abierto en una segunda pantalla.</p>
+          <a class="tool__link" href="https://gemini.google.com" target="_blank" rel="noopener">gemini.google.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Microsoft Copilot</h3><div class="tool__tags"><span class="pill pill--grey">Corporativo</span></div></div>
+          <p class="tool__desc">El asistente que muchos hospitales tienen licenciado dentro de Microsoft 365.</p>
+          <p class="tool__use"><strong>Cautela:</strong> que pueda manejar datos sensibles de pacientes depende del contrato del hospital con Microsoft. Pregunta a IT; si hay dudas, anonimiza en local antes de subir nada.</p>
+          <a class="tool__link" href="https://copilot.microsoft.com" target="_blank" rel="noopener">copilot.microsoft.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">GI Genius (Medtronic)</h3><div class="tool__tags"><span class="pill pill--grey">Dispositivo médico</span></div></div>
+          <p class="tool__desc">Sistema CADe de detección de pólipos en tiempo real durante la colonoscopia, basado en redes convolucionales supervisadas.</p>
+          <p class="tool__use"><strong>En clase:</strong> ejemplo de que el detector casero de Teachable Machine y un dispositivo comercial comparten la misma intuición, con datos y cómputo muy distintos. Detección, no diagnóstico.</p>
+          <a class="tool__link" href="https://www.medtronic.com/covidien/en-us/products/gastrointestinal-artificial-intelligence/gi-genius-intelligent-endoscopy.html" target="_blank" rel="noopener">GI Genius</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">OpenEvidence</h3><div class="tool__tags"><span class="pill pill--bad">No disponible en UE</span><span class="pill pill--purple">Módulo 3</span></div></div>
+          <p class="tool__desc">Buscador clínico con IA que responde citando el paper del que extrae cada afirmación.</p>
+          <p class="tool__use"><strong>Aviso:</strong> ha dejado de operar en Europa por las obligaciones del AI Act. En el módulo 3 se explicará cómo acceder y qué alternativas hay.</p>
+          <a class="tool__link" href="https://www.openevidence.com" target="_blank" rel="noopener">openevidence.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Consensus</h3><div class="tool__tags"><span class="pill pill--warn">Freemium</span><span class="pill pill--purple">Módulo 3</span></div></div>
+          <p class="tool__desc">Motor de búsqueda científica con IA que sintetiza la evidencia y enlaza las fuentes.</p>
+          <p class="tool__use"><strong>Por qué importa:</strong> la mejor defensa contra la alucinación es verificar las fuentes; estas herramientas te dan el paper para contrastarlo.</p>
+          <a class="tool__link" href="https://consensus.app" target="_blank" rel="noopener">consensus.app</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Kvasir-SEG (Simula)</h3><div class="tool__tags"><span class="pill pill--ok">Dataset abierto</span></div></div>
+          <p class="tool__desc">Dataset abierto de imágenes de colonoscopia con pólipos segmentados, de uso docente e investigador.</p>
+          <p class="tool__use"><strong>En clase:</strong> origen de los recortes usados en la práctica. Ejemplo de los datasets abiertos (2015-2018) que impulsaron la detección de pólipos.</p>
+          <a class="tool__link" href="https://datasets.simula.no/kvasir-seg/" target="_blank" rel="noopener">datasets.simula.no/kvasir-seg</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">DeepMind: AlphaZero, AlphaGo, AlphaFold</h3><div class="tool__tags"><span class="pill pill--grey">Referencia</span></div></div>
+          <p class="tool__desc">Los tres ejemplos de aprendizaje por refuerzo de la sesión: descubrir el jaque pastor por fuerza bruta, inventar jugadas nuevas en Go y predecir el plegado de proteínas (Nobel de Química 2024).</p>
+          <p class="tool__use"><strong>Para curiosos:</strong> el documental "AlphaGo" (2017) cuenta la historia de forma muy accesible.</p>
+          <a class="tool__link" href="https://deepmind.google/science/alphafold/" target="_blank" rel="noopener">deepmind.google</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">cTAKES · OMOP/OHDSI · SNOMED CT · Savana</h3><div class="tool__tags"><span class="pill pill--grey">Infraestructura</span></div></div>
+          <p class="tool__desc">El ecosistema de la IA pre-generativa sobre texto clínico: extracción de conceptos (cTAKES), modelo común de datos (OMOP), terminología (SNOMED CT) y real world evidence desde la HCE (Savana).</p>
+          <p class="tool__use"><strong>Idea clave:</strong> sin datos estructurados, interoperables y bien anotados no hay IA clínica que valga.</p>
+          <a class="tool__link" href="https://www.ohdsi.org/data-standardization/" target="_blank" rel="noopener">ohdsi.org</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">EU AI Act · AESIA</h3><div class="tool__tags"><span class="pill pill--grey">Regulación</span></div></div>
+          <p class="tool__desc">El reglamento europeo de IA con sus cuatro niveles de riesgo, y la Agencia Española de Supervisión de la Inteligencia Artificial (A Coruña), que supervisará y sancionará en España.</p>
+          <p class="tool__use"><strong>Para el digestivo:</strong> IA clínica = alto riesgo. Guía de Sanidad de este año: apoyo permitido con revisión profesional y datos anonimizados.</p>
+          <a class="tool__link" href="https://artificialintelligenceact.eu/es/" target="_blank" rel="noopener">artificialintelligenceact.eu</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PRÁCTICA ================= -->
+    <section class="block" id="practica">
+      <h2 class="block__title">Práctica guiada</h2>
+      <p class="block__lead">Entrena tu propio detector de pólipos en 10 minutos</p>
+      <p class="block__desc">Reproduce en casa el ejercicio de la sesión. Necesitas un navegador (Chrome funciona mejor) y el material descargable. No hace falta cuenta ni instalar nada. No hay que entregar nada: es para entender, no para evaluar.</p>
+
+      <div class="practice">
+        <div>
+          <ol class="steps">
+            <li>Descarga y descomprime el <a href="assets/m1/PracticaIA_SEPD_Modulo1_alumnos.zip">material de la práctica</a>. Contiene tres carpetas: <code>para_etiquetar</code> (20 casos), <code>entrenamiento_etiquetado</code> (pólipo / mucosa normal, ~50 imágenes cada una) y <code>test</code> (10 imágenes que el modelo no verá durante el entrenamiento).</li>
+            <li>Entra en <a href="https://teachablemachine.withgoogle.com" target="_blank" rel="noopener">Teachable Machine</a> → <em>Get Started</em> → <em>Image Project</em> → <em>Standard image model</em>.</li>
+            <li>Renombra las dos clases: <strong>Pólipo</strong> y <strong>Mucosa normal</strong>. (En clase se debatió "sin pólipo" vs. "mucosa normal": la etiqueta debe describir lo que hay, no lo que falta.)</li>
+            <li><strong>Etiquetado en vivo.</strong> Abre <code>para_etiquetar</code> y decide, caso a caso, a qué clase va cada imagen. Arrástrala a la clase correspondiente con <em>Upload</em>. Anota en cuáles dudas: son las que también le costarán al modelo.</li>
+            <li>Añade el resto del entrenamiento: arrastra el contenido de <code>entrenamiento_etiquetado/polipo</code> a "Pólipo" y el de <code>entrenamiento_etiquetado/mucosa_normal</code> a "Mucosa normal". Cuantos más datos de calidad, mejor.</li>
+            <li>Pulsa <strong>Train Model</strong>. Tarda alrededor de un minuto: Google ajusta una red neuronal preentrenada con tus ejemplos (eso es transfer learning).</li>
+            <li>En <em>Preview</em> cambia <em>Webcam</em> por <em>File</em> y arrastra una a una las imágenes de <code>test</code>. Antes de mirar el resultado, haz tu propia predicción.</li>
+            <li>Ponlo a prueba: sube una foto de un gato o un paisaje. Obtendrás un porcentaje con aplomo y sin sentido. Es un <strong>modelo especialista</strong>: solo sabe distinguir lo que le enseñaste.</li>
+          </ol>
+
+          <div class="callout">
+            <h4>¿Por qué falla donde falla?</h4>
+            <p>En clase el test 5 (un pólipo sutil) se clasificó como mucosa normal. Con ~50 muestras por clase el dataset es pequeño y poco variado. Preguntas para reflexionar: ¿qué pasaría si todas las imágenes de entrenamiento fueran muy parecidas entre sí? ¿Y si etiquetamos mal el 10 % de los casos? ¿Cuántas imágenes crees que necesitó GI Genius? El modelo solo sabe lo que ha visto: si el dato no representa la realidad, el modelo tampoco.</p>
+          </div>
+
+          <div class="practice__downloads">
+            <a class="btn btn--orange no-arrow" href="assets/m1/PracticaIA_SEPD_Modulo1_alumnos.zip">⬇ Descargar material (2,5 MB)</a>
+            <a class="btn btn--ghost" href="https://teachablemachine.withgoogle.com" target="_blank" rel="noopener">Abrir Teachable Machine</a>
+          </div>
+        </div>
+
+        <aside>
+          <figure>
+            <img src="assets/m1/muestra-kvasir.jpg" alt="Mosaico de recortes de colonoscopia del dataset Kvasir-SEG usados en la práctica">
+            <figcaption>Recortes de colonoscopias reales del dataset abierto Kvasir-SEG (Simula Research Laboratory). Material formativo: ningún modelo casero sustituye el juicio clínico.</figcaption>
+          </figure>
+          <div class="callout callout--purple" style="margin-top:16px">
+            <h4>Ideas para ir más lejos</h4>
+            <ul>
+              <li>Añade una tercera clase (por ejemplo, "divertículo" o "instrumental") y observa cómo cambia la precisión.</li>
+              <li>Repite con 10 imágenes por clase en vez de 50 y compara.</li>
+              <li>Úsalo para explicar la IA supervisada a residentes: es el ejemplo más claro que existe.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= REGLAS DE ORO ================= -->
+    <section class="block" id="reglas">
+      <h2 class="block__title">Reglas de oro</h2>
+      <p class="block__lead">Uso de IA en sanidad: lo que nos importa</p>
+      <p class="block__desc">Las pautas prácticas con las que cerró la sesión, alineadas con la guía de Sanidad de este año, el RGPD y el AI Act.</p>
+      <div class="rules">
+        <div class="rule"><span class="n">01</span><h4>Nunca datos de pacientes en herramientas generalistas</h4><p>Ni en tu ChatGPT personal ni en la cuenta gratuita de casa. Ni con nombre, ni con datos que permitan identificar.</p></div>
+        <div class="rule"><span class="n">02</span><h4>La IA como apoyo, sí</h4><p>Resumir artículos, preparar borradores, tareas administrativas y ofimáticas del día a día. Siempre con revisión profesional de lo que devuelve.</p></div>
+        <div class="rule rule--orange"><span class="n">03</span><h4>Anonimiza antes de subir</h4><p>Para investigación, anonimiza en tu equipo (con una tabla de correspondencia si necesitas revertirlo) y procesa después. Cómo hacerlo, en el módulo 3.</p></div>
+        <div class="rule rule--orange"><span class="n">04</span><h4>La respuesta nunca es la decisión clínica</h4><p>El responsable de la decisión es siempre un profesional. La IA es una herramienta de apoyo a la decisión, no un decisor.</p></div>
+        <div class="rule"><span class="n">05</span><h4>Verifica las fuentes</h4><p>Los modelos alucinan por diseño, cada vez menos, pero alucinan. Pide referencias y contrástalas; usa herramientas que citan el paper.</p></div>
+        <div class="rule"><span class="n">06</span><h4>Si dudas de la herramienta corporativa, no la uses con datos sensibles</h4><p>Copilot u otras licencias de hospital: pregunta a IT por el marco contractual. Hasta tener certeza, anonimiza en local.</p></div>
+      </div>
+    </section>
+
+    <!-- ================= PREGUNTAS ================= -->
+    <section class="block" id="preguntas">
+      <h2 class="block__title">Preguntas del chat</h2>
+      <p class="block__lead">Lo que preguntaron los alumnos y lo que se respondió</p>
+      <div class="faq">
+        <details>
+          <summary>¿Es verdad que la IA está diseñada para responder siempre lo que nos gusta?</summary>
+          <div class="faq__body"><p>Sí, en buena medida y por razones comerciales: los proveedores hacen modelos agradables para no perder usuarios. Cada vez son algo más críticos, pero la complacencia existe. Se corrige vía prompt: "responde de manera brutalmente honesta; si no tienes datos para respaldarlo, dime que no puedes". Se verá en el módulo 2.</p></div>
+        </details>
+        <details>
+          <summary>¿Las máquinas solo aprenden de lo que les damos los humanos?</summary>
+          <div class="faq__body"><p>Ha sido así hasta ahora, pero hay dos dinámicas nuevas. Primera, el <strong>dato sintético</strong>: ya hay startups que sintetizan pacientes imaginarios para ensayos en enfermedades raras con poca N (ensayos in silico). Segunda, la <strong>exploración autónoma</strong>: como AlphaZero descubriendo jaques o AlphaFold prediciendo pliegues, la máquina puede recorrer espacios de búsqueda enormes y encontrar cosas que nosotros no habíamos encontrado.</p></div>
+        </details>
+        <details>
+          <summary>¿Puedo configurar una IA para revisar información sensible offline?</summary>
+          <div class="faq__body"><p>Sí. En el módulo 4 se verá cómo usar modelos open source en local, de modo que los datos no salgan de tu máquina. Es una de las peticiones más frecuentes del curso y se cubrirá con detalle.</p></div>
+        </details>
+        <details>
+          <summary>¿Qué IA recomiendas pagar hoy a un médico?</summary>
+          <div class="faq__body"><p>A día de hoy, ChatGPT: GPT-6 es excelente y su generación de imágenes es sobresaliente. Hace dos meses la recomendación era Claude. El podio cambia cada pocos meses, así que la respuesta caduca pronto.</p></div>
+        </details>
+        <details>
+          <summary>¿Podemos usar el Copilot corporativo del hospital con datos de pacientes?</summary>
+          <div class="faq__body"><p>Depende del marco contractual que el hospital tenga firmado con Microsoft, y el ponente ha oído respuestas distintas en distintos centros. Regla prudente: si no hay certeza, no. Anonimiza en tu equipo y luego trabaja con la herramienta.</p></div>
+        </details>
+        <details>
+          <summary>¿Y la energía y el agua que consume la IA?</summary>
+          <div class="faq__body"><p>Opinión del ponente: el consumo es real (entrenar y usar los modelos es intensivo en cómputo) pero el debate está sesgado. El uso anual medio de una persona en ChatGPT rondaría los 8 kWh, menos que un trayecto en coche al colegio. Nadie cuestiona el consumo de TikTok o del streaming nocturno. La refrigeración por agua es en circuito cerrado. La energía sí es el cuello de botella final: nuclear y solar junto a los centros de datos, y ojalá fusión.</p></div>
+        </details>
+        <details>
+          <summary>¿Qué es exactamente la "caja negra"?</summary>
+          <div class="faq__body"><p>Una red neuronal entrenada hace tantos cálculos internos que, aunque la salida sea correcta, un humano no puede rehacer el razonamiento a mano ni vincularlo a una explicación comprensible. Sabemos construir la máquina, pero cuando funciona la respuesta es un proceso casi emergente. Un alumno apuntó la analogía: con el cerebro humano pasa lo mismo, pensamos sin saber exactamente cómo.</p></div>
+        </details>
+        <details>
+          <summary>¿Cuándo dice la IA que dejará de necesitar al ser humano?</summary>
+          <div class="faq__body"><p>Un alumno preguntó a un modelo y respondió "entre 2030 y 2032". El ponente: nadie lo sabe. Su esperanza personal es que la IA le libere de las tareas que aburren (PowerPoints, correos) para dedicarse a estudiar, escribir e investigar.</p></div>
+        </details>
+        <details>
+          <summary>¿Se podrán ver las sesiones grabadas?</summary>
+          <div class="faq__body"><p>Los vídeos estarán en la plataforma de e-learning junto a estas fichas. La organización confirmará por correo las condiciones. Recuerda que para la acreditación cuenta la asistencia en directo a las ocho sesiones.</p></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ================= GLOSARIO ================= -->
+    <section class="block" id="glosario">
+      <h2 class="block__title">Glosario</h2>
+      <p class="block__lead">Los términos que aparecieron en la sesión</p>
+      <dl class="glossary">
+        <div><dt>Inteligencia artificial (IA)</dt><dd>Capacidad de una máquina de imitar funciones cognitivas humanas: percepción, comunicación, aprendizaje, creatividad.</dd></div>
+        <div><dt>Machine learning</dt><dd>Aprendizaje automático. Técnicas matemáticas y estadísticas para que un sistema aprenda de datos en vez de seguir reglas programadas.</dd></div>
+        <div><dt>Deep learning</dt><dd>Aprendizaje profundo. Redes neuronales con muchas capas; base de la visión artificial y de los modelos de lenguaje.</dd></div>
+        <div><dt>Red neuronal y parámetros</dt><dd>Artefacto matemático inspirado en las conexiones del cerebro. Los parámetros (pesos) son los números que la definen: GPT-3 tenía 175.000 millones.</dd></div>
+        <div><dt>ANI / AGI / ASI</dt><dd>IA estrecha (una sola tarea), general (inteligencia y versatilidad humanas) y superinteligencia (muy superior a todos los humanos juntos).</dd></div>
+        <div><dt>Aprendizaje supervisado</dt><dd>El modelo aprende de ejemplos etiquetados por humanos (spam / no spam, pólipo / mucosa normal).</dd></div>
+        <div><dt>Aprendizaje no supervisado</dt><dd>El modelo encuentra estructura por su cuenta: agrupa, segmenta, reduce dimensiones.</dd></div>
+        <div><dt>Aprendizaje por refuerzo</dt><dd>El modelo recibe reglas y un objetivo y aprende por prueba, error y recompensa (AlphaZero, el robot que aprende a andar).</dd></div>
+        <div><dt>IA generativa</dt><dd>Categoría del machine learning que aprende los patrones de un contenido y genera contenido nuevo de características similares.</dd></div>
+        <div><dt>No determinismo</dt><dd>Misma entrada, salidas distintas. Los modelos generativos muestrean de una distribución de probabilidad; es intencionado.</dd></div>
+        <div><dt>Multimodal</dt><dd>Modelo que acepta y produce varios tipos de contenido: texto, imagen, audio, vídeo.</dd></div>
+        <div><dt>Transformer y atención</dt><dd>Arquitectura de 2017 ("Attention Is All You Need") cuyo mecanismo de atención relaciona cada palabra con su contexto para captar el significado.</dd></div>
+        <div><dt>LLM</dt><dd>Large language model, gran modelo de lenguaje: transformer entrenado con enormes volúmenes de texto (GPT, Claude, Gemini, Llama).</dd></div>
+        <div><dt>Capacidades emergentes</dt><dd>Habilidades no programadas que aparecen al escalar el modelo, como el razonamiento causal entre GPT-2 y GPT-3.</dd></div>
+        <div><dt>Modelo razonador / cadena de pensamiento</dt><dd>Modelo que dedica más cómputo a explorar y encadenar pasos antes de responder (o1, octubre 2024). Más cómputo en la respuesta, mejor respuesta.</dd></div>
+        <div><dt>Agente</dt><dd>Modelo capaz de actuar sobre el mundo exterior (correo, sistemas, herramientas) para completar procesos complejos. Módulo 6.</dd></div>
+        <div><dt>Benchmark</dt><dd>Prueba estandarizada para medir capacidades (FrontierMath, METR). Se saturan cada vez más rápido.</dd></div>
+        <div><dt>Alucinación</dt><dd>Respuesta bien escrita, con aplomo y falsa. Consecuencia del muestreo probabilístico; se mitiga verificando fuentes.</dd></div>
+        <div><dt>Sesgo</dt><dd>Desviación sistemática en las respuestas: por los datos de entrenamiento, por el propio sistema o por filtros arbitrarios del proveedor.</dd></div>
+        <div><dt>Caja negra / explicabilidad</dt><dd>Imposibilidad práctica de explicar por qué un modelo da una salida concreta. La explicabilidad es un requisito del AI Act.</dd></div>
+        <div><dt>Dato sintético</dt><dd>Datos generados artificialmente para entrenar modelos cuando los reales escasean (pacientes sintéticos en enfermedades raras).</dd></div>
+        <div><dt>Transfer learning</dt><dd>Reaprovechar un modelo preentrenado y ajustarlo con pocos datos propios. Es lo que hace Teachable Machine en un minuto.</dd></div>
+        <div><dt>CAD / CADe</dt><dd>Computer-aided detection: sistemas que señalan lesiones en la imagen endoscópica en tiempo real. Detección, no diagnóstico.</dd></div>
+        <div><dt>NLP clínico</dt><dd>Procesamiento de lenguaje natural sobre texto de historias clínicas para extraer conceptos (cTAKES, Savana).</dd></div>
+        <div><dt>RWE / OMOP</dt><dd>Real world evidence: evidencia a partir de datos asistenciales. OMOP es el modelo común de datos que permite federarlos.</dd></div>
+        <div><dt>GPU</dt><dd>Chips (Nvidia GB200 y similares) optimizados para entrenar y ejecutar modelos; el cuello de botella físico de la industria.</dd></div>
+        <div><dt>Hipótesis del escalado</dt><dd>Idea de que el avance de la IA depende de infraestructura (datos, cómputo, energía) más que de nuevas técnicas.</dd></div>
+        <div><dt>AI Act</dt><dd>Reglamento europeo de IA. Cuatro niveles de riesgo; sanidad en "alto", permitido con restricciones.</dd></div>
+        <div><dt>AESIA</dt><dd>Agencia Española de Supervisión de la Inteligencia Artificial, con sede en A Coruña. Organismo supervisor y sancionador.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ================= AUTOEVALUACIÓN ================= -->
+    <section class="block" id="autoevaluacion">
+      <h2 class="block__title">Autoevaluación</h2>
+      <p class="block__lead">El cuestionario con el que cerró la sesión</p>
+      <p class="block__desc">Ocho preguntas para fijar ideas. No cuenta para la acreditación (el cuestionario oficial es único, al final de los ocho módulos). Elige una opción y verás la explicación.</p>
+
+      <div class="quiz" id="quiz">
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>1</b> ¿Qué necesita un modelo de aprendizaje supervisado para entrenarse?</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Reglas hechas a mano por un experto</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Muchos ejemplos etiquetados</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Acceso a internet</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Supervisado significa que los humanos etiquetamos los datos (pólipo / mucosa normal, spam / no spam) y el modelo aprende de esos ejemplos." data-ko="No. Las reglas a mano son el software clásico y el acceso a internet no enseña nada por sí mismo. Lo que necesita es muchos ejemplos etiquetados."></div>
+        </div>
+
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>2</b> Un modelo de lenguaje responde…</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Buscando la respuesta en una base de datos</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Prediciendo según los patrones que aprendió</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Copiando textos de internet</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Aprende una distribución de patrones y predice lo siguiente que tiene sentido decir. Por eso cada respuesta es nueva y por eso a veces alucina." data-ko="No. No busca ni copia: genera contenido nuevo prediciendo según los patrones aprendidos en el entrenamiento."></div>
+        </div>
+
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>3</b> Hemos entrenado un clasificador. ¿Qué pasaría si solo usamos imágenes muy parecidas entre sí?</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Generaliza mejor porque el problema es más sencillo</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Solo reconoce lo que ha visto: si el dato no representa la realidad, el modelo tampoco</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Aprende más rápido y con más precisión en casos reales</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. El modelo solo sabe lo que ha visto. Sin variedad en los datos, fallará ante casos reales distintos de los del entrenamiento." data-ko="No. Con datos poco variados el modelo se limita a lo que ha visto y falla ante la realidad. La variedad y la calidad del dato son la clave."></div>
+        </div>
+
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>4</b> Una alucinación de la IA es…</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Un error de programación del modelo</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Una respuesta plausible pero falsa</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Un fallo de conexión con el servidor</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Bien escrita, con aplomo y falsa. Es consecuencia del muestreo probabilístico: el modelo se equivoca por diseño, aunque cada vez menos." data-ko="No. No es un bug ni un problema técnico: es una respuesta plausible pero falsa, fruto del no determinismo del modelo."></div>
+        </div>
+
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>5</b> La mejor defensa frente a la alucinación es…</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> No usar nunca IA</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Verificar las fuentes</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Preguntar dos veces lo mismo</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Pide referencias, contrástalas y usa herramientas que citan el paper de origen. En el módulo 3 se verá con detalle." data-ko="No. Renunciar a la IA no es una opción realista y preguntar dos veces solo da dos respuestas distintas. La defensa es verificar las fuentes."></div>
+        </div>
+
+        <div class="q" data-answer="C">
+          <p class="q__text"><b>6</b> Según el AI Act europeo, un sistema de IA con finalidad diagnóstica es de riesgo…</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Mínimo</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Limitado</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Alto</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. La IA en sanidad con finalidad diagnóstica es de alto riesgo: permitida con restricciones. Si fuese solo de apoyo administrativo, sería limitado." data-ko="No. Sanidad, educación, justicia o crédito son de riesgo alto: permitido con restricciones y obligaciones. Limitado sería un chatbot; mínimo, un filtro de spam."></div>
+        </div>
+
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>7</b> ¿Puedo pegar el informe de un paciente con nombre y apellidos en mi ChatGPT personal?</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Sí, si es para ayudarme a redactar</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> No, nunca datos de pacientes en herramientas generalistas</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Solo si es urgente</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Es la regla de oro del curso. Anonimiza antes en tu equipo y, si usas herramienta corporativa, confirma con IT qué permite el contrato." data-ko="No. Nunca. Ni por urgencia ni por comodidad. Anonimiza en local antes de usar cualquier herramienta generalista."></div>
+        </div>
+
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>8</b> ¿Qué organismo supervisará y sancionará el uso de la IA en España?</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> La AEPD (protección de datos)</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> La AESIA, con sede en A Coruña</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> La CNMC</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. La Agencia Española de Supervisión de la Inteligencia Artificial, de nueva creación y con sede en A Coruña." data-ko="No. La AEPD sigue con protección de datos y la CNMC con competencia. El organismo específico de IA es la AESIA, en A Coruña."></div>
+        </div>
+
+        <div class="quiz__score" id="quizScore">
+          <span>Responde las ocho preguntas para ver tu resultado.</span>
+          <button type="button" id="quizReset">Reiniciar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= REFERENCIAS ================= -->
+    <section class="block" id="referencias">
+      <h2 class="block__title">Referencias</h2>
+      <p class="block__lead">Para profundizar</p>
+      <ul class="refs">
+        <li>Vaswani, A. et al. (2017). <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Attention Is All You Need</a>. El paper de Google que introdujo los transformers.</li>
+        <li>Brodeur, P. G. et al. (2024). <a href="https://arxiv.org/abs/2412.10849" target="_blank" rel="noopener">Superhuman performance of a large language model on the reasoning tasks of a physician</a>. El estudio de o1-preview frente a médicos citado en la sesión.</li>
+        <li>METR. <a href="https://metr.org/" target="_blank" rel="noopener">Measuring AI ability to complete long tasks</a>. La gráfica del horizonte temporal de tareas.</li>
+        <li>Epoch AI. <a href="https://epoch.ai/frontiermath" target="_blank" rel="noopener">FrontierMath benchmark</a>.</li>
+        <li>Clay Mathematics Institute. <a href="https://www.claymath.org/millennium-problems/" target="_blank" rel="noopener">Los problemas del milenio</a>.</li>
+        <li>Amodei, D. (2024). <a href="https://darioamodei.com/machines-of-loving-grace" target="_blank" rel="noopener">Machines of Loving Grace</a>. El ensayo optimista del CEO de Anthropic.</li>
+        <li>Unión Europea. <a href="https://artificialintelligenceact.eu/es/" target="_blank" rel="noopener">Reglamento de Inteligencia Artificial (AI Act)</a>, explorador por artículos.</li>
+        <li>Jha, D. et al. (2020). <a href="https://datasets.simula.no/kvasir-seg/" target="_blank" rel="noopener">Kvasir-SEG: A Segmented Polyp Dataset</a>. Origen de las imágenes de la práctica.</li>
+        <li>Documental <a href="https://www.youtube.com/watch?v=WXuK6gekU1Y" target="_blank" rel="noopener">AlphaGo</a> (2017), sobre el aprendizaje por refuerzo aplicado al Go.</li>
+        <li>Asimov, I. <em>Yo, robot</em> (1950). Las tres leyes de la robótica.</li>
+      </ul>
+    </section>
+
+    <!-- ================= SIGUIENTE ================= -->
+    <section class="block" id="siguiente">
+      <h2 class="block__title">Siguiente sesión</h2>
+      <p class="block__lead">Prepárate para el Módulo 2</p>
+      <div class="info-grid">
+        <div class="info">
+          <h3>🗓️ Módulo 2 · LLMs y el arte de preguntar</h3>
+          <p>Imparte Consuelo Verdú. Qué son los modelos de lenguaje, en qué se diferencian ChatGPT, Claude, Gemini y los modelos abiertos, y cómo escribir prompts y aportar contexto para obtener mejores respuestas. Se trabajará en vivo.</p>
+        </div>
+        <div class="info">
+          <h3>🖥️ Qué traer</h3>
+          <ul>
+            <li>Ordenador, idealmente con dos pantallas: la clase en una y tu asistente en la otra.</li>
+            <li>Una cuenta abierta en ChatGPT, Gemini o Claude (las versiones gratuitas sirven).</li>
+          </ul>
+        </div>
+        <div class="info">
+          <h3>💬 Dudas entre sesiones</h3>
+          <p>La organización enviará un formulario para recoger las preguntas que surjan al practicar. Se resolverán al inicio del módulo 2. También puedes escribir a <a href="mailto:formacion@sepd.es">formacion@sepd.es</a>.</p>
+        </div>
+      </div>
+
+      <div class="pager">
+        <a href="index.html#programa"><small>Volver</small><strong>Programa del curso</strong></a>
+        <a href="index.html#programa" class="next"><small>Siguiente</small><strong>Módulo 2 · LLMs y el arte de preguntar (próximamente)</strong></a>
+      </div>
+    </section>
+
+  </div><!-- /ficha__main -->
+</div><!-- /ficha -->
+
+<footer class="footer">
+  <div>© 2026 · Material formativo del Curso de IA en Digestivo · SEPD · Elaborado por <a href="https://ncompany.es" target="_blank" rel="noopener">NCompany</a> a partir de la sesión del 21/09/2026</div>
+  <div>Ficha M1 · v1.0</div>
+</footer>
+</main>
+
+<script>
+// ---- Índice lateral: resalta la sección visible ----
+(function () {
+  var links = document.querySelectorAll('.toc a[href^="#"]');
+  var map = {};
+  links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.ficha__main .block'));
+  function update() {
+    var current = sections[0];
+    sections.forEach(function (s) { if (s.getBoundingClientRect().top <= 140) current = s; });
+    links.forEach(function (a) { a.classList.remove('is-active'); });
+    if (current && map[current.id]) map[current.id].classList.add('is-active');
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('load', update);
+})();
+
+// ---- Autoevaluación ----
+(function () {
+  var quiz = document.getElementById('quiz');
+  if (!quiz) return;
+  var questions = quiz.querySelectorAll('.q');
+  var score = document.getElementById('quizScore');
+  var scoreText = score.querySelector('span');
+  var state = {};
+  function render() {
+    var done = Object.keys(state).length, ok = 0;
+    for (var k in state) if (state[k]) ok++;
+    if (done < questions.length) {
+      scoreText.textContent = done + ' de ' + questions.length + ' respondidas · ' + ok + ' correctas';
+    } else {
+      var msg = ok === questions.length ? '¡Pleno! Dominas los fundamentos.' :
+                ok >= 6 ? 'Muy bien. Repasa las que fallaste en las ideas fuerza.' :
+                'Conviene releer el resumen y las ideas fuerza antes del módulo 2.';
+      scoreText.textContent = 'Resultado: ' + ok + ' / ' + questions.length + ' · ' + msg;
+    }
+  }
+  questions.forEach(function (q, i) {
+    var answer = q.getAttribute('data-answer');
+    var fb = q.querySelector('.q__fb');
+    q.querySelectorAll('.q__opt').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (q.classList.contains('is-done')) return;
+        var k = btn.getAttribute('data-k'), right = k === answer;
+        q.classList.add('is-done');
+        btn.classList.add(right ? 'is-right' : 'is-wrong');
+        if (!right) q.querySelector('.q__opt[data-k="' + answer + '"]').classList.add('is-right');
+        fb.textContent = right ? fb.getAttribute('data-ok') : fb.getAttribute('data-ko');
+        fb.className = 'q__fb ' + (right ? 'ok' : 'ko');
+        state[i] = right;
+        render();
+      });
+    });
+  });
+  document.getElementById('quizReset').addEventListener('click', function () {
+    state = {};
+    questions.forEach(function (q) {
+      q.classList.remove('is-done');
+      q.querySelectorAll('.q__opt').forEach(function (b) { b.classList.remove('is-right', 'is-wrong'); });
+      var fb = q.querySelector('.q__fb'); fb.textContent = ''; fb.className = 'q__fb';
+    });
+    scoreText.textContent = 'Responde las ocho preguntas para ver tu resultado.';
+    quiz.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script>
+</body>
+</html>

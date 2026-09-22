@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso de IA en Digestivo · SEPD · 2ª edición</title>
+<meta name="description" content="Fichas de las ocho sesiones del Curso de Inteligencia Artificial en Digestivo de la SEPD: resumen, ideas fuerza, herramientas, práctica y autoevaluación.">
+<link rel="stylesheet" href="assets/sepd.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="topbar__brand" href="index.html">
+      <img src="assets/sepd.png" alt="SEPD · Sociedad Española de Patología Digestiva">
+      <span>Curso de IA en Digestivo<br>2ª edición · 2026-2027</span>
+    </a>
+    <nav class="topbar__nav" aria-label="Navegación principal">
+      <a href="#programa">Programa</a>
+      <a href="#equipo">Equipo docente</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="modulo-1.html" class="is-active">Módulo 1</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero__inner">
+    <div>
+      <p class="hero__eyebrow">SEPD · Formación continuada · 2ª edición</p>
+      <h1 class="hero__title">Curso de Inteligencia Artificial en <em>Digestivo</em></h1>
+      <p class="hero__subtitle">Ocho sesiones prácticas para entender cómo aprenden las máquinas, dominar las herramientas de IA generativa y llevarlas al día a día del gastroenterólogo. Cada sesión tiene su ficha: resumen, ideas fuerza, herramientas, práctica guiada y autoevaluación.</p>
+      <div class="hero__meta">
+        <span><strong>8 módulos</strong> · online en directo</span>
+        <span><strong>Impartido por</strong> NCompany</span>
+        <span><strong>Asesor clínico</strong> Dr. Javier Mendoza</span>
+      </div>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="modulo-1.html">Ficha del Módulo 1 · Fundamentos</a>
+        <a class="btn btn--ghost" href="#programa">Ver el programa</a>
+      </div>
+    </div>
+    <div class="hero__art">
+      <img src="assets/m1/portada.jpg" alt="Portada del taller 1: Fundamentos. ¿Cómo aprenden las máquinas?">
+    </div>
+  </div>
+</section>
+
+<main class="container">
+
+  <!-- ================= PROGRAMA ================= -->
+  <section class="section" id="programa">
+    <div class="section__head">
+      <h2 class="section__title">Programa formativo</h2>
+      <p class="section__lead">Ocho módulos, de los fundamentos a la integración práctica</p>
+      <p class="section__desc">El recorrido va de la intuición (cómo aprende una máquina) a la acción (qué herramienta usar, para qué y con qué cautelas). Las fichas se publican a medida que se imparte cada sesión.</p>
+    </div>
+
+    <div class="modules">
+      <a class="module" href="modulo-1.html">
+        <div class="module__num">1</div>
+        <h3 class="module__title">Fundamentos de la IA</h3>
+        <p class="module__desc">¿Por qué una máquina puede aprender? Historia, conceptos clave, tipos de aprendizaje, IA generativa, límites, ética y regulación. Práctica: entrenamos un detector de pólipos.</p>
+        <div class="module__foot">
+          <span class="pill pill--ok">Ficha disponible</span>
+          <span class="module__cta">Abrir ficha</span>
+        </div>
+      </a>
+
+      <div class="module module--soon">
+        <div class="module__num">2</div>
+        <h3 class="module__title">LLMs y el arte de preguntar</h3>
+        <p class="module__desc">Qué son los grandes modelos de lenguaje (ChatGPT, Claude, Gemini, Llama…), en qué se diferencian y cómo un buen prompt y el contexto adecuado mejoran las respuestas.</p>
+        <div class="module__foot">
+          <span class="pill pill--grey">Próximamente</span>
+          <span class="module__cta">Imparte Consuelo Verdú</span>
+        </div>
+      </div>
+
+      <div class="module module--soon">
+        <div class="module__num">3</div>
+        <h3 class="module__title">IA para la investigación</h3>
+        <p class="module__desc">Herramientas que leen, contrastan y redactan borradores científicos citando bien las fuentes. Objetivo de la sesión: el borrador de un paper de principio a fin. Incluye anonimización de datos.</p>
+        <div class="module__foot">
+          <span class="pill pill--grey">Próximamente</span>
+          <span class="module__cta">Imparte Javier Fuentes</span>
+        </div>
+      </div>
+
+      <div class="module module--soon">
+        <div class="module__num">4</div>
+        <h3 class="module__title">La IA en el diagnóstico</h3>
+        <p class="module__desc">Modelos razonadores y de frontera aplicados a casos clínicos anonimizados. Cómo clasifica la IA la actividad inflamatoria a partir de endoscopias. Modelos open source en local.</p>
+        <div class="module__foot">
+          <span class="pill pill--grey">Próximamente</span>
+          <span class="module__cta">Con el Dr. Javier Mendoza</span>
+        </div>
+      </div>
+
+      <div class="module module--soon">
+        <div class="module__num">5</div>
+        <h3 class="module__title">Generadores multimedia</h3>
+        <p class="module__desc">Más allá del texto: audio, vídeo, voz y música. Herramientas que subtitulan, traducen o fabrican material educativo en segundos, listo para la consulta o para redes.</p>
+        <div class="module__foot">
+          <span class="pill pill--grey">Próximamente</span>
+          <span class="module__cta">2027</span>
+        </div>
+      </div>
+
+      <div class="module module--soon">
+        <div class="module__num">6</div>
+        <h3 class="module__title">Agentes y automatización</h3>
+        <p class="module__desc">Cómo delegar tareas repetitivas en agentes que combinan lenguaje y acciones: recordatorios, informes, seguimiento de la evolución de un paciente. El módulo estrella del curso.</p>
+        <div class="module__foot">
+          <span class="pill pill--grey">Próximamente</span>
+          <span class="module__cta">2027</span>
+        </div>
+      </div>
+
+      <div class="module module--soon">
+        <div class="module__num">7</div>
+        <h3 class="module__title">La IA en nuestro día a día</h3>
+        <p class="module__desc">Integración práctica: un mapa de casos de uso para el digestivo. Dónde usar cada herramienta, midiendo impacto y evitando cuellos de botella en el servicio.</p>
+        <div class="module__foot">
+          <span class="pill pill--grey">Próximamente</span>
+          <span class="module__cta">2027</span>
+        </div>
+      </div>
+
+      <div class="module module--soon">
+        <div class="module__num">8</div>
+        <h3 class="module__title">Mirando al futuro</h3>
+        <p class="module__desc">Cierre del programa: hacia dónde va la IA en digestivo y presentación de los casos de uso construidos por los propios alumnos durante el curso.</p>
+        <div class="module__foot">
+          <span class="pill pill--grey">Próximamente</span>
+          <span class="module__cta">Sesión de cierre</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EQUIPO ================= -->
+  <section class="section" id="equipo">
+    <div class="section__head">
+      <h2 class="section__title">Equipo docente</h2>
+      <p class="section__lead">Ingeniería, innovación y mirada clínica</p>
+      <p class="section__desc">Los tres profesores de NCompany se alternan en las sesiones. El Dr. Javier Mendoza aporta el criterio médico y colabora en el diseño de los casos clínicos que acercan cada módulo a la práctica del digestivo.</p>
+    </div>
+    <div class="team">
+      <div class="person">
+        <img src="assets/equipo/consuelo-verdu.jpg" alt="Consuelo Verdú">
+        <div class="person__name">Consuelo Verdú</div>
+        <div class="person__role">NCompany · Profesora</div>
+        <p class="person__bio">Economista y MBA por ESADE. Empresaria, mentora y profesora en escuelas de negocio. Experta en innovación y tecnología. Profesora universitaria en la UFV.</p>
+      </div>
+      <div class="person">
+        <img src="assets/equipo/nestor-guerra.jpg" alt="Néstor Guerra">
+        <div class="person__name">Néstor Guerra</div>
+        <div class="person__role">NCompany · Profesor</div>
+        <p class="person__bio">Ingeniero de Telecomunicaciones y Executive MBA por EOI. Experto en innovación corporativa, tecnología IA y Lean Startup. Profesor de MBA en escuelas de negocio.</p>
+      </div>
+      <div class="person">
+        <img src="assets/equipo/javier-fuentes.jpg" alt="Javier Fuentes">
+        <div class="person__name">Javier Fuentes</div>
+        <div class="person__role">NCompany · Profesor · Módulos 1 y 3</div>
+        <p class="person__bio">Ingeniero de Telecomunicaciones; M&amp;A y private equity por IEB. Emprendedor, mentor y profesor universitario especializado en tecnología e IA.</p>
+      </div>
+      <div class="person">
+        <img src="assets/equipo/javier-mendoza.jpg" alt="Dr. Javier Mendoza">
+        <div class="person__name">Dr. Javier Mendoza</div>
+        <div class="person__role">Asesor clínico del curso</div>
+        <p class="person__bio">Médico especialista en Aparato Digestivo en GastroSur. Miembro del comité de Ética e Inteligencia Artificial de OdiseIA.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CÓMO FUNCIONA ================= -->
+  <section class="section" id="como-funciona">
+    <div class="section__head">
+      <h2 class="section__title">Cómo funciona el curso</h2>
+      <p class="section__lead">Lo que necesitas saber para aprovecharlo</p>
+    </div>
+    <div class="info-grid">
+      <div class="info">
+        <h3>🎓 Acreditación</h3>
+        <ul>
+          <li>Para obtener el certificado hay que <strong>asistir en directo a las ocho sesiones</strong>. Es un requisito de la formación médica continuada, no del equipo docente.</li>
+          <li>Hay un <strong>único cuestionario al final de los ocho módulos</strong>. Las prácticas no se entregan ni se evalúan.</li>
+        </ul>
+      </div>
+      <div class="info">
+        <h3>💻 Parte práctica</h3>
+        <ul>
+          <li>Ven a cada sesión con <strong>ordenador</strong> (o tablet). Idealmente dos pantallas: la clase en una y la herramienta abierta en la otra.</li>
+          <li>Ten a mano una cuenta en <strong>ChatGPT, Claude o Gemini</strong> para seguir los ejercicios en vivo.</li>
+        </ul>
+      </div>
+      <div class="info">
+        <h3>📚 Materiales</h3>
+        <ul>
+          <li>La plataforma de e-learning reúne el <strong>vídeo de cada sesión</strong>, esta ficha con las pautas y la <strong>lista de herramientas</strong> vistas, disponible desde el 25 de septiembre.</li>
+          <li>No hace falta apuntar cada herramienta durante la clase: la lista se envía al terminar.</li>
+        </ul>
+      </div>
+      <div class="info">
+        <h3>❓ Dudas</h3>
+        <ul>
+          <li>Durante la sesión usa <strong>Preguntas y respuestas</strong> de Zoom (no el chat) para consultas concretas; así llegan al ponente.</li>
+          <li>Entre sesiones, envía tus dudas con el <strong>formulario</strong> que remite la organización o al correo <a href="mailto:formacion@sepd.es">formacion@sepd.es</a>. Se resuelven al inicio de la siguiente clase.</li>
+        </ul>
+      </div>
+      <div class="info">
+        <h3>🚀 Proyecto del curso (opcional)</h3>
+        <ul>
+          <li>Quien quiera puede construir durante el curso un caso de uso real con las herramientas vistas y <strong>presentarlo en el módulo 8</strong>, como hicieron los alumnos de la primera edición.</li>
+        </ul>
+      </div>
+      <div class="info">
+        <h3>🔒 Regla de oro</h3>
+        <ul>
+          <li><strong>Nunca datos de pacientes en herramientas generalistas.</strong> La IA es apoyo a la decisión: siempre con revisión profesional, datos anonimizados y sin convertir la respuesta en decisión clínica.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>© 2026 · Material formativo del Curso de IA en Digestivo · SEPD · Elaborado por <a href="https://ncompany.es" target="_blank" rel="noopener">NCompany</a></div>
+    <div>2ª edición · Actualización continua</div>
+  </footer>
+
+</main>
+</body>
+</html>
