@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller IA · Inspección Sanitaria · Daiichi-Sankyo</title>
+<meta name="description" content="Taller práctico de IA generativa para inspección sanitaria: búsqueda bibliográfica y expedientes de reclamación patrimonial. Salamanca, 25 de septiembre de 2026.">
+<style>
+:root {
+  color-scheme: light;
+  --ds-navy: #0B2F9F;
+  --ds-navy-dark: #08217A;
+  --ds-navy-soft: #EAF0FB;
+  --ds-sky: #00AEEB;
+  --ds-sky-soft: #E3F6FD;
+  --ds-green: #3AB133;
+  --ds-yellow: #FFE500;
+  --ds-yellow-soft: #FFF9CC;
+  --ink: #16202E;
+  --ink-soft: #445066;
+  --ink-mute: #6B7385;
+  --border: #E1E6EF;
+  --bg: #FFFFFF;
+  --bg-soft: #F6F8FC;
+  --ok: #137333; --ok-soft: #E6F4EA;
+  --warn: #8A4B00; --warn-soft: #FEF3C7;
+  --bad: #B42318; --bad-soft: #FEE4E2;
+  --radius: 14px;
+  --shadow: 0 6px 20px rgba(11, 47, 159, 0.10);
+  --maxw: 1120px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+html, body {
+  margin: 0; padding: 0; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+a { color: var(--ds-navy); }
+a:hover { color: var(--ds-navy-dark); }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3, h4 { line-height: 1.2; letter-spacing: -0.01em; margin: 0; }
+p { margin: 0 0 12px; }
+ul, ol { margin: 0 0 12px; padding-left: 22px; }
+li { margin-bottom: 6px; }
+strong { font-weight: 650; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; background: var(--bg-soft); border: 1px solid var(--border); padding: 1px 6px; border-radius: 6px; }
+.container { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+/* ---------- Topbar ---------- */
+.topbar { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.95); backdrop-filter: saturate(160%) blur(10px); border-bottom: 1px solid var(--border); }
+.topbar__inner { max-width: var(--maxw); margin: 0 auto; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.topbar__brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--ink); min-width: 0; }
+.topbar__brand img { height: 30px; width: auto; }
+.topbar__brand span { font-size: 12.5px; font-weight: 600; color: var(--ink-soft); border-left: 1px solid var(--border); padding-left: 14px; line-height: 1.3; white-space: nowrap; }
+.topbar__nav { display: flex; gap: 2px; flex-wrap: wrap; justify-content: flex-end; }
+.topbar__nav a { font-size: 13px; font-weight: 600; text-decoration: none; color: var(--ink-soft); padding: 6px 10px; border-radius: 100px; }
+.topbar__nav a:hover { background: var(--ds-navy-soft); color: var(--ds-navy-dark); }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--border);
+  background: radial-gradient(circle at 92% 8%, rgba(0,174,235,.16), transparent 40%), radial-gradient(circle at 6% 96%, rgba(255,229,0,.18), transparent 38%), linear-gradient(180deg, #F7FAFF 0%, #FFFFFF 100%); }
+.hero__inner { max-width: var(--maxw); margin: 0 auto; padding: 56px 24px 52px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 44px; align-items: center; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ds-navy); margin: 0 0 12px; display: flex; gap: 10px; align-items: center; }
+.eyebrow::before { content: ""; width: 26px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--ds-green), var(--ds-yellow)); }
+.hero__title { font-size: clamp(30px, 4.2vw, 46px); font-weight: 800; margin: 0 0 14px; }
+.hero__title em { font-style: normal; color: var(--ds-navy); }
+.hero__subtitle { font-size: 17.5px; color: var(--ink-soft); max-width: 620px; margin: 0 0 20px; }
+.hero__meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13.5px; color: var(--ink-mute); }
+.hero__meta strong { color: var(--ink-soft); }
+.hero__actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+.hero__art { position: relative; }
+.hero__art img { border-radius: var(--radius); box-shadow: 0 18px 44px rgba(8,33,122,.18); border: 1px solid var(--border); aspect-ratio: 16/10; object-fit: cover; width: 100%; }
+.tag-ficticio { position: absolute; left: 14px; bottom: 14px; background: var(--ds-yellow); color: #1a1a1a; font: 700 11px/1 ui-monospace, Menlo, monospace; letter-spacing: .12em; padding: 7px 10px; border-radius: 6px; text-transform: uppercase; }
+
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 100px; font-weight: 650; font-size: 14px; text-decoration: none; border: 1.5px solid transparent; transition: all .15s ease; cursor: pointer; font-family: inherit; }
+.btn--primary { background: var(--ds-navy); color: #fff; }
+.btn--primary:hover { background: var(--ds-navy-dark); color: #fff; transform: translateY(-1px); }
+.btn--ghost { background: #fff; color: var(--ds-navy); border-color: #CBD6F0; }
+.btn--ghost:hover { border-color: var(--ds-navy); background: var(--ds-navy-soft); }
+.btn--small { padding: 7px 13px; font-size: 13px; }
+
+/* ---------- Sections ---------- */
+.section { padding: 60px 0 8px; }
+.section__head { margin-bottom: 26px; max-width: 780px; }
+.section__kicker { font-size: 12.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ds-sky); margin: 0 0 8px; }
+.section__title { font-size: clamp(24px, 3vw, 32px); font-weight: 800; margin: 0 0 10px; }
+.section__desc { color: var(--ink-soft); font-size: 16.5px; margin: 0; }
+
+.card { border: 1px solid var(--border); border-radius: var(--radius); background: #fff; padding: 22px 24px; }
+.card--soft { background: var(--bg-soft); }
+.grid { display: grid; gap: 16px; }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+.grid--2 { grid-template-columns: repeat(2, 1fr); }
+
+/* Case */
+.case { display: grid; grid-template-columns: 1.1fr .9fr; gap: 22px; align-items: start; }
+.case__story p { font-size: 16.5px; }
+.question { border-left: 5px solid var(--ds-yellow); background: var(--ds-yellow-soft); padding: 16px 20px; border-radius: 0 12px 12px 0; margin: 18px 0 0; font-size: 16px; }
+.question strong { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--warn); margin-bottom: 4px; }
+.doc { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px dashed var(--border); }
+.doc:last-of-type { border-bottom: 0; }
+.doc__badge { flex: 0 0 auto; width: 42px; height: 42px; border-radius: 10px; display: grid; place-items: center; font-weight: 800; color: #fff; font-size: 15px; }
+.doc__badge.d1 { background: #C2410C; } .doc__badge.d2 { background: var(--ds-navy); } .doc__badge.d3 { background: #0E7490; }
+.doc h4 { font-size: 15px; margin-bottom: 2px; }
+.doc p { font-size: 13.5px; color: var(--ink-mute); margin: 0 0 4px; }
+.doc a { font-size: 13px; font-weight: 650; }
+
+/* Flow */
+.flow { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; counter-reset: step; }
+.flow a { text-decoration: none; color: var(--ink); border: 1px solid var(--border); border-radius: 12px; padding: 14px 14px 16px; background: #fff; position: relative; transition: all .15s ease; }
+.flow a:hover { border-color: var(--ds-navy); box-shadow: var(--shadow); transform: translateY(-2px); }
+.flow a::before { counter-increment: step; content: counter(step); display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--ds-navy-soft); color: var(--ds-navy); font-weight: 800; font-size: 13px; margin-bottom: 10px; }
+.flow strong { display: block; font-size: 15px; }
+.flow span { display: block; font-size: 12.5px; color: var(--ink-mute); line-height: 1.4; margin-top: 4px; }
+.flow__block { font-size: 11px !important; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ds-sky) !important; margin-top: 10px !important; }
+
+/* Tool sections */
+.tool { padding: 64px 0 8px; border-top: 1px solid var(--border); margin-top: 56px; }
+.tool__head { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
+.tool__num { width: 48px; height: 48px; border-radius: 14px; background: var(--ds-navy); color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 20px; flex: 0 0 auto; }
+.tool__titles { flex: 1; min-width: 240px; }
+.tool__titles h2 { font-size: clamp(24px, 3vw, 30px); font-weight: 800; }
+.tool__titles p { margin: 4px 0 0; color: var(--ink-soft); }
+.tool__body { display: grid; grid-template-columns: 1.05fr .95fr; gap: 26px; align-items: start; }
+.tool__body--wide { grid-template-columns: 1fr; }
+.pills { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+.pill { font-size: 11.5px; font-weight: 700; letter-spacing: .03em; padding: 4px 10px; border-radius: 100px; white-space: nowrap; }
+.pill--ok { background: var(--ok-soft); color: var(--ok); }
+.pill--warn { background: var(--warn-soft); color: var(--warn); }
+.pill--navy { background: var(--ds-navy-soft); color: var(--ds-navy-dark); }
+.pill--sky { background: var(--ds-sky-soft); color: #03658A; }
+.checks { list-style: none; padding: 0; margin: 0 0 14px; }
+.checks li { position: relative; padding-left: 26px; }
+.checks li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--ds-green); font-weight: 800; }
+.warns li::before { content: "!"; color: #fff; background: #D97706; width: 17px; height: 17px; border-radius: 50%; font-size: 11px; display: grid; place-items: center; top: 4px; }
+.subhead { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-mute); margin: 18px 0 8px; }
+.shot { border-radius: 12px; border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow); background: #fff; }
+.shot figcaption { font-size: 12.5px; color: var(--ink-mute); padding: 8px 12px; border-top: 1px solid var(--border); background: var(--bg-soft); }
+figure { margin: 0; }
+.tool__link { display: inline-flex; gap: 6px; align-items: center; font-weight: 650; font-size: 14px; text-decoration: none; }
+.tool__link::after { content: "↗"; }
+
+/* Prompt box */
+.prompt { position: relative; background: #0F1B3D; color: #E8EEFF; border-radius: 12px; margin: 10px 0 14px; overflow: hidden; }
+.prompt__bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 9px 12px 9px 16px; background: #0A1430; border-bottom: 1px solid rgba(255,255,255,.08); }
+.prompt__label { font: 700 11px/1.2 ui-monospace, Menlo, monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--ds-yellow); }
+.prompt__copy { font: 600 12px/1 inherit; font-family: inherit; background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.18); border-radius: 100px; padding: 6px 12px; cursor: pointer; }
+.prompt__copy:hover { background: rgba(255,255,255,.2); }
+.prompt__copy.is-done { background: var(--ds-green); border-color: var(--ds-green); }
+.prompt pre { margin: 0; padding: 16px 18px 18px; white-space: pre-wrap; word-wrap: break-word; font: 14px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+.lesson { background: var(--ds-sky-soft); border: 1px solid #B8E6F8; border-radius: 12px; padding: 16px 18px; margin: 14px 0; }
+.lesson strong.lesson__t { display: block; color: #03658A; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
+.lesson p:last-child { margin-bottom: 0; }
+
+.files { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 10px 0 14px; }
+.file { border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; background: #fff; }
+.file code { background: none; border: 0; padding: 0; font-weight: 700; color: var(--ds-navy); font-size: 14px; }
+.file p { margin: 4px 0 0; font-size: 13px; color: var(--ink-mute); line-height: 1.45; }
+
+/* ---------- Artifact demo ---------- */
+.demo { border: 2px solid var(--ink); border-radius: 16px; background: #fff; overflow: hidden; margin-top: 8px; }
+.demo__top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+.demo__top h3 { font-size: 20px; }
+.demo__top h3 small { display: block; font-size: 13px; font-weight: 500; color: var(--ink-mute); margin-top: 2px; }
+.demo__label { background: var(--ds-yellow); font: 800 12px/1 ui-monospace, Menlo, monospace; letter-spacing: .12em; padding: 8px 12px; border-radius: 6px; text-transform: uppercase; }
+.demo__tabs { display: flex; gap: 4px; padding: 10px 16px 0; border-bottom: 1px solid var(--border); background: #FCFCFD; flex-wrap: wrap; }
+.demo__tab { font: 650 14px/1 inherit; font-family: inherit; background: none; border: 0; border-bottom: 3px solid transparent; padding: 10px 12px 12px; cursor: pointer; color: var(--ink-soft); }
+.demo__tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ds-yellow); }
+.demo__panel { padding: 18px 20px 22px; }
+.demo__panel[hidden] { display: none; }
+.demo__controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
+.demo__controls input[type=search] { flex: 1 1 220px; font: 15px/1.2 inherit; font-family: inherit; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 10px; }
+.demo__controls input[type=search]:focus { outline: none; border-color: var(--ds-navy); }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { font: 650 13px/1 inherit; font-family: inherit; padding: 8px 12px; border-radius: 100px; border: 1.5px solid var(--border); background: #fff; cursor: pointer; color: var(--ink-soft); }
+.chip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+.demo__count { font-size: 13px; color: var(--ink-mute); margin-left: auto; }
+.tl { list-style: none; padding: 0; margin: 0; position: relative; }
+.tl::before { content: ""; position: absolute; left: 96px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+.tl li { margin: 0; }
+.tl button { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: 84px 24px 1fr; gap: 0; width: 100%; padding: 8px 0; align-items: start; }
+.tl button:focus-visible { outline: 2px solid var(--ds-navy); outline-offset: 2px; border-radius: 8px; }
+.tl__date { font: 700 14px/1.3 ui-monospace, Menlo, monospace; text-align: right; padding-right: 10px; padding-top: 12px; color: var(--ink); }
+.tl__dot { width: 14px; height: 14px; border-radius: 50%; margin: 15px 0 0 5px; border: 3px solid #fff; box-shadow: 0 0 0 2px currentColor; background: currentColor; position: relative; z-index: 1; }
+.tl__card { border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; background: #fff; transition: border-color .15s, background .15s; }
+.tl button:hover .tl__card { border-color: #C9D2E3; background: #FBFCFE; }
+.tl button[aria-expanded="true"] .tl__card { border-color: var(--ink); background: #FFFDF0; }
+.tl__text { font-size: 16px; line-height: 1.45; }
+.tl__meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.badge { font: 700 11.5px/1 inherit; font-family: inherit; padding: 4px 8px; border-radius: 6px; }
+.t-alegacion { color: #C2410C; } .badge.t-alegacion { background: #FFEDD5; }
+.t-asistencial { color: var(--ds-navy); } .badge.t-asistencial { background: var(--ds-navy-soft); }
+.t-administrativo { color: #0E7490; } .badge.t-administrativo { background: #CFFAFE; }
+.t-documento { color: #6B7280; } .badge.t-documento { background: #F1F3F6; }
+.badge--ref { background: var(--ds-yellow); color: #1a1a1a; font-family: ui-monospace, Menlo, monospace; }
+.tl__quote { display: none; margin-top: 10px; padding: 10px 12px; border-left: 4px solid var(--ds-yellow); background: #fff; font-size: 14.5px; color: var(--ink-soft); }
+.tl button[aria-expanded="true"] .tl__quote { display: block; }
+.tl__quote b { display: block; font-size: 12px; color: var(--ink-mute); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px; }
+.tl__empty { padding: 20px; text-align: center; color: var(--ink-mute); }
+.diff { border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
+.diff h4 { font-size: 16px; margin-bottom: 8px; }
+.diff__row { display: grid; grid-template-columns: 90px 1fr; gap: 10px; font-size: 14.5px; padding: 6px 0; border-top: 1px dashed var(--border); }
+.diff__row:first-of-type { border-top: 0; }
+.diff__note { font-size: 13.5px; color: var(--ink-mute); margin: 8px 0 0; }
+.missing { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.missing li { border: 1px solid var(--border); border-left: 4px solid var(--ds-yellow); border-radius: 10px; padding: 10px 14px; margin: 0; font-size: 14.5px; }
+.missing li small { display: block; color: var(--ink-mute); font-size: 12.5px; margin-top: 3px; }
+.demo__foot { font-size: 12.5px; color: var(--ink-mute); padding: 12px 20px; border-top: 1px solid var(--border); background: #FCFCFD; }
+
+/* Video */
+.video { border-radius: 14px; overflow: hidden; background: #000; box-shadow: var(--shadow); }
+.video video { width: 100%; height: auto; }
+
+/* Rules */
+.rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; counter-reset: rule; }
+.rule { border: 1px solid var(--border); border-radius: 12px; padding: 18px 18px 16px; background: #fff; }
+.rule::before { counter-increment: rule; content: "0" counter(rule); display: block; font: 800 13px/1 ui-monospace, Menlo, monospace; color: var(--ds-sky); margin-bottom: 10px; }
+.rule h4 { font-size: 16px; margin-bottom: 6px; }
+.rule p { font-size: 14.5px; color: var(--ink-soft); margin: 0; }
+
+/* Quiz */
+.q { border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin-bottom: 12px; }
+.q h4 { font-size: 16px; margin-bottom: 10px; }
+.q__opts { display: grid; gap: 8px; }
+.q__opts button { text-align: left; font: 15px/1.4 inherit; font-family: inherit; padding: 10px 14px; border-radius: 10px; border: 1.5px solid var(--border); background: #fff; cursor: pointer; color: var(--ink); }
+.q__opts button:hover:not(:disabled) { border-color: var(--ds-navy); }
+.q__opts button.is-ok { background: var(--ok-soft); border-color: var(--ok); }
+.q__opts button.is-ko { background: var(--bad-soft); border-color: var(--bad); }
+.q__opts button:disabled { cursor: default; }
+.q__fb { font-size: 14.5px; margin: 10px 0 0; color: var(--ink-soft); display: none; }
+.q.is-answered .q__fb { display: block; }
+
+/* Refs */
+.refs li { font-size: 15px; }
+.refs small { color: var(--ink-mute); }
+
+/* Footer */
+.footer { margin-top: 72px; border-top: 1px solid var(--border); background: var(--bg-soft); }
+.footer__inner { max-width: var(--maxw); margin: 0 auto; padding: 32px 24px 40px; display: flex; flex-wrap: wrap; gap: 20px 40px; align-items: center; justify-content: space-between; font-size: 13.5px; color: var(--ink-mute); }
+.footer img { height: 28px; width: auto; }
+.footer p { margin: 0; max-width: 640px; }
+
+@media (max-width: 1100px) { .topbar__nav { display: none; } }
+@media (max-width: 980px) {
+  .hero__inner, .case, .tool__body { grid-template-columns: 1fr; }
+  .flow { grid-template-columns: repeat(3, 1fr); }
+  .rules, .grid--3 { grid-template-columns: repeat(2, 1fr); }
+  .topbar__nav { display: none; }
+}
+@media (max-width: 620px) {
+  .container, .hero__inner, .topbar__inner, .footer__inner { padding-left: 16px; padding-right: 16px; }
+  .flow { grid-template-columns: repeat(2, 1fr); }
+  .rules, .grid--3, .grid--2, .files, .missing { grid-template-columns: 1fr; }
+  .topbar__brand span { display: none; }
+  .tl::before { left: 72px; }
+  .tl button { grid-template-columns: 62px 22px 1fr; }
+  .tl__date { font-size: 12.5px; padding-right: 6px; }
+  .diff__row { grid-template-columns: 1fr; gap: 2px; }
+  .demo__panel { padding: 14px; }
+  .demo__count { margin-left: 0; }
+}
+@media print {
+  .topbar, .prompt__copy, .hero__actions { display: none; }
+  .prompt { background: #fff; color: #000; border: 1px solid #999; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="topbar__brand" href="#inicio">
+      <img src="assets/daiichi-logo.png" alt="Daiichi-Sankyo">
+      <span>Jornada de Inspección Sanitaria<br>Salamanca · 25 sept 2026</span>
+    </a>
+    <nav class="topbar__nav" aria-label="Secciones">
+      <a href="#caso">El caso</a>
+      <a href="#perplexity">Perplexity</a>
+      <a href="#consensus">Consensus</a>
+      <a href="#deep-research">Deep Research</a>
+      <a href="#claude">Claude</a>
+      <a href="#codex">Codex</a>
+      <a href="#heygen">HeyGen</a>
+      <a href="#reglas">Reglas</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+
+<section class="hero">
+  <div class="hero__inner">
+    <div>
+      <p class="eyebrow">Taller práctico · IA generativa</p>
+      <h1 class="hero__title">De una pregunta a un <em>expediente trazable</em></h1>
+      <p class="hero__subtitle">Seis herramientas de IA aplicadas a la búsqueda bibliográfica y al análisis documental en reclamaciones patrimoniales, siguiendo un mismo caso ficticio de principio a fin.</p>
+      <div class="hero__meta">
+        <span><strong>Viernes 25 de septiembre de 2026</strong> · 12:00–14:30 h</span>
+        <span>NH Collection Palacio de Castellanos · Salamanca</span>
+        <span>Imparte <strong>Javier Fuentes Ibáñez</strong> · NCompany</span>
+      </div>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="assets/caso/RP-DEMO-01_expediente_ficticio.zip" download>Descargar el expediente (D1–D3)</a>
+        <a class="btn btn--ghost" href="#recorrido">Ver el recorrido</a>
+      </div>
+    </div>
+    <div class="hero__art">
+      <img src="assets/hero.jpg" alt="Mesa de trabajo con documentos de un expediente y una sala de resonancia al fondo" width="1600" height="900">
+      <span class="tag-ficticio">Caso ficticio</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EL CASO ============ -->
+<section class="section" id="caso">
+  <div class="container">
+    <div class="section__head">
+      <p class="section__kicker">El hilo conductor</p>
+      <h2 class="section__title">Caso RP-DEMO-01: demora en una prueba de imagen</h2>
+      <p class="section__desc">Todas las demostraciones trabajan sobre el mismo expediente. Es completamente inventado y está preparado para practicar sin datos personales reales.</p>
+    </div>
+    <div class="case">
+      <div class="case__story">
+        <p>Una persona consultó por <strong>dolor lumbar</strong> y sostiene que la <strong>demora en realizarle una resonancia</strong> prolongó sus molestias y su baja laboral. Disponemos de su reclamación, un extracto de notas asistenciales y un registro de citas.</p>
+        <p>El reto es <strong>reconstruir qué ocurrió</strong>, distinguir lo documentado de lo que afirma la persona reclamante e identificar qué información falta. Después investigamos qué evidencia científica había disponible en <strong>junio de 2025</strong> sobre cuándo solicitar pruebas de imagen, sin dar por demostrada una relación entre la demora y el daño alegado.</p>
+        <div class="question">
+          <strong>Pregunta de trabajo</strong>
+          ¿Qué sabemos de la cronología, qué documentación falta y qué bibliografía sería pertinente para revisar la indicación de imagen en cada momento?
+        </div>
+      </div>
+      <div class="card">
+        <p class="subhead" style="margin-top:0">Documentos del expediente</p>
+        <div class="doc">
+          <div class="doc__badge d1">D1</div>
+          <div>
+            <h4>Reclamación</h4>
+            <p>Escrito de 20 de agosto de 2025. Relato de la persona reclamante.</p>
+            <a href="assets/caso/D1_Reclamacion_20_agosto_2025.pdf" target="_blank" rel="noopener">Abrir PDF</a>
+          </div>
+        </div>
+        <div class="doc">
+          <div class="doc__badge d2">D2</div>
+          <div>
+            <h4>Extracto asistencial</h4>
+            <p>Anotaciones del 2, 11 y 26 de junio de 2025. Preparado el 22 de agosto.</p>
+            <a href="assets/caso/D2_Extracto_asistencial_22_agosto_2025.pdf" target="_blank" rel="noopener">Abrir PDF</a>
+          </div>
+        </div>
+        <div class="doc">
+          <div class="doc__badge d3">D3</div>
+          <div>
+            <h4>Registro de solicitud y cita</h4>
+            <p>Extracto administrativo: registro, asignación y realización de la prueba.</p>
+            <a href="assets/caso/D3_Registro_solicitud_y_cita_22_agosto_2025.pdf" target="_blank" rel="noopener">Abrir PDF</a>
+          </div>
+        </div>
+        <p style="margin:12px 0 0"><a class="btn btn--ghost btn--small" href="assets/caso/RP-DEMO-01_expediente_ficticio.zip" download>Descargar los tres (ZIP)</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RECORRIDO ============ -->
+<section class="section" id="recorrido">
+  <div class="container">
+    <div class="section__head">
+      <p class="section__kicker">El recorrido</p>
+      <h2 class="section__title">Seis herramientas, un mismo expediente</h2>
+      <p class="section__desc">Cada herramienta se presenta por el resultado que permite producir. En cada paso nos preguntamos qué podemos comprobar y qué sigue sin saberse.</p>
+    </div>
+    <div class="flow">
+      <a href="#perplexity"><strong>Perplexity</strong><span>Buscar fuentes que se puedan abrir</span><span class="flow__block">Búsqueda</span></a>
+      <a href="#consensus"><strong>Consensus</strong><span>Buscar directamente en literatura científica</span><span class="flow__block">Búsqueda</span></a>
+      <a href="#deep-research"><strong>Deep Research</strong><span>Encargar un dossier bibliográfico completo</span><span class="flow__block">Investigación</span></a>
+      <a href="#claude"><strong>Claude</strong><span>Crear una herramienta interactiva sin programar</span><span class="flow__block">Programación</span></a>
+      <a href="#codex"><strong>Agente Codex</strong><span>Delegar un trabajo que produce archivos</span><span class="flow__block">Agentes</span></a>
+      <a href="#heygen"><strong>HeyGen</strong><span>Comunicar el método con un avatar</span><span class="flow__block">Vídeo</span></a>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+
+<!-- ============ 1 · PERPLEXITY ============ -->
+<section class="tool" id="perplexity">
+  <div class="tool__head">
+    <div class="tool__num">1</div>
+    <div class="tool__titles">
+      <h2>Perplexity</h2>
+      <p>Buscador conversacional: responde citando las páginas en las que se basa.</p>
+    </div>
+    <a class="tool__link" href="https://www.perplexity.ai" target="_blank" rel="noopener">perplexity.ai</a>
+  </div>
+  <div class="tool__body">
+    <div>
+      <div class="pills"><span class="pill pill--ok">Gratis con límites</span><span class="pill pill--warn">Pro de pago</span><span class="pill pill--navy">Web · app</span></div>
+      <p>Útil para pasar de una pregunta vaga a un <strong>mapa de fuentes</strong> que podemos abrir y leer. La calidad de la respuesta depende de lo concreta que sea la pregunta: población, comparación, resultado y tipo de fuente.</p>
+      <p class="subhead">Primero, la pregunta vaga (para ver qué falta)</p>
+      <div class="prompt"><div class="prompt__bar"><span class="prompt__label">Prompt de contraste</span><button class="prompt__copy" type="button">Copiar</button></div><pre>¿Hay que pedir una resonancia a todos los pacientes con lumbalgia?</pre></div>
+      <p class="subhead">Después, la pregunta estructurada</p>
+      <div class="prompt"><div class="prompt__bar"><span class="prompt__label">Prompt del taller</span><button class="prompt__copy" type="button">Copiar</button></div><pre>En adultos con lumbalgia aguda o subaguda sin indicios de patología grave, ¿la imagen inmediata mejora el dolor o la función frente a la atención habitual sin imagen inmediata? Localiza una guía oficial y dos revisiones. Incluye enlaces, fecha, población estudiada y limitaciones.</pre></div>
+      <div class="prompt"><div class="prompt__bar"><span class="prompt__label">Repregunta para verificar</span><button class="prompt__copy" type="button">Copiar</button></div><pre>Elige la afirmación principal de tu respuesta. Señala la fuente que la sostiene y el apartado correspondiente. Comprueba población, comparación y desenlace. Explica qué cambiaría si aparecieran síntomas nuevos o si la exploración inicial no estuviera documentada. No asumas datos ausentes.</pre></div>
+    </div>
+    <div>
+      <figure class="shot"><img src="assets/slides/busqueda.jpg" alt="Capturas de Consensus y Perplexity con el prompt del taller" loading="lazy"><figcaption>Consensus y Perplexity con la misma pregunta</figcaption></figure>
+      <p class="subhead">Qué comprobar en pantalla</p>
+      <ul class="checks">
+        <li>Abrir el enlace original y confirmar título, año y autoría.</li>
+        <li>Localizar el pasaje concreto que sostiene la frase de la IA.</li>
+        <li>Ver si la frase conserva las condiciones de la fuente (población, síntomas, momento).</li>
+        <li>Separar publicaciones anteriores y posteriores a junio de 2025.</li>
+      </ul>
+      <div class="lesson"><strong class="lesson__t">Idea clave</strong><p>Una respuesta con muchos enlaces sigue necesitando que alguien abra al menos uno y lo lea.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2 · CONSENSUS ============ -->
+<section class="tool" id="consensus">
+  <div class="tool__head">
+    <div class="tool__num">2</div>
+    <div class="tool__titles">
+      <h2>Consensus</h2>
+      <p>Buscador que responde solo a partir de artículos científicos publicados.</p>
+    </div>
+    <a class="tool__link" href="https://consensus.app" target="_blank" rel="noopener">consensus.app</a>
+  </div>
+  <div class="tool__body">
+    <div>
+      <div class="pills"><span class="pill pill--ok">Gratis con límites</span><span class="pill pill--warn">Pro de pago</span><span class="pill pill--sky">Literatura científica</span></div>
+      <p>A diferencia de un buscador general, Consensus limita sus respuestas a <strong>literatura revisada por pares</strong>. Muestra cada artículo con su diseño (revisión sistemática, ECA, observacional…), año y revista, lo que ayuda a jerarquizar la evidencia antes de leer.</p>
+      <p>Probamos <strong>la misma pregunta</strong> que en Perplexity para comparar qué fuentes aparecen en cada herramienta y cuáles coinciden.</p>
+      <div class="prompt"><div class="prompt__bar"><span class="prompt__label">Prompt del taller</span><button class="prompt__copy" type="button">Copiar</button></div><pre>En adultos con lumbalgia aguda o subaguda sin indicios de patología grave, ¿la imagen inmediata mejora el dolor o la función frente a la atención habitual sin imagen inmediata? Localiza una guía oficial y dos revisiones. Incluye enlaces, fecha, población estudiada y limitaciones.</pre></div>
+    </div>
+    <div>
+      <p class="subhead" style="margin-top:0">Cómo sacarle partido</p>
+      <ul class="checks">
+        <li><strong>Modo Deep / Deep review:</strong> revisa más artículos y devuelve una síntesis estructurada con tabla de estudios.</li>
+        <li><strong>Filtros:</strong> por año, tipo de estudio o tamaño muestral, útiles para acotar a lo publicado antes de junio de 2025.</li>
+        <li><strong>Ficha del artículo:</strong> abre el resumen y el DOI; desde ahí se va a PubMed o a la revista.</li>
+        <li><strong>Guardar en biblioteca:</strong> para reunir las referencias del expediente.</li>
+      </ul>
+      <div class="lesson"><strong class="lesson__t">Límite a tener en cuenta</strong><p>Consensus encuentra artículos, pero una guía oficial (NICE, GuíaSalud) puede no estar en su corpus. Para las guías, Perplexity o la web del organismo siguen siendo necesarias.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 · DEEP RESEARCH ============ -->
+<section class="tool" id="deep-research">
+  <div class="tool__head">
+    <div class="tool__num">3</div>
+    <div class="tool__titles">
+      <h2>Deep Research con ChatGPT</h2>
+      <p>Una investigación planificada que trabaja durante minutos y entrega un informe con fuentes.</p>
+    </div>
+    <a class="tool__link" href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a>
+  </div>
+  <div class="tool__body">
+    <div>
+      <div class="pills"><span class="pill pill--warn">Límites según plan</span><span class="pill pill--navy">ChatGPT · modo investigación</span></div>
+      <p>La diferencia con una búsqueda es el tipo de encargo: <strong>no pedimos una respuesta, pedimos un entregable</strong>. El agente propone un plan, consulta decenas de fuentes y redacta un dossier. Mientras trabaja, podemos seguir con otra cosa.</p>
+      <div class="prompt"><div class="prompt__bar"><span class="prompt__label">Prompt usado en directo</span><button class="prompt__copy" type="button">Copiar</button></div><pre>Prepara un dossier bibliográfico para inspección sanitaria sobre esa pregunta. La asistencia del caso ficticio ocurrió en junio de 2025: separa la evidencia disponible entonces de las publicaciones posteriores. Compara fuentes, identifica discrepancias y explica qué datos del expediente necesitarías para valorar su aplicabilidad. Incluye citas verificables.</pre></div>
+      <div class="lesson"><strong class="lesson__t">Lo que pasó en directo</strong><p>El informe arranca diciendo que «el usuario no ha especificado cuál es exactamente “esa pregunta”». Deep Research no veía la pregunta anterior, pero dedujo el tema leyendo los tres PDF adjuntos. <strong>Lección:</strong> el encargo debe ser autocontenido. Esta es la versión corregida:</p></div>
+      <div class="prompt"><div class="prompt__bar"><span class="prompt__label">Versión autocontenida</span><button class="prompt__copy" type="button">Copiar</button></div><pre>Prepara un dossier bibliográfico para inspección sanitaria sobre esta pregunta: en adultos con lumbalgia aguda o subaguda sin indicios de patología grave, ¿la imagen inmediata mejora el dolor o la función frente a la atención habitual sin imagen inmediata?
+
+Adjunto los tres documentos de un caso ficticio (D1 reclamación, D2 extracto asistencial, D3 registro de cita). La asistencia ocurrió en junio de 2025: separa la evidencia disponible entonces de las publicaciones posteriores.
+
+Compara fuentes, identifica discrepancias y explica qué datos del expediente necesitarías para valorar su aplicabilidad. Prioriza guías oficiales, revisiones sistemáticas y estudios originales. Incluye citas verificables con DOI o PMID. No inventes datos ni referencias, no presentes la búsqueda como revisión sistemática y no emitas conclusiones de responsabilidad.</pre></div>
+    </div>
+    <div>
+      <figure class="shot"><img src="assets/slides/deep-research.jpg" alt="Pantalla de Deep Research en ChatGPT con el prompt del taller" loading="lazy"><figcaption>Lanzamiento del encargo en ChatGPT</figcaption></figure>
+      <p class="subhead">El resultado</p>
+      <p>Un dossier con resumen ejecutivo, metodología de búsqueda, tabla de evidencias y la bifurcación clave del caso: <strong>«menos fuerza» no equivale a un déficit motor objetivado</strong>. Sin exploración documentada no se sabe qué rama de la evidencia aplica.</p>
+      <p><a class="btn btn--primary btn--small" href="assets/caso/dossier-deep-research.pdf" target="_blank" rel="noopener">Leer el dossier generado (PDF)</a></p>
+      <p class="subhead">Al revisar el informe</p>
+      <ul class="checks">
+        <li>Elegir dos frases comprobables y abrir sus fuentes.</li>
+        <li>Revisar fecha de publicación y población de cada cita.</li>
+        <li>Buscar si ha convertido «no consta» en «no ocurrió».</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 · CLAUDE ============ -->
+<section class="tool" id="claude">
+  <div class="tool__head">
+    <div class="tool__num">4</div>
+    <div class="tool__titles">
+      <h2>Claude: un artefacto interactivo</h2>
+      <p>Programación para todos: describir una herramienta en lenguaje natural y usarla al momento.</p>
+    </div>
+    <a class="tool__link" href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>
+  </div>
+  <div class="tool__body">
+    <div>
+      <div class="pills"><span class="pill pill--ok">Gratis con límites</span><span class="pill pill--warn">Pro de pago</span><span class="pill pill--navy">Artefactos</span></div>
+      <p>Claude puede crear <strong>artefactos</strong>: pequeñas aplicaciones que se ejecutan dentro de la propia conversación y se pueden compartir con un enlace. No hace falta saber programar: se describe qué debe hacer, se prueba y se pide lo que falte.</p>
+      <p>Adjuntamos los tres PDF del expediente y pegamos este encargo:</p>
+    </div>
+    <div>
+      <div class="prompt" style="margin-top:0"><div class="prompt__bar"><span class="prompt__label">Prompt del taller</span><button class="prompt__copy" type="button">Copiar</button></div><pre>Crea un artefacto interactivo para explorar el expediente ficticio de los tres PDF adjuntos.
+
+Quiero una aplicación sencilla con:
+– Una cronología de los hechos.
+– Filtros por documento y un buscador.
+– La posibilidad de pulsar cada hecho para ver su fuente y una cita textual.
+– Un apartado con las diferencias entre versiones y los documentos que faltan.
+– Un botón para descargar la cronología en CSV.
+
+Usa únicamente los datos de los PDF. Distingue lo que afirma la persona reclamante de lo que consta en los registros. Conserva las fechas diferentes sin elegir una como correcta y no inventes diagnósticos ni conclusiones de responsabilidad.
+
+Diseño limpio, con fondo blanco, texto oscuro y detalles amarillos. Letra grande para proyectar y etiqueta visible «Caso ficticio».
+
+Debe funcionar dentro del artefacto, sin servicios externos. Toma las decisiones necesarias y créalo directamente.</pre></div>
+    </div>
+  </div>
+
+  <p class="subhead" style="margin-top:28px">Pruébalo aquí: una versión del artefacto construida con los datos de D1–D3</p>
+  <div class="demo" id="demo">
+    <div class="demo__top">
+      <h3>Expediente RP-DEMO-01<small>Cronología documental · pulsa cada hecho para ver su fuente</small></h3>
+      <span class="demo__label">Caso ficticio</span>
+    </div>
+    <div class="demo__tabs" role="tablist">
+      <button class="demo__tab" role="tab" aria-selected="true" aria-controls="p-crono" id="t-crono">Cronología</button>
+      <button class="demo__tab" role="tab" aria-selected="false" aria-controls="p-diff" id="t-diff">Diferencias</button>
+      <button class="demo__tab" role="tab" aria-selected="false" aria-controls="p-falta" id="t-falta">Qué falta</button>
+    </div>
+    <div class="demo__panel" id="p-crono" role="tabpanel" aria-labelledby="t-crono">
+      <div class="demo__controls">
+        <input type="search" id="demo-q" placeholder="Buscar: fuerza, informe, baja…" aria-label="Buscar en la cronología">
+        <div class="chips" id="demo-docs" aria-label="Filtrar por documento">
+          <button class="chip" aria-pressed="true" data-doc="all">Todos</button>
+          <button class="chip" aria-pressed="false" data-doc="D1">D1 Reclamación</button>
+          <button class="chip" aria-pressed="false" data-doc="D2">D2 Asistencial</button>
+          <button class="chip" aria-pressed="false" data-doc="D3">D3 Registro</button>
+        </div>
+      </div>
+      <div class="demo__controls">
+        <div class="chips" id="demo-legend">
+          <span class="badge t-alegacion">Alegación de la persona reclamante</span>
+          <span class="badge t-asistencial">Registro asistencial</span>
+          <span class="badge t-administrativo">Registro administrativo</span>
+          <span class="badge t-documento">Fecha de documento</span>
+        </div>
+        <span class="demo__count" id="demo-count"></span>
+        <button class="btn btn--primary btn--small no-arrow" type="button" id="demo-csv">Descargar CSV</button>
+      </div>
+      <ol class="tl" id="demo-list"></ol>
+    </div>
+    <div class="demo__panel" id="p-diff" role="tabpanel" aria-labelledby="t-diff" hidden>
+      <div class="diff">
+        <h4>¿Cuándo se solicitó la prueba de imagen?</h4>
+        <div class="diff__row"><span class="badge t-alegacion">D1.3</span><span>«Según mi recuerdo, ese mismo día [10 de junio] se solicitó la prueba de imagen.»</span></div>
+        <div class="diff__row"><span class="badge t-asistencial">D2.2</span><span>Nota del 11/06/2025: «reevaluar y derivar para valoración». No menciona fecha de solicitud.</span></div>
+        <div class="diff__row"><span class="badge t-administrativo">D3.1</span><span>Fecha de registro de solicitud: 12/06/2025, 09:10. Fecha de emisión clínica: «No figura en este extracto».</span></div>
+        <p class="diff__note">El registro administrativo y la emisión clínica pueden ser momentos distintos. Aclararlo requiere el formulario original de petición.</p>
+      </div>
+      <div class="diff">
+        <h4>Información sobre cuándo volver a consultar</h4>
+        <div class="diff__row"><span class="badge t-alegacion">D1.2</span><span>«Considero que no recibí una explicación suficiente sobre cuándo debía consultar de nuevo.»</span></div>
+        <div class="diff__row"><span class="badge t-asistencial">D2.1</span><span>Consta la expresión «se explican motivos de reconsulta», pero no se detallan.</span></div>
+        <p class="diff__note">Ambas versiones se conservan. El extracto no permite saber qué se explicó.</p>
+      </div>
+      <div class="diff">
+        <h4>Resultado de la resonancia</h4>
+        <div class="diff__row"><span class="badge t-alegacion">D1.4</span><span>La persona se refiere a «un problema de disco». No adjunta informe ni imágenes.</span></div>
+        <div class="diff__row"><span class="badge t-asistencial">D2.3</span><span>«Pendiente de disponer del informe». Sin diagnóstico confirmado por imagen.</span></div>
+        <div class="diff__row"><span class="badge t-administrativo">D3.3</span><span>Cita «REALIZADA». Resultado: «No incorporado al registro».</span></div>
+        <p class="diff__note">«Problema de disco» es una expresión de la reclamación, no un diagnóstico documentado.</p>
+      </div>
+      <div class="diff">
+        <h4>Sensación de menor fuerza</h4>
+        <div class="diff__row"><span class="badge t-alegacion">D1.3</span><span>«Desde el 10 de junio notaba “menos fuerza” en la pierna.»</span></div>
+        <div class="diff__row"><span class="badge t-asistencial">D2.2</span><span>11/06: «sensación de menor fuerza desde el día anterior». Sin medida objetiva de fuerza.</span></div>
+        <p class="diff__note">Las fechas coinciden, pero en ambos casos es un síntoma referido. No hay exploración que lo objetive.</p>
+      </div>
+    </div>
+    <div class="demo__panel" id="p-falta" role="tabpanel" aria-labelledby="t-falta" hidden>
+      <ul class="missing">
+        <li>Informe radiológico original e imágenes<small>D1.4 · D2.3 · D2.4 · D3.3 · D3.4</small></li>
+        <li>Formulario clínico de petición y fecha de emisión clínica<small>D3.1 · D3.4</small></li>
+        <li>Exploración neurológica completa del 2 de junio<small>D2.1</small></li>
+        <li>Contenido de los motivos de reconsulta explicados<small>D2.1</small></li>
+        <li>Medida objetiva de fuerza e informe de la valoración posterior<small>D2.2</small></li>
+        <li>Registro completo de derivación<small>D2.4</small></li>
+        <li>Partes de baja, confirmación y alta<small>D1.5 · D2.4</small></li>
+        <li>Descripción de las tareas del puesto de trabajo<small>D2.4</small></li>
+      </ul>
+    </div>
+    <div class="demo__foot">Herramienta de apoyo documental con datos inventados. No valora causalidad, responsabilidad ni indemnización.</div>
+  </div>
+</section>
+
+<!-- ============ 5 · CODEX ============ -->
+<section class="tool" id="codex">
+  <div class="tool__head">
+    <div class="tool__num">5</div>
+    <div class="tool__titles">
+      <h2>Los nuevos agentes: Codex</h2>
+      <p>Un agente que lee una carpeta, crea archivos, los revisa y corrige su propio trabajo.</p>
+    </div>
+    <a class="tool__link" href="https://openai.com/codex/" target="_blank" rel="noopener">openai.com/codex</a>
+  </div>
+  <div class="tool__body">
+    <div>
+      <div class="pills"><span class="pill pill--warn">Incluido en planes de pago de ChatGPT</span><span class="pill pill--navy">App de escritorio</span></div>
+      <p>Hasta aquí cada herramienta devolvía una respuesta. Un agente recibe <strong>un objetivo</strong>, usa herramientas (leer PDF, escribir archivos, ejecutar comprobaciones), revisa el resultado y repara lo necesario. Nosotros damos la carpeta con los tres PDF y el encargo.</p>
+      <div class="prompt"><div class="prompt__bar"><span class="prompt__label">Prompt del taller</span><button class="prompt__copy" type="button">Copiar</button></div><pre>Prepara un dossier de trabajo para un inspector sanitario utilizando los tres PDF de esta carpeta. Todo el caso es ficticio.
+
+Lee los documentos y crea una subcarpeta llamada «resultado» con:
+
+1. cronologia.csv: fechas, hechos, tipo de fuente y documento de origen. Debe poder abrirse en Excel.
+
+2. resumen.docx: una página, con tono profesional, que explique qué está documentado, qué afirma la persona reclamante y qué dudas quedan abiertas.
+
+3. pendientes.txt: documentos que faltan y qué permitiría aclarar cada uno.
+
+Después, vuelve a abrir los archivos creados y compruébalos contra los PDF originales. Corrige cualquier afirmación sin respaldo, fecha mal atribuida o diferencia entre versiones que hayas omitido.
+
+Guarda en revision.txt las comprobaciones realmente realizadas, las correcciones y las dudas que siguen pendientes.
+
+Conserva las distintas fechas sin escoger una como correcta. No inventes datos ni conclusiones de responsabilidad. No modifiques los originales.
+
+Completa el trabajo y muéstrame los archivos al terminar.</pre></div>
+    </div>
+    <div>
+      <p class="subhead" style="margin-top:0">Lo que entrega el agente</p>
+      <div class="files">
+        <div class="file"><code>cronologia.csv</code><p>Tabla de hechos con fecha, tipo de fuente y documento. Se abre en Excel.</p></div>
+        <div class="file"><code>resumen.docx</code><p>Una página: lo documentado, lo alegado y las dudas abiertas.</p></div>
+        <div class="file"><code>pendientes.txt</code><p>Documentos que faltan y qué aclararía cada uno.</p></div>
+        <div class="file"><code>revision.txt</code><p>Autocomprobación contra los originales y correcciones hechas.</p></div>
+      </div>
+      <p class="subhead">Por qué importa el último archivo</p>
+      <ul class="checks">
+        <li>El agente no se limita a producir: <strong>vuelve a abrir su trabajo</strong> y lo contrasta.</li>
+        <li><code>revision.txt</code> deja rastro de qué se comprobó de verdad y qué no.</li>
+        <li>Los originales quedan intactos; todo lo nuevo va en <code>resultado/</code>.</li>
+      </ul>
+      <div class="lesson"><strong class="lesson__t">Prudencia</strong><p>Un agente con acceso a archivos debe trabajar en una carpeta acotada, con datos ficticios o autorizados, y sin permiso para enviar ni publicar nada. La salida es un borrador para revisión profesional.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6 · HEYGEN ============ -->
+<section class="tool" id="heygen">
+  <div class="tool__head">
+    <div class="tool__num">6</div>
+    <div class="tool__titles">
+      <h2>Avatar sintético con HeyGen</h2>
+      <p>Convertir un guion revisado en una cápsula de vídeo con un avatar.</p>
+    </div>
+    <a class="tool__link" href="https://www.heygen.com" target="_blank" rel="noopener">heygen.com</a>
+  </div>
+  <div class="tool__body">
+    <div>
+      <div class="video">
+        <video controls preload="metadata" poster="assets/heygen-poster.jpg" playsinline>
+          <source src="assets/heygen-caso-ficticio.mp4" type="video/mp4">
+        </video>
+      </div>
+      <p style="font-size:13px;color:var(--ink-mute);margin-top:8px">«Caso ficticio: qué podemos afirmar» · 53 s · avatar de Javier Fuentes generado con IA, con la Plaza Mayor de Salamanca de fondo.</p>
+    </div>
+    <div>
+      <div class="pills"><span class="pill pill--ok">Gratis con límites</span><span class="pill pill--warn">Planes de pago</span><span class="pill pill--navy">Web</span></div>
+      <p>HeyGen genera vídeos con un <strong>avatar</strong> (de catálogo o creado a partir de una grabación propia) que lee un guion con voz y sincronización labial. También traduce vídeos a más de 175 idiomas y convierte presentaciones en vídeo.</p>
+      <p class="subhead">Usos en inspección y formación</p>
+      <ul class="checks">
+        <li>Cápsulas formativas breves sobre un procedimiento.</li>
+        <li>Explicaciones estándar para ciudadanía, en varios idiomas.</li>
+        <li>Resúmenes de una jornada o de un criterio de trabajo.</li>
+      </ul>
+      <ul class="checks warns">
+        <li>Etiquetar siempre como «Avatar generado con IA».</li>
+        <li>Usar solo la imagen y la voz propias o con consentimiento expreso.</li>
+        <li>El guion se revisa antes; el vídeo no debe improvisar contenido clínico.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- ============ REGLAS ============ -->
+<section class="section" id="reglas">
+  <div class="container">
+    <div class="section__head">
+      <p class="section__kicker">Para llevarse</p>
+      <h2 class="section__title">Reglas de oro</h2>
+      <p class="section__desc">La IA ayuda a ordenar el trabajo. La revisión de las fuentes y la valoración profesional siguen formando parte del proceso.</p>
+    </div>
+    <div class="rules">
+      <div class="rule"><h4>Pregunta concreta</h4><p>Población, comparación, resultado y fecha. Una pregunta vaga produce una respuesta vaga con muchos enlaces.</p></div>
+      <div class="rule"><h4>Abrir la fuente original</h4><p>Comprobar título, año y el pasaje exacto. La cita que resume la IA puede perder las condiciones de la fuente.</p></div>
+      <div class="rule"><h4>«No consta» no es «no ocurrió»</h4><p>La ausencia de registro no demuestra la ausencia de un síntoma ni de una explicación.</p></div>
+      <div class="rule"><h4>Separar quién dice qué</h4><p>Alegación, registro asistencial y registro administrativo son fuentes distintas. Cada hecho, con su origen.</p></div>
+      <div class="rule"><h4>Conservar las discrepancias</h4><p>Si hay dos fechas, se muestran las dos. Elegir una sin el documento que lo aclare es una conclusión, no un dato.</p></div>
+      <div class="rule"><h4>Datos ficticios o autorizados</h4><p>No subir historias clínicas reales a herramientas públicas. Para practicar, casos inventados como RP-DEMO-01.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUTOEVALUACIÓN ============ -->
+<section class="section" id="autoevaluacion">
+  <div class="container">
+    <div class="section__head">
+      <p class="section__kicker">Comprueba lo aprendido</p>
+      <h2 class="section__title">Cuatro preguntas rápidas</h2>
+    </div>
+    <div class="q" data-answer="1" data-ok="Correcto. La ausencia de registro solo indica que no está documentado; hay que pedir la documentación que lo aclare." data-ko="No exactamente. Que no conste en el extracto no demuestra que no ocurriera ni que ocurriera: queda como laguna documental.">
+      <h4>1. El extracto D2.1 no recoge una exploración neurológica completa. ¿Qué podemos afirmar?</h4>
+      <div class="q__opts">
+        <button type="button">Que el 2 de junio no había signos de alarma.</button>
+        <button type="button">Que no consta en la documentación disponible y es una laguna a aclarar.</button>
+        <button type="button">Que no se hizo exploración neurológica.</button>
+      </div>
+      <p class="q__fb"></p>
+    </div>
+    <div class="q" data-answer="2" data-ok="Correcto. Se conservan ambas: la emisión clínica y el asiento administrativo pueden ser momentos distintos." data-ko="Revisa D1.3 y D3.1: la reclamación alega el 10 y el registro administrativo fecha el asiento el 12. Sin el formulario original no se puede elegir.">
+      <h4>2. La reclamación sitúa la solicitud el 10 de junio y el registro el 12. ¿Qué fecha usamos?</h4>
+      <div class="q__opts">
+        <button type="button">La del registro, porque es un documento oficial.</button>
+        <button type="button">La de la reclamación, porque es la primera.</button>
+        <button type="button">Ambas, atribuidas a su fuente, hasta disponer del formulario de petición.</button>
+      </div>
+      <p class="q__fb"></p>
+    </div>
+    <div class="q" data-answer="0" data-ok="Correcto. Deep Research trabaja en una sesión nueva: el encargo tiene que incluir la pregunta completa." data-ko="La clave está en el propio informe: no sabía cuál era «esa pregunta». El encargo debe ser autocontenido.">
+      <h4>3. ¿Qué enseña el arranque del dossier de Deep Research generado en directo?</h4>
+      <div class="q__opts">
+        <button type="button">Que el encargo debe incluir la pregunta completa, sin referencias a conversaciones previas.</button>
+        <button type="button">Que Deep Research no sabe leer PDF.</button>
+        <button type="button">Que hay que usar siempre el modo rápido.</button>
+      </div>
+      <p class="q__fb"></p>
+    </div>
+    <div class="q" data-answer="1" data-ok="Correcto. El archivo de revisión deja rastro de qué se comprobó contra los originales y qué se corrigió." data-ko="El valor del agente está en que revisa su propio trabajo y documenta qué comprobó: eso es revision.txt.">
+      <h4>4. En el encargo al agente Codex, ¿para qué sirve <code>revision.txt</code>?</h4>
+      <div class="q__opts">
+        <button type="button">Para guardar una copia de seguridad de los PDF.</button>
+        <button type="button">Para registrar las comprobaciones realizadas contra los originales, las correcciones y las dudas pendientes.</button>
+        <button type="button">Para enviar el resultado por correo.</button>
+      </div>
+      <p class="q__fb"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REFERENCIAS ============ -->
+<section class="section" id="referencias">
+  <div class="container">
+    <div class="section__head">
+      <p class="section__kicker">Fuentes de consulta</p>
+      <h2 class="section__title">Referencias del ejercicio</h2>
+      <p class="section__desc">Materiales para practicar. Su aplicabilidad a un caso concreto debe revisarse y no equivale a una valoración clínica ni jurídica.</p>
+    </div>
+    <div class="grid grid--2">
+      <div class="card">
+        <p class="subhead" style="margin-top:0">Evidencia clínica</p>
+        <ul class="refs">
+          <li><a href="https://www.nice.org.uk/guidance/ng59/chapter/recommendations" target="_blank" rel="noopener">NICE NG59 · Low back pain and sciatica in over 16s</a><br><small>Guía oficial. Recomendaciones sobre imagen en atención no especializada.</small></li>
+          <li><a href="https://pubmed.ncbi.nlm.nih.gov/19200918/" target="_blank" rel="noopener">Chou R et al. Imaging strategies for low-back pain. Lancet 2009</a><br><small>Revisión sistemática y metaanálisis. PMID 19200918 · DOI 10.1016/S0140-6736(09)60172-0</small></li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="subhead" style="margin-top:0">Marco normativo</p>
+        <ul class="refs">
+          <li><a href="https://www.boe.es/buscar/act.php?id=BOE-A-2015-10566" target="_blank" rel="noopener">Ley 40/2015, de Régimen Jurídico del Sector Público</a><br><small>Responsabilidad patrimonial de las Administraciones Públicas (arts. 32 y ss.).</small></li>
+          <li><a href="https://www.boe.es/buscar/act.php?id=BOE-A-2002-22188" target="_blank" rel="noopener">Ley 41/2002, de autonomía del paciente</a><br><small>Derecho a la información y contenido de la historia clínica.</small></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <img src="assets/daiichi-logo.png" alt="Daiichi-Sankyo">
+    <p>Jornada de Inspección Sanitaria de Extremadura y Castilla y León · Salamanca, 24 y 25 de septiembre de 2026. Taller impartido por Javier Fuentes Ibáñez (NCompany). El caso RP-DEMO-01 y todos sus datos son ficticios.</p>
+  </div>
+</footer>
+
+<script>
+/* ---------- Copiar prompts ---------- */
+document.querySelectorAll('.prompt').forEach(function (box) {
+  var btn = box.querySelector('.prompt__copy');
+  btn.addEventListener('click', function () {
+    var text = box.querySelector('pre').innerText;
+    var done = function () { btn.textContent = 'Copiado'; btn.classList.add('is-done'); setTimeout(function () { btn.textContent = 'Copiar'; btn.classList.remove('is-done'); }, 1600); };
+    if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text).then(done); }
+    else { var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) {} ta.remove(); }
+  });
+});
+
+/* ---------- Demo del artefacto ---------- */
+var TIPOS = { alegacion: 'Alegación', asistencial: 'Registro asistencial', administrativo: 'Registro administrativo', documento: 'Fecha de documento' };
+var HECHOS = [
+  { f: '2025-06-02', doc: 'D2', ref: 'D2.1', tipo: 'asistencial', fdoc: '22/08/2025', hecho: 'Nota asistencial: consulta por dolor lumbar de varios días de evolución; recomendación de seguimiento.', cita: 'Anotación: recomendación de seguimiento. Consta la expresión «se explican motivos de reconsulta».' },
+  { f: '2025-06-02', doc: 'D2', ref: 'D2.1', tipo: 'asistencial', fdoc: '22/08/2025', hecho: 'El extracto no detalla los motivos de reconsulta ni recoge una exploración neurológica completa. No consta solicitud de imagen.', cita: 'No se detallan los motivos de reconsulta ni consta una exploración neurológica completa. No consta solicitud de imagen en esta nota.' },
+  { f: '2025-06-02', doc: 'D1', ref: 'D1.2', tipo: 'alegacion', fdoc: '20/08/2025', hecho: 'Acude a consulta por dolor lumbar; afirma que el dolor se extendía a una pierna y que no recibió explicación suficiente sobre cuándo reconsultar.', cita: 'El 2 de junio de 2025 acudí a consulta por dolor lumbar de varios días de evolución. Expliqué que el dolor se extendía a una pierna. Considero que no recibí una explicación suficiente sobre cuándo debía consultar de nuevo.' },
+  { f: '2025-06-03', doc: 'D1', ref: 'D1.5', tipo: 'alegacion', fdoc: '20/08/2025', hecho: 'Inicio de la baja laboral, según la persona reclamante. No aporta partes.', cita: 'Manifiesto que estuve de baja laboral desde el 3 de junio hasta el 15 de julio de 2025. No aporto en este conjunto de documentos los partes de baja, confirmación o alta.' },
+  { f: '2025-06-10', doc: 'D1', ref: 'D1.3', tipo: 'alegacion', fdoc: '20/08/2025', hecho: 'Refiere «menos fuerza» en la pierna desde este día.', cita: 'Desde el 10 de junio notaba «menos fuerza» en la pierna.' },
+  { f: '2025-06-10', doc: 'D1', ref: 'D1.3', tipo: 'alegacion', fdoc: '20/08/2025', hecho: 'Según su recuerdo, ese mismo día se solicitó la prueba de imagen.', cita: 'Según mi recuerdo, ese mismo día se solicitó la prueba de imagen.' },
+  { f: '2025-06-11', doc: 'D2', ref: 'D2.2', tipo: 'asistencial', fdoc: '22/08/2025', hecho: 'Nota de evolución: persistencia del dolor y sensación de menor fuerza desde el día anterior. «Reevaluar y derivar para valoración». Sin medida objetiva de fuerza.', cita: 'Evolución referida: persistencia del dolor y sensación de menor fuerza desde el día anterior. Anotación: «reevaluar y derivar para valoración». No incluye una medida objetiva de fuerza ni el informe de la valoración posterior.' },
+  { f: '2025-06-12', doc: 'D3', ref: 'D3.1', tipo: 'administrativo', fdoc: '22/08/2025', hecho: 'Registro administrativo de la solicitud de prueba de imagen, a las 09:10. No figura la fecha de emisión clínica.', cita: 'Fecha de registro de solicitud: 12/06/2025 · Hora de registro: 09:10 · Fecha de emisión clínica: No figura en este extracto · Formulario clínico de petición: No adjunto.' },
+  { f: '2025-06-16', doc: 'D3', ref: 'D3.2', tipo: 'administrativo', fdoc: '22/08/2025', hecho: 'Asignación de cita para la prueba de imagen.', cita: 'Fecha de asignación de cita: 16/06/2025.' },
+  { f: '2025-06-24', doc: 'D3', ref: 'D3.2–D3.3', tipo: 'administrativo', fdoc: '22/08/2025', hecho: 'Fecha prevista de realización; cita en estado «realizada». Resultado no incorporado al registro.', cita: 'Fecha prevista de realización: 24/06/2025 · Estado de la cita: REALIZADA · Resultado de la prueba: No incorporado al registro.' },
+  { f: '2025-06-24', doc: 'D1', ref: 'D1.4', tipo: 'alegacion', fdoc: '20/08/2025', hecho: 'Se realiza la resonancia. La persona lo describe como «un problema de disco». No adjunta informe ni imágenes.', cita: 'La resonancia se me realizó el 24 de junio. Me refiero a lo ocurrido como «un problema de disco». No adjunto el informe radiológico original ni las imágenes.' },
+  { f: '2025-06-26', doc: 'D2', ref: 'D2.3', tipo: 'asistencial', fdoc: '22/08/2025', hecho: 'Anotación de seguimiento: refiere haberse hecho la prueba el 24; pendiente de disponer del informe.', cita: '«Refiere haberse realizado la prueba el 24 de junio; pendiente de disponer del informe». No figura transcripción del resultado ni diagnóstico confirmado por imagen.' },
+  { f: '2025-07-15', doc: 'D1', ref: 'D1.5', tipo: 'alegacion', fdoc: '20/08/2025', hecho: 'Fin de la baja laboral, según la persona reclamante. No aporta partes.', cita: 'Manifiesto que estuve de baja laboral desde el 3 de junio hasta el 15 de julio de 2025.' },
+  { f: '2025-08-20', doc: 'D1', ref: 'D1', tipo: 'documento', fdoc: '20/08/2025', hecho: 'Fecha del escrito de reclamación.', cita: 'Fecha del escrito: 20 de agosto de 2025.' },
+  { f: '2025-08-22', doc: 'D2', ref: 'D2', tipo: 'documento', fdoc: '22/08/2025', hecho: 'Preparación del extracto asistencial (selección de anotaciones de junio de 2025).', cita: 'Fecha de preparación del extracto: 22 de agosto de 2025. Contenido: selección de anotaciones de junio de 2025.' },
+  { f: '2025-08-22', doc: 'D3', ref: 'D3', tipo: 'documento', fdoc: '22/08/2025', hecho: 'Extracción del registro administrativo de solicitudes y citas.', cita: 'Fecha de extracción: 22 de agosto de 2025.' }
+];
+var state = { doc: 'all', q: '' };
+var list = document.getElementById('demo-list');
+function fmt(iso) { var p = iso.split('-'); return p[2] + '/' + p[1]; }
+function norm(s) { return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+function visible() {
+  var q = norm(state.q.trim());
+  return HECHOS.filter(function (h) {
+    if (state.doc !== 'all' && h.doc !== state.doc) return false;
+    if (!q) return true;
+    return norm(h.hecho + ' ' + h.cita + ' ' + h.ref + ' ' + TIPOS[h.tipo]).indexOf(q) !== -1;
+  });
+}
+function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function render() {
+  var rows = visible();
+  document.getElementById('demo-count').textContent = rows.length + ' de ' + HECHOS.length + ' hechos';
+  if (!rows.length) { list.innerHTML = '<li class="tl__empty">No hay hechos que coincidan con el filtro.</li>'; return; }
+  list.innerHTML = rows.map(function (h) {
+    return '<li><button type="button" aria-expanded="false">' +
+      '<span class="tl__date">' + fmt(h.f) + '</span>' +
+      '<span class="tl__dot t-' + h.tipo + '"></span>' +
+      '<span class="tl__card"><span class="tl__text">' + esc(h.hecho) + '</span>' +
+      '<span class="tl__meta"><span class="badge badge--ref">' + h.ref + '</span><span class="badge t-' + h.tipo + '">' + TIPOS[h.tipo] + '</span></span>' +
+      '<span class="tl__quote"><b>Cita textual · ' + h.doc + ' (documento de ' + h.fdoc + ')</b>«' + esc(h.cita) + '»</span></span>' +
+      '</button></li>';
+  }).join('');
+}
+list.addEventListener('click', function (e) {
+  var b = e.target.closest('button'); if (!b) return;
+  b.setAttribute('aria-expanded', b.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+});
+document.getElementById('demo-q').addEventListener('input', function (e) { state.q = e.target.value; render(); });
+document.getElementById('demo-docs').addEventListener('click', function (e) {
+  var b = e.target.closest('.chip'); if (!b) return;
+  state.doc = b.dataset.doc;
+  this.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', c === b ? 'true' : 'false'); });
+  render();
+});
+document.getElementById('demo-csv').addEventListener('click', function () {
+  var cell = function (v) { return '"' + String(v).replace(/"/g, '""') + '"'; };
+  var lines = [['Fecha del hecho', 'Hecho', 'Tipo de fuente', 'Documento', 'Referencia', 'Fecha del documento', 'Cita textual'].map(cell).join(';')];
+  visible().forEach(function (h) { var p = h.f.split('-'); lines.push([p[2] + '/' + p[1] + '/' + p[0], h.hecho, TIPOS[h.tipo], h.doc, h.ref, h.fdoc, h.cita].map(cell).join(';')); });
+  var blob = new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+  var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'cronologia_RP-DEMO-01.csv';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+});
+document.querySelectorAll('.demo__tab').forEach(function (tab) {
+  tab.addEventListener('click', function () {
+    document.querySelectorAll('.demo__tab').forEach(function (t) {
+      var on = t === tab; t.setAttribute('aria-selected', on ? 'true' : 'false');
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  });
+});
+render();
+
+/* ---------- Autoevaluación ---------- */
+document.querySelectorAll('.q').forEach(function (q) {
+  var btns = q.querySelectorAll('.q__opts button'), ans = +q.dataset.answer;
+  btns.forEach(function (b, i) {
+    b.addEventListener('click', function () {
+      btns.forEach(function (x, j) { x.disabled = true; if (j === ans) x.classList.add('is-ok'); });
+      if (i !== ans) b.classList.add('is-ko');
+      q.querySelector('.q__fb').textContent = i === ans ? q.dataset.ok : q.dataset.ko;
+      q.classList.add('is-answered');
+    });
+  });
+});
+</script>
+</body>
+</html>
