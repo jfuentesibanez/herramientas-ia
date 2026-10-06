@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gemini para ventas · LLYC</title>
+<meta name="description" content="Material de la sesión «IA aplicada a las ventas: aplicando Gemini al proceso de ventas» para LLYC (6 de octubre de 2026). Caso Lumina Visión y todos los prompts.">
+<style>
+:root {
+  color-scheme: light;
+  --llyc: #F5455C;
+  --llyc-dark: #D62F46;
+  --llyc-soft: #FFF0F2;
+  --navy: #1E3A5F;
+  --teal: #2A8C9A;
+  --teal-soft: #E8F5F7;
+  --sand: #F3EFE8;
+  --ink: #1C1C1E;
+  --ink-soft: #4A4F57;
+  --ink-mute: #6E737B;
+  --border: #E4E2DE;
+  --bg: #FFFFFF;
+  --bg-soft: #FAF8F5;
+  --code-bg: #1F2329;
+  --code-ink: #F2F2F2;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--llyc-dark); }
+.container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+/* HERO */
+.hero { background: var(--sand); border-bottom: 1px solid var(--border); }
+.hero .container { padding-top: 48px; padding-bottom: 48px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; }
+.hero__logo { height: 40px; width: auto; margin-bottom: 28px; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--llyc-dark); margin: 0 0 10px; }
+.hero h1 { font-size: clamp(32px, 5vw, 48px); line-height: 1.08; margin: 0 0 16px; letter-spacing: -.02em; }
+.hero h1 span { color: var(--llyc); }
+.hero__lead { font-size: 18px; color: var(--ink-soft); margin: 0 0 22px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 13px; background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; color: var(--ink-soft); }
+.hero__img { border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+
+/* NAV */
+.toc { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+.toc .container { display: flex; gap: 4px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+.toc a { white-space: nowrap; text-decoration: none; color: var(--ink-soft); font-size: 14px; font-weight: 600; padding: 6px 12px; border-radius: 8px; }
+.toc a:hover { background: var(--llyc-soft); color: var(--llyc-dark); }
+.toc a b { color: var(--llyc); margin-right: 4px; }
+
+/* SECTIONS */
+section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+section.alt { background: var(--bg-soft); }
+.sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+.sec-num { font-size: 56px; font-weight: 800; line-height: 1; color: var(--llyc); }
+h2 { font-size: clamp(26px, 3.6vw, 34px); margin: 0; letter-spacing: -.01em; }
+.sec-intro { color: var(--ink-soft); font-size: 17px; max-width: 760px; margin: 8px 0 32px; }
+h3 { font-size: 21px; margin: 0 0 8px; }
+h4 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-mute); margin: 24px 0 10px; }
+p { margin: 0 0 14px; }
+
+.grid { display: grid; gap: 20px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+.card h3 { font-size: 18px; }
+.card p:last-child { margin-bottom: 0; }
+.card small { color: var(--ink-mute); }
+figure { margin: 0; }
+figure img { border-radius: 10px; border: 1px solid var(--border); background: #fff; }
+figcaption { font-size: 13px; color: var(--ink-mute); margin-top: 8px; }
+.news-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.news-card img { border: 0; border-radius: 0; border-bottom: 1px solid var(--border); aspect-ratio: 16/10; object-fit: cover; object-position: top; width: 100%; }
+.news-card .body { padding: 18px 20px 20px; }
+.news-card .date { font-size: 12px; font-weight: 700; color: var(--llyc-dark); text-transform: uppercase; letter-spacing: .08em; }
+
+.callout { border-left: 4px solid var(--llyc); background: var(--llyc-soft); padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 24px 0; }
+.callout p:last-child { margin: 0; }
+.callout.teal { border-color: var(--teal); background: var(--teal-soft); }
+
+/* Gemini basics list */
+.tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+.tool { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+.tool strong { display: block; font-size: 15px; margin-bottom: 4px; }
+.tool span { font-size: 14px; color: var(--ink-soft); }
+.tool em { font-style: normal; font-size: 12px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: .06em; }
+
+/* Case */
+.case-intro { display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; align-items: start; }
+.lumina-logo { background: #F1F1F1; border-radius: 14px; padding: 28px; margin-bottom: 18px; }
+.lumina-logo img { border: 0; }
+.facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.fact { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+.fact b { display: block; font-size: 22px; color: var(--navy); }
+.fact span { font-size: 13px; color: var(--ink-soft); }
+.people { margin: 0; padding: 0; list-style: none; }
+.people li { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+.people li:last-child { border: 0; }
+.people b { color: var(--navy); }
+
+.phase { border: 1px solid var(--border); border-radius: 16px; background: #fff; margin: 28px 0; overflow: hidden; }
+.phase__head { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; padding: 22px 26px; color: #fff; }
+.phase__n { font-size: 13px; font-weight: 800; letter-spacing: .12em; background: rgba(255,255,255,.18); border-radius: 8px; padding: 8px 10px; text-align: center; line-height: 1.2; }
+.phase__n b { display: block; font-size: 26px; letter-spacing: 0; }
+.phase__head h3 { margin: 0; font-size: 22px; color: #fff; }
+.phase__head p { margin: 2px 0 0; opacity: .85; font-size: 15px; }
+.phase__body { padding: 24px 26px 28px; }
+.ph1 .phase__head { background: #1F3A5C; }
+.ph2 .phase__head { background: #24506C; }
+.ph3 .phase__head { background: #27657B; }
+.ph4 .phase__head { background: #297A8A; }
+.ph5 .phase__head { background: #2B8E99; }
+.phase__meta { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 8px; }
+.phase__meta div { background: var(--bg-soft); border-radius: 10px; padding: 12px 16px; font-size: 14px; }
+.phase__meta div b { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-mute); margin-bottom: 4px; }
+.q { font-style: italic; color: var(--llyc-dark); font-weight: 600; font-size: 15px; }
+
+/* Prompt blocks */
+.prompt { margin: 18px 0; border-radius: 12px; overflow: hidden; border: 1px solid #2c3138; }
+.prompt__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #2A2F36; color: #E6E6E6; padding: 9px 12px 9px 16px; font-size: 13px; font-weight: 600; }
+.prompt__bar .tag { color: #FF8A99; margin-right: 8px; text-transform: uppercase; letter-spacing: .08em; font-size: 11px; }
+.copy { appearance: none; border: 1px solid #4A515A; background: transparent; color: #fff; font: inherit; font-size: 12px; padding: 5px 12px; border-radius: 7px; cursor: pointer; flex-shrink: 0; }
+.copy:hover { background: var(--llyc); border-color: var(--llyc); }
+.copy.ok { background: #2F9E62; border-color: #2F9E62; }
+.prompt pre { margin: 0; padding: 18px 20px; background: var(--code-bg); color: var(--code-ink); font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13.5px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; overflow-x: auto; }
+.note { font-size: 14px; color: var(--ink-soft); }
+.steps { margin: 6px 0 0; padding-left: 20px; font-size: 15px; }
+.steps li { margin-bottom: 6px; }
+.badge { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: 3px 8px; border-radius: 6px; background: var(--teal-soft); color: var(--teal); vertical-align: middle; }
+.badge.warn { background: #FFF4E0; color: #A3620A; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-mute); background: var(--bg-soft); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: #fff; }
+
+/* Downloads */
+.dl { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.dl a { display: flex; gap: 14px; align-items: center; text-decoration: none; color: var(--ink); background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; transition: border-color .15s, transform .15s; }
+.dl a:hover { border-color: var(--llyc); transform: translateY(-1px); }
+.dl .ico { width: 40px; height: 40px; border-radius: 10px; background: var(--llyc-soft); color: var(--llyc-dark); display: grid; place-items: center; font-weight: 800; font-size: 12px; flex-shrink: 0; }
+.dl small { display: block; color: var(--ink-mute); font-size: 13px; }
+
+ content: counter(t); position: absolute; left: 16px; top: 13px; width: 28px; height: 28px; border-radius: 50%; background: var(--llyc); color: #fff; font-weight: 800; display: grid; place-items: center; font-size: 14px; }
+
+footer { padding: 36px 0 48px; color: var(--ink-mute); font-size: 14px; }
+footer .container { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+footer img { height: 22px; width: auto; }
+
+/* Newsletter */
+.newsletter {
+  position: relative;
+  border-radius: 14px;
+  padding: 36px 40px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  justify-content: space-between;
+  align-items: center;
+  color: #FDF6E3;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(255, 140, 60, 0.45), transparent 55%),
+    radial-gradient(circle at 15% 85%, rgba(220, 60, 80, 0.35), transparent 50%),
+    linear-gradient(135deg, #1a0e08 0%, #2d1410 45%, #4a1d1a 100%);
+  box-shadow: 0 10px 30px rgba(74, 29, 26, 0.25), inset 0 0 60px rgba(0,0,0,0.35);
+  isolation: isolate;
+}
+.newsletter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(255, 180, 100, 0.18), transparent 40%);
+  z-index: -1;
+}
+.newsletter__text { flex: 1; min-width: 260px; }
+.newsletter__eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #F2B872;
+  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.newsletter__eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, #F2B872, transparent);
+}
+.newsletter__title {
+  margin: 0 0 12px;
+  display: block;
+  max-width: 380px;
+  width: 100%;
+  height: auto;
+  filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.45));
+}
+.newsletter__desc {
+  margin: 0 0 18px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: rgba(253, 246, 227, 0.82);
+  max-width: 480px;
+}
+.newsletter__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.newsletter__btn {
+  background: linear-gradient(135deg, #FFB347 0%, #FF7E47 100%);
+  color: #1a0e08;
+  text-decoration: none;
+  padding: 12px 22px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(255, 126, 71, 0.4);
+  transition: transform .15s ease, box-shadow .15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.newsletter__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 126, 71, 0.55);
+}
+.newsletter__url {
+  font-family: "SF Mono", "Menlo", "Monaco", monospace;
+  font-size: 12px;
+  color: rgba(253, 246, 227, 0.65);
+  letter-spacing: 0.02em;
+}
+.newsletter__qr {
+  flex-shrink: 0;
+  background: #FFF4E0;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  text-align: center;
+}
+.newsletter__qr img {
+  display: block;
+  width: 130px;
+  height: 130px;
+  border-radius: 4px;
+}
+.newsletter__qr span {
+  display: block;
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4a1d1a;
+}
+@media (max-width: 640px) {
+  .newsletter { padding: 28px 24px; }
+  .newsletter__title { max-width: 280px; }
+}
+
+@media (max-width: 860px) {
+  .hero .container, .case-intro { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 620px) {
+  .container { padding: 0 16px; }
+  .grid-2, .grid-3, .phase__meta { grid-template-columns: 1fr; }
+  section { padding: 44px 0; }
+  .sec-num { font-size: 40px; }
+  .phase__head, .phase__body { padding-left: 18px; padding-right: 18px; }
+}
+@media print {
+  .toc, .copy { display: none; }
+  .prompt pre { max-height: none; background: #f4f4f4; color: #111; }
+  section { break-inside: avoid-page; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="container">
+    <div>
+      <img class="hero__logo" src="assets/llyc-logo.png" alt="LLYC">
+      <p class="eyebrow">Workshop · IA aplicada a las ventas</p>
+      <h1>Aplicando <span>Gemini</span> al proceso de ventas</h1>
+      <p class="hero__lead">Lo que vimos en la sesión: novedades de la IA, lo básico de Gemini y un caso comercial completo —Lumina Visión— recorrido de la prospección al cierre, con todos los prompts listos para copiar.</p>
+      <div class="meta">
+        <span class="chip">Martes, 6 de octubre de 2026</span>
+        <span class="chip">Sesión online · MGA LLYC</span>
+        <span class="chip">Javier Fuentes</span>
+      </div>
+    </div>
+    <img class="hero__img" src="assets/portada.jpg" alt="Portada de la sesión: IA aplicada a las ventas. Aplicando Gemini al proceso de ventas.">
+  </div>
+</header>
+
+<nav class="toc" aria-label="Índice">
+  <div class="container">
+    <a href="#carrera"><b>1</b>La carrera continúa</a>
+    <a href="#basics"><b>2</b>Gemini Basics</a>
+    <a href="#caso"><b>3</b>Caso Lumina Visión</a>
+    <a href="#prompts"><b>›</b>Prompts</a>
+    <a href="#materiales"><b>›</b>Materiales</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- 1 · LA CARRERA CONTINÚA -->
+<section id="carrera">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">1</span><h2>La carrera continúa</h2></div>
+    <p class="sec-intro">Empezamos con las últimas noticias sobre Gemini y sus competidores. El mensaje: cada pocas semanas alguien presenta «el modelo más potente del mundo», y lo que importa es qué tareas de verdad puede hacer ya por nosotros.</p>
+
+    <div class="grid grid-3">
+      <article class="card news-card">
+        <img src="assets/argon.jpg" alt="Anuncio de Gemini 4 Argón en el blog de Google" loading="lazy">
+        <div class="body">
+          <div class="date">30 sep 2026</div>
+          <h3>Gemini 4 Argón</h3>
+          <p>Google presenta su nuevo modelo de vanguardia, orientado a flujos de trabajo complejos: ingeniería de software, trabajo del conocimiento (legal, financiero) y ciberseguridad.</p>
+        </div>
+      </article>
+      <article class="card news-card">
+        <img src="assets/skills.jpg" alt="Teach Gemini your team's know-hows with skills in Google Workspace" loading="lazy">
+        <div class="body">
+          <div class="date">17 sep 2026</div>
+          <h3>Skills en Google Workspace</h3>
+          <p>Gemini puede aprender el «saber hacer» de cada equipo: procesos y formas de trabajar que se reutilizan dentro de Workspace.</p>
+        </div>
+      </article>
+      <article class="card news-card">
+        <img src="assets/live.jpg" alt="Skip the typing and get things done just by talking" loading="lazy">
+        <div class="body">
+          <div class="date">Voz</div>
+          <h3>Gemini 3.8 Live</h3>
+          <p>Dos modelos de audio para conversar con naturalidad (Live y Live Extended Thinking), disponibles en Gemini Live, Search Live y Workspace: Gmail, Docs y Keep por voz.</p>
+        </div>
+      </article>
+    </div>
+
+    <h4>Los benchmarks</h4>
+    <div class="grid grid-2">
+      <figure>
+        <img src="assets/benchmarks.jpg" alt="Tabla comparativa de benchmarks: Gemini 4 Argón, GPT-6 Astra, Claude Fable 5.1 y Claude Opus 5.5" loading="lazy">
+        <figcaption>Gemini 4 Argón frente a GPT-6 Astra, Claude Fable 5.1 y Claude Opus 5.5.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/meme.jpg" alt="Meme: OpenAI, Grok, Gemini y Anthropic presentando cada uno el modelo más potente del mundo" loading="lazy" style="max-width:360px">
+        <figcaption>«Introducing the world's most powerful model»: el ciclo sin fin.</figcaption>
+      </figure>
+    </div>
+
+  </div>
+</section>
+
+<!-- 2 · GEMINI BASICS -->
+<section id="basics" class="alt">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">2</span><h2>Gemini Basics</h2></div>
+    <p class="sec-intro">Un recorrido por la interfaz de <a href="https://gemini.google.com" target="_blank" rel="noopener">gemini.google.com</a> con cuenta de trabajo, y las funciones que usamos después en el caso.</p>
+
+    <div class="grid grid-2" style="margin-bottom:28px">
+      <div class="card">
+        <h3>La pantalla principal</h3>
+        <ul class="steps">
+          <li><b>Caja «Ask Gemini»</b> con selector de modo (<em>Thinking</em> para razonar más a fondo) y micrófono para dictar.</li>
+          <li><b>Botón +</b>: subir archivos, añadir desde Drive, crear imagen, vídeo o música, <b>Canvas</b> y <b>Deep Research</b>.</li>
+          <li><b>Barra lateral</b>: nuevo chat, buscar chats, imágenes, vídeos y <b>Library</b> con todo lo generado.</li>
+          <li><b>Activity</b> y la cuenta (Work · Pro): el historial y la ubicación que Gemini usa para contextualizar.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Búsqueda en Google con modo IA</h3>
+        <p>Además de la app de Gemini, Google tiene ya el <b>AI Mode</b> en el propio buscador («Ask Google»). Para una consulta rápida con fuentes web, cualquiera de los dos sirve.</p>
+        <p class="note">En la app de Gemini, el chat normal busca en Google por su cuenta cuando la pregunta lo requiere: no hace falta activar nada.</p>
+      </div>
+    </div>
+
+    <h4>Las funciones que usamos en el caso</h4>
+    <div class="tools">
+      <div class="tool"><em>Fase 1</em><strong>Chat con búsqueda</strong><span>Respuesta rápida con la web, con fuentes y fechas.</span></div>
+      <div class="tool"><em>Fase 1</em><strong>Deep Research</strong><span>Informe en profundidad: planifica, consulta decenas de fuentes y redacta. Tarda unos minutos.</span></div>
+      <div class="tool"><em>Fase 2 y 5</em><strong>Gems</strong><span>Asistentes personalizados con instrucciones fijas que reutilizas cuantas veces quieras.</span></div>
+      <div class="tool"><em>Fase 3</em><strong>Gemini Notebook</strong><span>Trabaja solo sobre tus fuentes (transcripciones, documentos) y cita de dónde sale cada cosa.</span></div>
+      <div class="tool"><em>Fase 4</em><strong>Gemini en Workspace</strong><span>Dentro de Docs y Slides, con @menciones a tus archivos de Drive.</span></div>
+      <div class="tool"><em>Fase 5</em><strong>Gemini Live</strong><span>Conversación por voz en tiempo real: ideal para ensayar una negociación.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · CASO -->
+<section id="caso">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">3</span><h2>Un ejemplo de ventas: Lumina Visión</h2></div>
+    <p class="sec-intro">Un caso ficticio pero realista para recorrer un ciclo comercial completo de una consultora de comunicación con Gemini. Empresa, personas y cifras son inventadas.</p>
+
+    <div class="case-intro">
+      <div>
+        <div class="lumina-logo"><img src="assets/lumina-logo.jpg" alt="Lumina Visión"></div>
+        <div class="facts">
+          <div class="fact"><b>~420</b><span>puntos de venta en España y Portugal</span></div>
+          <div class="fact"><b>65 %</b><span>franquiciados (35 % tiendas propias)</span></div>
+          <div class="fact"><b>310 M€</b><span>facturación 2025 (+2,1 %)</span></div>
+          <div class="fact"><b>48 → 39</b><span>caída del NPS en un año</span></div>
+          <div class="fact"><b>4,3 → 3,9</b><span>nota media en reseñas</span></div>
+          <div class="fact"><b>+48 %</b><span>reclamaciones formales</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>La situación</h3>
+        <p>Cadena de óptica, contactología y audiología con nueva CEO desde julio y un gran proyecto para 2027: <b>abrir audiología en 150 tiendas</b> (piloto en 20 en el primer semestre). Pero la reputación está tocada: esperas de 40 minutos en graduación, problemas con las garantías, una reclamación colectiva en Valencia y una red de franquiciados que siente que el marketing nacional no le lleva clientes.</p>
+        <p class="q">«El problema no es la marca, es que la tienda no cumple lo que promete la publicidad.» — Elena Robles</p>
+        <h4>Quién es quién</h4>
+        <ul class="people">
+          <li><b>Elena Robles</b> · Directora de Marketing y Comunicación. Nos escribe y lleva la propuesta.</li>
+          <li><b>Marta Salcedo</b> · CEO, viene de gran consumo. Decide. Quiere «ver que esto se mueve antes del verano».</li>
+          <li><b>Andrés Vidal</b> · Director Financiero. Objetivo de ahorro del 4 %; para él la comunicación es un coste.</li>
+          <li><b>Ramón Ibarra</b> · Presidente de la Asociación de Franquiciados. Sin él, nada se aprueba en asamblea.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="margin-top:40px">El funnel que recorrimos</h4>
+    <figure>
+      <img src="assets/funnel.jpg" alt="El funnel: cinco fases, cada una con una función de Gemini, el material del caso y una pregunta crítica" loading="lazy">
+      <figcaption>Una función de Gemini y una pregunta crítica por fase. Gemini aporta velocidad y amplitud; el criterio y la relación con el cliente los pones tú.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- PROMPTS POR FASE -->
+<section id="prompts" class="alt">
+  <div class="container">
+    <p class="eyebrow">Caso Lumina Visión</p>
+    <h2>Las cinco fases y los prompts</h2>
+    <p class="sec-intro">Cada bloque oscuro tiene un botón <b>Copiar</b>. Los materiales del caso para subir a Gemini están en <a href="#materiales">Materiales</a>.</p>
+
+    <!-- FASE 1 -->
+    <article class="phase ph1" id="fase1">
+      <div class="phase__head">
+        <div class="phase__n">FASE<b>1</b></div>
+        <div><h3>Prospección y captación</h3><p>Chat con búsqueda + Deep Research + documentos de Drive</p></div>
+      </div>
+      <div class="phase__body">
+        <div class="phase__meta">
+          <div><b>Material del caso</b>Informe sectorial (Deep Research), nota de prensa de la nueva CEO y resumen de resultados 2025.</div>
+          <div><b>Pregunta crítica</b><span class="q">¿Qué dolor de esta lista no aplicaría a otra empresa?</span></div>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__bar"><span><span class="tag">Prompt #1</span>Búsqueda normal (respuesta rápida con la web)</span><button class="copy" type="button">Copiar</button></div>
+<pre>Busca en la web noticias de los últimos 12 meses sobre el sector de ópticas
+y audiología en España.
+
+Dame:
+1. Los 5 titulares más relevantes, con fecha, medio y enlace.
+2. Para cada uno, una línea sobre por qué le importa a una consultora de
+   comunicación que quiere trabajar con una cadena de ópticas.
+3. Una tendencia que se repita en varias noticias.
+
+Si no encuentras fecha o fuente de algo, dilo.</pre>
+        </div>
+        <p class="note"><b>Dónde:</b> app de Gemini, chat normal. Gemini busca en Google por su cuenta cuando la pregunta lo necesita.</p>
+
+        <div class="prompt">
+          <div class="prompt__bar"><span><span class="tag">Prompt #2</span>Deep Research (informe en profundidad)</span><button class="copy" type="button">Copiar</button></div>
+<pre>Actúa como analista de desarrollo de negocio de una consultora de
+comunicación, marketing y asuntos públicos.
+
+Investiga el sector de ópticas y audiología en España y Portugal en los
+últimos 18 meses. Quiero un informe con:
+
+1. Tendencias de mercado: canal online de lentes de contacto, cadenas
+   low-cost, envejecimiento de la población y crecimiento de la audiología.
+2. Regulación sanitaria y de publicidad que afecte a la comunicación del
+   sector, en especial la publicidad de audífonos y productos sanitarios.
+3. Temas de reputación recurrentes: reclamaciones, garantías, reseñas,
+   noticias negativas y acciones de asociaciones de consumidores.
+4. Movimientos recientes de las principales cadenas: aperturas, cambios de
+   dirección, lanzamientos y campañas.
+5. Retos de comunicación en redes con franquiciados.
+
+Para cada punto, cita la fuente con fecha. Separa datos verificados de
+estimaciones. Al final, incluye una sección "Lo que no he podido confirmar".</pre>
+        </div>
+        <p class="note"><b>Dónde:</b> botón <b>+</b> → <b>Deep research</b>. Gemini te enseña el plan de investigación antes de empezar: revísalo y ajústalo si hace falta.</p>
+      </div>
+    </article>
+
+    <!-- FASE 2 -->
+    <article class="phase ph2" id="fase2">
+      <div class="phase__head">
+        <div class="phase__n">FASE<b>2</b></div>
+        <div><h3>Cualificación del lead</h3><p>Gem «Cualificador de oportunidades»</p></div>
+      </div>
+      <div class="phase__body">
+        <div class="phase__meta">
+          <div><b>Material del caso</b>Email de Elena Robles + resumen de resultados 2025.</div>
+          <div><b>Pregunta crítica</b><span class="q">¿Qué me haría decir que no?</span></div>
+        </div>
+        <p><b>Cómo crear la Gem:</b> gemini.google.com → <b>Explorar Gems</b> → <b>Nueva Gem</b> → nombre «Cualificador de oportunidades» → pega el texto en <b>Instrucciones</b> → <b>Guardar</b>. Después, abre la Gem y pégale el correo de Elena (o súbelo junto a los resultados 2025).</p>
+
+        <div class="prompt">
+          <div class="prompt__bar"><span><span class="tag">Instrucciones de la Gem</span>Cualificador de oportunidades</span><button class="copy" type="button">Copiar</button></div>
+<pre>ROL
+Eres un asistente de cualificación comercial para una consultora de
+comunicación, marketing y asuntos públicos. Ayudas a decidir si una
+oportunidad merece inversión de tiempo. Tu prioridad es el rigor, no el
+optimismo.
+
+ENTRADA
+Recibirás información sobre una oportunidad: un correo, notas de una
+llamada o datos de la empresa. Puede venir incompleta.
+
+CRITERIOS DE EVALUACIÓN
+Evalúa cada criterio como Alto / Medio / Bajo / Sin datos, con una frase de
+justificación basada solo en la información recibida:
+1. Necesidad: ¿hay un problema concreto y reconocido por el cliente?
+2. Encaje: ¿el problema encaja con los servicios de una consultora de
+   comunicación, marketing y asuntos públicos?
+3. Decisor: ¿sabemos quién decide y participa en la conversación?
+4. Presupuesto: ¿hay presupuesto asignado o un proceso para asignarlo?
+5. Urgencia: ¿hay una fecha o un evento que obligue a actuar?
+6. Riesgo: ¿hay riesgos reputacionales, de conflicto de interés o de
+   relación con otros proveedores?
+
+FORMATO DE RESPUESTA
+1. Tabla con los 6 criterios: valoración y justificación.
+2. Red flags: máximo 5, ordenadas por gravedad.
+3. Preguntas de validación: 5 preguntas abiertas para la próxima
+   conversación, una por cada criterio con valoración Baja o Sin datos.
+4. Recomendación: Perseguir / Perseguir con condiciones / No perseguir.
+   Indica tu nivel de confianza (alto, medio o bajo) y qué dato la
+   cambiaría.
+
+REGLAS
+- No inventes datos. Si falta información, escribe "Sin datos".
+- No uses puntuaciones numéricas.
+- Si la información es insuficiente para recomendar, dilo.
+- Señala siempre al menos una razón para no perseguir la oportunidad.
+- Recuerda al final: "La decisión es tuya. Revisa conflictos de interés
+  con las herramientas internas de tu organización."
+- Responde en el idioma de la entrada.</pre>
+        </div>
+        <div class="callout teal"><p><b>Por qué funciona:</b> rol claro, entrada definida, criterios cerrados, formato fijo y reglas que obligan a decir «Sin datos» y a buscar razones para <i>no</i> perseguir. Es la estructura de un buen <i>system prompt</i>, reutilizable para cualquier oportunidad.</p></div>
+      </div>
+    </article>
+
+    <!-- FASES 3 Y 4 -->
+    <div class="grid grid-2">
+      <article class="phase ph3" id="fase3" style="margin:0">
+        <div class="phase__head">
+          <div class="phase__n">FASE<b>3</b></div>
+          <div><h3>Discovery y diagnóstico</h3><p>Gemini Notebook</p></div>
+        </div>
+        <div class="phase__body">
+          <p>Subimos la transcripción de la llamada y el resto del dossier a un cuaderno. Gemini responde solo con tus fuentes y cita de dónde sale cada cosa.</p>
+          <p class="q">¿Esto lo dijo el cliente o lo deduzco yo?</p>
+        </div>
+      </article>
+      <article class="phase ph4" id="fase4" style="margin:0">
+        <div class="phase__head">
+          <div class="phase__n">FASE<b>4</b></div>
+          <div><h3>Diseño de solución y propuesta</h3><p>Gemini en Docs + del Doc a Slides</p></div>
+        </div>
+        <div class="phase__body">
+          <p>Borrador de la propuesta en Google Docs mencionando los archivos de Drive con @, versiones para la CEO y para el director financiero, y paso a Slides.</p>
+          <p class="q">¿De dónde sale cada cifra?</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- FASE 5 -->
+    <article class="phase ph5" id="fase5">
+      <div class="phase__head">
+        <div class="phase__n">FASE<b>5</b></div>
+        <div><h3>Negociación, objeciones y cierre</h3><p>Gem «Comprador exigente» + Gemini Live (role-play por voz)</p></div>
+      </div>
+      <div class="phase__body">
+        <div class="phase__meta">
+          <div><b>Material del caso</b>Correo del Director Financiero: «Sois un 30 % más caros».</div>
+          <div><b>Pregunta crítica</b><span class="q">¿Estoy defendiendo valor o solo precio?</span></div>
+        </div>
+        <p>Andrés Vidal responde a la propuesta: 182.000 € frente a otra de 140.000 € con alcance parecido. Pide acercarse a esa cifra, dejar fuera la fase de audiología y pagar a 90 días, y quiere cerrarlo antes del comité del 20 de octubre. Creamos una Gem que hace de Andrés y ensayamos la negociación hablando con ella en <b>Gemini Live</b>.</p>
+
+        <div class="prompt">
+          <div class="prompt__bar"><span><span class="tag">Instrucciones de la Gem</span>Comprador exigente</span><button class="copy" type="button">Copiar</button></div>
+<pre>Eres Andrés Vidal, director financiero de Lumina Visión, una cadena de
+ópticas. Has recibido una propuesta de comunicación de 182.000 € y tienes
+otra de 140.000 € con un alcance parecido. Venís de un año flojo y tienes
+un objetivo de ahorro del 4 % en costes no productivos.
+
+Tu papel: negociar de forma exigente y realista. No cedas fácilmente.
+Plantea objeciones de precio, de plazos y de resultados. Pide quitar la
+fase de audiología y pagar a 90 días. Responde en 2 a 4 frases, como en
+una conversación real.
+
+Cuando el usuario escriba "FIN", sal del personaje y evalúa su
+negociación: qué concedió, qué argumento de valor no usó y tres respuestas
+alternativas.</pre>
+        </div>
+        <ol class="steps">
+          <li>Crea la Gem igual que en la fase 2 y pega estas instrucciones.</li>
+          <li>Ábrela en el móvil y pulsa el icono de <b>Live</b> para hablar con «Andrés» por voz (o escribe en el chat si prefieres).</li>
+          <li>Negocia. Cuando termines, di o escribe <b>FIN</b> para recibir la evaluación: qué concediste, qué argumento de valor no usaste y tres respuestas alternativas.</li>
+        </ol>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- MATERIALES -->
+<section id="materiales" style="border-bottom:0">
+  <div class="container">
+    <p class="eyebrow">Para practicar</p>
+    <h2>Materiales del caso</h2>
+    <p class="sec-intro">Los documentos que usamos en la sesión. Súbelos a Gemini o guárdalos en tu Drive para poder mencionarlos con @. Todo es ficticio.</p>
+    <div class="dl">
+      <a href="assets/caso/01_Nota_de_prensa_nueva_CEO_Lumina_Vision.docx" download><span class="ico">DOC</span><span>Nota de prensa: nueva CEO<small>16 jun 2026 · Fase 1</small></span></a>
+      <a href="assets/caso/02_Resumen_resultados_2025_Lumina_Vision.docx" download><span class="ico">DOC</span><span>Resumen de resultados 2025<small>Documento interno · Fases 1, 2 y 4</small></span></a>
+      <a href="assets/caso/03_Email_inbound_Elena_Robles.docx" download><span class="ico">DOC</span><span>Email de Elena Robles<small>14 sep 2026 · Fase 2</small></span></a>
+      <a href="assets/caso/04_Transcripcion_llamada_discovery_Lumina_Vision.docx" download><span class="ico">DOC</span><span>Transcripción de la llamada de discovery<small>22 sep 2026 · Fases 3 y 4</small></span></a>
+      <a href="assets/caso/05_Correo_objecion_Director_Financiero.docx" download><span class="ico">DOC</span><span>Correo del Director Financiero<small>2 oct 2026 · Fase 5</small></span></a>
+    </div>
+  </div>
+</section>
+
+
+</main>
+
+<div class="container" style="padding-top:8px;padding-bottom:16px">
+  <aside class="newsletter">
+    <div class="newsletter__text">
+      <p class="newsletter__eyebrow">Mantente al día</p>
+      <img class="newsletter__title" src="assets/sentinel-title.png" alt="The Independent Sentinel">
+      <p class="newsletter__desc">La newsletter de Javier Fuentes con los avances semanales en IA, ciencia de datos y las historias que conectan la tecnología con la cultura.</p>
+      <div class="newsletter__actions">
+        <a class="newsletter__btn" href="https://theindependentsentinel.substack.com/" target="_blank" rel="noopener">Suscribirse →</a>
+        <span class="newsletter__url">theindependentsentinel.substack.com</span>
+      </div>
+    </div>
+    <div class="newsletter__qr">
+      <img src="assets/sentinel-qr.png" alt="QR a The Independent Sentinel">
+      <span>Escanéame</span>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="container">
+    <span>IA aplicada a las ventas · Sesión online para LLYC · 6 de octubre de 2026 · Javier Fuentes</span>
+    <img src="assets/llyc-logo.png" alt="LLYC">
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.prompt').forEach(function (box) {
+  var btn = box.querySelector('.copy');
+  var pre = box.querySelector('pre');
+  btn.addEventListener('click', function () {
+    var text = pre.innerText;
+    var done = function () {
+      btn.textContent = 'Copiado ✓'; btn.classList.add('ok');
+      setTimeout(function () { btn.textContent = 'Copiar'; btn.classList.remove('ok'); }, 1800);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+  });
+});
+</script>
+</body>
+</html>
