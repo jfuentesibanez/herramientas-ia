@@ -319,6 +319,9 @@ footer img { height: 22px; width: auto; }
 .tool-card p { font-size: 15px; color: var(--ink-soft); flex: 1; }
 .tool-card a.btn { align-self: flex-start; text-decoration: none; font-size: 14px; font-weight: 700; border: 1px solid var(--jj); color: var(--jj-dark); padding: 6px 14px; border-radius: 8px; }
 .tool-card a.btn:hover { background: var(--jj-soft); }
+.tool-card .btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.tool-card a.btn--main { background: var(--jj); color: #fff; }
+.tool-card a.btn--main:hover { background: var(--jj-dark); }
 .golden { counter-reset: g; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 .golden li { counter-increment: g; position: relative; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px 14px 56px; font-size: 15px; }
 .golden li::before { content: counter(g); position: absolute; left: 16px; top: 13px; width: 28px; height: 28px; border-radius: 50%; background: var(--jj); color: #fff; font-weight: 800; display: grid; place-items: center; font-size: 14px; }
@@ -372,31 +375,31 @@ footer img { height: 22px; width: auto; }
         <span class="kind">Revisión de literatura</span>
         <h3>Elicit</h3>
         <p>Informe en formato <i>paper</i> con resumen, extracción de datos y referencias. Encontró un solo estudio (no aleatorizado, ~3.000 pacientes) y lo dice claramente.</p>
-        <a class="btn" href="assets/informes/butirato-elicit.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a>
+        <div class="btns"><a class="btn btn--main" href="https://elicit.com" target="_blank" rel="noopener">Ir a elicit.com ↗</a><a class="btn" href="assets/informes/butirato-elicit.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a></div>
       </div>
       <div class="card tool-card">
         <span class="kind">Buscador académico</span>
         <h3>Consensus</h3>
         <p>Tabla por preparación, dosis y efecto clínico, con citas a cada estudio. Útil para ver de un vistazo qué se ha probado y con qué resultado.</p>
-        <a class="btn" href="assets/informes/butirato-consensus.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a>
+        <div class="btns"><a class="btn btn--main" href="https://consensus.app" target="_blank" rel="noopener">Ir a consensus.app ↗</a><a class="btn" href="assets/informes/butirato-consensus.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a></div>
       </div>
       <div class="card tool-card">
         <span class="kind">IA médica</span>
         <h3>OpenEvidence</h3>
         <p>Respuesta clínica con referencias de PubMed: ensayos en adultos y en población pediátrica, mecanismos de acción y conclusión práctica.</p>
-        <a class="btn" href="assets/informes/butirato-openevidence.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a>
+        <div class="btns"><a class="btn btn--main" href="https://www.openevidence.com" target="_blank" rel="noopener">Ir a openevidence.com ↗</a><a class="btn" href="assets/informes/butirato-openevidence.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a></div>
       </div>
       <div class="card tool-card">
         <span class="kind">Buscador web con IA</span>
         <h3>Perplexity</h3>
         <p>Síntesis breve con lectura crítica final. Ojo a las fuentes: muchas son revistas regionales y webs de congresos, no siempre revisadas por pares.</p>
-        <a class="btn" href="assets/informes/butirato-perplexity.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a>
+        <div class="btns"><a class="btn btn--main" href="https://www.perplexity.ai" target="_blank" rel="noopener">Ir a perplexity.ai ↗</a><a class="btn" href="assets/informes/butirato-perplexity.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a></div>
       </div>
       <div class="card tool-card">
         <span class="kind">Deep Research</span>
         <h3>ChatGPT · del hallazgo al manuscrito</h3>
         <p>Guía completa para preparar un manuscrito para <i>Gastroenterology</i>: estructura, plantillas por sección, checklist de envío y normas (ICMJE, CONSORT, STROBE, PRISMA).</p>
-        <a class="btn" href="assets/informes/manuscrito-gastroenterology-chatgpt.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a>
+        <div class="btns"><a class="btn btn--main" href="https://chatgpt.com" target="_blank" rel="noopener">Ir a chatgpt.com ↗</a><a class="btn" href="assets/informes/manuscrito-gastroenterology-chatgpt.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a></div>
       </div>
       <div class="card tool-card" style="background:var(--bg-soft)">
         <span class="kind">Qué mirar al comparar</span>
