@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA en EII · Valladolid</title>
+<meta name="description" content="Material del taller «Integración de la IA en la práctica clínica de la EII» (Hospital Río Hortega, Valladolid, 2 de junio de 2026): caso clínico paso a paso, prompts y comparativa de buscadores de evidencia.">
+<style>
+:root {
+  color-scheme: light;
+  --jj: #D71600;
+  --jj-dark: #A51100;
+  --jj-soft: #FDECEA;
+  --navy: #1E3A5F;
+  --teal: #2A8C9A;
+  --teal-soft: #E8F5F7;
+  --sand: #F3EFE8;
+  --ink: #1C1C1E;
+  --ink-soft: #4A4F57;
+  --ink-mute: #6E737B;
+  --border: #E4E2DE;
+  --bg: #FFFFFF;
+  --bg-soft: #FAF8F5;
+  --code-bg: #1F2329;
+  --code-ink: #F2F2F2;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--jj-dark); }
+.container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+/* HERO */
+.hero { background: var(--sand); border-bottom: 1px solid var(--border); }
+.hero .container { padding-top: 48px; padding-bottom: 48px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; }
+.hero__logo { height: 40px; width: auto; margin-bottom: 28px; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--jj-dark); margin: 0 0 10px; }
+.hero h1 { font-size: clamp(32px, 5vw, 48px); line-height: 1.08; margin: 0 0 16px; letter-spacing: -.02em; }
+.hero h1 span { color: var(--jj); }
+.hero__lead { font-size: 18px; color: var(--ink-soft); margin: 0 0 22px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 13px; background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; color: var(--ink-soft); }
+.hero__img { border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+
+/* NAV */
+.toc { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+.toc .container { display: flex; gap: 4px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+.toc a { white-space: nowrap; text-decoration: none; color: var(--ink-soft); font-size: 14px; font-weight: 600; padding: 6px 12px; border-radius: 8px; }
+.toc a:hover { background: var(--jj-soft); color: var(--jj-dark); }
+.toc a b { color: var(--jj); margin-right: 4px; }
+
+/* SECTIONS */
+section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+section.alt { background: var(--bg-soft); }
+.sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+.sec-num { font-size: 56px; font-weight: 800; line-height: 1; color: var(--jj); }
+h2 { font-size: clamp(26px, 3.6vw, 34px); margin: 0; letter-spacing: -.01em; }
+.sec-intro { color: var(--ink-soft); font-size: 17px; max-width: 760px; margin: 8px 0 32px; }
+h3 { font-size: 21px; margin: 0 0 8px; }
+h4 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-mute); margin: 24px 0 10px; }
+p { margin: 0 0 14px; }
+
+.grid { display: grid; gap: 20px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+.card h3 { font-size: 18px; }
+.card p:last-child { margin-bottom: 0; }
+.card small { color: var(--ink-mute); }
+figure { margin: 0; }
+figure img { border-radius: 10px; border: 1px solid var(--border); background: #fff; }
+figcaption { font-size: 13px; color: var(--ink-mute); margin-top: 8px; }
+.news-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.news-card img { border: 0; border-radius: 0; border-bottom: 1px solid var(--border); aspect-ratio: 16/10; object-fit: cover; object-position: top; width: 100%; }
+.news-card .body { padding: 18px 20px 20px; }
+.news-card .date { font-size: 12px; font-weight: 700; color: var(--jj-dark); text-transform: uppercase; letter-spacing: .08em; }
+
+.callout { border-left: 4px solid var(--jj); background: var(--jj-soft); padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 24px 0; }
+.callout p:last-child { margin: 0; }
+.callout.teal { border-color: var(--teal); background: var(--teal-soft); }
+
+/* Gemini basics list */
+.tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+.tool { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+.tool strong { display: block; font-size: 15px; margin-bottom: 4px; }
+.tool span { font-size: 14px; color: var(--ink-soft); }
+.tool em { font-style: normal; font-size: 12px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: .06em; }
+
+/* Case */
+.case-intro { display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; align-items: start; }
+.lumina-logo { background: #F1F1F1; border-radius: 14px; padding: 28px; margin-bottom: 18px; }
+.lumina-logo img { border: 0; }
+.facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.fact { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+.fact b { display: block; font-size: 22px; color: var(--navy); }
+.fact span { font-size: 13px; color: var(--ink-soft); }
+.people { margin: 0; padding: 0; list-style: none; }
+.people li { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+.people li:last-child { border: 0; }
+.people b { color: var(--navy); }
+
+.phase { border: 1px solid var(--border); border-radius: 16px; background: #fff; margin: 28px 0; overflow: hidden; }
+.phase__head { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; padding: 22px 26px; color: #fff; }
+.phase__n { font-size: 13px; font-weight: 800; letter-spacing: .12em; background: rgba(255,255,255,.18); border-radius: 8px; padding: 8px 10px; text-align: center; line-height: 1.2; }
+.phase__n b { display: block; font-size: 26px; letter-spacing: 0; }
+.phase__head h3 { margin: 0; font-size: 22px; color: #fff; }
+.phase__head p { margin: 2px 0 0; opacity: .85; font-size: 15px; }
+.phase__body { padding: 24px 26px 28px; }
+.ph1 .phase__head { background: #1F3A5C; }
+.ph2 .phase__head { background: #24506C; }
+.ph3 .phase__head { background: #27657B; }
+.ph4 .phase__head { background: #297A8A; }
+.ph5 .phase__head { background: #2B8E99; }
+.phase__meta { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 8px; }
+.phase__meta div { background: var(--bg-soft); border-radius: 10px; padding: 12px 16px; font-size: 14px; }
+.phase__meta div b { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-mute); margin-bottom: 4px; }
+.q { font-style: italic; color: var(--jj-dark); font-weight: 600; font-size: 15px; }
+
+/* Prompt blocks */
+.prompt { margin: 18px 0; border-radius: 12px; overflow: hidden; border: 1px solid #2c3138; }
+.prompt__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #2A2F36; color: #E6E6E6; padding: 9px 12px 9px 16px; font-size: 13px; font-weight: 600; }
+.prompt__bar .tag { color: #FF8E80; margin-right: 8px; text-transform: uppercase; letter-spacing: .08em; font-size: 11px; }
+.copy { appearance: none; border: 1px solid #4A515A; background: transparent; color: #fff; font: inherit; font-size: 12px; padding: 5px 12px; border-radius: 7px; cursor: pointer; flex-shrink: 0; }
+.copy:hover { background: var(--jj); border-color: var(--jj); }
+.copy.ok { background: #2F9E62; border-color: #2F9E62; }
+.prompt pre { margin: 0; padding: 18px 20px; background: var(--code-bg); color: var(--code-ink); font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13.5px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; overflow-x: auto; }
+.note { font-size: 14px; color: var(--ink-soft); }
+.steps { margin: 6px 0 0; padding-left: 20px; font-size: 15px; }
+.steps li { margin-bottom: 6px; }
+.badge { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: 3px 8px; border-radius: 6px; background: var(--teal-soft); color: var(--teal); vertical-align: middle; }
+.badge.warn { background: #FFF4E0; color: #A3620A; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-mute); background: var(--bg-soft); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: #fff; }
+
+/* Downloads */
+.dl { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.dl a { display: flex; gap: 14px; align-items: center; text-decoration: none; color: var(--ink); background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; transition: border-color .15s, transform .15s; }
+.dl a:hover { border-color: var(--jj); transform: translateY(-1px); }
+.dl .ico { width: 40px; height: 40px; border-radius: 10px; background: var(--jj-soft); color: var(--jj-dark); display: grid; place-items: center; font-weight: 800; font-size: 12px; flex-shrink: 0; }
+.dl small { display: block; color: var(--ink-mute); font-size: 13px; }
+
+
+footer { padding: 36px 0 48px; color: var(--ink-mute); font-size: 14px; }
+footer .container { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+footer img { height: 22px; width: auto; }
+
+/* Newsletter */
+.newsletter {
+  position: relative;
+  border-radius: 14px;
+  padding: 36px 40px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  justify-content: space-between;
+  align-items: center;
+  color: #FDF6E3;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(255, 140, 60, 0.45), transparent 55%),
+    radial-gradient(circle at 15% 85%, rgba(220, 60, 80, 0.35), transparent 50%),
+    linear-gradient(135deg, #1a0e08 0%, #2d1410 45%, #4a1d1a 100%);
+  box-shadow: 0 10px 30px rgba(74, 29, 26, 0.25), inset 0 0 60px rgba(0,0,0,0.35);
+  isolation: isolate;
+}
+.newsletter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(255, 180, 100, 0.18), transparent 40%);
+  z-index: -1;
+}
+.newsletter__text { flex: 1; min-width: 260px; }
+.newsletter__eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #F2B872;
+  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.newsletter__eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, #F2B872, transparent);
+}
+.newsletter__title {
+  margin: 0 0 12px;
+  display: block;
+  max-width: 380px;
+  width: 100%;
+  height: auto;
+  filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.45));
+}
+.newsletter__desc {
+  margin: 0 0 18px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: rgba(253, 246, 227, 0.82);
+  max-width: 480px;
+}
+.newsletter__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.newsletter__btn {
+  background: linear-gradient(135deg, #FFB347 0%, #FF7E47 100%);
+  color: #1a0e08;
+  text-decoration: none;
+  padding: 12px 22px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(255, 126, 71, 0.4);
+  transition: transform .15s ease, box-shadow .15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.newsletter__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 126, 71, 0.55);
+}
+.newsletter__url {
+  font-family: "SF Mono", "Menlo", "Monaco", monospace;
+  font-size: 12px;
+  color: rgba(253, 246, 227, 0.65);
+  letter-spacing: 0.02em;
+}
+.newsletter__qr {
+  flex-shrink: 0;
+  background: #FFF4E0;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  text-align: center;
+}
+.newsletter__qr img {
+  display: block;
+  width: 130px;
+  height: 130px;
+  border-radius: 4px;
+}
+.newsletter__qr span {
+  display: block;
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4a1d1a;
+}
+@media (max-width: 640px) {
+  .newsletter { padding: 28px 24px; }
+  .newsletter__title { max-width: 280px; }
+}
+
+@media (max-width: 860px) {
+  .hero .container, .case-intro { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 620px) {
+  .container { padding: 0 16px; }
+  .grid-2, .grid-3, .phase__meta { grid-template-columns: 1fr; }
+  section { padding: 44px 0; }
+  .sec-num { font-size: 40px; }
+  .phase__head, .phase__body { padding-left: 18px; padding-right: 18px; }
+}
+@media print {
+  .toc, .copy { display: none; }
+  .prompt pre { max-height: none; background: #f4f4f4; color: #111; }
+  section { break-inside: avoid-page; }
+}
+</style>
+
+<style>
+/* Additions for J&J Valladolid */
+.brand { font-weight: 800; font-size: 15px; letter-spacing: .02em; color: var(--jj); margin-bottom: 26px; }
+.brand span { color: var(--ink-mute); font-weight: 600; }
+.rule { background: var(--navy); color: #fff; border-radius: 14px; padding: 22px 26px; display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; margin-top: 28px; }
+.rule b { font-size: 22px; line-height: 1.2; }
+.rule p { margin: 0; opacity: .88; font-size: 15px; }
+.patient { display: grid; grid-template-columns: 1fr 1.25fr; gap: 28px; align-items: start; }
+.timeline { list-style: none; margin: 0; padding: 0 0 0 22px; border-left: 2px solid var(--jj-soft); }
+.timeline li { position: relative; padding: 0 0 18px 14px; font-size: 15px; }
+.timeline li::before { content: ""; position: absolute; left: -29px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--jj); border: 3px solid #fff; box-shadow: 0 0 0 1px var(--jj); }
+.timeline li b { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--jj-dark); }
+.ph1 .phase__head { background: #7A0D00; }
+.ph2 .phase__head { background: #8E1000; }
+.ph3 .phase__head { background: #A31300; }
+.ph4 .phase__head { background: #B81500; }
+.ph5 .phase__head { background: #C91600; }
+.ph6 .phase__head { background: #D71600; }
+.phb .phase__head { background: var(--navy); }
+.decision { border: 1px dashed var(--border); border-radius: 10px; padding: 12px 16px; font-size: 14px; background: var(--bg-soft); margin-top: 14px; }
+.decision b { color: var(--teal); }
+.tool-card { display: flex; flex-direction: column; }
+.tool-card .kind { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--teal); }
+.tool-card h3 { margin-top: 4px; }
+.tool-card p { font-size: 15px; color: var(--ink-soft); flex: 1; }
+.tool-card a.btn { align-self: flex-start; text-decoration: none; font-size: 14px; font-weight: 700; border: 1px solid var(--jj); color: var(--jj-dark); padding: 6px 14px; border-radius: 8px; }
+.tool-card a.btn:hover { background: var(--jj-soft); }
+.video { border-radius: 14px; overflow: hidden; background: #000; }
+.video video { width: 100%; display: block; }
+.golden { counter-reset: g; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.golden li { counter-increment: g; position: relative; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px 14px 56px; font-size: 15px; }
+.golden li::before { content: counter(g); position: absolute; left: 16px; top: 13px; width: 28px; height: 28px; border-radius: 50%; background: var(--jj); color: #fff; font-weight: 800; display: grid; place-items: center; font-size: 14px; }
+.disclosure { font-size: 13px; color: var(--ink-mute); }
+@media (max-width: 860px) { .patient { grid-template-columns: 1fr; } }
+@media (max-width: 620px) { .golden { grid-template-columns: 1fr; } .rule { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="container">
+    <div>
+      <div class="brand">Johnson&amp;Johnson <span>· Educación médica</span></div>
+      <p class="eyebrow">Taller · Enfermedad inflamatoria intestinal</p>
+      <h1>Integración de la <span>IA</span> en la práctica clínica de la EII</h1>
+      <p class="hero__lead">Lo que trabajamos en el taller: un caso real de colitis ulcerosa razonado paso a paso con IA, la misma pregunta clínica lanzada a cinco buscadores de evidencia y un segundo caso para practicar. Todos los prompts, listos para copiar.</p>
+      <div class="meta">
+        <span class="chip">Martes, 2 de junio de 2026</span>
+        <span class="chip">Hospital Universitario Río Hortega · Valladolid</span>
+        <span class="chip">Javier Fuentes · NCompany</span>
+      </div>
+    </div>
+    <img class="hero__img" src="assets/valladolid-poster.jpg" alt="Fotograma del vídeo generado con IA para el taller: dos personajes con ropa del Siglo de Oro en una calle de Valladolid">
+  </div>
+</header>
+
+<nav class="toc" aria-label="Índice">
+  <div class="container">
+    <a href="#caso1"><b>1</b>Caso CU paso a paso</a>
+    <a href="#evidencia"><b>2</b>Buscar evidencia</a>
+    <a href="#caso2"><b>3</b>Caso 2 para practicar</a>
+    <a href="#reglas"><b>›</b>Reglas de oro</a>
+    <a href="#bonus"><b>›</b>Bonus: vídeo</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- 1 · CASO CU -->
+<section id="caso1">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">1</span><h2>Colitis ulcerosa en un paciente joven, paso a paso con IA</h2></div>
+    <p class="sec-intro">Un caso real (anonimizado) de colitis ulcerosa con respuesta parcial a mesalazina, una pancreatitis intercurrente y escalado a biológico. En cada fase planteamos una pregunta concreta a la IA, lanzamos el prompt en directo y contrastamos la respuesta con el criterio de la sala antes de avanzar.</p>
+
+    <div class="patient">
+      <div class="card">
+        <h3>El paciente que llega a consulta</h3>
+        <p class="q">«Llevo meses con diarrea y veo sangre.»</p>
+        <div class="facts" style="margin-top:14px">
+          <div class="fact"><b>21 años</b><span>varón, opositor a bombero</span></div>
+          <div class="fact"><b>Jun–jul 2025</b><span>inicio tras un viaje a Turquía</span></div>
+          <div class="fact"><b>−5 kg</b><span>pérdida de peso</span></div>
+          <div class="fact"><b>Urgencia</b><span>2 episodios de incontinencia</span></div>
+        </div>
+        <p class="note" style="margin-top:14px">Pujos con moco y sangre, sin deposiciones nocturnas ni clínica extraintestinal. Sin antecedentes familiares de EII, celiaquía ni cáncer. No fumador.</p>
+        <p style="margin-top:16px"><a href="assets/caso-cu-presentacion.html" target="_blank" rel="noopener"><b>Abrir la presentación completa del caso →</b></a><br><small class="note">13 diapositivas · se navega con las flechas del teclado</small></p>
+      </div>
+      <div>
+        <h4 style="margin-top:0">El caso en una línea de tiempo</h4>
+        <ol class="timeline">
+          <li><b>Jun–jul 2025</b>Inicio insidioso: estreñimiento, después diarrea y rectorragia.</li>
+          <li><b>16 oct 2025</b>Primera consulta. Sospecha de EII. Calprotectina 40.625 mg/kg.</li>
+          <li><b>29 oct 2025</b>Colonoscopia: CU izquierda, UCEIS 5 (Walmsley 5).</li>
+          <li><b>11 nov 2025</b>Mesalazina 3 g oral + enema. El paciente rechaza el tópico.</li>
+          <li><b>19 ene 2026</b>Respuesta parcial: calprotectina 293, Walmsley 2.</li>
+          <li><b>4 feb 2026</b>Ingreso por pancreatitis aguda leve (lipasa 849).</li>
+          <li><b>Mar 2026</b>Rebote: calprotectina 8.204. Se añade supositorio.</li>
+          <li><b>May 2026</b>IgG4 normal. Se retira mesalazina e inicia anti-TNF (0-2-6).</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="rule">
+      <b>La IA propone,<br>el clínico dispone.</b>
+      <p>Cada respuesta se discute, se valida o se rechaza con el criterio de la sala antes de pasar al siguiente paso. Copia los prompts en tu herramienta de IA (ChatGPT, Claude, Gemini…) y compara su respuesta con lo que tú harías.</p>
+    </div>
+  </div>
+</section>
+
+<section id="prompts" class="alt">
+  <div class="container">
+    <p class="eyebrow">Caso 1 · Colitis ulcerosa</p>
+    <h2>Seis preguntas, una misma lógica</h2>
+    <p class="sec-intro">Cada bloque oscuro tiene un botón <b>Copiar</b>. La estructura se repite: <b>[ROL]</b>, <b>[CASO]</b> con los datos que importan, <b>[TAREA]</b> desglosada y <b>[FORMATO]</b> de salida.</p>
+
+    <article class="phase ph1" id="paso1">
+      <div class="phase__head">
+        <div class="phase__n">PASO<b>1</b></div>
+        <div><h3>Anamnesis dirigida</h3><p>¿Qué más le debo preguntar?</p></div>
+      </div>
+      <div class="phase__body">
+        <p>Hay sospecha de EII, pero conviene cubrir todos los flancos: descartar un origen infeccioso, buscar manifestaciones extraintestinales y caracterizar bien la actividad.</p>
+        <div class="prompt">
+          <div class="prompt__bar"><span><span class="tag">Prompt #1</span>Checklist de anamnesis</span><button class="copy" type="button">Copiar</button></div>
+<pre>[ROL] Actúa como gastroenterólogo experto en EII.
+
+[CASO] Varón 21 años, sin antecedentes, deportista. Diarrea + rectorragia desde junio-julio 2025 (inicio tras viaje a Turquía). Pujos, moco, sangre, urgencia, 2 episodios de incontinencia. Pérdida 5 kg.
+
+[TAREA] Dame una checklist priorizada de anamnesis aún no cubierta, organizada en:
+1. Caracterización clínica de la diarrea (escala Bristol, frecuencia, nocturnidad, tenesmo)
+2. Diagnóstico diferencial infeccioso (alimentos, agua, sexual, exposiciones)
+3. Manifestaciones extraintestinales de EII (articular, cutánea, ocular, hepática)
+4. Factores que modifican manejo (tabaco, AINE, antibióticos previos, vacunas)
+5. Impacto funcional y psicosocial (estudio, actividad física, oposiciones)
+6. Datos para planificar futuro tratamiento biológico (TBC latente, hepatitis, embarazo no aplica pero registrar)</pre>
+        </div>
+      </div>
+    </article>
+
+    <article class="phase ph2" id="paso2">
+      <div class="phase__head">
+        <div class="phase__n">PASO<b>2</b></div>
+        <div><h3>Pruebas complementarias</h3><p>¿Qué pruebas pido y en qué orden?</p></div>
+      </div>
+      <div class="phase__body">
+        <p>Tras la anamnesis: sin antibióticos previos, sin AINE, sin riesgo de ITS referido. Hay que confirmar organicidad, descartar infección y, si es EII, caracterizar extensión y actividad de forma escalonada.</p>
+        <div class="prompt">
+          <div class="prompt__bar"><span><span class="tag">Prompt #2</span>Plan diagnóstico ordenado</span><button class="copy" type="button">Copiar</button></div>
+<pre>[CONTEXTO] Varón 21a con sospecha clínica de EII (probable colitis ulcerosa) tras 4 meses de síntomas.
+
+[TAREA]
+1. Analítica: hemograma, bioquímica completa, función hepática, perfil férrico, vit B12, ácido fólico, vit D
+2. Marcadores inflamatorios: PCR, VSG
+3. Cribado infeccioso: coprocultivo, parásitos, toxina C. difficile, CMV si ya estuviera con corticoides
+4. Marcadores fecales: calprotectina como discriminador organicidad
+5. Serología EII: ANCA, ASCA (rentabilidad limitada pero útil en caso atípico)
+6. Cribado pre-biológico ya en esta visita: TBC latente (IGRA/Mantoux + Rx tórax), serologías VHB, VHC, VIH, varicela, sarampión
+7. Endoscopia: ileocolonoscopia con biopsias escalonadas + EDA si clínica alta
+8. Considerar RM enterografía si afectación ileal sospechada
+
+[FORMATO] Tabla con prueba · objetivo · cuándo en el algoritmo.</pre>
+        </div>
+        <div class="callout teal"><p><b>Pensar en el biológico desde el día 1:</b> aunque se empiece por mesalazina, tener ya hecho el cribado pre-biológico (TBC, hepatitis, vacunas) ahorra semanas si hay que escalar.</p></div>
+      </div>
+    </article>
+
+    <article class="phase ph3" id="paso3">
+      <div class="phase__head">
+        <div class="phase__n">PASO<b>3</b></div>
+        <div><h3>Diagnóstico y estadificación</h3><p>Conciliar discordancias</p></div>
+      </div>
+      <div class="phase__body">
+        <div class="phase__meta">
+          <div><b>Lo que devuelven las pruebas (29 oct 2025)</b>Calprotectina 40.625 mg/kg · sangre oculta 716 · cribado infeccioso negativo. Colonoscopia incompleta (50 cm): afectación difusa desde margen anal, mayor en recto. UCEIS 5 (Pv 2, H 2, U 1).</div>
+          <div><b>Diagnóstico</b>Colitis ulcerosa (al menos) izquierda. Actividad clínica leve (Walmsley 5) frente a actividad endoscópica moderada (UCEIS 5).</div>
+        </div>
+        <p class="q">Pregunta clave a la IA: ¿cómo conciliar un Walmsley clínico leve con un UCEIS endoscópico moderado y una calprotectina extraordinariamente elevada? ¿Cuál guía la decisión terapéutica?</p>
+      </div>
+    </article>
+
+    <article class="phase ph4" id="paso4">
+      <div class="phase__head">
+        <div class="phase__n">PASO<b>4</b></div>
+        <div><h3>Inducción de primera línea</h3><p>¿Qué tratamiento de inicio y cómo monitorizo?</p></div>
+      </div>
+      <div class="phase__body">
+        <p>Paciente naïve con CU izquierda activa. Las guías ECCO y AEG son claras (5-ASA oral + tópico); la IA ayuda a pautar dosis, vía y seguimiento, y a preparar la conversación sobre el tratamiento tópico.</p>
+        <div class="prompt">
+          <div class="prompt__bar"><span><span class="tag">Prompt #3</span>Pauta y monitorización</span><button class="copy" type="button">Copiar</button></div>
+<pre>[CASO] CU izquierda recién diagnosticada en varón 21a, naïve a tratamiento. Walmsley 5 clínico, UCEIS 5 endoscópico, calprotectina 40.625.
+
+[TAREA]
+1. Pauta de inducción según guías ECCO 2022 / AEG: mesalazina oral + tópica
+2. Dosis, vía, posología y duración
+3. ¿Cómo presentar la terapia tópica a un paciente joven que la rechaza?
+4. Marcadores de seguimiento a las 4-8 semanas: clínica, calprotectina, analítica
+5. Definición de respuesta vs remisión (clínica, biológica, endoscópica, histológica)
+6. Cuándo plantearse escalado (corticoides? biológico?) si respuesta insuficiente</pre>
+        </div>
+        <div class="decision"><b>Decisión real · 11 nov 2025:</b> mesalazina 3 g/día oral + enema nocturno. El paciente acepta la oral pero no llega a aplicarse el tópico. Se revalúa en 2 meses.</div>
+      </div>
+    </article>
+
+    <article class="phase ph5" id="paso5">
+      <div class="phase__head">
+        <div class="phase__n">PASO<b>5</b></div>
+        <div><h3>Decisión multidimensional</h3><p>Pancreatitis, mesalazina y biológico: ¿qué hacemos?</p></div>
+      </div>
+      <div class="phase__body">
+        <p>Tres giros en tres meses: respuesta parcial, ingreso por pancreatitis aguda leve y rebote inflamatorio. La triple incógnita: ¿pancreatitis litiásica, autoinmune o por mesalazina? ¿Se retira el 5-ASA? Y si vamos a biológico, ¿cuál encaja?</p>
+        <div class="prompt">
+          <div class="prompt__bar"><span><span class="tag">Prompt #4</span>Pancreatitis y escalado</span><button class="copy" type="button">Copiar</button></div>
+<pre>[CASO] CU izquierda en varón 21a. Respuesta parcial a mesalazina (calprotectina 40.625 → 293, ahora rebote a 8.204). Pancreatitis aguda leve hace 3 meses. Colangio-RMN: bilis espesa sin colelitiasis. IgG4 94 (límite alto). Eco-endoscopia sin litiasis. No datos de pancreatitis crónica.
+
+[TAREA]
+1. Diagnóstico diferencial de la pancreatitis: litiásica vs autoinmune vs farmacológica (mesalazina)
+2. ¿Hay que retirar mesalazina? Argumentos a favor y en contra
+3. Si escalamos a biológico en CU moderada-grave:
+• Anti-TNF (infliximab, adalimumab) — perfil, posología, ventajas
+• Anti-integrina (vedolizumab) — perfil, posología, ventajas
+• Anti-IL12/23 y anti-IL23 (ustekinumab, guselkumab, mirikizumab, risankizumab) — perfil
+• Inhibidores JAK (tofacitinib, upadacitinib) — perfil
+4. ¿Qué criterios hacen elegir uno u otro en este paciente concreto (joven, deportista, oposiciones, pancreatitis previa)?
+5. Cribado pre-biológico a confirmar antes de iniciar</pre>
+        </div>
+        <div class="decision"><b>Decisión real · mayo 2026:</b> IgG4 normal y anticuerpos hepáticos negativos. Pancreatitis de origen dudoso, probablemente multifactorial (bilis espesa + posible papel de la mesalazina). Se retira la mesalazina y se inicia anti-TNF (inducción 0-2-6 semanas).</div>
+      </div>
+    </article>
+
+    <article class="phase phb" id="bonus-biologico">
+      <div class="phase__head">
+        <div class="phase__n">BONUS<b>★</b></div>
+        <div><h3>¿Qué biológico encaja con este paciente?</h3><p>Tabla comparativa ponderada para su perfil</p></div>
+      </div>
+      <div class="phase__body">
+        <div class="prompt">
+          <div class="prompt__bar"><span><span class="tag">Prompt #5</span>Comparativa de biológicos y moléculas pequeñas</span><button class="copy" type="button">Copiar</button></div>
+<pre>[ROL] Eres consultor experto en EII.
+
+[PERFIL] Varón 21 años, deportista de alto rendimiento (opositor a bombero), CU izquierda moderada en respuesta parcial a mesalazina. Antecedente reciente de pancreatitis aguda. Sin enfermedad articular ni cutánea asociadas. No fumador. Sin antecedentes familiares.
+
+[TAREA] Genera una tabla comparativa de los biológicos y moléculas pequeñas aprobadas en CU moderada-grave en España con los ejes:
+1. Mecanismo de acción
+2. Vía y frecuencia de administración (IV vs SC vs VO)
+3. Ensayos pivotales y tasa de remisión clínica/endoscópica
+4. Perfil de seguridad relevante para este paciente (infecciones, herpes, eventos CV, fertilidad)
+5. Ventajas e inconvenientes para un paciente joven y deportista con oposiciones (movilidad, adherencia, tiempos de hospital de día)
+6. Recomendación priorizada con razonamiento
+
+[FORMATO] Tabla + párrafo final con la recomendación.</pre>
+        </div>
+        <p class="note">El objetivo es razonar el proceso de decisión, no validar una recomendación concreta. La elección real depende del comité, de las preferencias del paciente y del acceso local.</p>
+      </div>
+    </article>
+
+    <article class="phase ph6" id="paso6">
+      <div class="phase__head">
+        <div class="phase__n">PASO<b>6</b></div>
+        <div><h3>Comunicar al paciente</h3><p>¿Cómo le explico que toca cambiar?</p></div>
+      </div>
+      <div class="phase__body">
+        <p>Un paciente joven y deportista que probablemente no esperaba un «biológico» tras siete meses de pastillas. La IA ayuda a estructurar un mensaje claro, honesto y que cuide la adherencia.</p>
+        <div class="prompt">
+          <div class="prompt__bar"><span><span class="tag">Prompt #6</span>Mensaje para el paciente</span><button class="copy" type="button">Copiar</button></div>
+<pre>[TAREA] Redacta un mensaje para este paciente al salir de consulta tras la decisión de iniciar biológico.
+
+[REQUISITOS]
+- Nivel de lectura: lego en medicina
+- 250-300 palabras
+- Sin tecnicismos. Sin siglas (ni EII, ni CU, ni biológico de entrada).
+- Estructura:
+• Por qué cambiamos de tratamiento (mesalazina insuficiente + posible papel en pancreatitis)
+• Qué es un tratamiento biológico, en palabras llanas
+• Cómo se administra y con qué frecuencia
+• Qué cribado se hace antes y por qué (vacunas, TBC, hepatitis)
+• Qué efectos vigilar y cuándo llamar
+• Compatibilidad con su vida deportiva y oposiciones
+• Próxima cita y seguimiento
+
+[EXTRA] Genera también un resumen visual A5 con calendario de inducción y señales de alarma.</pre>
+        </div>
+        <p class="note"><b>Consejo:</b> el resumen visual A5 sale mejor en herramientas que generan documentos o artefactos (Canvas en ChatGPT o Gemini, artefactos en Claude).</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- 2 · EVIDENCIA -->
+<section id="evidencia">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">2</span><h2>Una pregunta, cinco buscadores de evidencia</h2></div>
+    <p class="sec-intro">Lanzamos la misma pregunta a varias herramientas de búsqueda con IA para comparar fuentes, profundidad y tono. Aquí tienes los informes que generaron durante el taller.</p>
+
+    <div class="prompt">
+      <div class="prompt__bar"><span><span class="tag">Pregunta</span>La misma en todas las herramientas</span><button class="copy" type="button">Copiar</button></div>
+<pre>Utilidad del butirato en el síndrome de intestino irritable</pre>
+    </div>
+
+    <div class="grid grid-3" style="margin-top:24px">
+      <div class="card tool-card">
+        <span class="kind">Revisión de literatura</span>
+        <h3>Elicit</h3>
+        <p>Informe en formato <i>paper</i> con resumen, extracción de datos y referencias. Encontró un solo estudio (no aleatorizado, ~3.000 pacientes) y lo dice claramente.</p>
+        <a class="btn" href="assets/informes/butirato-elicit.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Buscador académico</span>
+        <h3>Consensus</h3>
+        <p>Tabla por preparación, dosis y efecto clínico, con citas a cada estudio. Útil para ver de un vistazo qué se ha probado y con qué resultado.</p>
+        <a class="btn" href="assets/informes/butirato-consensus.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">IA médica</span>
+        <h3>OpenEvidence</h3>
+        <p>Respuesta clínica con referencias de PubMed: ensayos en adultos y en población pediátrica, mecanismos de acción y conclusión práctica.</p>
+        <a class="btn" href="assets/informes/butirato-openevidence.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Buscador web con IA</span>
+        <h3>Perplexity</h3>
+        <p>Síntesis breve con lectura crítica final. Ojo a las fuentes: muchas son revistas regionales y webs de congresos, no siempre revisadas por pares.</p>
+        <a class="btn" href="assets/informes/butirato-perplexity.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Deep Research</span>
+        <h3>ChatGPT · del hallazgo al manuscrito</h3>
+        <p>Guía completa para preparar un manuscrito para <i>Gastroenterology</i>: estructura, plantillas por sección, checklist de envío y normas (ICMJE, CONSORT, STROBE, PRISMA).</p>
+        <a class="btn" href="assets/informes/manuscrito-gastroenterology-chatgpt.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a>
+      </div>
+      <div class="card tool-card" style="background:var(--bg-soft)">
+        <span class="kind">Qué mirar al comparar</span>
+        <h3>Antes de fiarte</h3>
+        <ul class="steps" style="flex:1">
+          <li>¿Cuántos estudios encuentra y de qué tipo?</li>
+          <li>¿Las fuentes son revistas revisadas por pares?</li>
+          <li>¿Distingue adultos de niños, humanos de animales?</li>
+          <li>¿Reconoce los límites de la evidencia?</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="margin-top:40px">Artículos que usamos en el taller</h4>
+    <div class="dl">
+      <a href="https://doi.org/10.1136/gutjnl-2024-333281" target="_blank" rel="noopener"><span class="ico">GUT</span><span>Amiot A, et al. Ensayo ACTIVE: infliximab + azatioprina <i>top-down</i> frente a azatioprina sola en CU grave aguda<small>Gut 2024;74:197–205</small></span></a>
+      <a href="https://doi.org/10.1136/gutjnl-2026-338098" target="_blank" rel="noopener"><span class="ico">GUT</span><span>Yadav A, et al. Los IBP deben mantenerse tras la ligadura endoscópica de varices<small>Gut 2026 · Endoscopy news</small></span></a>
+    </div>
+    <div class="prompt" style="margin-top:20px">
+      <div class="prompt__bar"><span><span class="tag">Para practicar</span>Lectura crítica de un artículo (adjunta el PDF)</span><button class="copy" type="button">Copiar</button></div>
+<pre>[ROL] Actúa como gastroenterólogo con formación en metodología y lectura crítica.
+
+[TAREA] Analiza el artículo adjunto y dame:
+1. Pregunta de investigación en formato PICO
+2. Diseño del estudio, población y variable principal
+3. Resultado principal con su magnitud (y su IC 95 %)
+4. Principales limitaciones y riesgos de sesgo
+5. Aplicabilidad a nuestros pacientes en España
+6. Tres preguntas que plantearía en una sesión bibliográfica
+
+[REGLAS] Usa solo la información del artículo. Si un dato no aparece, escribe "No consta". Indica la página o sección de donde sale cada cifra.</pre>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · CASO 2 -->
+<section id="caso2" class="alt">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">3</span><h2>Caso 2: diarrea crónica con un diagnóstico que se resiste</h2></div>
+    <p class="sec-intro">Un segundo caso real para aplicar la misma lógica: cuando el diagnóstico inicial no termina de encajar y los tratamientos se suceden sin una remisión clara.</p>
+
+    <div class="patient">
+      <div class="card">
+        <h3>Presentación (julio 2020)</h3>
+        <div class="facts" style="margin-top:6px">
+          <div class="fact"><b>52 años</b><span>varón, sin antecedentes personales</span></div>
+          <div class="fact"><b>Madre y 2 hermanas</b><span>con enfermedad de Crohn</span></div>
+          <div class="fact"><b>5–7 dep/día</b><span>Bristol 6-7, en brotes de 2-4 semanas</span></div>
+          <div class="fact"><b>323 mg/kg</b><span>calprotectina, PCR y hemograma normales</span></div>
+        </div>
+      </div>
+      <div>
+        <h4 style="margin-top:0">Evolución</h4>
+        <ol class="timeline">
+          <li><b>Oct 2020</b>Colonoscopia: íleon eritematoso, ciego friable. Biopsias con abundantes eosinófilos. ¿Colitis eosinofílica? Se inicia prednisona.</li>
+          <li><b>Meses siguientes</b>Asintomático con corticoides. Gastroscopia sin eosinofilia relevante. Calprotectina 420.</li>
+          <li><b>Mar–abr 2022</b>Cápsula: úlceras estrelladas desde duodeno; no llega a ciego. Enteroscopia: estenosis en yeyuno medio. Vuelve la diarrea.</li>
+          <li><b>Jun 2022</b>La anatomía patológica descarta eosinofilia: se asume enfermedad de Crohn. Adalimumab 160-80-40.</li>
+          <li><b>2022–2023</b>Paucisintomático (HBI 2-4), pero calprotectina 500-650 y niveles de adalimumab ~9 ng/ml pese a intensificar.</li>
+          <li><b>Sep 2023</b>Cambio a ustekinumab (90 mg/4 sem). Calprotectina 600-1.200.</li>
+          <li><b>2024</b>Cambio a risankizumab. Sigue paucisintomático con calprotectinas de 1.000-1.200. ¿Y ahora?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="prompt" style="margin-top:28px">
+      <div class="prompt__bar"><span><span class="tag">Para practicar</span>Revisar el razonamiento diagnóstico y terapéutico</span><button class="copy" type="button">Copiar</button></div>
+<pre>[ROL] Actúa como gastroenterólogo experto en enfermedad de Crohn de intestino delgado.
+
+[CASO] Varón 52 años, madre y 2 hermanas con enfermedad de Crohn. Diarrea crónica en brotes desde 2020. Biopsias colónicas iniciales con eosinófilos (se sospechó colitis eosinofílica, respuesta a prednisona). Cápsula: úlceras estrelladas desde duodeno; estenosis en yeyuno medio. AP posterior sin eosinofilia: se asume Crohn yeyunoileal. Adalimumab intensificado (niveles ~9 ng/ml), después ustekinumab 90 mg/4 sem y después risankizumab. Clínicamente paucisintomático (HBI 3-4) pero calprotectina persistente de 600-1.200 mg/kg.
+
+[TAREA]
+1. ¿Qué datos del caso deberían haber orientado antes hacia Crohn?
+2. Diagnóstico diferencial de la calprotectina elevada persistente con poca clínica
+3. Qué pruebas pedirías ahora para valorar actividad transmural y la estenosis
+4. Opciones terapéuticas razonables en este momento, con sus pros y contras
+5. Qué dudas llevarías al comité de EII
+
+[FORMATO] Respuesta estructurada por puntos. Señala qué afirmaciones se apoyan en guías (ECCO/GETECCU) y cuáles son opinión.</pre>
+    </div>
+    <p class="note">Este prompt no se lanzó en la sesión: es una propuesta para trabajar el caso por tu cuenta.</p>
+  </div>
+</section>
+
+<!-- REGLAS DE ORO -->
+<section id="reglas">
+  <div class="container">
+    <p class="eyebrow">Para llevar a la consulta</p>
+    <h2>Reglas de oro</h2>
+    <p class="sec-intro">Lo que conviene recordar cada vez que uses IA con un caso clínico.</p>
+    <ol class="golden">
+      <li><b>Nunca datos identificativos.</b> Ni nombre, ni historia, ni fechas exactas que permitan reconocer al paciente.</li>
+      <li><b>Contexto, tarea y formato.</b> Cuanto más concreto es el prompt, más útil y verificable es la respuesta.</li>
+      <li><b>Pide fuentes y compruébalas.</b> Una cita puede existir y no decir lo que la IA afirma.</li>
+      <li><b>Compara herramientas.</b> La misma pregunta da respuestas distintas según la herramienta y sus fuentes.</li>
+      <li><b>La IA no decide.</b> Acompaña, contrasta y ayuda a explicar. El juicio clínico sigue siendo tuyo.</li>
+      <li><b>Úsala también para comunicar.</b> Explicar un cambio de tratamiento con palabras llanas mejora la adherencia.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- BONUS -->
+<section id="bonus" class="alt" style="border-bottom:0">
+  <div class="container">
+    <p class="eyebrow">Bonus</p>
+    <h2>Un vídeo generado con IA para Valladolid</h2>
+    <p class="sec-intro">Diez segundos generados a partir de un texto con Veo, el modelo de vídeo de Google (disponible en Gemini). Una muestra de hasta dónde ha llegado la generación de imagen y vídeo.</p>
+    <div class="grid grid-2">
+      <div class="video"><video src="assets/valladolid-veo.mp4" poster="assets/valladolid-poster.jpg" controls playsinline preload="none"></video></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="container" style="padding-top:8px;padding-bottom:16px">
+  <aside class="newsletter">
+    <div class="newsletter__text">
+      <p class="newsletter__eyebrow">Mantente al día</p>
+      <img class="newsletter__title" src="assets/sentinel-title.png" alt="The Independent Sentinel">
+      <p class="newsletter__desc">La newsletter de Javier Fuentes con los avances semanales en IA, ciencia de datos y las historias que conectan la tecnología con la cultura.</p>
+      <div class="newsletter__actions">
+        <a class="newsletter__btn" href="https://theindependentsentinel.substack.com/" target="_blank" rel="noopener">Suscribirse →</a>
+        <span class="newsletter__url">theindependentsentinel.substack.com</span>
+      </div>
+    </div>
+    <div class="newsletter__qr">
+      <img src="assets/sentinel-qr.png" alt="QR a The Independent Sentinel">
+      <span>Escanéame</span>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="container">
+    <span>Integración de la IA en la práctica clínica de la EII · Hospital Universitario Río Hortega, Valladolid · 2 de junio de 2026 · Javier Fuentes</span>
+    <span class="disclosure">Actividad de educación médica con la colaboración de Janssen-Cilag, S.A., una compañía de Johnson &amp; Johnson.</span>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.prompt').forEach(function (box) {
+  var btn = box.querySelector('.copy');
+  var pre = box.querySelector('pre');
+  btn.addEventListener('click', function () {
+    var text = pre.innerText;
+    var done = function () {
+      btn.textContent = 'Copiado ✓'; btn.classList.add('ok');
+      setTimeout(function () { btn.textContent = 'Copiar'; btn.classList.remove('ok'); }, 1800);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+  });
+});
+</script>
+</body>
+</html>

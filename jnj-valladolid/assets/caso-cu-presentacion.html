@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caso CU · J&J · Paso a paso con IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fdfaf9;
+    --bg-card: #ffffff;
+    --bg-soft: #fbe9e6;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-muted: #7a6e6c;
+    --line: #f0dcd8;
+    --line-strong: #d9b8b2;
+    --accent: #D71600;          /* J&J Passion Red 2023 */
+    --accent-soft: #fbd5d0;
+    --accent-deep: #8c0e00;
+    --teal: #0f766e;
+    --teal-soft: #99f6e4;
+    --yellow: #ca8a04;
+    --yellow-soft: #fef3c7;
+    --green: #166534;
+    --green-soft: #bbf7d0;
+    --red: #991b1b;
+    --red-soft: #fecaca;
+    --shadow-sm: 0 1px 2px rgba(20,20,20,0.04);
+    --shadow-md: 0 8px 24px rgba(20,20,20,0.06);
+    --shadow-lg: 0 20px 60px rgba(20,20,20,0.08);
+    --radius: 6px;
+    --radius-lg: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  .deck { width: 100vw; height: 100vh; position: relative; overflow: hidden; }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    padding: 56px 80px;
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+    overflow-y: auto;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 24px;
+  }
+
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .eyebrow .line { flex: 1; height: 1px; background: var(--line); }
+
+  .case-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .step-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px 4px 4px;
+    border-radius: 100px;
+    background: var(--accent);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .step-badge .num {
+    background: white;
+    color: var(--accent);
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+
+  h1.deck-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+
+  h1.deck-title em { font-style: italic; color: var(--accent); }
+
+  h2.slide-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  h2.slide-title em { font-style: italic; color: var(--accent); }
+
+  .slide-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+    max-width: 800px;
+    line-height: 1.5;
+  }
+
+  h3.section-h {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+  }
+
+  /* COVER */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px;
+  }
+
+  .cover-meta {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 48px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .cover-meta span:first-child { color: var(--accent); }
+
+  .cover-footer {
+    position: absolute;
+    bottom: 56px;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  .cover-footer .org { font-weight: 600; color: var(--ink-soft); }
+
+  .cover-blurb {
+    max-width: 720px;
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-top: 16px;
+  }
+
+  .cover-mark {
+    position: absolute;
+    top: 56px;
+    right: 80px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  /* PATIENT STRIP */
+  .patient-strip {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--bg-soft);
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+
+  .patient-strip .avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px;
+    color: var(--ink-soft);
+    flex-shrink: 0;
+  }
+
+  .patient-strip .name { font-weight: 600; color: var(--ink); margin-right: 8px; }
+  .patient-strip .pipe { width: 1px; height: 16px; background: var(--line-strong); margin: 0 8px; }
+  .patient-strip .label {
+    color: var(--ink-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-right: 6px;
+  }
+
+  /* PATIENT CARD */
+  .patient-card-full {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+    max-width: 540px;
+  }
+
+  .patient-card-full h4 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 16px;
+  }
+
+  .patient-avatar {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--bg-soft);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+
+  .patient-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .patient-summary { font-size: 14px; color: var(--ink-muted); margin-bottom: 24px; }
+
+  .patient-vitals {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+
+  .vital { display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
+  .vital-label { color: var(--ink-muted); }
+  .vital-value { font-weight: 500; color: var(--ink); }
+  .vital-value.warn { color: var(--yellow); }
+  .vital-value.danger { color: var(--red); }
+
+  .ask-answer {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .prompt-box {
+    background: #1a1a1a;
+    color: #e8e4d8;
+    border-radius: 10px;
+    padding: 20px 22px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    position: relative;
+    box-shadow: var(--shadow-md);
+  }
+
+  .prompt-box::before {
+    content: 'PROMPT';
+    position: absolute;
+    top: -10px;
+    left: 18px;
+    background: var(--accent);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  .prompt-box .role { color: #fbbf24; font-weight: 600; }
+  .prompt-box .key { color: #fda4af; }
+
+  .live-placeholder {
+    background: var(--bg-card);
+    border: 2px dashed var(--line-strong);
+    border-radius: 10px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 280px;
+    position: relative;
+  }
+
+  .live-placeholder::before {
+    content: 'EN DIRECTO';
+    position: absolute;
+    top: -10px;
+    left: 18px;
+    background: var(--teal);
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  .live-icon {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--teal-soft);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .live-icon::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid var(--teal);
+    opacity: 0.4;
+    animation: pulse 2s ease-out infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.4); opacity: 0; }
+  }
+
+  .live-icon svg { width: 22px; height: 22px; color: var(--teal); }
+
+  .live-placeholder .live-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .live-placeholder .live-sub {
+    font-size: 13px;
+    color: var(--ink-muted);
+    max-width: 340px;
+    line-height: 1.5;
+  }
+
+  .question-bubble {
+    background: var(--bg-soft);
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 12px 0;
+  }
+
+  .question-bubble::before {
+    content: 'PACIENTE';
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+
+  .flow-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+    margin-top: 20px;
+  }
+
+  .flow-step {
+    padding: 12px 8px;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    text-align: center;
+    position: relative;
+  }
+
+  .flow-step.current {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .flow-step .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-muted);
+    margin-bottom: 4px;
+  }
+
+  .flow-step.current .num { color: rgba(255,255,255,0.7); }
+  .flow-step .label { font-size: 10.5px; font-weight: 600; line-height: 1.2; }
+
+  .page-num {
+    position: absolute;
+    top: 56px;
+    right: 80px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+
+  .warning {
+    margin-top: 16px;
+    padding: 14px 18px;
+    background: var(--yellow-soft);
+    border-radius: 8px;
+    border-left: 3px solid var(--yellow);
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  .warning strong { color: var(--yellow); }
+
+  .outcome-card {
+    background: var(--accent-deep);
+    color: white;
+    border-radius: var(--radius-lg);
+    padding: 24px 28px;
+    margin-top: 16px;
+  }
+
+  .outcome-card h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 12px;
+  }
+
+  .outcome-card ul { list-style: none; padding: 0; }
+
+  .outcome-card ul li {
+    font-size: 14.5px;
+    line-height: 1.6;
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 6px;
+  }
+
+  .outcome-card ul li::before {
+    content: '▷';
+    position: absolute;
+    left: 0;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .outcome-card strong { font-weight: 600; }
+
+  /* TIMELINE for full case overview */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    margin-top: 24px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--line-strong);
+  }
+
+  .timeline-event {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .timeline-event::before {
+    content: '';
+    position: absolute;
+    left: -32px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--bg);
+  }
+
+  .timeline-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .timeline-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .timeline-body {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  .nav {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+    max-width: 90vw;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--line-strong);
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .nav-dot.active { background: var(--accent); transform: scale(1.3); }
+
+  .nav-counter {
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-muted);
+    z-index: 100;
+  }
+
+  .nav-counter .current { color: var(--accent); font-weight: 600; }
+
+  .nav-arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-md);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    z-index: 101;
+    color: var(--ink);
+    font-size: 22px;
+    line-height: 1;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .nav-arrow:hover { background: white; transform: translateY(-50%) scale(1.05); }
+  .nav-arrow:active { transform: translateY(-50%) scale(0.95); }
+  .nav-arrow.prev { left: 16px; }
+  .nav-arrow.next { right: 16px; }
+
+  .nav-keys {
+    position: fixed;
+    bottom: 24px;
+    right: 32px;
+    font-size: 11px;
+    color: var(--ink-muted);
+    z-index: 100;
+  }
+
+  @media (hover: none) { .nav-keys { display: none; } }
+
+  @media (max-width: 1100px) {
+    .slide { padding: 40px; }
+    .ask-answer { grid-template-columns: 1fr; gap: 20px; }
+  }
+
+  @media (max-width: 800px) {
+    .slide { padding: 28px 24px; }
+    .patient-strip { flex-wrap: wrap; gap: 6px 10px; padding: 10px 12px; font-size: 12px; }
+    .patient-strip .avatar { width: 28px; height: 28px; font-size: 13px; }
+    .patient-strip .name { margin-right: 0; font-size: 12px; }
+    .patient-strip .pipe { display: none; }
+    .patient-strip .label { font-size: 10px; }
+    .flow-strip { grid-template-columns: repeat(6, 1fr); gap: 3px; }
+    .flow-step { padding: 6px 4px; }
+    .flow-step .label { font-size: 9px; }
+    .flow-step .num { font-size: 8px; }
+    .cover-mark { font-size: 24px; top: 28px; right: 24px; }
+  }
+
+  .slide::-webkit-scrollbar { width: 6px; }
+  .slide::-webkit-scrollbar-track { background: transparent; }
+  .slide::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="nav-counter">
+  <span class="current">01</span> / <span class="total">13</span>
+</div>
+
+<div class="deck">
+
+  <!-- 1. COVER -->
+  <section class="slide cover active">
+    <div class="cover-mark">J&J</div>
+    <div class="cover-meta">
+      <span>● Caso clínico</span>
+      <span>Enfermedad inflamatoria intestinal</span>
+      <span>Razonamiento con IA</span>
+    </div>
+
+    <h1 class="deck-title">
+      Colitis ulcerosa en <em>paciente joven</em><br>
+      paso a paso con <em>IA</em>
+    </h1>
+
+    <p class="cover-blurb">
+      Recorremos un caso real de colitis ulcerosa con respuesta parcial a mesalazina, complicación intercurrente (pancreatitis) y escalado a biológico. En cada fase del razonamiento, planteamos qué preguntar a la IA y cómo validar su respuesta.
+    </p>
+
+    <div class="cover-footer">
+      <div>
+        <div class="org">Sesión formativa</div>
+        <div style="margin-top: 4px;">Taller de IA aplicada a la práctica clínica en EII</div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-weight: 600; color: var(--ink-soft);">Javier Fuentes · NCompany</div>
+        <div style="margin-top: 4px;">ncompany.es</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. METODOLOGÍA -->
+  <section class="slide">
+    <div class="eyebrow">
+      <div class="dot"></div>
+      <span>Cómo vamos a trabajar el caso</span>
+      <div class="line"></div>
+    </div>
+
+    <h2 class="slide-title">Seis preguntas, <em>una misma lógica</em></h2>
+    <p class="slide-subtitle">
+      Para cada fase del manejo formulamos una pregunta concreta a la IA y contrastamos su respuesta con el juicio clínico de la sala antes de avanzar.
+    </p>
+
+    <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-top: 32px;">
+      <div style="padding: 18px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; border-top: 3px solid var(--accent);">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-muted); margin-bottom: 6px;">01</div>
+        <div style="font-family: 'DM Serif Display', serif; font-size: 16px; line-height: 1.2; margin-bottom: 4px;">Anamnesis</div>
+        <p style="font-size: 11.5px; color: var(--ink-soft);">¿Qué más debo explorar?</p>
+      </div>
+      <div style="padding: 18px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; border-top: 3px solid var(--teal);">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-muted); margin-bottom: 6px;">02</div>
+        <div style="font-family: 'DM Serif Display', serif; font-size: 16px; line-height: 1.2; margin-bottom: 4px;">Pruebas</div>
+        <p style="font-size: 11.5px; color: var(--ink-soft);">¿Qué pido y en qué orden?</p>
+      </div>
+      <div style="padding: 18px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; border-top: 3px solid var(--yellow);">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-muted); margin-bottom: 6px;">03</div>
+        <div style="font-family: 'DM Serif Display', serif; font-size: 16px; line-height: 1.2; margin-bottom: 4px;">Diagnóstico</div>
+        <p style="font-size: 11.5px; color: var(--ink-soft);">Confirmación y estadificación</p>
+      </div>
+      <div style="padding: 18px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; border-top: 3px solid #3730a3;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-muted); margin-bottom: 6px;">04</div>
+        <div style="font-family: 'DM Serif Display', serif; font-size: 16px; line-height: 1.2; margin-bottom: 4px;">1ª línea</div>
+        <p style="font-size: 11.5px; color: var(--ink-soft);">Mesalazina y seguimiento</p>
+      </div>
+      <div style="padding: 18px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; border-top: 3px solid var(--green);">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-muted); margin-bottom: 6px;">05</div>
+        <div style="font-family: 'DM Serif Display', serif; font-size: 16px; line-height: 1.2; margin-bottom: 4px;">Escalado</div>
+        <p style="font-size: 11.5px; color: var(--ink-soft);">Pancreatitis y biológico</p>
+      </div>
+      <div style="padding: 18px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; border-top: 3px solid var(--accent-deep);">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-muted); margin-bottom: 6px;">06</div>
+        <div style="font-family: 'DM Serif Display', serif; font-size: 16px; line-height: 1.2; margin-bottom: 4px;">Comunicar</div>
+        <p style="font-size: 11.5px; color: var(--ink-soft);">Mensaje al paciente</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; padding: 20px 24px; background: var(--bg-soft); border-radius: 10px;">
+      <h3 class="section-h" style="margin-bottom: 8px;">Regla del taller</h3>
+      <p style="font-size: 15px; color: var(--ink); line-height: 1.55;">
+        La IA propone, <strong>el clínico dispone</strong>. Cada respuesta de la IA se discute, se valida o se rechaza con el criterio de la sala antes de avanzar al siguiente paso.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3. PACIENTE -->
+  <section class="slide">
+    <div class="page-num">Presentación</div>
+    <div class="eyebrow">
+      <div class="dot"></div>
+      <span>El paciente que llega a la consulta</span>
+      <div class="line"></div>
+      <span class="case-tag">16 oct 2025</span>
+    </div>
+
+    <h2 class="slide-title">«Llevo meses con <em>diarrea</em> y veo <em>sangre</em>»</h2>
+
+    <div style="display: grid; grid-template-columns: 540px 1fr; gap: 40px; margin-top: 24px;">
+      <aside class="patient-card-full">
+        <h4>Paciente</h4>
+        <div class="patient-avatar">V</div>
+        <div class="patient-name">Varón, 21 años</div>
+        <div class="patient-summary">Estudiante oposiciones bomberos</div>
+        <div class="patient-vitals">
+          <div class="vital">
+            <span class="vital-label">Inicio síntomas</span>
+            <span class="vital-value">Junio-julio 2025</span>
+          </div>
+          <div class="vital">
+            <span class="vital-label">Contexto inicial</span>
+            <span class="vital-value">Viaje competición · Turquía</span>
+          </div>
+          <div class="vital">
+            <span class="vital-label">Pujos / moco / sangre</span>
+            <span class="vital-value danger">Sí, varios al día</span>
+          </div>
+          <div class="vital">
+            <span class="vital-label">Urgencia defecatoria</span>
+            <span class="vital-value warn">Sí, 2 episodios incontinencia</span>
+          </div>
+          <div class="vital">
+            <span class="vital-label">Deposiciones nocturnas</span>
+            <span class="vital-value">No</span>
+          </div>
+          <div class="vital">
+            <span class="vital-label">Pérdida de peso</span>
+            <span class="vital-value danger">5 kg</span>
+          </div>
+          <div class="vital">
+            <span class="vital-label">Clínica extraintestinal</span>
+            <span class="vital-value">No</span>
+          </div>
+          <div class="vital">
+            <span class="vital-label">AF EII / Celiaca / Cáncer</span>
+            <span class="vital-value">Negativos</span>
+          </div>
+          <div class="vital">
+            <span class="vital-label">Tóxicos</span>
+            <span class="vital-value">No fumador · no alcohol</span>
+          </div>
+        </div>
+      </aside>
+
+      <div>
+        <div class="question-bubble">
+          «Empezó después de un viaje a Turquía. Al principio era estreñimiento, luego diarrea. Ahora hago una al día, pero tengo varios pujos con moco y sangre. He perdido cinco kilos. Estoy preparando oposiciones a bombero y esto me está machacando.»
+        </div>
+
+        <div style="margin-top: 24px;">
+          <h3 class="section-h">Lo que sabemos al entrar en consulta</h3>
+          <ul style="list-style: none; padding: 0; font-size: 14.5px; line-height: 1.75;">
+            <li>→ Varón <strong>joven, sin antecedentes</strong>, deportista, alto rendimiento físico previsto.</li>
+            <li>→ Síntomas <strong>&gt; 4 meses</strong> con rectorragia, urgencia e incontinencia.</li>
+            <li>→ Inicio tras viaje internacional (descartar causa infecciosa).</li>
+            <li>→ Pérdida de peso significativa — descartar organicidad.</li>
+          </ul>
+        </div>
+
+        <div class="flow-strip">
+          <div class="flow-step current"><div class="num">01</div><div class="label">Anamnesis</div></div>
+          <div class="flow-step"><div class="num">02</div><div class="label">Pruebas</div></div>
+          <div class="flow-step"><div class="num">03</div><div class="label">Diagnóstico</div></div>
+          <div class="flow-step"><div class="num">04</div><div class="label">1ª línea</div></div>
+          <div class="flow-step"><div class="num">05</div><div class="label">Escalado</div></div>
+          <div class="flow-step"><div class="num">06</div><div class="label">Comunicar</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. PASO 1 ANAMNESIS -->
+  <section class="slide">
+    <div class="page-num">Paso 1 / 6 · Anamnesis</div>
+    <div class="patient-strip">
+      <div class="avatar">V</div>
+      <div class="name">Varón, 21 años</div>
+      <div class="pipe"></div>
+      <span class="label">MC:</span> Diarrea + rectorragia 4 meses
+      <div class="pipe"></div>
+      <span class="label">Contexto:</span> Tras viaje a Turquía
+      <div class="pipe"></div>
+      <span class="label">Pérdida peso:</span> 5 kg
+    </div>
+
+    <div class="step-badge"><span class="num">1</span>Anamnesis dirigida</div>
+    <h2 class="slide-title">¿Qué más le <em>debo preguntar</em>?</h2>
+    <p class="slide-subtitle">
+      Sospecha de EII pero hay que cubrir todos los flancos: descartar infeccioso, identificar manifestaciones extraintestinales y caracterizar bien la actividad.
+    </p>
+
+    <div class="ask-answer">
+      <div>
+        <div class="prompt-box">
+<span class="role">[ROL]</span> Actúa como gastroenterólogo experto en EII.
+
+<span class="role">[CASO]</span> Varón 21 años, sin antecedentes, deportista. Diarrea + rectorragia desde junio-julio 2025 (inicio tras viaje a Turquía). Pujos, moco, sangre, urgencia, 2 episodios de incontinencia. Pérdida 5 kg.
+
+<span class="role">[TAREA]</span> Dame una <span class="key">checklist priorizada</span> de anamnesis aún no cubierta, organizada en:
+1. Caracterización clínica de la diarrea (escala Bristol, frecuencia, nocturnidad, tenesmo)
+2. Diagnóstico diferencial infeccioso (alimentos, agua, sexual, exposiciones)
+3. Manifestaciones extraintestinales de EII (articular, cutánea, ocular, hepática)
+4. Factores que modifican manejo (tabaco, AINE, antibióticos previos, vacunas)
+5. Impacto funcional y psicosocial (estudio, actividad física, oposiciones)
+6. Datos para planificar futuro tratamiento biológico (TBC latente, hepatitis, embarazo no aplica pero registrar)
+        </div>
+      </div>
+
+      <div class="live-placeholder">
+        <div class="live-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+          </svg>
+        </div>
+        <div class="live-title">La respuesta se generará en vivo</div>
+        <div class="live-sub">Lanzamos el prompt en directo y discutimos la respuesta con la sala antes de avanzar al siguiente paso.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. PASO 2 PRUEBAS -->
+  <section class="slide">
+    <div class="page-num">Paso 2 / 6 · Pruebas</div>
+    <div class="patient-strip">
+      <div class="avatar">V</div>
+      <div class="name">Varón, 21 años</div>
+      <div class="pipe"></div>
+      <span class="label">Tras anamnesis:</span> sin antibióticos previos, sin AINE, sin riesgo ITS referido
+    </div>
+
+    <div class="step-badge"><span class="num">2</span>Pruebas complementarias</div>
+    <h2 class="slide-title">¿Qué pruebas pido y <em>en qué orden</em>?</h2>
+    <p class="slide-subtitle">
+      Hay que confirmar organicidad, descartar infeccioso y, si EII, caracterizar extensión y actividad. Y todo de forma escalonada y razonable.
+    </p>
+
+    <div class="ask-answer">
+      <div>
+        <div class="prompt-box">
+<span class="role">[CONTEXTO]</span> Varón 21a con sospecha clínica de EII (probable colitis ulcerosa) tras 4 meses de síntomas.
+
+<span class="role">[TAREA]</span>
+1. <span class="key">Analítica</span>: hemograma, bioquímica completa, función hepática, perfil férrico, vit B12, ácido fólico, vit D
+2. <span class="key">Marcadores inflamatorios</span>: PCR, VSG
+3. <span class="key">Cribado infeccioso</span>: coprocultivo, parásitos, toxina C. difficile, CMV si ya estuviera con corticoides
+4. <span class="key">Marcadores fecales</span>: calprotectina como discriminador organicidad
+5. <span class="key">Serología EII</span>: ANCA, ASCA (rentabilidad limitada pero útil en caso atípico)
+6. <span class="key">Cribado pre-biológico</span> ya en esta visita: TBC latente (IGRA/Mantoux + Rx tórax), serologías VHB, VHC, VIH, varicela, sarampión
+7. <span class="key">Endoscopia</span>: ileocolonoscopia con biopsias escalonadas + EDA si clínica alta
+8. Considerar <span class="key">RM enterografía</span> si afectación ileal sospechada
+
+<span class="role">[FORMATO]</span> Tabla con prueba · objetivo · cuándo en el algoritmo.
+        </div>
+      </div>
+
+      <div class="live-placeholder">
+        <div class="live-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+          </svg>
+        </div>
+        <div class="live-title">La respuesta se generará en vivo</div>
+        <div class="live-sub">Lanzamos el prompt en directo y discutimos la respuesta con la sala antes de avanzar al siguiente paso.</div>
+      </div>
+    </div>
+
+    <div class="warning">
+      <strong>Pensar en futuro biológico desde el día 1:</strong> aunque empecemos por mesalazina, conviene tener ya hecho el cribado pre-biológico (TBC, hepatitis, vacunas) por si hay que escalar. Ahorra semanas.
+    </div>
+  </section>
+
+  <!-- 6. RESULTADOS Y DIAGNÓSTICO -->
+  <section class="slide">
+    <div class="page-num">Paso 3 / 6 · Diagnóstico</div>
+    <div class="eyebrow">
+      <div class="dot"></div>
+      <span>Lo que las pruebas nos devuelven</span>
+      <div class="line"></div>
+      <span class="case-tag">29 oct 2025</span>
+    </div>
+
+    <h2 class="slide-title">Diagnóstico y <em>estadificación</em></h2>
+    <p class="slide-subtitle">
+      Calprotectina extraordinariamente alta y colonoscopia compatible. Toca consolidar y graduar la actividad.
+    </p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 16px;">
+
+      <div style="background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; padding: 20px;">
+        <h3 class="section-h">Marcadores y analítica</h3>
+        <ul style="list-style: none; padding: 0; font-size: 13.5px; line-height: 1.7;">
+          <li>→ <strong>Calprotectina fecal: 40.625 mg/kg</strong> (extraordinariamente elevada).</li>
+          <li>→ Sangre oculta en heces: 716.</li>
+          <li>→ Cribado infeccioso negativo.</li>
+        </ul>
+      </div>
+
+      <div style="background: var(--bg-card); border: 1px solid var(--line); border-radius: 10px; padding: 20px;">
+        <h3 class="section-h">Colonoscopia (incompleta · 50 cm)</h3>
+        <ul style="list-style: none; padding: 0; font-size: 13.5px; line-height: 1.7;">
+          <li>→ <strong>Mucosa difusamente afectada desde margen anal</strong>.</li>
+          <li>→ Pérdida del patrón vascular, friabilidad, erosiones milimétricas.</li>
+          <li>→ Mayor afectación rectal.</li>
+          <li>→ <strong>UCEIS 5</strong> (Pv 2, H 2, U 1).</li>
+        </ul>
+      </div>
+
+      <div style="background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: 10px; padding: 20px; grid-column: 1 / -1;">
+        <h3 class="section-h" style="color: var(--accent);">Diagnóstico</h3>
+        <p style="font-size: 17px; line-height: 1.55; color: var(--ink); margin-top: 4px;">
+          <strong>Colitis ulcerosa (al menos) izquierda · Actividad leve clínica (Walmsley 5)</strong> con discordancia respecto a la actividad endoscópica moderada (UCEIS 5).
+        </p>
+      </div>
+
+    </div>
+
+    <div class="warning">
+      <strong>Pregunta clave a la IA en este punto:</strong> ¿cómo conciliar Walmsley clínico leve con UCEIS endoscópico moderado y calprotectina extraordinariamente elevada? ¿Cuál guía la decisión terapéutica?
+    </div>
+  </section>
+
+  <!-- 7. PASO 4 PRIMERA LÍNEA -->
+  <section class="slide">
+    <div class="page-num">Paso 4 / 6 · Primera línea</div>
+    <div class="patient-strip">
+      <div class="avatar">V</div>
+      <div class="name">Varón, 21 años</div>
+      <div class="pipe"></div>
+      <span class="label">Dx:</span> CU izquierda · Walmsley 5 · UCEIS 5
+      <div class="pipe"></div>
+      <span class="label">Cribado infeccioso:</span> negativo
+    </div>
+
+    <div class="step-badge"><span class="num">4</span>Inducción de primera línea</div>
+    <h2 class="slide-title">¿Qué <em>tratamiento</em> de inicio y cómo <em>monitorizo</em>?</h2>
+    <p class="slide-subtitle">
+      Paciente naïve, CU izquierda con actividad. Las guías ECCO y AEG son claras: 5-ASA oral + tópico. La IA puede ayudarnos a pautar dosis, vía y plan de seguimiento.
+    </p>
+
+    <div class="ask-answer">
+      <div>
+        <div class="prompt-box">
+<span class="role">[CASO]</span> CU izquierda recién diagnosticada en varón 21a, naïve a tratamiento. Walmsley 5 clínico, UCEIS 5 endoscópico, calprotectina 40.625.
+
+<span class="role">[TAREA]</span>
+1. <span class="key">Pauta de inducción</span> según guías ECCO 2022 / AEG: mesalazina oral + tópica
+2. Dosis, vía, posología y duración
+3. ¿Cómo presentar la <span class="key">terapia tópica</span> a un paciente joven que la rechaza?
+4. <span class="key">Marcadores de seguimiento</span> a las 4-8 semanas: clínica, calprotectina, analítica
+5. Definición de <span class="key">respuesta vs remisión</span> (clínica, biológica, endoscópica, histológica)
+6. Cuándo plantearse <span class="key">escalado</span> (corticoides? biológico?) si respuesta insuficiente
+        </div>
+      </div>
+
+      <div class="live-placeholder">
+        <div class="live-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+          </svg>
+        </div>
+        <div class="live-title">La respuesta se generará en vivo</div>
+        <div class="live-sub">Lanzamos el prompt en directo y discutimos la respuesta con la sala antes de avanzar al siguiente paso.</div>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <h4>Decisión tomada · 11 nov 2025</h4>
+      <ul>
+        <li><strong>Mesalazina 3 g/día oral</strong> + <strong>mesalazina enema 1/día nocturno</strong></li>
+        <li>Paciente acepta oral, <strong>no se llega a aplicar tratamiento tópico</strong></li>
+        <li>Se acuerda valorar respuesta en 2 meses y plantear supositorios si síntomas distales</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8. SEGUIMIENTO ENERO-MARZO 2026 -->
+  <section class="slide">
+    <div class="page-num">Evolución · Ene-Mar 2026</div>
+    <div class="patient-strip">
+      <div class="avatar">V</div>
+      <div class="name">Varón, 21 años</div>
+      <div class="pipe"></div>
+      <span class="label">Tras 2 meses de mesalazina oral</span>
+      <div class="pipe"></div>
+      <span class="label">Sin tópico</span>
+    </div>
+
+    <div class="eyebrow">
+      <div class="dot"></div>
+      <span>El caso se complica: respuesta parcial + evento intercurrente</span>
+      <div class="line"></div>
+    </div>
+
+    <h2 class="slide-title">Tres meses, <em>tres giros</em></h2>
+
+    <div class="timeline">
+      <div class="timeline-event">
+        <div class="timeline-date">19 ENE 2026 · Consulta</div>
+        <div class="timeline-title">Respuesta parcial — todavía no remisión</div>
+        <div class="timeline-body">
+          Calprotectina <strong>26.000 → 293 mg/kg</strong> (caída marcada). Clínicamente: Walmsley 2, rectorragia leve, 3 dep/día Bristol 3-4, sin urgencia ni nocturnidad. Sigue sin querer tópico. Acuerdo: 2 meses más con oral y reevaluar.
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="timeline-date">04 FEB 2026 · Ingreso</div>
+        <div class="timeline-title">Pancreatitis aguda leve · Lipasa 849</div>
+        <div class="timeline-body">
+          Ingreso urgente. Eco abdominal inicial: sin litiasis aparente. Eco de control 48h: <strong>cálculos diminutos visibles con cambios posturales</strong>. Ecografía intestinal sin hallazgos. Diagnóstico abierto entre litiásica, farmacológica (mesalazina) o autoinmune.
+        </div>
+      </div>
+      <div class="timeline-event">
+        <div class="timeline-date">MARZO 2026 · Consulta tras alta</div>
+        <div class="timeline-title">Repunte de actividad inflamatoria</div>
+        <div class="timeline-body">
+          3-4 dep/día Bristol 3-4, al menos un pujo diario, sin urgencia ni nocturnidad. <strong>Calprotectina 8.204 mg/kg</strong> (vuelve a subir). Se añade <strong>supositorio de mesalazina</strong>. Pendiente colangio-RMN y IgG4 para aclarar pancreatitis.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. PASO 5 ESCALADO BIOLÓGICO -->
+  <section class="slide">
+    <div class="page-num">Paso 5 / 6 · Escalado</div>
+    <div class="patient-strip">
+      <div class="avatar">V</div>
+      <div class="name">Varón, 21 años</div>
+      <div class="pipe"></div>
+      <span class="label">CU activa + pancreatitis reciente</span>
+      <div class="pipe"></div>
+      <span class="label">IgG4:</span> 94 (límite alto normal)
+    </div>
+
+    <div class="step-badge"><span class="num">5</span>Decisión multidimensional</div>
+    <h2 class="slide-title">Pancreatitis, mesalazina y <em>biológico</em>: ¿qué hacemos?</h2>
+    <p class="slide-subtitle">
+      Triple incógnita: ¿la pancreatitis es litiásica, autoinmune o por mesalazina? ¿Mantenemos o retiramos 5-ASA? Si vamos a biológico, ¿cuál encaja con este perfil?
+    </p>
+
+    <div class="ask-answer">
+      <div>
+        <div class="prompt-box">
+<span class="role">[CASO]</span> CU izquierda en varón 21a. Respuesta parcial a mesalazina (calprotectina 40.625 → 293, ahora rebote a 8.204). Pancreatitis aguda leve hace 3 meses. Colangio-RMN: bilis espesa sin colelitiasis. IgG4 94 (límite alto). Eco-endoscopia sin litiasis. No datos de pancreatitis crónica.
+
+<span class="role">[TAREA]</span>
+1. <span class="key">Diagnóstico diferencial</span> de la pancreatitis: litiásica vs autoinmune vs farmacológica (mesalazina)
+2. ¿Hay que <span class="key">retirar mesalazina</span>? Argumentos a favor y en contra
+3. Si escalamos a <span class="key">biológico</span> en CU moderada-grave:
+   • Anti-TNF (infliximab, adalimumab) — perfil, posología, ventajas
+   • Anti-integrina (vedolizumab) — perfil, posología, ventajas
+   • Anti-IL12/23 y anti-IL23 (ustekinumab, guselkumab, mirikizumab, risankizumab) — perfil
+   • Inhibidores JAK (tofacitinib, upadacitinib) — perfil
+4. ¿Qué <span class="key">criterios</span> hacen elegir uno u otro en este paciente concreto (joven, deportista, oposiciones, pancreatitis previa)?
+5. <span class="key">Cribado pre-biológico</span> a confirmar antes de iniciar
+        </div>
+      </div>
+
+      <div class="live-placeholder">
+        <div class="live-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+          </svg>
+        </div>
+        <div class="live-title">La respuesta se generará en vivo</div>
+        <div class="live-sub">Lanzamos el prompt en directo y discutimos la respuesta con la sala antes de avanzar al siguiente paso.</div>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <h4>Decisión tomada · Mayo 2026</h4>
+      <ul>
+        <li>IgG4 dentro de la normalidad (94) · Anticuerpos hepáticos negativos</li>
+        <li>Pancreatitis: <strong>dudoso origen multifactorial</strong> (bilis espesa + posible papel de mesalazina)</li>
+        <li>Mesalazina con respuesta parcial mantenida y dudas de seguridad: <strong>se retira</strong></li>
+        <li><strong>Inicio de tratamiento biológico</strong> con anti-TNF (inducción 0-2-6 semanas)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 10. COMPARATIVA BIOLÓGICOS — visual decisional -->
+  <section class="slide">
+    <div class="page-num">Bonus · Decisión de biológico</div>
+    <div class="patient-strip">
+      <div class="avatar">V</div>
+      <div class="name">Varón, 21 años</div>
+      <div class="pipe"></div>
+      <span class="label">Perfil:</span> Joven · deportista · oposiciones · pancreatitis previa
+    </div>
+
+    <div class="step-badge"><span class="num">★</span>Comparativa pedida a la IA</div>
+    <h2 class="slide-title">¿Qué <em>biológico</em> encaja con <em>este</em> paciente?</h2>
+    <p class="slide-subtitle">
+      Le pedimos a la IA que genere una tabla comparativa de las opciones disponibles en CU moderada-grave, ponderada para este perfil concreto. Discutimos en sala.
+    </p>
+
+    <div class="ask-answer">
+      <div>
+        <div class="prompt-box">
+<span class="role">[ROL]</span> Eres consultor experto en EII.
+
+<span class="role">[PERFIL]</span> Varón 21 años, deportista de alto rendimiento (opositor a bombero), CU izquierda moderada en respuesta parcial a mesalazina. Antecedente reciente de pancreatitis aguda. Sin enfermedad articular ni cutánea asociadas. No fumador. Sin antecedentes familiares.
+
+<span class="role">[TAREA]</span> Genera una <span class="key">tabla comparativa</span> de los biológicos y moléculas pequeñas aprobadas en CU moderada-grave en España con los ejes:
+1. Mecanismo de acción
+2. Vía y frecuencia de administración (IV vs SC vs VO)
+3. Ensayos pivotales y tasa de remisión clínica/endoscópica
+4. Perfil de seguridad relevante para este paciente (infecciones, herpes, eventos CV, fertilidad)
+5. <span class="key">Ventajas e inconvenientes</span> para un paciente joven y deportista con oposiciones (movilidad, adherencia, tiempos de hospital de día)
+6. Recomendación priorizada con razonamiento
+
+<span class="role">[FORMATO]</span> Tabla + párrafo final con la recomendación.
+        </div>
+      </div>
+
+      <div class="live-placeholder">
+        <div class="live-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+          </svg>
+        </div>
+        <div class="live-title">La IA construirá la tabla en vivo</div>
+        <div class="live-sub">Discutimos sus pros y contras con la sala y contrastamos con la decisión real tomada por el equipo asistencial.</div>
+      </div>
+    </div>
+
+    <div class="warning">
+      <strong>Disclaimer:</strong> el objetivo es razonar el proceso decisional, no validar una recomendación concreta. La elección real depende del comité, las preferencias del paciente y el acceso local.
+    </div>
+  </section>
+
+  <!-- 11. PASO 6 COMUNICACIÓN -->
+  <section class="slide">
+    <div class="page-num">Paso 6 / 6 · Comunicación</div>
+    <div class="patient-strip">
+      <div class="avatar">V</div>
+      <div class="name">Varón, 21 años</div>
+      <div class="pipe"></div>
+      <span class="label">Plan:</span> Inicio biológico · cribado completo · seguimiento estrecho
+    </div>
+
+    <div class="step-badge"><span class="num">6</span>Comunicar al paciente</div>
+    <h2 class="slide-title">¿Cómo le <em>explico</em> que toca cambiar?</h2>
+    <p class="slide-subtitle">
+      Paciente joven, deportista, opositor. Probablemente no esperaba "biológico" tras siete meses con pastillas. La IA nos ayuda a estructurar un mensaje claro, honesto y que mantenga la adherencia.
+    </p>
+
+    <div class="ask-answer">
+      <div>
+        <div class="prompt-box">
+<span class="role">[TAREA]</span> Redacta un mensaje para este paciente al salir de consulta tras la decisión de iniciar biológico.
+
+<span class="role">[REQUISITOS]</span>
+- Nivel de lectura: <span class="key">lego en medicina</span>
+- 250-300 palabras
+- Sin tecnicismos. Sin siglas (ni EII, ni CU, ni biológico de entrada).
+- Estructura:
+  • Por qué cambiamos de tratamiento (mesalazina insuficiente + posible papel en pancreatitis)
+  • Qué es un tratamiento biológico, en palabras llanas
+  • Cómo se administra y con qué frecuencia
+  • Qué cribado se hace antes y por qué (vacunas, TBC, hepatitis)
+  • Qué efectos vigilar y cuándo llamar
+  • Compatibilidad con su <span class="key">vida deportiva y oposiciones</span>
+  • Próxima cita y seguimiento
+
+<span class="role">[EXTRA]</span> Genera también un <span class="key">resumen visual A5</span> con calendario de inducción y señales de alarma.
+        </div>
+      </div>
+
+      <div class="live-placeholder">
+        <div class="live-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+          </svg>
+        </div>
+        <div class="live-title">La respuesta se generará en vivo</div>
+        <div class="live-sub">Lanzamos el prompt en directo y discutimos la respuesta con la sala antes de avanzar al siguiente paso.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. TIMELINE GLOBAL -->
+  <section class="slide">
+    <div class="page-num">Visión global</div>
+    <div class="eyebrow">
+      <div class="dot"></div>
+      <span>El caso en una línea de tiempo</span>
+      <div class="line"></div>
+    </div>
+
+    <h2 class="slide-title">Siete meses, <em>una decisión compleja</em></h2>
+    <p class="slide-subtitle">
+      Una visión panorámica de toda la trayectoria, para conectar los puntos al cerrar el taller.
+    </p>
+
+    <div class="timeline" style="margin-top: 12px;">
+      <div class="timeline-event">
+        <div class="timeline-date">JUN-JUL 2025</div>
+        <div class="timeline-title">Inicio insidioso tras viaje a Turquía</div>
+        <div class="timeline-body">Primero estreñimiento, luego diarrea, finalmente rectorragia. Pérdida 5 kg.</div>
+      </div>
+      <div class="timeline-event">
+        <div class="timeline-date">16 OCT 2025</div>
+        <div class="timeline-title">Primera consulta · sospecha de EII</div>
+        <div class="timeline-body">Calprotectina 40.625, sangre oculta positiva.</div>
+      </div>
+      <div class="timeline-event">
+        <div class="timeline-date">29 OCT 2025</div>
+        <div class="timeline-title">Colonoscopia · UCEIS 5</div>
+        <div class="timeline-body">Diagnóstico: CU izquierda con actividad endoscópica moderada.</div>
+      </div>
+      <div class="timeline-event">
+        <div class="timeline-date">11 NOV 2025</div>
+        <div class="timeline-title">Inicio mesalazina 3g oral + enema</div>
+        <div class="timeline-body">Paciente rechaza tópico. Respuesta inicial.</div>
+      </div>
+      <div class="timeline-event">
+        <div class="timeline-date">19 ENE 2026</div>
+        <div class="timeline-title">Calprotectina 293 · respuesta clínica parcial</div>
+        <div class="timeline-body">Walmsley 2. Sigue rectorragia ocasional. Continúa solo con oral.</div>
+      </div>
+      <div class="timeline-event">
+        <div class="timeline-date">04 FEB 2026</div>
+        <div class="timeline-title">Ingreso por pancreatitis aguda</div>
+        <div class="timeline-body">Lipasa 849. Diagnóstico diferencial abierto: litiásica vs farmacológica vs autoinmune.</div>
+      </div>
+      <div class="timeline-event">
+        <div class="timeline-date">MAR 2026</div>
+        <div class="timeline-title">Calprotectina 8.204 · rebote inflamatorio</div>
+        <div class="timeline-body">Se añade supositorio. Pendiente estudio etiológico de pancreatitis.</div>
+      </div>
+      <div class="timeline-event">
+        <div class="timeline-date">MAY 2026</div>
+        <div class="timeline-title">Decisión de escalado a biológico</div>
+        <div class="timeline-body">IgG4 normal · Ac hepáticos negativos · Retirada de mesalazina · Inducción anti-TNF 0-2-6.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. CIERRE -->
+  <section class="slide">
+    <div class="eyebrow">
+      <div class="dot"></div>
+      <span>Cierre</span>
+      <div class="line"></div>
+    </div>
+
+    <h2 class="slide-title" style="font-size: 56px; max-width: 900px;">
+      Un caso, <em>seis preguntas</em>
+    </h2>
+    <p class="slide-subtitle" style="font-size: 20px; max-width: 800px;">
+      La IA nos ha acompañado en cada fase: anamnesis, plan diagnóstico, interpretación de discordancias, elección terapéutica, decisión multidimensional cuando algo se complica, y comunicación con un paciente joven con un proyecto vital muy concreto.
+    </p>
+
+    <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-top: 28px; max-width: 1200px;">
+      <div style="padding: 14px; background: var(--bg-soft); border-radius: 8px; border-top: 3px solid var(--accent);">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--ink-muted); margin-bottom: 4px;">PASO 1</div>
+        <div style="font-family: 'DM Serif Display', serif; font-size: 15px; line-height: 1.2; margin-bottom: 4px;">Anamnesis</div>
+        <p style="font-size: 11.5px; color: var(--ink-soft);">Checklist sin lagunas.</p>
+      </div>
+      <div style="padding: 14px; background: var(--bg-soft); border-radius: 8px; border-top: 3px solid var(--teal);">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--ink-muted); margin-bottom: 4px;">PASO 2</div>
+        <div style="font-family: 'DM Serif Display', serif; font-size: 15px; line-height: 1.2; margin-bottom: 4px;">Pruebas</div>
+        <p style="font-size: 11.5px; color: var(--ink-soft);">Plan ordenado, pensando ya en biológico.</p>
+      </div>
+      <div style="padding: 14px; background: var(--bg-soft); border-radius: 8px; border-top: 3px solid var(--yellow);">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--ink-muted); margin-bottom: 4px;">PASO 3</div>
+        <div style="font-family: 'DM Serif Display', serif; font-size: 15px; line-height: 1.2; margin-bottom: 4px;">Diagnóstico</div>
+        <p style="font-size: 11.5px; color: var(--ink-soft);">Conciliar discordancias clínica-endoscópica.</p>
+      </div>
+      <div style="padding: 14px; background: var(--bg-soft); border-radius: 8px; border-top: 3px solid #3730a3;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--ink-muted); margin-bottom: 4px;">PASO 4</div>
+        <div style="font-family: 'DM Serif Display', serif; font-size: 15px; line-height: 1.2; margin-bottom: 4px;">1ª línea</div>
+        <p style="font-size: 11.5px; color: var(--ink-soft);">Pauta y monitorización.</p>
+      </div>
+      <div style="padding: 14px; background: var(--bg-soft); border-radius: 8px; border-top: 3px solid var(--green);">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--ink-muted); margin-bottom: 4px;">PASO 5</div>
+        <div style="font-family: 'DM Serif Display', serif; font-size: 15px; line-height: 1.2; margin-bottom: 4px;">Escalado</div>
+        <p style="font-size: 11.5px; color: var(--ink-soft);">Decisión multidimensional.</p>
+      </div>
+      <div style="padding: 14px; background: var(--bg-soft); border-radius: 8px; border-top: 3px solid var(--accent-deep);">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--ink-muted); margin-bottom: 4px;">PASO 6</div>
+        <div style="font-family: 'DM Serif Display', serif; font-size: 15px; line-height: 1.2; margin-bottom: 4px;">Comunicar</div>
+        <p style="font-size: 11.5px; color: var(--ink-soft);">Mensaje honesto y empático.</p>
+      </div>
+    </div>
+
+    <div style="position: absolute; bottom: 64px; left: 80px; right: 80px; display: flex; justify-content: space-between; align-items: flex-end; padding-top: 24px; border-top: 1px solid var(--line);">
+      <div style="font-family: 'DM Serif Display', serif; font-style: italic; font-size: 22px; color: var(--ink-soft); max-width: 640px;">
+        La IA no decide. Acompaña, contrasta y ayuda a explicar.<br>El juicio clínico sigue siendo nuestro.
+      </div>
+      <div style="text-align: right;">
+        <div style="font-weight: 600; color: var(--ink); font-size: 14px;">Javier Fuentes · NCompany</div>
+        <div style="font-size: 12px; color: var(--ink-muted); margin-top: 2px;">javier@ncompany.es · ncompany.es</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<nav class="nav" id="nav"></nav>
+
+<button class="nav-arrow prev" id="navPrev" aria-label="Anterior">‹</button>
+<button class="nav-arrow next" id="navNext" aria-label="Siguiente">›</button>
+
+<div class="nav-keys">← → / espacio</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const nav = document.getElementById('nav');
+  const counterCurrent = document.querySelector('.nav-counter .current');
+  const counterTotal = document.querySelector('.nav-counter .total');
+  let current = 0;
+
+  counterTotal.textContent = String(slides.length).padStart(2, '0');
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    nav.appendChild(dot);
+  });
+
+  function goTo(idx) {
+    if (idx < 0 || idx >= slides.length) return;
+    slides[current].classList.remove('active');
+    nav.children[current].classList.remove('active');
+    current = idx;
+    slides[current].classList.add('active');
+    nav.children[current].classList.add('active');
+    counterCurrent.textContent = String(current + 1).padStart(2, '0');
+    slides[current].scrollTop = 0;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); goTo(current + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goTo(current - 1); }
+    else if (e.key === 'Home') { goTo(0); }
+    else if (e.key === 'End') { goTo(slides.length - 1); }
+  });
+
+  document.getElementById('navPrev').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('navNext').addEventListener('click', () => goTo(current + 1));
+
+  let touchStartX = 0, touchStartY = 0, touchEndX = 0, touchEndY = 0;
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    touchEndY = e.changedTouches[0].screenY;
+    const dx = touchEndX - touchStartX;
+    const dy = touchEndY - touchStartY;
+    if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
+    if (dx < 0) goTo(current + 1);
+    else goTo(current - 1);
+  }, { passive: true });
+</script>
+
+</body>
+</html>
