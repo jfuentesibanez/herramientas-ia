@@ -10,4 +10,4 @@ Listados de herramientas de IA por cliente — talleres NCompany
 - `sepd-curso/` — Curso de IA en Digestivo · SEPD · 2ª edición 2026-27 (ficha por sesión; Módulo 1 publicado)
 - `daiichi-salamanca/` — Taller Daiichi-Sankyo · Jornada de Inspección Sanitaria Extremadura y Castilla y León · Salamanca, 25 sep 2026 (`taller.html`: prompts y caso práctico)
 - `llyc-gemini-ventas/` — Sesión LLYC · IA aplicada a las ventas: aplicando Gemini al proceso de ventas · 6 oct 2026 (caso Lumina Visión y prompts)
-- `jnj-valladolid/` — Taller J&J · Integración de la IA en la práctica clínica de la EII · Hospital Río Hortega, Valladolid, 2 jun 2026 (caso CU paso a paso, buscadores de evidencia)
+- `jnj-valladolid/` — Taller J&J · Integración de la IA en la práctica clínica de la EII · Hospital Río Hortega, Valladolid, 2 jun 2026 (buscadores de evidencia y reglas de oro)
