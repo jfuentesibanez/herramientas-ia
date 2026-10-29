@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller IA · Zaragoza</title>
+<meta name="description" content="Herramientas de IA del taller de IA generativa con Roche en el Hospital Clínico Universitario Lozano Blesa (Zaragoza, 28 de octubre de 2026): investigación, diagnóstico, oficina, agentes y reglas de oro.">
+<style>
+:root {
+  color-scheme: light;
+  --jj: #0B41CD;
+  --jj-dark: #022366;
+  --jj-soft: #E8EEFC;
+  --navy: #1E3A5F;
+  --teal: #2A8C9A;
+  --teal-soft: #E8F5F7;
+  --sand: #F3EFE8;
+  --ink: #1C1C1E;
+  --ink-soft: #4A4F57;
+  --ink-mute: #6E737B;
+  --border: #E4E2DE;
+  --bg: #FFFFFF;
+  --bg-soft: #FAF8F5;
+  --code-bg: #1F2329;
+  --code-ink: #F2F2F2;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--jj-dark); }
+.container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+/* HERO */
+.hero { background: var(--sand); border-bottom: 1px solid var(--border); }
+.hero .container { padding-top: 48px; padding-bottom: 48px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; }
+.hero__logo { height: 40px; width: auto; margin-bottom: 28px; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--jj-dark); margin: 0 0 10px; }
+.hero h1 { font-size: clamp(32px, 5vw, 48px); line-height: 1.08; margin: 0 0 16px; letter-spacing: -.02em; }
+.hero h1 span { color: var(--jj); }
+.hero__lead { font-size: 18px; color: var(--ink-soft); margin: 0 0 22px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 13px; background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; color: var(--ink-soft); }
+.hero__img { border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+
+/* NAV */
+.toc { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+.toc .container { display: flex; gap: 4px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+.toc a { white-space: nowrap; text-decoration: none; color: var(--ink-soft); font-size: 14px; font-weight: 600; padding: 6px 12px; border-radius: 8px; }
+.toc a:hover { background: var(--jj-soft); color: var(--jj-dark); }
+.toc a b { color: var(--jj); margin-right: 4px; }
+
+/* SECTIONS */
+section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+section.alt { background: var(--bg-soft); }
+.sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+.sec-num { font-size: 56px; font-weight: 800; line-height: 1; color: var(--jj); }
+h2 { font-size: clamp(26px, 3.6vw, 34px); margin: 0; letter-spacing: -.01em; }
+.sec-intro { color: var(--ink-soft); font-size: 17px; max-width: 760px; margin: 8px 0 32px; }
+h3 { font-size: 21px; margin: 0 0 8px; }
+h4 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-mute); margin: 24px 0 10px; }
+p { margin: 0 0 14px; }
+
+.grid { display: grid; gap: 20px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+.card h3 { font-size: 18px; }
+.card p:last-child { margin-bottom: 0; }
+.card small { color: var(--ink-mute); }
+figure { margin: 0; }
+figure img { border-radius: 10px; border: 1px solid var(--border); background: #fff; }
+figcaption { font-size: 13px; color: var(--ink-mute); margin-top: 8px; }
+.news-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.news-card img { border: 0; border-radius: 0; border-bottom: 1px solid var(--border); aspect-ratio: 16/10; object-fit: cover; object-position: top; width: 100%; }
+.news-card .body { padding: 18px 20px 20px; }
+.news-card .date { font-size: 12px; font-weight: 700; color: var(--jj-dark); text-transform: uppercase; letter-spacing: .08em; }
+
+.callout { border-left: 4px solid var(--jj); background: var(--jj-soft); padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 24px 0; }
+.callout p:last-child { margin: 0; }
+.callout.teal { border-color: var(--teal); background: var(--teal-soft); }
+
+/* Gemini basics list */
+.tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+.tool { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+.tool strong { display: block; font-size: 15px; margin-bottom: 4px; }
+.tool span { font-size: 14px; color: var(--ink-soft); }
+.tool em { font-style: normal; font-size: 12px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: .06em; }
+
+/* Case */
+.case-intro { display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; align-items: start; }
+.lumina-logo { background: #F1F1F1; border-radius: 14px; padding: 28px; margin-bottom: 18px; }
+.lumina-logo img { border: 0; }
+.facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.fact { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+.fact b { display: block; font-size: 22px; color: var(--navy); }
+.fact span { font-size: 13px; color: var(--ink-soft); }
+.people { margin: 0; padding: 0; list-style: none; }
+.people li { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+.people li:last-child { border: 0; }
+.people b { color: var(--navy); }
+
+.phase { border: 1px solid var(--border); border-radius: 16px; background: #fff; margin: 28px 0; overflow: hidden; }
+.phase__head { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; padding: 22px 26px; color: #fff; }
+.phase__n { font-size: 13px; font-weight: 800; letter-spacing: .12em; background: rgba(255,255,255,.18); border-radius: 8px; padding: 8px 10px; text-align: center; line-height: 1.2; }
+.phase__n b { display: block; font-size: 26px; letter-spacing: 0; }
+.phase__head h3 { margin: 0; font-size: 22px; color: #fff; }
+.phase__head p { margin: 2px 0 0; opacity: .85; font-size: 15px; }
+.phase__body { padding: 24px 26px 28px; }
+.ph1 .phase__head { background: #1F3A5C; }
+.ph2 .phase__head { background: #24506C; }
+.ph3 .phase__head { background: #27657B; }
+.ph4 .phase__head { background: #297A8A; }
+.ph5 .phase__head { background: #2B8E99; }
+.phase__meta { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 8px; }
+.phase__meta div { background: var(--bg-soft); border-radius: 10px; padding: 12px 16px; font-size: 14px; }
+.phase__meta div b { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-mute); margin-bottom: 4px; }
+.q { font-style: italic; color: var(--jj-dark); font-weight: 600; font-size: 15px; }
+
+/* Prompt blocks */
+.prompt { margin: 18px 0; border-radius: 12px; overflow: hidden; border: 1px solid #2c3138; }
+.prompt__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #2A2F36; color: #E6E6E6; padding: 9px 12px 9px 16px; font-size: 13px; font-weight: 600; }
+.prompt__bar .tag { color: #9DB8FF; margin-right: 8px; text-transform: uppercase; letter-spacing: .08em; font-size: 11px; }
+.copy { appearance: none; border: 1px solid #4A515A; background: transparent; color: #fff; font: inherit; font-size: 12px; padding: 5px 12px; border-radius: 7px; cursor: pointer; flex-shrink: 0; }
+.copy:hover { background: var(--jj); border-color: var(--jj); }
+.copy.ok { background: #2F9E62; border-color: #2F9E62; }
+.prompt pre { margin: 0; padding: 18px 20px; background: var(--code-bg); color: var(--code-ink); font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13.5px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; overflow-x: auto; }
+.note { font-size: 14px; color: var(--ink-soft); }
+.steps { margin: 6px 0 0; padding-left: 20px; font-size: 15px; }
+.steps li { margin-bottom: 6px; }
+.badge { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: 3px 8px; border-radius: 6px; background: var(--teal-soft); color: var(--teal); vertical-align: middle; }
+.badge.warn { background: #FFF4E0; color: #A3620A; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-mute); background: var(--bg-soft); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: #fff; }
+
+/* Downloads */
+.dl { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.dl a { display: flex; gap: 14px; align-items: center; text-decoration: none; color: var(--ink); background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; transition: border-color .15s, transform .15s; }
+.dl a:hover { border-color: var(--jj); transform: translateY(-1px); }
+.dl .ico { width: 40px; height: 40px; border-radius: 10px; background: var(--jj-soft); color: var(--jj-dark); display: grid; place-items: center; font-weight: 800; font-size: 12px; flex-shrink: 0; }
+.dl small { display: block; color: var(--ink-mute); font-size: 13px; }
+
+
+footer { padding: 36px 0 48px; color: var(--ink-mute); font-size: 14px; }
+footer .container { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+footer img { height: 22px; width: auto; }
+
+/* Newsletter */
+.newsletter {
+  position: relative;
+  border-radius: 14px;
+  padding: 36px 40px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  justify-content: space-between;
+  align-items: center;
+  color: #FDF6E3;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(255, 140, 60, 0.45), transparent 55%),
+    radial-gradient(circle at 15% 85%, rgba(220, 60, 80, 0.35), transparent 50%),
+    linear-gradient(135deg, #1a0e08 0%, #2d1410 45%, #4a1d1a 100%);
+  box-shadow: 0 10px 30px rgba(74, 29, 26, 0.25), inset 0 0 60px rgba(0,0,0,0.35);
+  isolation: isolate;
+}
+.newsletter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(255, 180, 100, 0.18), transparent 40%);
+  z-index: -1;
+}
+.newsletter__text { flex: 1; min-width: 260px; }
+.newsletter__eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #F2B872;
+  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.newsletter__eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, #F2B872, transparent);
+}
+.newsletter__title {
+  margin: 0 0 12px;
+  display: block;
+  max-width: 380px;
+  width: 100%;
+  height: auto;
+  filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.45));
+}
+.newsletter__desc {
+  margin: 0 0 18px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: rgba(253, 246, 227, 0.82);
+  max-width: 480px;
+}
+.newsletter__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.newsletter__btn {
+  background: linear-gradient(135deg, #FFB347 0%, #FF7E47 100%);
+  color: #1a0e08;
+  text-decoration: none;
+  padding: 12px 22px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(255, 126, 71, 0.4);
+  transition: transform .15s ease, box-shadow .15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.newsletter__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 126, 71, 0.55);
+}
+.newsletter__url {
+  font-family: "SF Mono", "Menlo", "Monaco", monospace;
+  font-size: 12px;
+  color: rgba(253, 246, 227, 0.65);
+  letter-spacing: 0.02em;
+}
+.newsletter__qr {
+  flex-shrink: 0;
+  background: #FFF4E0;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  text-align: center;
+}
+.newsletter__qr img {
+  display: block;
+  width: 130px;
+  height: 130px;
+  border-radius: 4px;
+}
+.newsletter__qr span {
+  display: block;
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4a1d1a;
+}
+@media (max-width: 640px) {
+  .newsletter { padding: 28px 24px; }
+  .newsletter__title { max-width: 280px; }
+}
+
+@media (max-width: 860px) {
+  .hero .container, .case-intro { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 620px) {
+  .container { padding: 0 16px; }
+  .grid-2, .grid-3, .phase__meta { grid-template-columns: 1fr; }
+  section { padding: 44px 0; }
+  .sec-num { font-size: 40px; }
+  .phase__head, .phase__body { padding-left: 18px; padding-right: 18px; }
+}
+@media print {
+  .toc, .copy { display: none; }
+  .prompt pre { max-height: none; background: #f4f4f4; color: #111; }
+  section { break-inside: avoid-page; }
+}
+</style>
+
+<style>
+/* Shared additions */
+.brand { font-weight: 800; font-size: 15px; letter-spacing: .02em; color: var(--jj); margin-bottom: 26px; }
+.brand span { color: var(--ink-mute); font-weight: 600; }
+.rule { background: var(--navy); color: #fff; border-radius: 14px; padding: 22px 26px; display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; margin-top: 28px; }
+.rule b { font-size: 22px; line-height: 1.2; }
+.rule p { margin: 0; opacity: .88; font-size: 15px; }
+.patient { display: grid; grid-template-columns: 1fr 1.25fr; gap: 28px; align-items: start; }
+.timeline { list-style: none; margin: 0; padding: 0 0 0 22px; border-left: 2px solid var(--jj-soft); }
+.timeline li { position: relative; padding: 0 0 18px 14px; font-size: 15px; }
+.timeline li::before { content: ""; position: absolute; left: -29px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--jj); border: 3px solid #fff; box-shadow: 0 0 0 1px var(--jj); }
+.timeline li b { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--jj-dark); }
+.ph1 .phase__head { background: #7A0D00; }
+.ph2 .phase__head { background: #8E1000; }
+.ph3 .phase__head { background: #A31300; }
+.ph4 .phase__head { background: #B81500; }
+.ph5 .phase__head { background: #C91600; }
+.ph6 .phase__head { background: #D71600; }
+.phb .phase__head { background: var(--navy); }
+.decision { border: 1px dashed var(--border); border-radius: 10px; padding: 12px 16px; font-size: 14px; background: var(--bg-soft); margin-top: 14px; }
+.decision b { color: var(--teal); }
+.tool-card { display: flex; flex-direction: column; }
+.tool-card .kind { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--teal); }
+.tool-card h3 { margin-top: 4px; }
+.tool-card p { font-size: 15px; color: var(--ink-soft); flex: 1; }
+.tool-card a.btn { align-self: flex-start; text-decoration: none; font-size: 14px; font-weight: 700; border: 1px solid var(--jj); color: var(--jj-dark); padding: 6px 14px; border-radius: 8px; }
+.tool-card a.btn:hover { background: var(--jj-soft); }
+.tool-card .btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.tool-card a.btn--main { background: var(--jj); color: #fff; }
+.tool-card a.btn--main:hover { background: var(--jj-dark); }
+.golden { counter-reset: g; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.golden li { counter-increment: g; position: relative; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px 14px 56px; font-size: 15px; }
+.golden li::before { content: counter(g); position: absolute; left: 16px; top: 13px; width: 28px; height: 28px; border-radius: 50%; background: var(--jj); color: #fff; font-weight: 800; display: grid; place-items: center; font-size: 14px; }
+.hero--solo .container { grid-template-columns: 1fr; }
+.hero--solo .hero__lead { max-width: 760px; }
+.disclosure { font-size: 13px; color: var(--ink-mute); }
+@media (max-width: 860px) { .patient { grid-template-columns: 1fr; } }
+@media (max-width: 620px) { .golden { grid-template-columns: 1fr; } .rule { grid-template-columns: 1fr; } }
+</style>
+<style>
+/* Additions for Roche Zaragoza */
+.block-tools { display: flex; flex-wrap: wrap; gap: 6px; margin: -18px 0 28px; }
+.block-tools .chip { background: var(--jj-soft); border-color: transparent; color: var(--jj-dark); font-weight: 600; }
+.video-card { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: center; }
+.video-card video { width: 100%; border-radius: 12px; background: #000; aspect-ratio: 9/16; object-fit: cover; }
+.sub { font-size: 17px; margin: 36px 0 14px; color: var(--navy); }
+@media (max-width: 620px) { .video-card { grid-template-columns: 1fr; } .video-card video { max-width: 240px; } }
+</style>
+</head>
+<body>
+
+<header class="hero hero--solo">
+  <div class="container">
+    <div>
+      <div class="brand">Roche <span>· Taller de IA generativa</span></div>
+      <p class="eyebrow">Taller práctico · Medicina Interna</p>
+      <h1>Herramientas de <span>IA</span> para el trabajo clínico y científico</h1>
+      <p class="hero__lead">Las herramientas que recorrimos en el taller, ordenadas por los cuatro bloques de la tarde (investigación, diagnóstico, oficina y agentes), con los resultados que obtuvimos y las reglas de oro para usarlas con criterio.</p>
+      <div class="meta">
+        <span class="chip">Miércoles, 28 de octubre de 2026</span>
+        <span class="chip">Hospital Clínico Universitario Lozano Blesa · Zaragoza</span>
+        <span class="chip">Javier Fuentes · NCompany</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Índice">
+  <div class="container">
+    <a href="#investigacion"><b>1</b>Investigación</a>
+    <a href="#diagnostico"><b>2</b>Diagnóstico</a>
+    <a href="#oficina"><b>3</b>Oficina</a>
+    <a href="#agentes"><b>4</b>Agentes</a>
+    <a href="#reglas"><b>5</b>Reglas de oro</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- 1 · INVESTIGACIÓN -->
+<section id="investigacion">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">1</span><h2>Investigación: buscar, leer y contrastar evidencia</h2></div>
+    <p class="sec-intro">Buscadores con IA que responden con fuentes verificables. La clave es comparar: la misma pregunta da respuestas distintas según la herramienta y la base de datos que consulta.</p>
+
+    <h3 class="sub">Misma pregunta, dos herramientas</h3>
+    <div class="prompt">
+      <div class="prompt__bar"><span><span class="tag">Pregunta</span>OpenEvidence y Perplexity</span><button class="copy" type="button">Copiar</button></div>
+<pre>¿Reduce baxdrostat la mortalidad en pacientes con insuficiencia cardíaca?</pre>
+    </div>
+    <div class="grid grid-2" style="margin-top:20px">
+      <div class="card tool-card">
+        <span class="kind">IA médica</span>
+        <h3>OpenEvidence</h3>
+        <p>Respuesta clínica apoyada en ensayos y revistas de referencia (NEJM, Lancet, JACC), con referencias numeradas, ensayos en curso y una pregunta de seguimiento. Gratuita para profesionales sanitarios.</p>
+        <div class="btns"><a class="btn btn--main" href="https://www.openevidence.com" target="_blank" rel="noopener">Ir a openevidence.com ↗</a><a class="btn" href="assets/informes/baxdrostat-openevidence.pdf" target="_blank" rel="noopener">Ver respuesta (PDF)</a></div>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Buscador web con IA</span>
+        <h3>Perplexity</h3>
+        <p>Síntesis rápida y bien estructurada (qué se sabe, por qué la pregunta es razonable, implicación práctica). Ojo a las fuentes: mezcla revistas con webs generalistas; revisa cada cita.</p>
+        <div class="btns"><a class="btn btn--main" href="https://www.perplexity.ai" target="_blank" rel="noopener">Ir a perplexity.ai ↗</a><a class="btn" href="assets/informes/baxdrostat-perplexity.pdf" target="_blank" rel="noopener">Ver respuesta (PDF)</a></div>
+      </div>
+    </div>
+
+    <h3 class="sub">Revisión de literatura en formato informe</h3>
+    <div class="prompt">
+      <div class="prompt__bar"><span><span class="tag">Pregunta</span>Elicit</span><button class="copy" type="button">Copiar</button></div>
+<pre>¿Cómo varía la eficacia de belimumab versus anifrolumab según el perfil clínico de los pacientes (por ejemplo, presencia de nefritis lúpica, manifestaciones cutáneas, o actividad serológica)?</pre>
+    </div>
+    <div class="grid grid-3" style="margin-top:20px">
+      <div class="card tool-card">
+        <span class="kind">Revisión de literatura</span>
+        <h3>Elicit</h3>
+        <p>Genera un informe tipo <i>paper</i>: conclusión, resumen, tabla de estudios y referencias. Reconoce cuando no hay comparación directa entre fármacos y explica por qué los estudios discrepan.</p>
+        <div class="btns"><a class="btn btn--main" href="https://elicit.com" target="_blank" rel="noopener">Ir a elicit.com ↗</a><a class="btn" href="assets/informes/lupus-elicit.pdf" target="_blank" rel="noopener">Ver informe (PDF)</a></div>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Verificación de citas</span>
+        <h3>Scite</h3>
+        <p>Muestra cómo ha sido citado cada artículo: si los trabajos posteriores lo apoyan, lo contradicen o solo lo mencionan. Útil para valorar un estudio antes de apoyarte en él.</p>
+        <div class="btns"><a class="btn btn--main" href="https://scite.ai" target="_blank" rel="noopener">Ir a scite.ai ↗</a></div>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Mapa de literatura</span>
+        <h3>Litmaps</h3>
+        <p>Parte de uno o varios artículos y dibuja un mapa de los trabajos relacionados ordenados por fecha y citas. Ideal para no perderte nada al empezar un tema y recibir avisos de lo nuevo.</p>
+        <div class="btns"><a class="btn btn--main" href="https://www.litmaps.com" target="_blank" rel="noopener">Ir a litmaps.com ↗</a></div>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Investigación profunda</span>
+        <h3>Deep Research</h3>
+        <p>Modo de ChatGPT (también en Gemini, Claude y Perplexity) que dedica varios minutos a buscar y leer decenas de fuentes y devuelve un informe largo y citado.</p>
+        <div class="btns"><a class="btn btn--main" href="https://chatgpt.com" target="_blank" rel="noopener">Ir a chatgpt.com ↗</a></div>
+      </div>
+      <div class="card tool-card" style="background:var(--bg-soft)">
+        <span class="kind">Qué mirar al comparar</span>
+        <h3>Antes de fiarte</h3>
+        <ul class="steps" style="flex:1">
+          <li>¿Las fuentes son ensayos y revistas revisadas por pares?</li>
+          <li>¿La cita dice de verdad lo que la IA afirma?</li>
+          <li>¿Distingue evidencia directa de comparaciones indirectas?</li>
+          <li>¿Reconoce los límites de lo que se sabe?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · DIAGNÓSTICO -->
+<section id="diagnostico" class="alt">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">2</span><h2>Diagnóstico: datos numéricos y razonamiento</h2></div>
+    <p class="sec-intro">Modelos de razonamiento para ordenar un caso complejo, interpretar analíticas seriadas y proponer un diagnóstico diferencial. Trabajamos con casos anonimizados de Medicina Interna.</p>
+
+    <div class="grid grid-3">
+      <div class="card tool-card">
+        <span class="kind">Modelo de razonamiento</span>
+        <h3>ChatGPT (GPT-5)</h3>
+        <p>Analiza la historia, calcula y tabula datos (evolución de plaquetas, función renal…) y razona paso a paso sobre el diferencial. Puede generar gráficas a partir de los valores.</p>
+        <div class="btns"><a class="btn btn--main" href="https://chatgpt.com" target="_blank" rel="noopener">Ir a chatgpt.com ↗</a></div>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Modelo de razonamiento</span>
+        <h3>Claude</h3>
+        <p>Muy sólido con documentos largos y redacción clínica. Además de analizar el caso, puede escribir contigo un documento compartido, como este borrador de manuscrito de ejemplo.</p>
+        <div class="btns"><a class="btn btn--main" href="https://claude.ai" target="_blank" rel="noopener">Ir a claude.ai ↗</a><a class="btn" href="https://claude.ai/artifact/9sWqsZSiB2xdxNbsAZUdbY" target="_blank" rel="noopener">Ver ejemplo de manuscrito ↗</a></div>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Cuaderno con tus fuentes</span>
+        <h3>NotebookLM</h3>
+        <p>Sube artículos, guías o protocolos y pregunta solo sobre ellos: cada respuesta cita el fragmento exacto. Genera resúmenes en audio, mapas mentales y guías de estudio.</p>
+        <div class="btns"><a class="btn btn--main" href="https://notebooklm.google.com" target="_blank" rel="noopener">Ir a NotebookLM ↗</a></div>
+      </div>
+    </div>
+
+    <div class="prompt" style="margin-top:28px">
+      <div class="prompt__bar"><span><span class="tag">Plantilla</span>Análisis de un caso clínico anonimizado</span><button class="copy" type="button">Copiar</button></div>
+<pre>Actúa como internista con experiencia en enfermedades autoinmunes sistémicas.
+Te adjunto un caso clínico anonimizado (sin nombre, número de historia ni fechas reales).
+
+1. Resume el caso en 5 líneas y elabora una lista de problemas activos.
+2. Ordena en una tabla la evolución de los parámetros analíticos y señala las tendencias relevantes.
+3. Propón un diagnóstico diferencial razonado, de más a menos probable, indicando qué datos apoyan y cuáles van en contra de cada opción.
+4. Indica qué pruebas complementarias faltan para confirmar o descartar cada hipótesis.
+5. Cita las guías o ensayos en los que te apoyas y señala lo que sea incierto.
+
+[Pega aquí el caso anonimizado]</pre>
+    </div>
+    <div class="callout"><p><b>Antes de pegar un caso:</b> elimina nombre, número de historia, fechas exactas y cualquier dato que permita identificar al paciente. La IA ayuda a ordenar y razonar; el diagnóstico es tuyo.</p></div>
+  </div>
+</section>
+
+<!-- 3 · OFICINA -->
+<section id="oficina">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">3</span><h2>Oficina: presentaciones con IA</h2></div>
+    <p class="sec-intro">De un texto o un artículo a una presentación científica completa, con visuales generados a medida.</p>
+
+    <div class="grid grid-2">
+      <div class="card tool-card">
+        <span class="kind">Presentaciones</span>
+        <h3>Gamma</h3>
+        <p>Convierte un texto, un PDF o unas notas en una presentación con estructura, diseño e imágenes. Se edita como un documento y se exporta a PowerPoint o PDF.</p>
+        <div class="btns"><a class="btn btn--main" href="https://gamma.app" target="_blank" rel="noopener">Ir a gamma.app ↗</a></div>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Visuales y esquemas</span>
+        <h3>Napkin</h3>
+        <p>Pega un párrafo y propone diagramas, flujos y esquemas que lo explican. Perfecto para un algoritmo terapéutico o el diseño de un ensayo en una diapositiva.</p>
+        <div class="btns"><a class="btn btn--main" href="https://www.napkin.ai" target="_blank" rel="noopener">Ir a napkin.ai ↗</a></div>
+      </div>
+    </div>
+
+    <div class="prompt" style="margin-top:28px">
+      <div class="prompt__bar"><span><span class="tag">Plantilla</span>De artículo a presentación (Gamma)</span><button class="copy" type="button">Copiar</button></div>
+<pre>Crea una presentación de 10 diapositivas para una sesión clínica de Medicina Interna a partir del artículo adjunto.
+Estructura: contexto y pregunta, diseño del estudio, población, intervención y comparador, resultados principales (con cifras), seguridad, limitaciones, aplicabilidad en nuestra práctica y mensajes clave.
+Tono científico y conciso, una idea por diapositiva y la referencia completa en la última.</pre>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · AGENTES -->
+<section id="agentes" class="alt">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">4</span><h2>Agentes: de generar contenido a delegar tareas</h2></div>
+    <p class="sec-intro">Del avatar que habla por ti al agente que trabaja por ti: vídeo científico multilingüe, asistentes de voz y agentes que ejecutan tareas completas.</p>
+
+    <div class="card video-card" style="margin-bottom:20px">
+      <video src="assets/heygen-clinico-1974.mp4" poster="assets/heygen-poster.jpg" controls playsinline preload="none"></video>
+      <div class="tool-card">
+        <span class="kind">Vídeo con avatar</span>
+        <h3>HeyGen</h3>
+        <p>Crea un avatar con tu imagen y tu voz y genera vídeos a partir de un guion, en decenas de idiomas. Con el que abrimos la tarde, un saludo desde el Clínico… de 1974.</p>
+        <div class="btns"><a class="btn btn--main" href="https://www.heygen.com" target="_blank" rel="noopener">Ir a heygen.com ↗</a></div>
+      </div>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card tool-card">
+        <span class="kind">Asistentes de voz</span>
+        <h3>ElevenLabs Agents</h3>
+        <p>Agentes conversacionales por voz con la base de conocimiento que tú les des: un asistente que responde dudas frecuentes de pacientes o de un protocolo.</p>
+        <div class="btns"><a class="btn btn--main" href="https://elevenlabs.io/conversational-ai" target="_blank" rel="noopener">Ir a ElevenLabs ↗</a></div>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Agente en el navegador</span>
+        <h3>ChatGPT Agent</h3>
+        <p>Modo agente de ChatGPT: navega, rellena formularios, descarga datos y prepara documentos por ti, pidiendo confirmación antes de cada paso sensible.</p>
+        <div class="btns"><a class="btn btn--main" href="https://chatgpt.com" target="_blank" rel="noopener">Ir a chatgpt.com ↗</a></div>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Agente autónomo</span>
+        <h3>Manus</h3>
+        <p>Le encargas una tarea completa (buscar congresos, comparar opciones, montar un informe o una web) y la ejecuta de principio a fin en su propio ordenador virtual.</p>
+        <div class="btns"><a class="btn btn--main" href="https://manus.im" target="_blank" rel="noopener">Ir a manus.im ↗</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · REGLAS DE ORO -->
+<section id="reglas" style="border-bottom:0">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">5</span><h2>Reglas de oro</h2></div>
+    <p class="sec-intro">Lo que conviene recordar cada vez que uses una herramienta de IA en tu práctica.</p>
+    <ol class="golden">
+      <li><b>Nunca datos identificativos.</b> Ni nombre, ni número de historia, ni fechas exactas que permitan reconocer al paciente.</li>
+      <li><b>Contexto, tarea y formato.</b> Cuanto más concreto es el prompt, más útil y verificable es la respuesta.</li>
+      <li><b>Pide fuentes y compruébalas.</b> Una cita puede existir y no decir lo que la IA afirma.</li>
+      <li><b>Compara herramientas.</b> La misma pregunta da respuestas distintas según la herramienta y sus fuentes.</li>
+      <li><b>La IA no decide.</b> Ordena, calcula y contrasta. El juicio clínico sigue siendo tuyo.</li>
+      <li><b>Delega con supervisión.</b> Revisa lo que hace un agente antes de que envíe, publique o firme nada en tu nombre.</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<div class="container" style="padding-top:8px;padding-bottom:16px">
+  <aside class="newsletter">
+    <div class="newsletter__text">
+      <p class="newsletter__eyebrow">Mantente al día</p>
+      <img class="newsletter__title" src="assets/sentinel-title.png" alt="The Independent Sentinel">
+      <p class="newsletter__desc">La newsletter de Javier Fuentes con los avances semanales en IA, ciencia de datos y las historias que conectan la tecnología con la cultura.</p>
+      <div class="newsletter__actions">
+        <a class="newsletter__btn" href="https://theindependentsentinel.substack.com/" target="_blank" rel="noopener">Suscribirse →</a>
+        <span class="newsletter__url">theindependentsentinel.substack.com</span>
+      </div>
+    </div>
+    <div class="newsletter__qr">
+      <img src="assets/sentinel-qr.png" alt="QR a The Independent Sentinel">
+      <span>Escanéame</span>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="container">
+    <span>Taller de IA generativa · Hospital Clínico Universitario Lozano Blesa, Zaragoza · 28 de octubre de 2026 · Javier Fuentes</span>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.prompt').forEach(function (box) {
+  var btn = box.querySelector('.copy');
+  var pre = box.querySelector('pre');
+  btn.addEventListener('click', function () {
+    var text = pre.innerText;
+    var done = function () {
+      btn.textContent = 'Copiado ✓'; btn.classList.add('ok');
+      setTimeout(function () { btn.textContent = 'Copiar'; btn.classList.remove('ok'); }, 1800);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+  });
+});
+</script>
+</body>
+</html>
