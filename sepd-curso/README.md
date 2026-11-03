@@ -5,21 +5,25 @@ Web estática con una ficha por sesión del curso. Sin dependencias: HTML + CSS 
 ## Estructura
 
 ```
-sitio/sepd-curso/
+sepd-curso/
 ├── index.html              Portada: programa (8 módulos), equipo docente, cómo funciona
 ├── modulo-1.html           Ficha del Módulo 1 · Fundamentos de IA
-├── plantilla-modulo.html   Plantilla para los módulos 2-8 (textos entre [corchetes])
+├── modulo-2.html           Ficha del Módulo 2 · LLMs y prompt engineering médica
+├── plantilla-modulo.html   Plantilla para los módulos 3-8 (textos entre [corchetes])
 ├── README.md
 └── assets/
     ├── sepd.css            Estilos compartidos (paleta SEPD: morado #5503B1 · naranja #FFA52B)
     ├── sepd.png            Logo SEPD
     ├── curso-logo.png      Logo "IA Generativa Digestiva"
     ├── equipo/             Retratos del equipo docente
-    └── m1/                 Recursos del Módulo 1
-        ├── portada.jpg, mapa.jpg, slide-*.jpg     Diapositivas clave (renderizadas del PDF)
-        ├── presentacion-sesion-1.pdf              Presentación completa (35 MB)
-        ├── PracticaIA_SEPD_Modulo1_alumnos.zip    Material de la práctica SIN la hoja de claves
-        └── muestra-kvasir.jpg                     Mosaico de imágenes Kvasir-SEG
+    ├── m1/                 Recursos del Módulo 1
+    │   ├── portada.jpg, mapa.jpg, slide-*.jpg     Diapositivas clave (renderizadas del PDF)
+    │   ├── presentacion-sesion-1.pdf              Presentación completa (35 MB)
+    │   ├── PracticaIA_SEPD_Modulo1_alumnos.zip    Material de la práctica SIN la hoja de claves
+    │   └── muestra-kvasir.jpg                     Mosaico de imágenes Kvasir-SEG
+    └── m2/                 Recursos del Módulo 2
+        ├── portada.jpg, slide-*.jpg                Portada y siete diapositivas clave
+        └── presentacion-sesion-2.pdf               Presentación completa (35 MB)
 ```
 
 ## Añadir un módulo nuevo
@@ -41,7 +45,7 @@ Secciones de cada ficha (ids fijos para que funcione el índice lateral): `resum
 ## Previsualizar en local
 
 ```bash
-python3 -m http.server 8791 --directory sitio/sepd-curso
+python3 -m http.server 8791 --directory sepd-curso
 ```
 
 y abre <http://localhost:8791>. También se puede abrir `index.html` directamente en el navegador.
