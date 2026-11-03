@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 2 · LLMs y prompt engineering médica · Curso de IA en Digestivo · SEPD</title>
+<meta name="description" content="Ficha de la sesión 2 del Curso de IA en Digestivo (SEPD): modelos de lenguaje, prompting clínico, razonamiento, consenso entre IAs, práctica con casos sintéticos y autoevaluación.">
+<link rel="stylesheet" href="assets/sepd.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="topbar__brand" href="index.html">
+      <img src="assets/sepd.png" alt="SEPD · Sociedad Española de Patología Digestiva">
+      <span>Curso de IA en Digestivo<br>2ª edición · 2026-2027</span>
+    </a>
+    <nav class="topbar__nav" aria-label="Navegación principal">
+      <a href="index.html#programa">Programa</a>
+      <a href="index.html#equipo">Equipo docente</a>
+      <a href="modulo-1.html">Módulo 1</a>
+      <a href="modulo-2.html" class="is-active" aria-current="page">Módulo 2</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero__inner">
+    <div>
+      <p class="hero__eyebrow">Módulo 2 de 8 · Taller #2</p>
+      <h1 class="hero__title">LLMs y <em>prompt engineering médica</em></h1>
+      <p class="hero__subtitle">Cómo elegir un modelo de lenguaje, darle el contexto que necesita y pedirle una respuesta útil y revisable. La sesión aplica estas ideas a investigación, documentación y comunicación clínica con ejemplos sintéticos.</p>
+      <div class="hero__meta">
+        <span><strong>Fecha</strong> 30 de octubre de 2026</span>
+        <span><strong>Horario</strong> 16:00–19:30</span>
+        <span><strong>Ponente</strong> Consuelo Verdú (NCompany)</span>
+      </div>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#practica">Ir a la práctica</a>
+        <a class="btn btn--ghost" href="#autoevaluacion">Hacer la autoevaluación</a>
+        <a class="btn btn--ghost no-arrow" href="assets/m2/presentacion-sesion-2.pdf" target="_blank" rel="noopener">📄 Presentación (PDF)</a>
+      </div>
+    </div>
+    <div class="hero__art">
+      <img src="assets/m2/portada.jpg" alt="Portada de la sesión 2: LLMs y prompt engineering médica, impartida por Consuelo Verdú">
+    </div>
+  </div>
+</section>
+
+<main class="container">
+<div class="ficha">
+
+  <nav class="toc" aria-label="Índice de la ficha">
+    <div class="toc__label">En esta ficha</div>
+    <a href="#resumen">Resumen</a>
+    <a href="#ideas">Ideas fuerza</a>
+    <a href="#recorrido">Recorrido de la sesión</a>
+    <a href="#diapositivas">Diapositivas clave</a>
+    <a href="#herramientas">Herramientas</a>
+    <a href="#practica">Práctica guiada</a>
+    <a href="#reglas">Pautas de uso</a>
+    <a href="#glosario">Glosario</a>
+    <a href="#autoevaluacion">Autoevaluación</a>
+    <a href="#referencias">Para profundizar</a>
+    <a href="#siguiente">Siguiente sesión</a>
+    <div class="toc__downloads">
+      <a class="btn btn--ghost no-arrow" href="assets/m2/presentacion-sesion-2.pdf" target="_blank" rel="noopener">📄 Presentación (PDF)</a>
+    </div>
+  </nav>
+
+  <div class="ficha__main">
+
+    <section class="block" id="resumen">
+      <h2 class="block__title">Resumen</h2>
+      <p class="block__lead">La calidad de la respuesta empieza antes de escribir el prompt</p>
+      <div class="facts">
+        <div class="fact"><div class="fact__k">Módulo</div><div class="fact__v">2 · LLMs y prompts</div></div>
+        <div class="fact"><div class="fact__k">Formato</div><div class="fact__v">Online · Zoom</div></div>
+        <div class="fact"><div class="fact__k">Nivel</div><div class="fact__v">Conceptual + práctico</div></div>
+        <div class="fact"><div class="fact__k">Práctica</div><div class="fact__v">Prompts y contraste de respuestas</div></div>
+        <div class="fact"><div class="fact__k">Diapositivas</div><div class="fact__v">162</div></div>
+      </div>
+      <p>La presentación distingue tres cosas que solemos mezclar: quién fabrica la IA, qué modelo ejecuta y qué herramienta usamos para conversar con él. A partir de ahí explica cómo un LLM trabaja con tokens, cómo intervienen la atención y la ventana de contexto, y por qué una respuesta convincente puede seguir siendo incorrecta.</p>
+      <p>La segunda parte propone ejercicios: prompts clínicos con objetivo, contexto y formato; técnicas para pedir respuestas estructuradas; investigación asistida; comparación entre varios modelos; y borradores de documentación o información para pacientes. El hilo conductor es el mismo: trabajar con casos sintéticos, comprobar fuentes y dejar la decisión clínica en manos del profesional. El PDF no incluye todos los materiales citados para realizar esas prácticas completas.</p>
+      <div class="callout callout--purple">
+        <h4>Si solo te llevas una frase</h4>
+        <p>Un prompt no sustituye el criterio clínico. Sirve para formular mejor la tarea, hacer visible lo que falta y obtener un borrador que puedas verificar.</p>
+      </div>
+    </section>
+
+    <section class="block" id="ideas">
+      <h2 class="block__title">Ideas fuerza</h2>
+      <p class="block__lead">Diez conceptos para fijar</p>
+      <ol class="ideas">
+        <li><strong>Fabricante, modelo y herramienta son niveles distintos.</strong><span>La empresa desarrolla un modelo; la aplicación ofrece una interfaz y funciones para usarlo. Comparar solo nombres comerciales puede llevar a elegir mal.</span></li>
+        <li><strong>Un LLM procesa tokens, no ideas completas.</strong><span>Estima continuaciones a partir de patrones aprendidos. La fluidez de una respuesta no demuestra que su contenido sea verdadero.</span></li>
+        <li><strong>El contexto determina qué puede tener en cuenta.</strong><span>La ventana de contexto limita la información disponible en una conversación o documento. Hay que seleccionar lo relevante y comprobar qué fragmentos ha usado.</span></li>
+        <li><strong>Elige la herramienta según la tarea.</strong><span>Investigar, leer un PDF largo, redactar una carta o trabajar dentro del entorno del hospital son problemas distintos. La presentación compara opciones para cada uno.</span></li>
+        <li><strong>Un buen prompt define la tarea.</strong><span>Objetivo, contexto, datos permitidos, restricciones, formato de salida y criterio de revisión reducen la ambigüedad.</span></li>
+        <li><strong>Los ejemplos orientan el resultado.</strong><span>Con <em>few-shot</em> puedes mostrar uno o varios ejemplos de la estructura que quieres, sin incluir información identificable de pacientes.</span></li>
+        <li><strong>Pide un razonamiento revisable.</strong><span>Para problemas complejos, descompón la tarea y solicita supuestos, alternativas y puntos que requieren verificación.</span></li>
+        <li><strong>Deep Research acelera la búsqueda, no la validación.</strong><span>Compara informes y comprueba al menos que las citas existen y sostienen la afirmación que se les atribuye.</span></li>
+        <li><strong>El acuerdo entre varias IAs no es una prueba clínica.</strong><span>La comparación ayuda a detectar diferencias y preguntas pendientes; tres respuestas parecidas pueden compartir el mismo error.</span></li>
+        <li><strong>Privacidad y revisión profesional son condiciones de uso.</strong><span>Practica con casos sintéticos. Para datos reales, sigue las normas de tu centro y verifica cada borrador antes de utilizarlo.</span></li>
+      </ol>
+    </section>
+
+    <section class="block" id="recorrido">
+      <h2 class="block__title">Recorrido de la sesión</h2>
+      <p class="block__lead">Del mapa de modelos a los casos clínicos</p>
+      <p class="block__desc">La hoja de ruta de la presentación avanza por estos diez temas. Las demostraciones sirven para comparar resultados; no equivalen a una validación clínica.</p>
+      <div class="timeline">
+        <div class="step">
+          <h3><small>Bloque 1</small> Fabricantes, modelos y herramientas</h3>
+          <ul>
+            <li>Qué hay detrás de ChatGPT, Gemini, Claude, Copilot y los modelos de pesos abiertos.</li>
+            <li>Cómo elegir una opción en función de la tarea y del entorno donde se va a usar.</li>
+          </ul>
+        </div>
+        <div class="step">
+          <h3><small>Bloque 2</small> Investigación asistida</h3>
+          <p>Deep Research para explorar una pregunta y diseñar un borrador de ensayo. La práctica pide comparar dos modelos y verificar dos citas.</p>
+        </div>
+        <div class="step">
+          <h3><small>Bloques 3 y 4</small> Cómo funciona un LLM y qué cabe en el contexto</h3>
+          <p>Tokens, atención y ventana de contexto. Por qué conviene proporcionar información pertinente y acotar la respuesta.</p>
+        </div>
+        <div class="step">
+          <h3><small>Bloques 5 y 6</small> Prompt engineering y técnicas avanzadas</h3>
+          <p>De la petición vaga a una instrucción comprobable. Ejemplos, tareas encadenadas, matrices de comparación y respuestas estructuradas.</p>
+        </div>
+        <div class="step step--hi">
+          <h3><small>Bloque 7</small> Razonamiento y consenso</h3>
+          <p>La presentación propone contrastar tres IAs ante un caso complejo, para identificar discrepancias y puntos de comprobación. El material adjunto no desarrolla por completo ese ejercicio.</p>
+        </div>
+        <div class="step">
+          <h3><small>Bloques 8 y 9</small> Documentación y comunicación con pacientes</h3>
+          <p>Borradores tipo SOAP, cartas e información en varios idiomas, siempre sujetos a revisión médica y adaptación al paciente real.</p>
+        </div>
+        <div class="step">
+          <h3><small>Bonus</small> Modelos locales</h3>
+          <p>Qué significa ejecutar un modelo de pesos abiertos en local y qué preguntas de privacidad, capacidad y calidad hay que resolver antes de usarlo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="diapositivas">
+      <h2 class="block__title">Diapositivas clave</h2>
+      <p class="block__lead">Siete imágenes para repasar el recorrido</p>
+      <p class="block__desc">Selección de la presentación de 162 diapositivas. Haz clic para ampliar cada imagen o consulta el <a href="assets/m2/presentacion-sesion-2.pdf" target="_blank" rel="noopener">PDF completo</a>.</p>
+      <div class="slides">
+        <figure><a href="assets/m2/slide-fabricante-modelo-herramienta.jpg" target="_blank" rel="noopener"><img src="assets/m2/slide-fabricante-modelo-herramienta.jpg" alt="Esquema que distingue fabricante, modelo y herramienta" width="1400" height="788"></a><figcaption>1. Fabricante → modelo → herramienta (p. 47).</figcaption></figure>
+        <figure><a href="assets/m2/slide-flujo-ensayo.jpg" target="_blank" rel="noopener"><img src="assets/m2/slide-flujo-ensayo.jpg" alt="Flujo de seis pasos para preparar un borrador de ensayo con revisión humana" width="1400" height="788"></a><figcaption>2. Del vacío de evidencia al borrador de ensayo (p. 124).</figcaption></figure>
+        <figure><a href="assets/m2/slide-como-funciona-llm.jpg" target="_blank" rel="noopener"><img src="assets/m2/slide-como-funciona-llm.jpg" alt="Secuencia didáctica: tokens, embeddings, atención y predicción" width="1400" height="788"></a><figcaption>3. Cómo procesa texto un LLM (p. 127).</figcaption></figure>
+        <figure><a href="assets/m2/slide-verificacion.jpg" target="_blank" rel="noopener"><img src="assets/m2/slide-verificacion.jpg" alt="Tabla de límites: alucinaciones, conocimiento desactualizado, sesgos y exceso de seguridad" width="1400" height="788"></a><figcaption>4. Límites y comprobaciones necesarias (p. 128).</figcaption></figure>
+        <figure><a href="assets/m2/slide-ventana-contexto.jpg" target="_blank" rel="noopener"><img src="assets/m2/slide-ventana-contexto.jpg" alt="Pautas para seleccionar el contexto pertinente y empezar un chat limpio" width="1400" height="788"></a><figcaption>5. Cuánto cabe y dónde mira el modelo (p. 131).</figcaption></figure>
+        <figure><a href="assets/m2/slide-plantilla-prompt.jpg" target="_blank" rel="noopener"><img src="assets/m2/slide-plantilla-prompt.jpg" alt="Plantilla de prompt: rol, contexto, tarea y formato" width="1400" height="788"></a><figcaption>6. Las cuatro piezas del prompt (p. 146).</figcaption></figure>
+        <figure><a href="assets/m2/slide-prompts-comparados.jpg" target="_blank" rel="noopener"><img src="assets/m2/slide-prompts-comparados.jpg" alt="Comparación entre una pregunta vaga y un prompt estructurado para el mismo caso sintético" width="1400" height="788"></a><figcaption>7. El mismo caso, dos formas de preguntar (p. 147).</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="block" id="herramientas">
+      <h2 class="block__title">Herramientas y recursos</h2>
+      <p class="block__lead">Qué papel cumple cada herramienta</p>
+      <p class="block__desc">La presentación compara estas opciones y muestra usos de investigación, redacción y análisis. La disponibilidad de funciones depende de la cuenta y puede cambiar; compruébala en tu entorno antes de preparar la práctica.</p>
+      <div class="tools">
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">ChatGPT</h3><div class="tool__tags"><span class="pill pill--orange">Investigación</span></div></div>
+          <p class="tool__desc">Asistente generalista de OpenAI. La presentación muestra Deep Research para elaborar un informe con fuentes.</p>
+          <p class="tool__use"><strong>En la práctica:</strong> compara el resultado con otro modelo y comprueba dos referencias antes de usar el informe.</p>
+          <a class="tool__link" href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a>
+        </div>
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Gemini</h3><div class="tool__tags"><span class="pill pill--orange">Investigación</span></div></div>
+          <p class="tool__desc">Asistente de Google. El flujo de ensayo de la presentación usa Deep Research y funciones de Docs, Sheets y Colab para preparar borradores y cálculos revisables.</p>
+          <p class="tool__use"><strong>Cautela:</strong> metodología y tamaño muestral requieren revisión de los especialistas correspondientes.</p>
+          <a class="tool__link" href="https://gemini.google.com" target="_blank" rel="noopener">gemini.google.com</a>
+        </div>
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Gemini Notebook</h3><div class="tool__tags"><span class="pill pill--grey">Documentos</span></div></div>
+          <p class="tool__desc">Antes llamado NotebookLM. En el flujo del taller reúne guías, ensayos y la lista SPIRIT 2025 para consultar un conjunto de fuentes.</p>
+          <p class="tool__use"><strong>Uso propuesto:</strong> preparar el contexto documental del protocolo y una hoja informativa en lenguaje claro.</p>
+          <a class="tool__link" href="https://notebook.google.com" target="_blank" rel="noopener">Abrir Gemini Notebook</a>
+        </div>
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Claude</h3><div class="tool__tags"><span class="pill pill--grey">Redacción</span></div></div>
+          <p class="tool__desc">Asistente de Anthropic incluido en la comparativa de modelos de la sesión.</p>
+          <p class="tool__use"><strong>Uso propuesto:</strong> redactar y revisar críticamente borradores de documentación clínica sin datos identificables.</p>
+          <a class="tool__link" href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>
+        </div>
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Microsoft Copilot</h3><div class="tool__tags"><span class="pill pill--grey">Entorno de trabajo</span></div></div>
+          <p class="tool__desc">Opción presentada para equipos que ya trabajan con Microsoft 365.</p>
+          <p class="tool__use"><strong>Antes de subir información:</strong> confirma con el centro el entorno autorizado y sus condiciones de tratamiento de datos.</p>
+          <a class="tool__link" href="https://copilot.microsoft.com" target="_blank" rel="noopener">copilot.microsoft.com</a>
+        </div>
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">LMArena y Artificial Analysis</h3><div class="tool__tags"><span class="pill pill--grey">Comparar modelos</span></div></div>
+          <p class="tool__desc">Dos referencias citadas en la presentación para observar comparativas de modelos.</p>
+          <p class="tool__use"><strong>Cómo leerlas:</strong> mira la tarea y el método de evaluación; un puesto en una clasificación no valida el uso clínico.</p>
+          <p class="tool__use"><a class="tool__link" href="https://lmarena.ai" target="_blank" rel="noopener">lmarena.ai</a> · <a class="tool__link" href="https://artificialanalysis.ai" target="_blank" rel="noopener">artificialanalysis.ai</a></p>
+        </div>
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">ClinicalTrials.gov y CTIS</h3><div class="tool__tags"><span class="pill pill--grey">Registros</span></div></div>
+          <p class="tool__desc">Registros que el flujo de investigación consulta para localizar ensayos existentes y afinar la pregunta PICO.</p>
+          <p class="tool__use"><strong>En la práctica:</strong> comprueba la ficha original del ensayo; no te quedes con el resumen del asistente.</p>
+          <p class="tool__use"><a class="tool__link" href="https://clinicaltrials.gov" target="_blank" rel="noopener">clinicaltrials.gov</a> · <a class="tool__link" href="https://euclinicaltrials.eu" target="_blank" rel="noopener">euclinicaltrials.eu</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="practica">
+      <h2 class="block__title">Práctica guiada</h2>
+      <p class="block__lead">De la pregunta vaga al prompt clínico útil</p>
+      <p class="block__desc">Adapta la comparación de las diapositivas 147–148 con una versión abreviada del caso sintético del taller. El objetivo es observar cómo cambian la estructura y las cautelas de la respuesta; ninguna salida debe convertirse en una indicación terapéutica.</p>
+      <div class="practice">
+        <div>
+          <ol class="steps">
+            <li>Abre un chat nuevo en el asistente que uses para practicar. Copia solo los datos del caso sintético que ves a la derecha.</li>
+            <li>Prueba primero la petición vaga: <em>«¿Qué le pongo a esta paciente?»</em>. Observa si el modelo da una respuesta demasiado decidida o ignora información que falta.</li>
+            <li>En otro chat nuevo, define el rol como apoyo al análisis, aporta el mismo contexto y pide una tabla de opciones por clase terapéutica, eficacia, efecto sobre peso, beneficio cardiorrenal y vía de administración. Limita la salida a 350 palabras y pide que señale datos esenciales ausentes antes de concluir.</li>
+            <li>Compara ambas respuestas: supuestos, incertidumbres, datos inventados, fuentes y facilidad para revisarlas. No necesitas elegir un tratamiento.</li>
+          </ol>
+          <div class="callout callout--purple">
+            <h4>Segunda prueba: verifica una investigación</h4>
+            <p>Formula la misma pregunta de investigación en dos asistentes con función de búsqueda. Compara los informes y comprueba al menos dos citas: que el documento existe y que respalda exactamente la afirmación. Si no puedes verificar una fuente, márcala como pendiente.</p>
+          </div>
+        </div>
+        <aside>
+          <div class="callout">
+            <h4>Caso sintético del taller</h4>
+            <p>Mujer de 54 años con DM2 de seis años de evolución. Toma metformina 1 g cada 12 horas, enalapril y atorvastatina. Presenta HTA, dislipemia, obesidad y esteatosis. HbA1c 9,1 % (previa 8,4 %), FG 58, albuminuria 45 mg/g confirmada e IMC 33,5. Le preocupan los inyectables.</p>
+          </div>
+          <p><small>Ejercicio didáctico. Caso rotulado como sintético en la presentación; no representa a una paciente real.</small></p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="block" id="reglas">
+      <h2 class="block__title">Pautas de uso</h2>
+      <p class="block__lead">Antes de llevar un resultado al trabajo real</p>
+      <p class="block__desc">Estas pautas recogen los límites expresos de la presentación y los convierten en una comprobación breve para cada ejercicio.</p>
+      <div class="rules">
+        <div class="rule"><span class="n">01</span><h4>Trabaja con casos sintéticos</h4><p>No introduzcas datos de pacientes en cuentas personales ni en las prácticas de esta ficha.</p></div>
+        <div class="rule"><span class="n">02</span><h4>Comprueba la fuente original</h4><p>Una cita debe existir y sostener la afirmación concreta. Revisa también cifras, fechas y contexto.</p></div>
+        <div class="rule rule--orange"><span class="n">03</span><h4>Señala lo que falta</h4><p>En una nota o informe, usa «[FALTA DATO]» cuando no conste una información necesaria; no rellenes huecos por plausibilidad.</p></div>
+        <div class="rule rule--orange"><span class="n">04</span><h4>La aprobación sigue siendo humana</h4><p>Un protocolo de ensayo requiere revisión metodológica, bioestadística y del CEIm. La IA solo prepara borradores.</p></div>
+        <div class="rule"><span class="n">05</span><h4>Confirma el entorno autorizado</h4><p>Antes de usar datos reales, verifica las normas del centro, el contrato de tratamiento y las autorizaciones aplicables.</p></div>
+      </div>
+    </section>
+
+    <section class="block" id="glosario">
+      <h2 class="block__title">Glosario</h2>
+      <p class="block__lead">El vocabulario de la sesión</p>
+      <p class="block__desc">Definiciones breves elaboradas para esta ficha a partir de los términos que aparecen en la presentación.</p>
+      <dl class="glossary">
+        <div><dt>LLM</dt><dd>Modelo de lenguaje de gran tamaño entrenado para procesar y generar secuencias de texto.</dd></div>
+        <div><dt>Token</dt><dd>Unidad en que el modelo divide la entrada y la salida; no coincide necesariamente con una palabra.</dd></div>
+        <div><dt>Atención</dt><dd>Mecanismo que permite relacionar partes de la secuencia al procesarla.</dd></div>
+        <div><dt>Ventana de contexto</dt><dd>Cantidad de información que el modelo puede considerar en una interacción concreta.</dd></div>
+        <div><dt>Prompt</dt><dd>Instrucción y contexto que damos al modelo para una tarea.</dd></div>
+        <div><dt>Zero-shot / few-shot</dt><dd>Pedir una tarea sin ejemplos / con uno o varios ejemplos del resultado deseado.</dd></div>
+        <div><dt>Deep Research</dt><dd>Función de investigación asistida que busca y sintetiza fuentes en un informe para revisar.</dd></div>
+        <div><dt>PICO</dt><dd>Forma de estructurar una pregunta de investigación: población, intervención, comparación y resultado.</dd></div>
+        <div><dt>SOAP</dt><dd>Estructura de nota clínica: subjetivo, objetivo, evaluación y plan.</dd></div>
+        <div><dt>SPIRIT 2025</dt><dd>Guía de elementos mínimos que debe abordar un protocolo de ensayo aleatorizado.</dd></div>
+        <div><dt>CEIm</dt><dd>Comité de Ética de la Investigación con medicamentos.</dd></div>
+        <div><dt>Pesos abiertos</dt><dd>Modelos cuyos parámetros se distribuyen para ejecutarlos en un entorno propio, sujetos a sus condiciones de licencia.</dd></div>
+      </dl>
+    </section>
+
+    <section class="block" id="autoevaluacion">
+      <h2 class="block__title">Autoevaluación</h2>
+      <p class="block__lead">Ocho preguntas para comprobar lo aprendido</p>
+      <p class="block__desc">Esta autoevaluación no cuenta para la acreditación; el cuestionario oficial es único al final del curso. Elige una opción y verás la explicación.</p>
+      <div class="quiz" id="quiz">
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>1</b> ¿Qué diferencia hay entre modelo y herramienta?</p>
+          <div class="q__opts">
+            <button type="button" class="q__opt" data-k="A"><span class="k">A</span> Son dos nombres para la misma cosa.</button>
+            <button type="button" class="q__opt" data-k="B"><span class="k">B</span> El modelo procesa la tarea; la herramienta es la aplicación con la que lo usamos.</button>
+            <button type="button" class="q__opt" data-k="C"><span class="k">C</span> La herramienta entrena siempre al modelo.</button>
+          </div>
+          <div class="q__fb" role="status" aria-live="polite" data-ok="Correcto. Una misma herramienta puede ofrecer varios modelos." data-ko="La aplicación es la herramienta; el modelo es el sistema que procesa la petición."></div>
+        </div>
+        <div class="q" data-answer="C">
+          <p class="q__text"><b>2</b> ¿Qué demuestra una respuesta muy fluida de un LLM?</p>
+          <div class="q__opts">
+            <button type="button" class="q__opt" data-k="A"><span class="k">A</span> Que las cifras citadas son correctas.</button>
+            <button type="button" class="q__opt" data-k="B"><span class="k">B</span> Que el modelo ha leído toda la bibliografía.</button>
+            <button type="button" class="q__opt" data-k="C"><span class="k">C</span> Solo que ha generado un texto coherente; hay que verificarlo.</button>
+          </div>
+          <div class="q__fb" role="status" aria-live="polite" data-ok="Exacto. La confianza del tono no equivale a fiabilidad." data-ko="La fluidez no prueba que las cifras, las citas ni la conclusión sean correctas."></div>
+        </div>
+        <div class="q" data-answer="A">
+          <p class="q__text"><b>3</b> Vas a consultar una guía extensa. ¿Qué ayuda a usar bien la ventana de contexto?</p>
+          <div class="q__opts">
+            <button type="button" class="q__opt" data-k="A"><span class="k">A</span> Indicar la pregunta y las partes relevantes del documento.</button>
+            <button type="button" class="q__opt" data-k="B"><span class="k">B</span> Añadir todos los documentos disponibles por si acaso.</button>
+            <button type="button" class="q__opt" data-k="C"><span class="k">C</span> Reutilizar siempre una conversación muy larga.</button>
+          </div>
+          <div class="q__fb" role="status" aria-live="polite" data-ok="Bien. Más contexto irrelevante puede diluir la señal." data-ko="Conviene seleccionar el material pertinente y explicar para qué sirve cada adjunto."></div>
+        </div>
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>4</b> ¿Qué cuatro piezas ordenan el prompt de la sesión?</p>
+          <div class="q__opts">
+            <button type="button" class="q__opt" data-k="A"><span class="k">A</span> Marca, precio, velocidad y resultado.</button>
+            <button type="button" class="q__opt" data-k="B"><span class="k">B</span> Rol, contexto, tarea y formato.</button>
+            <button type="button" class="q__opt" data-k="C"><span class="k">C</span> Diagnóstico, fármaco, dosis y alta.</button>
+          </div>
+          <div class="q__fb" role="status" aria-live="polite" data-ok="Sí. La presentación añade una instrucción útil: pedir datos clave si faltan." data-ko="La plantilla del taller es rol, contexto, tarea y formato."></div>
+        </div>
+        <div class="q" data-answer="C">
+          <p class="q__text"><b>5</b> Una investigación asistida devuelve una cita. ¿Cuál es la comprobación mínima?</p>
+          <div class="q__opts">
+            <button type="button" class="q__opt" data-k="A"><span class="k">A</span> Mirar si el título suena científico.</button>
+            <button type="button" class="q__opt" data-k="B"><span class="k">B</span> Confiar si aparece un DOI.</button>
+            <button type="button" class="q__opt" data-k="C"><span class="k">C</span> Abrir la fuente y comprobar que existe y respalda la frase.</button>
+          </div>
+          <div class="q__fb" role="status" aria-live="polite" data-ok="Correcto. Verifica también cifras y fecha de la fuente." data-ko="Una referencia plausible puede ser incorrecta o no sostener la afirmación."></div>
+        </div>
+        <div class="q" data-answer="A">
+          <p class="q__text"><b>6</b> Tres IAs coinciden en una propuesta clínica. ¿Qué puedes concluir?</p>
+          <div class="q__opts">
+            <button type="button" class="q__opt" data-k="A"><span class="k">A</span> Que merece revisión; la coincidencia no la valida.</button>
+            <button type="button" class="q__opt" data-k="B"><span class="k">B</span> Que ya puede aplicarse sin revisión.</button>
+            <button type="button" class="q__opt" data-k="C"><span class="k">C</span> Que existe un ensayo que la respalda.</button>
+          </div>
+          <div class="q__fb" role="status" aria-live="polite" data-ok="Exacto. Varios modelos pueden compartir el mismo sesgo o error." data-ko="El consenso entre modelos no equivale a evidencia clínica."></div>
+        </div>
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>7</b> ¿Qué debe ocurrir si falta un dato clave para redactar una nota?</p>
+          <div class="q__opts">
+            <button type="button" class="q__opt" data-k="A"><span class="k">A</span> Rellenarlo con el valor más probable.</button>
+            <button type="button" class="q__opt" data-k="B"><span class="k">B</span> Señalarlo como pendiente o pedirlo antes de responder.</button>
+            <button type="button" class="q__opt" data-k="C"><span class="k">C</span> Omitirlo sin advertirlo.</button>
+          </div>
+          <div class="q__fb" role="status" aria-live="polite" data-ok="Bien. El taller propone marcar [FALTA DATO] cuando no conste." data-ko="La IA no debe completar datos clínicos ausentes por plausibilidad."></div>
+        </div>
+        <div class="q" data-answer="C">
+          <p class="q__text"><b>8</b> ¿Qué papel tiene la IA en el flujo de diseño de un ensayo?</p>
+          <div class="q__opts">
+            <button type="button" class="q__opt" data-k="A"><span class="k">A</span> Aprobar el protocolo y el tamaño muestral.</button>
+            <button type="button" class="q__opt" data-k="B"><span class="k">B</span> Sustituir al CEIm si cita fuentes.</button>
+            <button type="button" class="q__opt" data-k="C"><span class="k">C</span> Preparar borradores sujetos a revisión metodológica, estadística y ética.</button>
+          </div>
+          <div class="q__fb" role="status" aria-live="polite" data-ok="Correcto. Metodología, bioestadística y CEIm mantienen su papel." data-ko="La presentación es clara: la IA prepara borradores; las decisiones siguen en manos de los responsables."></div>
+        </div>
+        <div class="quiz__score" id="quizScore">
+          <span role="status" aria-live="polite">Responde todas las preguntas para ver tu resultado.</span>
+          <button type="button" id="quizReset">Reiniciar</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="referencias">
+      <h2 class="block__title">Para profundizar</h2>
+      <p class="block__lead">Fuentes que puedes abrir y comprobar</p>
+      <ul class="refs">
+        <li><a href="assets/m2/presentacion-sesion-2.pdf" target="_blank" rel="noopener">Presentación completa de la sesión II</a> (SEPD / NCompany, 30 de octubre de 2026).</li>
+        <li><a href="https://help.openai.com/en/articles/10500283-deep-research-in-chatgpt" target="_blank" rel="noopener">OpenAI: Deep Research en ChatGPT</a> · funcionamiento y límites de la función.</li>
+        <li><a href="https://support.google.com/gemini/answer/15719111" target="_blank" rel="noopener">Google: Deep Research en Gemini</a> · opciones de fuentes y disponibilidad.</li>
+        <li><a href="https://blog.google/innovation-and-ai/products/gemini-notebook/notebooklm-gemini-notebook/" target="_blank" rel="noopener">Google: NotebookLM pasa a llamarse Gemini Notebook</a>.</li>
+        <li><a href="https://www.consort-spirit.org/" target="_blank" rel="noopener">SPIRIT 2025</a> · recursos para preparar protocolos de ensayos.</li>
+        <li><a href="https://clinicaltrials.gov/" target="_blank" rel="noopener">ClinicalTrials.gov</a> y <a href="https://euclinicaltrials.eu/" target="_blank" rel="noopener">CTIS</a> · consulta directa de registros de ensayos.</li>
+      </ul>
+    </section>
+
+    <section class="block" id="siguiente">
+      <h2 class="block__title">Siguiente sesión</h2>
+      <p class="block__lead">Prepárate para el Módulo 3</p>
+      <div class="info-grid">
+        <div class="info"><h3>🗓️ Módulo 3 · IA para la investigación</h3><p>El programa lo sitúa el 13 de noviembre de 2026. Javier Fuentes trabajará la búsqueda, el contraste de fuentes y la redacción científica con IA.</p></div>
+        <div class="info"><h3>🖥️ Qué traer</h3><p>Ordenador y una pregunta de investigación que quieras afinar, sin datos identificables de pacientes.</p></div>
+        <div class="info"><h3>💬 Dudas entre sesiones</h3><p>Formulario de la organización o <a href="mailto:formacion@sepd.es">formacion@sepd.es</a>.</p></div>
+      </div>
+      <div class="pager">
+        <a href="modulo-1.html"><small>Anterior</small><strong>Módulo 1 · Fundamentos de la IA</strong></a>
+        <a href="index.html#programa" class="next"><small>Programa</small><strong>Módulo 3 · IA para la investigación (próximamente)</strong></a>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div>© 2026 · Material formativo del Curso de IA en Digestivo · SEPD · Elaborado por <a href="https://ncompany.es" target="_blank" rel="noopener">NCompany</a> a partir de la presentación de la sesión II</div>
+  <div>Ficha M2 · v1.0</div>
+</footer>
+</main>
+
+<script>
+(function () {
+  var links = document.querySelectorAll('.toc a[href^="#"]'), map = {};
+  links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.ficha__main .block'));
+  function update() {
+    var current = sections[0];
+    sections.forEach(function (s) { if (s.getBoundingClientRect().top <= 140) current = s; });
+    links.forEach(function (a) { a.classList.remove('is-active'); });
+    if (current && map[current.id]) map[current.id].classList.add('is-active');
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('load', update);
+})();
+(function () {
+  var quiz = document.getElementById('quiz'); if (!quiz) return;
+  var questions = quiz.querySelectorAll('.q'), score = document.getElementById('quizScore'), scoreText = score.querySelector('span'), state = {};
+  function render() {
+    var done = Object.keys(state).length, ok = 0; for (var k in state) if (state[k]) ok++;
+    scoreText.textContent = done < questions.length ? done + ' de ' + questions.length + ' respondidas · ' + ok + ' correctas' : 'Resultado: ' + ok + ' / ' + questions.length;
+  }
+  questions.forEach(function (q, i) {
+    var answer = q.getAttribute('data-answer'), fb = q.querySelector('.q__fb');
+    q.querySelectorAll('.q__opt').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (q.classList.contains('is-done')) return;
+        var right = btn.getAttribute('data-k') === answer;
+        q.classList.add('is-done'); btn.classList.add(right ? 'is-right' : 'is-wrong');
+        if (!right) q.querySelector('.q__opt[data-k="' + answer + '"]').classList.add('is-right');
+        fb.textContent = right ? fb.getAttribute('data-ok') : fb.getAttribute('data-ko'); fb.className = 'q__fb ' + (right ? 'ok' : 'ko');
+        state[i] = right; render();
+      });
+    });
+  });
+  document.getElementById('quizReset').addEventListener('click', function () {
+    state = {};
+    questions.forEach(function (q) { q.classList.remove('is-done'); q.querySelectorAll('.q__opt').forEach(function (b) { b.classList.remove('is-right', 'is-wrong'); }); var fb = q.querySelector('.q__fb'); fb.textContent = ''; fb.className = 'q__fb'; });
+    scoreText.textContent = 'Responde todas las preguntas para ver tu resultado.';
+  });
+})();
+</script>
+</body>
+</html>
