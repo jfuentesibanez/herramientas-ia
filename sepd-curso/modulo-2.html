@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 2 · LLMs y Prompt Engineering Médico · Curso de IA en Digestivo · SEPD</title>
+<meta name="description" content="Ficha de la sesión 2 del Curso de IA en Digestivo (SEPD): qué es un LLM, panorama de modelos a octubre de 2026, Deep Research, NotebookLM, modelo de consenso, prompt engineering médico y LLM en local.">
+<link rel="stylesheet" href="assets/sepd.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="topbar__brand" href="index.html">
+      <img src="assets/sepd.png" alt="SEPD · Sociedad Española de Patología Digestiva">
+      <span>Curso de IA en Digestivo<br>2ª edición · 2026-2027</span>
+    </a>
+    <nav class="topbar__nav" aria-label="Navegación principal">
+      <a href="index.html#programa">Programa</a>
+      <a href="index.html#equipo">Equipo docente</a>
+      <a href="modulo-1.html">Módulo 1</a>
+      <a href="modulo-2.html" class="is-active">Módulo 2</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero__inner">
+    <div>
+      <p class="hero__eyebrow">Módulo 2 de 8 · Taller #2</p>
+      <h1 class="hero__title">LLMs y Prompt Engineering Médico: <em>el arte de preguntar</em></h1>
+      <p class="hero__subtitle">Qué es un modelo de lenguaje y cómo funciona por dentro, quién es quién en el panorama de octubre de 2026, cómo configurar tu ChatGPT, y tres prácticas en vivo: Deep Research sobre una guía clínica, NotebookLM para digerirla y un modelo de consenso enfrentando a dos IAs. Cierra con la plantilla de prompt que resuelve el 80 % de las consultas y con cómo ejecutar un LLM en tu propio ordenador.</p>
+      <div class="hero__meta">
+        <span><strong>Fecha</strong> 30 de octubre de 2026</span>
+        <span><strong>Duración</strong> 2 h 50 min</span>
+        <span><strong>Ponente</strong> Consuelo Verdú (NCompany)</span>
+        <span><strong>Con</strong> Dr. Javier Mendoza</span>
+      </div>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#practica">Ir a la práctica</a>
+        <a class="btn btn--ghost" href="#prompts">Prompts para copiar</a>
+      </div>
+    </div>
+    <div class="hero__art">
+      <img src="assets/m2/mapa.jpg" alt="Mapa de la sesión 2: presentación y novedades, panorama de los modelos, IA generativa, prompt engineering médico, LLM en local, cierre y futuro">
+    </div>
+  </div>
+</section>
+
+<main class="container">
+<div class="ficha">
+
+  <nav class="toc" aria-label="Índice de la ficha">
+    <div class="toc__label">En esta ficha</div>
+    <a href="#resumen">Resumen</a>
+    <a href="#ideas">Ideas fuerza</a>
+    <a href="#recorrido">Recorrido de la sesión</a>
+    <a href="#diapositivas">Diapositivas clave</a>
+    <a href="#herramientas">Herramientas</a>
+    <a href="#practica">Práctica guiada</a>
+    <a href="#prompts">Prompts para copiar</a>
+    <a href="#reglas">Reglas de oro</a>
+    <a href="#preguntas">Preguntas del chat</a>
+    <a href="#glosario">Glosario</a>
+    <a href="#autoevaluacion">Autoevaluación</a>
+    <a href="#referencias">Referencias</a>
+    <a href="#siguiente">Siguiente sesión</a>
+    <div class="toc__downloads">
+      <a class="btn btn--ghost no-arrow" href="assets/m2/presentacion-sesion-2.pdf" target="_blank" rel="noopener">📄 Presentación (PDF)</a>
+    </div>
+  </nav>
+
+  <div class="ficha__main">
+
+    <!-- ================= RESUMEN ================= -->
+    <section class="block" id="resumen">
+      <h2 class="block__title">Resumen</h2>
+      <p class="block__lead">Conversa con la máquina, pero no le cedas el criterio</p>
+
+      <div class="facts">
+        <div class="fact"><div class="fact__k">Módulo</div><div class="fact__v">2 · LLMs y prompting</div></div>
+        <div class="fact"><div class="fact__k">Formato</div><div class="fact__v">Online · Zoom</div></div>
+        <div class="fact"><div class="fact__k">Nivel</div><div class="fact__v">Práctico · demos en vivo</div></div>
+        <div class="fact"><div class="fact__k">Prácticas</div><div class="fact__v">Deep Research · NotebookLM · Consenso</div></div>
+        <div class="fact"><div class="fact__k">Diapositivas</div><div class="fact__v">172</div></div>
+      </div>
+
+      <p>Consuelo Verdú, presentada por el Dr. Mendoza como "la experta en storytelling de NCompany", conduce la sesión en diálogo permanente con él y con los 105 asistentes. Abre con una idea que vertebra todo el módulo: la IA nos sube a hombros de gigantes, pero siempre con un <em>human in the loop</em>. Igual que ella discute con Google Maps aunque lo use a diario, el médico debe cuestionar lo que devuelve el modelo, porque la fluidez no garantiza exactitud.</p>
+      <p>La primera parte repasa qué es un LLM (pidiéndoselo al propio ChatGPT en tres registros: médico, lego y adolescente), cómo funciona el camino prompt → tokens → red neuronal → respuesta, por qué los modelos son probabilísticos y no deterministas, y pone orden en el vocabulario: fabricante, modelo y herramienta no son lo mismo. Revisa el panorama a 29 de octubre de 2026 (GPT-6, Gemini 4 Argon y Carbon, Claude Opus 5.5, Copilot 365 con GPT-6.1 Sol y Claude Sonnet 5.5), las noticias que tocan al digestivo (ChatGPT for Clinicians, dos estudios en BMC Gastroenterology, una demanda en EE. UU.) y recorre la configuración de ChatGPT: memoria, instrucciones personalizadas, estilo, conectores y las tres formas de trabajar: Chat, Work y Codex.</p>
+      <p>La segunda parte es práctica pura sobre la guía AEEH 2026 de esteatosis hepática metabólica que aporta el Dr. Mendoza: un Deep Research en ChatGPT, la guía y el informe cargados en NotebookLM (ahora Gemini Notebook) para obtener mapa mental, pódcast-debate, vídeo, infografía, presentación, tarjetas y tablas, y un modelo de consenso en el que ChatGPT, Gemini y Claude discuten la misma pregunta crítica sobre semaglutida y resmetirom. Cierra con la anatomía de un buen prompt (Rol · Contexto · Tarea · Formato), la matriz de tipos de prompts clínicos, cuándo disparar un razonador y cómo instalar un LLM en local con LM Studio.</p>
+
+      <div class="callout callout--purple">
+        <h4>Si solo te llevas una frase</h4>
+        <p>Dile a la máquina qué quieres conseguir y pídele que te pregunte lo que le falta. <em>Garbage in, garbage out</em>: la calidad de la respuesta empieza en la calidad del prompt y de las fuentes. Y la última palabra, siempre, es tuya.</p>
+      </div>
+    </section>
+
+    <!-- ================= IDEAS FUERZA ================= -->
+    <section class="block" id="ideas">
+      <h2 class="block__title">Ideas fuerza</h2>
+      <p class="block__lead">Doce conceptos para fijar</p>
+      <ol class="ideas">
+        <li><strong>Un LLM es un predictor de la siguiente palabra entrenado con terabytes de texto.</strong><span>Aprende patrones y genera respuestas convincentes. La fluidez no garantiza exactitud: construye respuestas gramaticalmente perfectas que pueden ser falsas. Para un adolescente: el autocompletado del móvil, pero infinitamente más potente.</span></li>
+        <li><strong>El camino de un prompt: tokenizar → red neuronal → decodificar.</strong><span>La máquina no entiende "dame las tres provincias más importantes de España": lo trocea en tokens (un token ≈ 3/4 de palabra), los convierte en números, la red transformer calcula probabilidades (Madrid 71 %, Barcelona 68 %, Valencia…) y traduce de vuelta a palabras. Ese núcleo es la caja negra. Y no todos los idiomas cuestan igual: si el inglés vale 1, el español 1,5 y el telugu 8,8.</span></li>
+        <li><strong>IA predictiva frente a IA generativa.</strong><span>Netflix predice qué te gustará a partir de tus patrones (predictiva, determinista). La generativa crea algo nuevo cada vez: el mismo "escribe un cuento de dragones con tres protagonistas y una moraleja" dio a cada alumno un cuento distinto. Aviso del Dr. Mendoza: en medicina una úlcera vista en Sevilla tiene que ser la misma úlcera en Madrid o París; la consistencia importa.</span></li>
+        <li><strong>Fabricante → modelo → herramienta.</strong><span>OpenAI fabrica GPT-6.1 y lo sirve en ChatGPT; Google fabrica Gemini 4 Argon/Carbon y lo sirve en Gemini; Anthropic fabrica Claude Opus 5.5 y lo sirve en Claude. Copilot es la herramienta de Microsoft, que no tiene LLM propio y usa GPT y, desde hace un año, también Claude. Cuando alguien diga "lo he hecho con IA", la pregunta útil es: ¿qué herramienta, qué modelo, qué fabricante?</span></li>
+        <li><strong>Tres familias frontera y los nombres caducan cada pocas semanas.</strong><span>Claude, Gemini y GPT sirven para el 95 % de la consulta. Lo que no caduca es elegir la familia adecuada para cada tarea: chat (dudas rápidas, redacción), razonador (casos complejos, lectura crítica) o agente (buscar y cruzar fuentes).</span></li>
+        <li><strong>Estamos en el nivel 3: agentes.</strong><span>Niveles de OpenAI: chatbots → razonadores (cuando ves "thinking") → agentes → innovadores → organizaciones. Un asistente no tiene voluntad propia: automatiza una tarea repetitiva que tú defines (resumir un acta siempre igual). Un agente tiene autonomía para actuar en tu nombre; nosotros seremos los orquestadores. Se verá en el módulo 6.</span></li>
+        <li><strong>Confidencialidad: tres vías para cacharrear sin riesgo.</strong><span>Nunca datos de pacientes en cuentas personales. Las versiones Enterprise y Copilot 365 garantizan la confidencialidad por contrato. Para practicar: datos anonimizados, un paciente sintético "imposible" inventado por la propia IA, o un LLM instalado en tu ordenador personal.</span></li>
+        <li><strong>Configura tu ChatGPT y háblale.</strong><span>Activa la memoria, escribe instrucciones personalizadas ("no me des la razón por defecto, no inventes cifras, distingue hechos de hipótesis"), ajusta tono y formato, usa el dictado por voz. Tres interfaces: Chat (conversar), Work (delegar un entregable) y Codex (construir software, como el cuadrante de 18 médicos de urgencias). Agota la versión gratuita y pasa a la de 10 € cuando la necesites.</span></li>
+        <li><strong>Deep Research: investigar como un agente, en 15 minutos.</strong><span>No responde con lo que sabe: lanza decenas de búsquedas, lee, contrasta y devuelve un informe estructurado. Está en ChatGPT, Gemini, Claude y Copilot (agente "Investigador"). Úsalo para ponerte al día en un subtema o preparar una ponencia; no para un correo. Lánzalo en dos modelos a la vez y compara.</span></li>
+        <li><strong>NotebookLM (Gemini Notebook): tus fuentes, tus formatos.</strong><span>Subes fuentes validadas (PDF, webs, Drive, YouTube) y obtienes mapa mental, resumen de audio en modo debate, vídeo, infografía, presentación, tarjetas de estudio, tablas y un chat que solo responde con tus fuentes. Nombra y agrupa las fuentes. Truco: sus presentaciones son imágenes; en Canva puedes extraer el texto y editarlas.</span></li>
+        <li><strong>Modelo de consenso y buen prompting.</strong><span>Pide a un LLM las preguntas críticas sobre un documento, lanza la misma pregunta con el mismo encabezado a dos o tres modelos y haz que cada uno critique al otro. Plantilla Rol · Contexto · Tarea · Formato, y la línea que más cambia el resultado: "si te falta un dato clave, pídemelo antes de contestar".</span></li>
+        <li><strong>Las limitaciones no han desaparecido.</strong><span>Alucina cifras de ensayos y condiciones de visado; su conocimiento tiene fecha de corte; sobrerrepresenta literatura anglosajona y poblaciones de ensayo más jóvenes que tu consulta; responde con el mismo aplomo cuando acierta y cuando no. Toda cifra y referencia se verifica contra la fuente. Siempre.</span></li>
+      </ol>
+    </section>
+
+    <!-- ================= RECORRIDO ================= -->
+    <section class="block" id="recorrido">
+      <h2 class="block__title">Recorrido de la sesión</h2>
+      <p class="block__lead">Los seis bloques del mapa</p>
+      <p class="block__desc">La presentación sigue el tablero de seis paradas. Las dos prácticas largas (NotebookLM y modelo de consenso) ocuparon la segunda parte, tras la pausa.</p>
+
+      <div class="timeline">
+
+        <div class="step">
+          <h3><small>Bloque 1</small> Presentación, objetivos y últimas novedades</h3>
+          <ul>
+            <li><strong>Objetivos del módulo.</strong> Comprender los modelos de lenguaje aplicados al análisis clínico, desarrollar competencias de prompting clínico y razonamiento avanzado, conocer cómo "piensan" paso a paso, implementar LLMs en local y manejar un glosario de términos.</li>
+            <li><strong>FOMO y velocidad.</strong> Un tuit de Aaron Levie: si la IA se hubiera estancado todos estaríamos igual; como mejora tan rápido, lo que estandarizaste hace seis meses ya está viejo. En 2020 salía una familia de modelos cada 73 días; hoy, cada 15, porque los propios LLM escriben buena parte de su código. Es la tercera vez que Consuelo imparte el módulo y la tercera que lo reescribe.</li>
+            <li><strong>Hoja de ruta.</strong> M1 fundamentos (18 sep), M2 hoy (30 oct), M3 investigación (13 nov), M4 diagnóstico (11 dic), M5-M8 en 2027. En el módulo 7 se pedirán casos de uso propios para presentarlos en el 8. El ponente invitado sobre ensayos clínicos y estadística se pospone a una sesión posterior.</li>
+            <li><strong>Lo que ha cambiado desde junio.</strong> Google presenta Gemini 4 Argon (30 sep; el 20 de octubre lideraba LMArena). Anthropic lanza Claude Opus 5.5 y Sonnet 5.5 (22-28 sep); Fable 5.1 queda para tareas largas y autónomas. Copilot 365 incorpora GPT-6.1 Sol y Claude Sonnet 5.5 (30 sep). OpenAI estrena la familia GPT-6: Astra, Sol y Luna, y GPT-6 Instant llega a las cuentas gratuitas (3 sep / 8 oct). NotebookLM pasa a llamarse Gemini Notebook (16 jul).</li>
+            <li><strong>Lo último que nos toca de cerca.</strong> BMC Gastroenterology (26 oct): varios LLM contestan bien a preguntas clínicas en texto sobre cáncer gástrico precoz pero fallan con imágenes endoscópicas (Gemini 3.0 Pro: sensibilidad 99,6 %, especificidad 0 %). BMC Gastroenterology (1 oct): 40 gastroenterólogos puntuaron mejor a ChatGPT-4 que a Bard en preguntas de pacientes sobre colonoscopia, con preguntas de 2023: lo publicado va dos o tres generaciones por detrás. OpenAI lanza ChatGPT para profesionales sanitarios (22 abr): gratis para clínicos verificados en EE. UU., con piloto anunciado fuera. Demanda en EE. UU. (27 oct) por un consejo de ChatGPT a una paciente con epilepsia.</li>
+            <li><strong>Para el debate.</strong> ¿Qué le contestamos al paciente que llega con la respuesta de ChatGPT impresa? Del "doctor Google" al "doctor ChatGPT": el efecto halo hace que el paciente se fíe más de la IA que del buscador. Consenso de la sala: asumirlo, preguntarle qué ha consultado y enseñarle a usarlo para formular mejores preguntas al médico.</li>
+            <li><strong>Novedad: diseñar un ensayo clínico con herramientas de Google.</strong> Seis pasos: pregunta y vacío de evidencia (Deep Research + Scholar Labs), base documental (Gemini Notebook con guías y SPIRIT 2025), borrador de protocolo (Docs y Canvas), tamaño muestral y plan estadístico (Sheets y Colab), hipótesis y dianas (AI co-scientist, MedGemma, TxGemma) y comunicación al paciente. La IA prepara borradores; la metodología, el bioestadístico y el CEIm deciden.</li>
+          </ul>
+          <figure>
+            <img src="assets/m2/slide-noticias-digestivo.jpg" alt="Diapositiva: lo último que nos toca de cerca, cuatro noticias de IA en digestivo">
+            <figcaption>Dos estudios de digestivo publicados en octubre y dos noticias que ya están entrando en la consulta.</figcaption>
+          </figure>
+        </div>
+
+        <div class="step">
+          <h3><small>Bloque 2 y 3</small> Panorama de los modelos y características de la IA generativa</h3>
+          <ul>
+            <li><strong>Un poco de historia.</strong> La Pascalina (1642), el primer algoritmo de Babbage y Lovelace, el test de Turing (1950), Deep Blue contra Kaspárov, Alexa y Google Home. El punto de inflexión: los transformers de Google en 2017 ("Attention Is All You Need"), que OpenAI convirtió en GPT (Generative Pre-trained Transformer). Los mortales lo probamos en noviembre de 2021 con GPT-3; hoy vamos por GPT-6.1.</li>
+            <li><strong>Cómo funciona la máquina.</strong> Consuelo lo explica con un vídeo en modo <em>graphic motion</em> generado con Claude a partir de un prompt: prompt → tokenización → vectorización → red neuronal (caja negra) → decodificación → respuesta probabilística. ¿Tiene sentido saludar y dar las gracias a la máquina? Consume tokens; bromas aparte, la cortesía no mejora la respuesta.</li>
+            <li><strong>¿Cuántos LLM conoces?</strong> La sala cita ChatGPT, Claude, Copilot, VeraHealth, NotebookLM. Bloques americano y asiático; Mistral es el único europeo, a mucha distancia. Grok (xAI) es más permisivo con contenidos que otros rechazan; "poco recorrido clínico".</li>
+            <li><strong>Los cinco niveles y la diferencia asistente/agente.</strong> Ejemplo de orquestación de agentes en consulta: antes de entrar, tus agentes han preparado la ficha de cada paciente con histórico, informe y analíticas, y sugieren qué preguntarle. Néstor Guerra ha escrito un libro, "Solo", sobre el quinto nivel: organizaciones lideradas por una persona y operadas por máquinas.</li>
+            <li><strong>Confidencialidad.</strong> Copilot 365 y las versiones Enterprise garantizan por contrato que tus datos no se usan. A nivel personal, nada de datos de pacientes. Consuelo contó que ella sí subió sus propios informes médicos (bajo licencia Enterprise) para entender su enfermedad y visualizar su evolución, y que a su médica le sorprendió el resultado.</li>
+            <li><strong>La interfaz de ChatGPT, paso a paso.</strong> Web, móvil y escritorio. Planes: gratis, ~10 €, 20 € y Pro (229 €/mes, el que usa NCompany por volumen). Personalización: memoria activada, resumen de lo que ChatGPT sabe de ti, estilo de escritura, tono (más amable, menos emojis, formato con listas), instrucciones personalizadas, modo de voz, conectores (Gmail, Drive, Calendar), controles de datos (mejorar el modelo para todos: desactivable; exportar y eliminar chats), calendarios con tareas programadas.</li>
+            <li><strong>Chat · Work · Codex.</strong> Conversar y explorar; delegar un entregable combinando fuentes, archivos y herramientas; desarrollar y comprobar software. Demo: organizar los turnos de 18 médicos de urgencias respetando descansos y especialidades. La clave fue pedirle a la máquina que preguntara lo que necesitaba saber antes de construir una calculadora interactiva de cuadrantes.</li>
+            <li><strong>¿Por cuál empezar una tesis?</strong> Claude Sonnet 5.5 u Opus 5.5 por redacción y dictado, con el aviso de que Gemini 4 Carbon (28 oct) encabeza Artificial Analysis en inteligencia y Opus 5.5 en calidad-precio. Lo importante es probar varios y quedarse con el que mejor encaje.</li>
+          </ul>
+          <figure>
+            <img src="assets/m2/slide-panorama-octubre.jpg" alt="Diapositiva: el panorama a 29 de octubre de 2026, herramientas, modelos y para qué elegirlas">
+            <figcaption>El panorama a 29 de octubre de 2026: los nombres caducan, las familias no.</figcaption>
+          </figure>
+        </div>
+
+        <div class="step step--hi">
+          <h3><small>Práctica en vivo 1</small> Deep Research + NotebookLM sobre la guía AEEH 2026</h3>
+          <p>El Dr. Mendoza aporta la guía de práctica clínica multidisciplinar de la AEEH sobre esteatosis hepática metabólica (EHmet/MASLD), muy reciente y relacionada con el "tsunami" de los GLP-1. Consuelo lanza en ChatGPT una investigación en profundidad basada en la guía (unos 15 minutos) y obtiene un informe de actualización 2025-2026. Después crea un cuaderno en NotebookLM con la guía, el informe y fuentes adicionales localizadas con el buscador de la propia herramienta, las nombra y agrupa, y genera: mapa mental interactivo (con notas guardadas), resumen de audio en modo debate ("una epidemia silenciosa que afecta a 1.700 millones de personas"), vídeo explicativo, tarjetas de estudio, tabla de datos, infografía (sosa primero; en estilo Astérix y Marvel después) y presentación. Guillermo pregunta si sirve para preparar exámenes: sí, y Consuelo defiende que predecir las preguntas es exactamente estudiar. <a href="#practica">Guía paso a paso más abajo.</a></p>
+        </div>
+
+        <div class="step step--hi">
+          <h3><small>Práctica en vivo 2</small> Modelo de consenso: ChatGPT contra Gemini (y Claude)</h3>
+          <p>Sobre la misma guía, Consuelo pide a ChatGPT las diez preguntas más críticas para un debate útil entre modelos y un encabezado común ("analiza exclusivamente la guía adjunta, cita la página"). La sala elige la pregunta 5: ¿hasta dónde permiten los resultados con semaglutida y resmetirom inferir menos cirrosis? Lanza la misma pregunta con el mismo documento a Gemini (Argon) y a Claude Opus 5.5, y cuando cada uno responde pega la respuesta del otro pidiendo que la critique. Resultado: acuerdo sólido en distinguir lo demostrado de lo pendiente, con una corrección relevante de ChatGPT a Gemini: la guía recoge eficacia histológica frente a placebo y una base pronóstica para esperar beneficio clínico, pero los resultados no demuestran directamente reducción de la cirrosis. El Dr. Mendoza: comparar e iterar entre modelos es la práctica habitual que recomienda.</p>
+        </div>
+
+        <div class="step">
+          <h3><small>Bloque 4</small> Prompt Engineering Médico: los elementos de un buen prompt</h3>
+          <ul>
+            <li><strong>La ventana de contexto.</strong> La memoria de trabajo del modelo va hoy de 200.000 a 2 millones de tokens: cabe una guía entera, pero no la lee toda igual de bien. Lo del medio se pierde (<em>lost in the middle</em>): lo crítico, arriba o abajo del prompt. Las conversaciones largas degradan: tarea nueva, chat nuevo. Más contexto no es mejor contexto: pegar seis documentos "por si acaso" diluye la señal. Demo del caso del pie diabético: la pregunta del principio se responde bien; la enterrada en el día 12 (ITB 0,88 tras angioplastia), peor.</li>
+            <li><strong>Elementos de un prompt.</strong> Instrucción, contexto, datos de entrada e indicador de salida. Ejemplo: "Escribe para un niño de 7 años un cuento sobre superhéroes de 150 palabras y con moraleja".</li>
+            <li><strong>Rol · Contexto · Tarea · Formato.</strong> La plantilla que resuelve el 80 % de las consultas. Caso sintético 1 (mujer de 34 años con colitis ulcerosa extensa corticodependiente, Mayo parcial 6, calprotectina 980 µg/g, desea embarazo, le preocupa pincharse): "¿qué le pongo a esta paciente?" da una respuesta genérica con criterios de financiación inventados; el prompt estructurado da opciones de escalada priorizadas en tabla, y pregunta lo que le falta.</li>
+            <li><strong>Anatomía de un prompt según OpenAI.</strong> Objetivo, formato de retorno, advertencias ("no te inventes nada, chequea antes de responder") y volcado de contexto (en la sesión, el fichero de la guía).</li>
+            <li><strong>Matriz de tipos de prompts clínicos.</strong> Descriptivo/exploratorio, diagnóstico/causal, predictivo/estadístico, razonamiento avanzado (chain of thought), comparativo/contrafactual y RAG (consultar bases de conocimiento como el protocolo de la SEPD sobre EII).</li>
+            <li><strong>Tres técnicas.</strong> Chain of thought ("razona paso a paso"), few-shot (2-3 ejemplos valen más que diez adjetivos: la carta a Atención Primaria con dos cartas reales anonimizadas como modelo) y prompts en cadena (estructurar → analizar → criticar → comunicar).</li>
+            <li><strong>Cuándo disparar un razonador.</strong> Un razonador se para a pensar entre 30 segundos y 3 minutos: no es preguntar a un residente en el pasillo, es sentarlo ante un folio diez minutos. Chat normal para dudas puntuales, borradores, reformatear; razonador para el pluripatológico (anciana frágil con CU, IC, anticoagulada y sarcopenia), los trade-offs, la lectura crítica de un ensayo y donde las guías difieren.</li>
+            <li><strong>Hoy, lo más importante es conversar.</strong> Los seis pasos clásicos siguen valiendo, pero con los modelos actuales basta mantener una conversación animada: "¿tú cómo harías esto? ¿qué se me olvida? hazme las preguntas que necesites".</li>
+          </ul>
+          <figure>
+            <img src="assets/m2/slide-rol-contexto-tarea-formato.jpg" alt="Diapositiva: Rol, Contexto, Tarea, Formato, la plantilla que resuelve el 80 % de las consultas">
+            <figcaption>Rol · Contexto · Tarea · Formato. Cuando un prompt no funciona, casi siempre falta una pieza.</figcaption>
+          </figure>
+        </div>
+
+        <div class="step">
+          <h3><small>Bloque 5</small> LLM en local</h3>
+          <ul>
+            <li><strong>LM Studio.</strong> Se descarga, se elige un modelo de pesos abiertos (Qwen3-8B, DeepSeek, Gemma, gpt-oss, Llama, Mistral) y se ejecuta en tu ordenador. No serán los últimos modelos, pero permiten probar, iterar e incluso subir documentación sin que salga de la máquina. Para comprobarlo: modo avión.</li>
+            <li><strong>¿En el ordenador del hospital?</strong> No: en el personal, para cacharrear y aprender sin pedir permiso a la gobernanza de IA del centro. ¿Claude o ChatGPT en local? No: solo modelos abiertos, y menos potentes que la herramienta completa.</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h3><small>Bloque 6</small> Cierre y futuro</h3>
+          <ul>
+            <li><strong>Recapitulación.</strong> Qué es un LLM y cómo funciona, no determinismo, Deep Research, NotebookLM, consenso, prompting y local. En el móvil, NotebookLM permite preguntar por voz sobre tus fuentes.</li>
+            <li><strong>Pendiente para el módulo 3.</strong> VeraHealth y otras herramientas de evidencia científica que varios alumnos recomiendan; Javier Fuentes las probará en vivo. La SEPD enviará una guía detallada de NotebookLM.</li>
+            <li><strong>La consigna.</strong> "La innovación se demuestra haciendo": cacharrear es la única forma de aprender. 105 personas un viernes de puente: récord.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= DIAPOSITIVAS ================= -->
+    <section class="block" id="diapositivas">
+      <h2 class="block__title">Diapositivas clave</h2>
+      <p class="block__lead">Las imágenes que conviene recordar</p>
+      <p class="block__desc">Selección de la presentación de 172 diapositivas. Haz clic para verlas a tamaño completo o descarga el <a href="assets/m2/presentacion-sesion-2.pdf" target="_blank" rel="noopener">PDF íntegro</a>.</p>
+      <div class="slides">
+        <figure><a href="assets/m2/slide-hoja-de-ruta.jpg" target="_blank"><img src="assets/m2/slide-hoja-de-ruta.jpg" alt="Hoja de ruta de la 2ª edición"></a><figcaption>Hoja de ruta de la 2ª edición con las fechas de los ocho módulos.</figcaption></figure>
+        <figure><a href="assets/m2/slide-que-ha-cambiado.jpg" target="_blank"><img src="assets/m2/slide-que-ha-cambiado.jpg" alt="Lo que ha cambiado desde junio"></a><figcaption>Lo que ha cambiado desde junio: cinco noticias de modelos y herramientas.</figcaption></figure>
+        <figure><a href="assets/m2/slide-noticias-digestivo.jpg" target="_blank"><img src="assets/m2/slide-noticias-digestivo.jpg" alt="Lo último que nos toca de cerca"></a><figcaption>Lo último que nos toca de cerca: estudios y noticias de IA en digestivo.</figcaption></figure>
+        <figure><a href="assets/m2/slide-funcionamiento-basico.jpg" target="_blank"><img src="assets/m2/slide-funcionamiento-basico.jpg" alt="Funcionamiento básico de un LLM"></a><figcaption>Funcionamiento básico: del prompt a la respuesta.</figcaption></figure>
+        <figure><a href="assets/m2/slide-tokens-por-idioma.jpg" target="_blank"><img src="assets/m2/slide-tokens-por-idioma.jpg" alt="Consumo de tokens por idioma"></a><figcaption>No todos los idiomas consumen los mismos tokens.</figcaption></figure>
+        <figure><a href="assets/m2/slide-fabricante-modelo-herramienta.jpg" target="_blank"><img src="assets/m2/slide-fabricante-modelo-herramienta.jpg" alt="Fabricante, modelo, herramienta"></a><figcaption>Fabricante → modelo → herramienta: tres cosas distintas que las noticias mezclan.</figcaption></figure>
+        <figure><a href="assets/m2/slide-tres-frontera.jpg" target="_blank"><img src="assets/m2/slide-tres-frontera.jpg" alt="Los tres frontera y las tres familias"></a><figcaption>Los tres modelos frontera y las tres familias: chat, razonador y agente.</figcaption></figure>
+        <figure><a href="assets/m2/slide-panorama-octubre.jpg" target="_blank"><img src="assets/m2/slide-panorama-octubre.jpg" alt="El panorama a 29 de octubre de 2026"></a><figcaption>El panorama a 29 de octubre de 2026.</figcaption></figure>
+        <figure><a href="assets/m2/slide-modelos-claude.jpg" target="_blank"><img src="assets/m2/slide-modelos-claude.jpg" alt="Los modelos de Claude, explicados"></a><figcaption>Los modelos de Claude, explicados: Haiku, Sonnet, Opus 5.5 y Fable 5.1.</figcaption></figure>
+        <figure><a href="assets/m2/slide-chat-work-codex.jpg" target="_blank"><img src="assets/m2/slide-chat-work-codex.jpg" alt="Chat, Work, Codex"></a><figcaption>Chat · Work · Codex: tres formas de trabajar con IA.</figcaption></figure>
+        <figure><a href="assets/m2/slide-claude-honesto.jpg" target="_blank"><img src="assets/m2/slide-claude-honesto.jpg" alt="Cómo hacer que Claude sea brutalmente honesto"></a><figcaption>Cómo hacer que el modelo sea brutalmente honesto: instrucciones contra la complacencia.</figcaption></figure>
+        <figure><a href="assets/m2/slide-deep-research.jpg" target="_blank"><img src="assets/m2/slide-deep-research.jpg" alt="Investigar como un agente, en minutos"></a><figcaption>Deep Research: cuándo usarlo y cuándo no.</figcaption></figure>
+        <figure><a href="assets/m2/slide-notebooklm-salidas.jpg" target="_blank"><img src="assets/m2/slide-notebooklm-salidas.jpg" alt="NotebookLM: mapa mental e infografías generadas"></a><figcaption>NotebookLM: de la guía al mapa mental y las infografías.</figcaption></figure>
+        <figure><a href="assets/m2/slide-ensayo-clinico-google.jpg" target="_blank"><img src="assets/m2/slide-ensayo-clinico-google.jpg" alt="Diseñar un ensayo clínico con herramientas de Google"></a><figcaption>Diseñar un ensayo clínico con herramientas de Google, en seis pasos.</figcaption></figure>
+        <figure><a href="assets/m2/slide-predictor-siguiente-palabra.jpg" target="_blank"><img src="assets/m2/slide-predictor-siguiente-palabra.jpg" alt="Un predictor de la siguiente palabra"></a><figcaption>Un predictor de la siguiente palabra: tokens, embeddings, atención, predicción.</figcaption></figure>
+        <figure><a href="assets/m2/slide-limitaciones.jpg" target="_blank"><img src="assets/m2/slide-limitaciones.jpg" alt="Limitaciones y qué implican en tu práctica"></a><figcaption>Cuatro limitaciones y qué implican en tu práctica.</figcaption></figure>
+        <figure><a href="assets/m2/slide-ventana-contexto.jpg" target="_blank"><img src="assets/m2/slide-ventana-contexto.jpg" alt="La ventana de contexto"></a><figcaption>La ventana de contexto: cuánto cabe y dónde mira el modelo.</figcaption></figure>
+        <figure><a href="assets/m2/slide-elementos-prompt.jpg" target="_blank"><img src="assets/m2/slide-elementos-prompt.jpg" alt="Elementos de un prompt"></a><figcaption>Los cuatro elementos de un prompt.</figcaption></figure>
+        <figure><a href="assets/m2/slide-rol-contexto-tarea-formato.jpg" target="_blank"><img src="assets/m2/slide-rol-contexto-tarea-formato.jpg" alt="Rol, Contexto, Tarea, Formato"></a><figcaption>Rol · Contexto · Tarea · Formato.</figcaption></figure>
+        <figure><a href="assets/m2/slide-mismo-caso-dos-prompts.jpg" target="_blank"><img src="assets/m2/slide-mismo-caso-dos-prompts.jpg" alt="El mismo caso, dos prompts"></a><figcaption>El mismo caso, dos prompts: pobre frente a estructurado.</figcaption></figure>
+        <figure><a href="assets/m2/slide-tres-tecnicas-matriz.jpg" target="_blank"><img src="assets/m2/slide-tres-tecnicas-matriz.jpg" alt="Tres técnicas y una matriz"></a><figcaption>Tres técnicas avanzadas y la matriz de tipos de prompts clínicos.</figcaption></figure>
+        <figure><a href="assets/m2/slide-paciente-todo-compite.jpg" target="_blank"><img src="assets/m2/slide-paciente-todo-compite.jpg" alt="El paciente en el que todo compite"></a><figcaption>El paciente en el que todo compite: cuándo disparar un razonador.</figcaption></figure>
+        <figure><a href="assets/m2/slide-anatomia-prompt.jpg" target="_blank"><img src="assets/m2/slide-anatomia-prompt.jpg" alt="Anatomía de un prompt o1"></a><figcaption>La anatomía de un prompt según OpenAI: objetivo, formato, advertencias y contexto.</figcaption></figure>
+        <figure><a href="assets/m2/slide-lm-studio.jpg" target="_blank"><img src="assets/m2/slide-lm-studio.jpg" alt="LM Studio: IA local en tu ordenador"></a><figcaption>LM Studio: IA local en tu ordenador.</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- ================= HERRAMIENTAS ================= -->
+    <section class="block" id="herramientas">
+      <h2 class="block__title">Herramientas y recursos</h2>
+      <p class="block__lead">Lo que se usó, se citó o se anticipó</p>
+      <p class="block__desc">Los modelos cambian de nombre cada pocas semanas; esta lista refleja el estado a 30 de octubre de 2026. Las etiquetas indican coste orientativo y en qué módulo se trabajará cada herramienta con detalle.</p>
+
+      <div class="tools">
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">ChatGPT (OpenAI)</h3><div class="tool__tags"><span class="pill pill--warn">Freemium</span><span class="pill pill--orange">Demo M2</span></div></div>
+          <p class="tool__desc">Familia GPT-6 (Astra, Sol, Luna); GPT-6 Instant en la versión gratuita. Todo terreno: Deep Research, modo agente e imágenes. Tres interfaces: Chat, Work y Codex.</p>
+          <p class="tool__use"><strong>En clase:</strong> definición de LLM en tres registros, configuración completa, cuadrante de urgencias con Codex, Deep Research sobre la guía AEEH y modelo de consenso. Planes: gratis, ~10 €, 20 € y Pro 229 €/mes.</p>
+          <a class="tool__link" href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Gemini (Google)</h3><div class="tool__tags"><span class="pill pill--warn">Freemium</span><span class="pill pill--orange">Demo M2</span></div></div>
+          <p class="tool__desc">Gemini 3.8 Flash, Gemini 4 Argon (30 sep, acceso limitado) y Gemini 4 Carbon (28 oct), que encabeza Artificial Analysis en inteligencia. Fuerte en guías y PDF largos, Gmail y Drive.</p>
+          <p class="tool__use"><strong>En clase:</strong> segundo modelo del consenso (Argon). Deep Research disponible desde el menú de herramientas. Permite importar cuadernos de NotebookLM con @.</p>
+          <a class="tool__link" href="https://gemini.google.com" target="_blank" rel="noopener">gemini.google.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Claude (Anthropic)</h3><div class="tool__tags"><span class="pill pill--warn">Freemium</span><span class="pill pill--orange">Demo M2</span></div></div>
+          <p class="tool__desc">Haiku 5.5 (rápido y barato), Sonnet 5.5 (el caballo de batalla), Opus 5.5 (trabajo complejo; "si dudas, empieza aquí") y Fable 5.1 (razonamiento exigente y agentes de larga duración). Un millón de tokens de contexto.</p>
+          <p class="tool__use"><strong>Recomendación para empezar una tesis:</strong> Sonnet u Opus 5.5 por redacción clínica y dictado. En clase generó el vídeo explicativo del funcionamiento de un LLM y fue el tercer modelo del consenso. Peor en imágenes, de momento.</p>
+          <a class="tool__link" href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Microsoft 365 Copilot</h3><div class="tool__tags"><span class="pill pill--grey">Corporativo</span></div></div>
+          <p class="tool__desc">Desde el 30 de septiembre integra GPT-6.1 Sol y Claude Sonnet 5.5 en Word, Excel, PowerPoint y Teams. Microsoft no tiene LLM comercial propio.</p>
+          <p class="tool__use"><strong>Por qué importa:</strong> la licencia 365 del hospital garantiza la confidencialidad por contrato, como el correo corporativo. Trae dos agentes por defecto: Investigador (Deep Research) y Analista.</p>
+          <a class="tool__link" href="https://copilot.microsoft.com" target="_blank" rel="noopener">copilot.microsoft.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">NotebookLM · Gemini Notebook</h3><div class="tool__tags"><span class="pill pill--ok">Gratis</span><span class="pill pill--orange">Práctica M2</span></div></div>
+          <p class="tool__desc">La herramienta de Google para trabajar solo con tus fuentes (PDF, webs, Drive, YouTube, texto). Genera mapa mental, resumen de audio, vídeo, infografía, presentación, tarjetas, tablas y chat con citas. Renombrada el 16 de julio.</p>
+          <p class="tool__use"><strong>En clase:</strong> cuaderno sobre esteatosis hepática metabólica. Límite de fuentes en la versión gratuita (unas 25; más en los planes de pago). Nombra y agrupa las fuentes. La SEPD enviará una guía detallada.</p>
+          <a class="tool__link" href="https://notebooklm.google.com" target="_blank" rel="noopener">notebooklm.google.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Deep Research</h3><div class="tool__tags"><span class="pill pill--purple">Función · Módulo 3</span></div></div>
+          <p class="tool__desc">El agente de investigación que incorporan ChatGPT ("investigación en profundidad"), Gemini, Claude y Copilot ("Investigador"). Lanza decenas de búsquedas, lee, contrasta y devuelve un informe estructurado en unos 15 minutos.</p>
+          <p class="tool__use"><strong>Úsalo para:</strong> ponerte al día en un subtema, preparar una sesión o revisar una clase nueva (arGLP-1 duales, finerenona). No para un correo. Lánzalo en dos modelos y compara; verifica siempre un par de citas.</p>
+          <a class="tool__link" href="https://openai.com/index/introducing-deep-research/" target="_blank" rel="noopener">Deep Research en ChatGPT</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">LM Studio</h3><div class="tool__tags"><span class="pill pill--ok">Gratis</span><span class="pill pill--orange">Bonus M2</span></div></div>
+          <p class="tool__desc">Aplicación de escritorio para ejecutar modelos de pesos abiertos (Qwen, DeepSeek, Gemma, gpt-oss, Llama, Mistral) en tu ordenador, sin conexión.</p>
+          <p class="tool__use"><strong>En clase:</strong> descarga de Qwen3-8B (4,6 GB) y prueba en modo avión. Para cacharrear con documentación sensible en tu ordenador personal. Se ampliará en el módulo 4.</p>
+          <a class="tool__link" href="https://lmstudio.ai" target="_blank" rel="noopener">lmstudio.ai</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Modelos de pesos abiertos</h3><div class="tool__tags"><span class="pill pill--ok">Gratis</span></div></div>
+          <p class="tool__desc">DeepSeek y Qwen (China), Mistral (Francia, el único europeo), Llama (Meta), Gemma y gpt-oss. La vía para ejecutar un modelo en local sin que salgan los datos.</p>
+          <p class="tool__use"><strong>Matiz:</strong> no son los últimos modelos ni igualan a la herramienta completa, pero bastan para aprender y para tareas sencillas en local.</p>
+          <a class="tool__link" href="https://huggingface.co/models" target="_blank" rel="noopener">huggingface.co</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Artificial Analysis · LMArena</h3><div class="tool__tags"><span class="pill pill--ok">Gratis</span><span class="pill pill--grey">Benchmarks</span></div></div>
+          <p class="tool__desc">Dos rankings independientes de modelos: inteligencia, velocidad, latencia, coste por tarea y ventana de contexto (Artificial Analysis) y preferencia humana ciega (LMArena).</p>
+          <p class="tool__use"><strong>En clase:</strong> LMArena el 20 de octubre: 1 Gemini 4 Argon, 2 Claude Opus 5.5, 3 Claude Fable 5.1. Artificial Analysis el 30 de octubre: Gemini 4 Carbon primero en inteligencia; Opus 5.5 mejor calidad-precio. Cambia cada semana.</p>
+          <a class="tool__link" href="https://artificialanalysis.ai" target="_blank" rel="noopener">artificialanalysis.ai</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Grok (xAI)</h3><div class="tool__tags"><span class="pill pill--warn">Freemium</span></div></div>
+          <p class="tool__desc">El modelo de Elon Musk, integrado en X. Más permisivo con contenidos que otros rechazan.</p>
+          <p class="tool__use"><strong>Valoración:</strong> actualidad de X; poco recorrido clínico. Consuelo lo incluye a veces como cuarto modelo en una investigación en profundidad.</p>
+          <a class="tool__link" href="https://grok.com" target="_blank" rel="noopener">grok.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Canva · Gamma</h3><div class="tool__tags"><span class="pill pill--warn">Freemium</span><span class="pill pill--purple">Módulo 5</span></div></div>
+          <p class="tool__desc">Herramientas de diseño y presentaciones. Canva permite subir un PDF o imagen y extraer el texto para editarlo; Gamma genera presentaciones con IA (la preferida del Dr. Mendoza).</p>
+          <p class="tool__use"><strong>Truco del día:</strong> las presentaciones que exporta NotebookLM son imágenes. Súbelas a Canva, "captura del texto" y ya son editables. Pedir a ChatGPT que las convierta en editables funcionó peor.</p>
+          <a class="tool__link" href="https://www.canva.com" target="_blank" rel="noopener">canva.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Herramientas de Google para ensayos clínicos</h3><div class="tool__tags"><span class="pill pill--purple">Módulo 3</span></div></div>
+          <p class="tool__desc">Scholar Labs (Google Académico), Gemini en Docs, Canvas, Sheets y Colab, AI co-scientist (acceso restringido), MedGemma y TxGemma (modelos abiertos).</p>
+          <p class="tool__use"><strong>Para qué:</strong> del vacío de evidencia al protocolo (SPIRIT), tamaño muestral y hoja de información al paciente. Regla: Workspace corporativo con acuerdo de tratamiento de datos y CEIm antes de tocar un solo dato.</p>
+          <a class="tool__link" href="https://scholar.google.com" target="_blank" rel="noopener">scholar.google.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">ChatGPT for Clinicians</h3><div class="tool__tags"><span class="pill pill--bad">Solo EE. UU.</span></div></div>
+          <p class="tool__desc">Versión de ChatGPT para profesionales sanitarios verificados, gratuita, con búsqueda clínica citada y sin entrenar con tus conversaciones. Lanzada el 22 de abril; piloto anunciado fuera de EE. UU.</p>
+          <p class="tool__use"><strong>Estado:</strong> no disponible en Europa. Llegará; conviene saber qué ofrece y qué no.</p>
+          <a class="tool__link" href="https://openai.com/chatgpt/clinicians/" target="_blank" rel="noopener">openai.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">VeraHealth · Perplexity</h3><div class="tool__tags"><span class="pill pill--purple">Módulo 3</span></div></div>
+          <p class="tool__desc">VeraHealth es un asistente de evidencia clínica que varios alumnos recomiendan; Perplexity, un buscador conversacional con citas.</p>
+          <p class="tool__use"><strong>Pendiente:</strong> Javier Fuentes las probará en vivo en el módulo de investigación junto a OpenEvidence y Consensus.</p>
+          <a class="tool__link" href="https://www.vera.health" target="_blank" rel="noopener">vera.health</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PRÁCTICA ================= -->
+    <section class="block" id="practica">
+      <h2 class="block__title">Práctica guiada</h2>
+      <p class="block__lead">De una guía clínica a un cuaderno de estudio y un debate entre IAs</p>
+      <p class="block__desc">Reproduce en casa las dos prácticas de la sesión con una guía o artículo de tu elección (en clase, la guía AEEH 2026 de esteatosis hepática metabólica). Necesitas una cuenta gratuita en ChatGPT o Gemini y una cuenta de Google para NotebookLM. Usa siempre documentos públicos o anonimizados.</p>
+
+      <div class="practice">
+        <div>
+          <h3 style="font-size:16px;margin:0 0 10px">Parte A · Deep Research + NotebookLM</h3>
+          <ol class="steps">
+            <li>Elige una guía o artículo reciente en PDF. En ChatGPT, pulsa <strong>+</strong> → <em>Investigación en profundidad</em> (en Gemini: herramientas → <em>Deep Research</em>), adjunta el PDF y escribe: "Basada en esta guía, hazme una investigación en profundidad de las últimas novedades". Confirma el plan que te propone y espera unos 15 minutos.</li>
+            <li>Mientras tanto, abre <a href="https://notebooklm.google.com" target="_blank" rel="noopener">NotebookLM</a>, crea un cuaderno y pulsa <strong>Añadir fuentes</strong>: sube la guía, el informe de Deep Research cuando termine y, con el buscador de fuentes, localiza dos o tres artículos más. <strong>Antes de importar cada uno, ábrelo y decide si merece entrar.</strong> Garbage in, garbage out.</li>
+            <li>Nombra las fuentes con títulos reconocibles y agrúpalas (el "PDF 35789" no dice nada). Puedes etiquetarlas y reordenarlas.</li>
+            <li>En el panel de Studio genera un <strong>mapa mental</strong>. Haz clic en una rama (por ejemplo "interacción bidireccional con diabetes tipo 2") y guarda la respuesta como nota.</li>
+            <li>Genera un <strong>resumen de audio</strong> eligiendo el formato debate y, si quieres, indicando tono y duración. Luego un <strong>vídeo</strong> corto, las <strong>tarjetas</strong> de estudio y una <strong>tabla de datos</strong>.</li>
+            <li>Pide una <strong>infografía</strong> y, si sale sosa, regenérala con un estilo ("tipo cómic de Marvel", "para un congreso médico"). Genera una <strong>presentación</strong>; para que no se parezca a todas, pide primero a Claude o ChatGPT "dame el prompt para una presentación de NotebookLM con fotografías reales en blanco y negro" y pégalo en el campo de personalización.</li>
+            <li>Descarga la presentación. Si necesitas editar el texto, súbela a Canva → <em>Editar</em> → <em>Captura del texto</em>.</li>
+            <li>Vuelve al chat del cuaderno y pregunta: "Tengo que hacer una tesis doctoral sobre este tema, proponme proyectos de investigación". Compara lo que responde con lo que te diría el Deep Research.</li>
+          </ol>
+
+          <h3 style="font-size:16px;margin:22px 0 10px">Parte B · Modelo de consenso</h3>
+          <ol class="steps">
+            <li>En ChatGPT, con la guía adjunta: "Quiero hacer un modelo de consenso entre tú y Gemini sobre esta guía. Dame las diez preguntas más críticas que podríamos hacerle y un encabezado común para plantearlas a ambos modelos".</li>
+            <li>Elige una pregunta. Copia el encabezado ("Analiza exclusivamente la guía adjunta y cita la página…") seguido de la pregunta.</li>
+            <li>Pégalo, con el mismo PDF, en ChatGPT, en Gemini y, si quieres, en Claude. Comparte pantalla contigo mismo: ¿quién tarda más? ¿quién cita páginas?</li>
+            <li>Copia la respuesta de Gemini y pégala en ChatGPT: "Gemini responde esto. Aplica el modelo de consenso y dame tu opinión: en qué coincidís, qué corregirías y qué afirma con más certeza de la que permite la guía". Haz lo mismo a la inversa.</li>
+            <li>Lee los dos veredictos con tu criterio clínico. Si coinciden, alta confianza. Si discrepan, ahí está la zona interesante. Verifica contra la guía las dos o tres afirmaciones clave.</li>
+          </ol>
+
+          <div class="callout">
+            <h4>Lo que pasó en clase</h4>
+            <p>ChatGPT se quedó "pensando" un buen rato; Gemini respondió primero afirmando que la guía permite inferir reducción de la cirrosis. ChatGPT, al revisar la respuesta de Gemini, coincidió en la conclusión general pero corrigió el matiz: la guía recoge eficacia histológica frente a placebo y una base pronóstica para esperar beneficio clínico, pero los resultados no demuestran directamente menos cirrosis. Ese tipo de corrección es exactamente lo que busca el modelo de consenso.</p>
+          </div>
+
+          <div class="practice__downloads">
+            <a class="btn btn--orange no-arrow" href="https://notebooklm.google.com" target="_blank" rel="noopener">Abrir NotebookLM</a>
+            <a class="btn btn--ghost" href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT</a>
+            <a class="btn btn--ghost" href="https://gemini.google.com" target="_blank" rel="noopener">Abrir Gemini</a>
+          </div>
+        </div>
+
+        <aside>
+          <figure>
+            <img src="assets/m2/slide-mapa-mental.jpg" alt="Mapa mental generado por NotebookLM sobre esteatosis hepática metabólica">
+            <figcaption>Mapa mental generado por NotebookLM a partir de la guía AEEH 2026: concepto, epidemiología, patogenia, diagnóstico, complicaciones, tratamiento y manejo multidisciplinar.</figcaption>
+          </figure>
+          <figure style="margin-top:16px">
+            <img src="assets/m2/slide-infografia-asterix.jpg" alt="Infografía estilo Astérix generada por NotebookLM sobre el manejo de la esteatosis hepática metabólica">
+            <figcaption>La misma guía como infografía "estilo Astérix". El Dr. Mendoza pidió la suya en versión Marvel.</figcaption>
+          </figure>
+          <div class="callout callout--purple" style="margin-top:16px">
+            <h4>Ideas para ir más lejos</h4>
+            <ul>
+              <li>Repite la Parte A con un vídeo de YouTube de tu último congreso como fuente.</li>
+              <li>En el móvil, pregunta por voz al chat del cuaderno mientras caminas.</li>
+              <li>Prueba la Parte B con un caso sintético: pide a la IA que invente un "paciente imposible" y haz que dos modelos discutan el manejo.</li>
+              <li>Instala LM Studio, descarga Qwen3-8B y repite una pregunta en modo avión.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= PROMPTS ================= -->
+    <section class="block" id="prompts">
+      <h2 class="block__title">Prompts para copiar</h2>
+      <p class="block__lead">Los prompts de la sesión, listos para pegar</p>
+      <p class="block__desc">Sustituye lo que va entre corchetes. Todos los casos clínicos son sintéticos. Pulsa "Copiar" en cada bloque.</p>
+
+      <div class="prompts">
+        <div class="prompt">
+          <div class="prompt__head"><span>1 · Explicar un LLM a tres audiencias</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>¿Me podrías explicar, desde tu punto de vista, qué es un LLM (large language model)? Adáptalo a tres formas de entendimiento: si me lo pregunta un médico, si me lo pregunta una persona sin conocimientos técnicos y si me lo pregunta un adolescente. Explícalo en sus palabras.</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>2 · Instrucciones personalizadas contra la complacencia</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>Respóndeme siempre en español. Empieza con una respuesta breve y utiliza un lenguaje claro y listas cuando resumas. Pensamiento crítico: no me des la razón por defecto. Señala supuestos sin verificar. No inventes cifras ni referencias. Distingue entre hechos, inferencias e hipótesis. Si algo no lo sabes o no tienes datos para respaldarlo, dímelo. Cuando evalúes mis ideas o proyectos, no me hagas la pelota: sé franco, crítico y directo. Cuestióname con rigor, identifica los puntos débiles y dime por qué podría no funcionar antes de proponer mejoras.</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>3 · Pídele que te pregunte (la forma de pensar del cuadrante de urgencias)</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>Tengo un problema: quiero una calculadora que me ayude a cuadrar los turnos de 18 médicos de urgencias garantizando cobertura, especialidades necesarias, descansos, vacaciones y restricciones individuales, y que me permita ajustar el cuadrante ante bajas de última hora. Antes de construir nada, pregúntame todo lo que necesites saber y que yo no te haya dicho (normativa, duración de los turnos, criterios de reparto). Cuando tengas la información, hazme una calculadora interactiva con simulación del cuadrante.</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>4 · Deep Research sobre una guía clínica</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>[Adjunta la guía o el artículo en PDF y activa "Investigación en profundidad" / "Deep Research"]
+
+Basada en esta guía, hazme una investigación en profundidad de las últimas novedades (ensayos, consensos, cambios de indicación y controversias) publicadas desde su fecha. Estructura el informe por apartados, con fuentes citadas y fecha de cada una, y cierra con un resumen ejecutivo de lo que cambia en la práctica clínica.</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>5 · Modelo de consenso entre dos o tres IAs</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>PASO 1 (en el primer modelo, con la guía adjunta):
+Quiero hacer un modelo de consenso entre tú, Gemini y Claude sobre esta guía. Para tener una buena discusión, dame las diez preguntas más críticas que podríamos hacerle (evidencia frente a consenso, calidad del método, beneficio real, resultados de tratamiento) y un encabezado común para plantearlas a los tres modelos.
+
+PASO 2 (la misma pregunta, con el mismo PDF, en cada modelo):
+Analiza exclusivamente la guía adjunta. Cita la página de cada afirmación. Distingue lo demostrado, lo inferido y lo pendiente. Pregunta: [PEGAR LA PREGUNTA ELEGIDA]
+
+PASO 3 (cruzar respuestas):
+El modelo [NOMBRE] responde esto a la misma pregunta: [PEGAR RESPUESTA]. Aplica el modelo de consenso y dame tu opinión: en qué coincidís, qué corregirías antes de incorporarlo al consenso y qué afirma con más certeza de la que permite la guía. Redacta el consenso final.</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>6 · Trabajar con un artículo científico largo sin perderse</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>Te adjunto/enlazo el siguiente artículo científico: [ENLACE O PDF]
+
+Confirma primero:
+1. El título completo del artículo.
+2. La revista y año de publicación.
+3. Qué tipo de documento es: editorial, comentario, revisión, artículo de investigación, ensayo.
+4. Cuáles son sus secciones principales.
+
+Después responde a esta pregunta concreta:
+[ESCRIBE AQUÍ TU PREGUNTA]
+
+REGLAS:
+- Cita siempre la sección del artículo en la que se basa cada afirmación.
+- Si el artículo tiene páginas en PDF, cita también la página.
+- Si estás trabajando con la versión web y no hay paginación visible, cita sección + párrafo aproximado.
+- No completes con conocimiento general sin avisar.
+- Si la respuesta no está en el documento, dilo claramente.
+- Diferencia entre:
+  a) lo que dice literalmente el artículo,
+  b) lo que se puede inferir razonablemente,
+  c) lo que requeriría consultar otras fuentes.
+- Resume solo lo necesario para responder a la pregunta.</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>7 · Rol · Contexto · Tarea · Formato (caso sintético de escalada en colitis ulcerosa)</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>ROL: Eres gastroenterólogo consultor senior, experto en EII.
+CONTEXTO (caso ANONIMIZADO y sintético): mujer de 34 años, colitis ulcerosa extensa corticodependiente, Mayo parcial 6, calprotectina 980 µg/g, anemia ferropénica con mala tolerancia al hierro oral, desea embarazo en 1-2 años, le preocupa pincharse y tomar "inmunosupresores". Serologías VHB, VHC, VIH e IGRA negativas.
+TAREA: propón opciones de escalada priorizadas (eficacia, seguridad, embarazo, vía).
+FORMATO: tabla, máximo 350 palabras, fármacos agrupados por mecanismo. Si te falta un dato clave, pídemelo antes de contestar.</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>8 · Few-shot: tu estilo con documentos modelo</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>Te paso dos cartas a Atención Primaria que reflejan exactamente mi estilo de redacción en la consulta de EII:
+
+EJEMPLO 1:
+[PEGAR CARTA REAL ANONIMIZADA]
+
+EJEMPLO 2:
+[PEGAR SEGUNDA CARTA ANONIMIZADA, si se dispone de ella]
+
+Imitando con precisión la estructura, el tono, la longitud y las abreviaturas de los ejemplos, redacta una carta a primaria para este caso: paciente de 34 años con CU extensa corticodependiente, inicio de anti-TNF subcutáneo en pauta de inducción, mantiene mesalazina, objetivos pactados de remisión sin corticoides y normalización de calprotectina, revisión en 3 meses con analítica.</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>9 · Un prompt de estilo para las presentaciones de NotebookLM</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>Quiero hacer una presentación en NotebookLM que no se parezca a las que genera por defecto:
+slides realistas, con fotografías de personas, espacios y situaciones reales, en blanco y negro, estilo Sebastião Salgado, poco texto por diapositiva y fondo blanco. Dame el prompt exacto, en español, para pegar en el campo de personalización de la presentación.</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= REGLAS DE ORO ================= -->
+    <section class="block" id="reglas">
+      <h2 class="block__title">Reglas de oro</h2>
+      <p class="block__lead">Trabajar con LLMs en la práctica clínica</p>
+      <div class="rules">
+        <div class="rule"><span class="n">01</span><h4>Human in the loop</h4><p>La IA te sube a hombros de gigantes, pero la última voluntad y la responsabilidad son tuyas. Cuestiónalo todo, como a Google Maps.</p></div>
+        <div class="rule"><span class="n">02</span><h4>Nunca datos de pacientes en cuentas personales</h4><p>Solo en herramientas corporativas con confidencialidad contractual (Copilot 365, versiones Enterprise). Si dudas, no.</p></div>
+        <div class="rule rule--orange"><span class="n">03</span><h4>Tres vías para cacharrear</h4><p>Anonimiza, inventa un paciente sintético "imposible" o instala un LLM en tu ordenador personal con LM Studio.</p></div>
+        <div class="rule rule--orange"><span class="n">04</span><h4>Garbage in, garbage out</h4><p>Valida cada fuente antes de subirla a NotebookLM o de adjuntarla a un prompt. Dile al modelo para qué sirve cada adjunto.</p></div>
+        <div class="rule"><span class="n">05</span><h4>Verifica cifras y citas</h4><p>Que las referencias existan y digan lo que el informe afirma. El aplomo del modelo no es señal de fiabilidad.</p></div>
+        <div class="rule"><span class="n">06</span><h4>Chat nuevo para tarea nueva</h4><p>Las conversaciones largas arrastran errores. Lo crítico, al principio o al final del prompt, nunca en la página 80.</p></div>
+        <div class="rule rule--orange"><span class="n">07</span><h4>Elige la familia, no el nombre</h4><p>Chat para dudas y borradores, razonador para el caso complejo, agente para buscar y cruzar fuentes. Los nombres caducan cada pocas semanas.</p></div>
+        <div class="rule rule--orange"><span class="n">08</span><h4>Pídele que te pregunte</h4><p>"Si te falta un dato clave, pídemelo antes de contestar" convierte al oráculo que inventa en un consultor que pregunta.</p></div>
+      </div>
+    </section>
+
+    <!-- ================= PREGUNTAS ================= -->
+    <section class="block" id="preguntas">
+      <h2 class="block__title">Preguntas del chat</h2>
+      <p class="block__lead">Lo que preguntaron los alumnos y lo que se respondió</p>
+      <div class="faq">
+        <details>
+          <summary>Tanto hablar de LLM… ¿lo habéis definido?</summary>
+          <div class="faq__body"><p>Consuelo se lo preguntó por voz a ChatGPT en tres registros. Para un médico: un sistema que ha aprendido patrones leyendo enormes cantidades de texto, incluidos textos médicos, y que puede resumir una historia, explicar un contexto o redactar un informe; convincente, pero con errores posibles, porque la fluidez no garantiza exactitud. Para un lego: una IA que ha aprendido de muchísimos ejemplos de cómo escribimos y que a veces se inventa información. Para un adolescente: el autocompletado del móvil, pero infinitamente más potente.</p></div>
+        </details>
+        <details>
+          <summary>Si tengo que empezar una tesis doctoral, ¿por cuál empezaría?</summary>
+          <div class="faq__body"><p>A expensas de probar Gemini 4 Carbon, Consuelo empezaría por Claude (Sonnet 5.5 u Opus 5.5) por su comportamiento en dictado y redacción. Pero los tres frontera (Claude, Gemini, GPT) están "picados" y se adelantan cada semana: prueba varios y quédate con el que mejor encaje.</p></div>
+        </details>
+        <details>
+          <summary>¿Toda la configuración de ChatGPT se puede hacer con la versión gratuita?</summary>
+          <div class="faq__body"><p>Parte sí (Leticia lo confirmó en directo): memoria, cómo quieres que te hable, instrucciones personalizadas. Otras opciones son de pago. Consejo: agota la versión gratuita y, cuando te quedes sin tokens, pasa a la de 10 € y así sucesivamente. Lo importante es empezar a aprender.</p></div>
+        </details>
+        <details>
+          <summary>¿Los agentes requieren algún paso intermedio por confidencialidad?</summary>
+          <div class="faq__body"><p>Sí: solo cuando los datos estén absolutamente protegidos. Copilot 365 y las versiones Enterprise de ChatGPT, Gemini o Grok garantizan la confidencialidad en sus términos de uso. A nivel personal, nada de información de pacientes. Para practicar: anonimizar o usar pacientes sintéticos.</p></div>
+        </details>
+        <details>
+          <summary>¿NotebookLM sirve para estudiar y preparar modelos de examen?</summary>
+          <div class="faq__body"><p>Sí: tarjetas, preguntas y pódcast en modo debate. Carlos contó que en su universidad se ha prohibido hacer exámenes con IA porque los alumnos predicen las preguntas. Consuelo: predecir las preguntas es exactamente estudiar. Y como la IA generativa no es determinista, las preguntas que genere el profesor nunca serán idénticas a las del alumno.</p></div>
+        </details>
+        <details>
+          <summary>¿Están limitadas las fuentes en NotebookLM?</summary>
+          <div class="faq__body"><p>Sí, según el plan: unas 25 en la versión gratuita y más en los planes Go y Pro (del orden de 50 y 100). Han ido reduciendo el límite gratuito. Ahora las fuentes se pueden agrupar y etiquetar, lo que ayuda cuando pasas de 20 o 30.</p></div>
+        </details>
+        <details>
+          <summary>¿Usaríamos NotebookLM para una investigación avanzada?</summary>
+          <div class="faq__body"><p>No como primer paso. Para investigar, Deep Research (en Claude, ChatGPT o Gemini). NotebookLM sirve para digerir, practicar y entender lo que ya has depurado. En clase se combinaron: primero el informe, luego el cuaderno.</p></div>
+        </details>
+        <details>
+          <summary>¿Cómo filtramos que los artículos que propone NotebookLM son válidos?</summary>
+          <div class="faq__body"><p>Validándolos antes de importarlos. El buscador te da el enlace de cada fuente: ábrelo y decide. Garbage in, garbage out. También se pueden añadir vídeos de YouTube (por ejemplo, de un congreso) pegando el enlace.</p></div>
+        </details>
+        <details>
+          <summary>¿Google va a absorber a Anthropic?</summary>
+          <div class="faq__body"><p>Consuelo no lo cree: hay acuerdos y cada vez están más cerca, pero Anthropic parece encaminada a salir a bolsa. Sea como sea, Copilot ya ofrece Claude junto a GPT dentro de Microsoft 365.</p></div>
+        </details>
+        <details>
+          <summary>¿Lo del LLM en local se puede hacer en el ordenador del hospital?</summary>
+          <div class="faq__body"><p>Mejor en tu ordenador personal, para cacharrear y aprender sin pedir permiso a la gobernanza de IA del centro. ¿Claude o ChatGPT en local? No: solo modelos abiertos (DeepSeek, GLM, Qwen, Llama), algo más antiguos y menos potentes que la herramienta completa.</p></div>
+        </details>
+        <details>
+          <summary>¿Y VeraHealth?</summary>
+          <div class="faq__body"><p>Varios alumnos la recomiendan y Consuelo ha oído hablar bien de ella por parte de médicos. Se verá en vivo en el módulo 3 junto al resto de herramientas de evidencia científica.</p></div>
+        </details>
+        <details>
+          <summary>¿Tiene sentido saludar y dar las gracias a la máquina?</summary>
+          <div class="faq__body"><p>Consume tokens y no mejora la respuesta. Bromas aparte ("por si llega el fin del mundo y se acuerda de que fui amable"), es un gasto inútil.</p></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ================= GLOSARIO ================= -->
+    <section class="block" id="glosario">
+      <h2 class="block__title">Glosario</h2>
+      <p class="block__lead">Los términos que aparecieron en la sesión</p>
+      <dl class="glossary">
+        <div><dt>LLM (large language model)</dt><dd>Modelo de procesamiento de lenguaje natural entrenado con enormes cantidades de texto para aprender patrones y generar respuestas.</dd></div>
+        <div><dt>Prompt</dt><dd>La instrucción o pregunta que se da al modelo. Su calidad determina la de la respuesta.</dd></div>
+        <div><dt>Token y tokenización</dt><dd>Unidad en que el modelo trocea el texto para convertirlo en números. Un token es aproximadamente tres cuartos de palabra; el consumo varía según el idioma.</dd></div>
+        <div><dt>Embedding / vectorización</dt><dd>Representación numérica de cada token en un espacio donde lo parecido queda cerca.</dd></div>
+        <div><dt>Transformer y atención</dt><dd>La arquitectura de 2017 que permite que cada palabra "mire" a las demás para captar su significado en contexto.</dd></div>
+        <div><dt>Inferencia</dt><dd>El cálculo que hace la red neuronal para producir la respuesta a partir del prompt tokenizado.</dd></div>
+        <div><dt>Decodificación</dt><dd>Traducir los números de vuelta a palabras para dar la respuesta final.</dd></div>
+        <div><dt>Caja negra</dt><dd>La imposibilidad práctica de explicar cómo el modelo ha llegado a una respuesta concreta.</dd></div>
+        <div><dt>Modelo probabilístico / no determinista</dt><dd>El modelo elige la continuación más probable; ante la misma pregunta puede responder distinto. La IA predictiva (Netflix) es determinista.</dd></div>
+        <div><dt>Fabricante · modelo · herramienta</dt><dd>Quien entrena el modelo (OpenAI), el cerebro (GPT-6.1) y la aplicación que lo sirve (ChatGPT).</dd></div>
+        <div><dt>Familia de modelos</dt><dd>Variantes de un mismo fabricante por tamaño y uso: Haiku, Sonnet, Opus y Fable en Claude; Astra, Sol, Luna e Instant en GPT-6.</dd></div>
+        <div><dt>Modelo frontera</dt><dd>Los modelos más capaces del momento. Hoy, las tres familias de Anthropic, Google y OpenAI.</dd></div>
+        <div><dt>Razonador / thinking</dt><dd>Modelo que dedica entre 30 segundos y 3 minutos a encadenar pasos antes de contestar. Para casos complejos.</dd></div>
+        <div><dt>Asistente</dt><dd>Automatización de una tarea repetitiva definida por ti. No tiene voluntad propia.</dd></div>
+        <div><dt>Agente</dt><dd>Sistema con autonomía para actuar en tu nombre (navegar, buscar, ejecutar). Nosotros lo orquestamos y verificamos.</dd></div>
+        <div><dt>Deep Research</dt><dd>Agente de investigación que lanza decenas de búsquedas, lee, contrasta y devuelve un informe con fuentes.</dd></div>
+        <div><dt>Ventana de contexto</dt><dd>La memoria de trabajo del modelo: hoy de 200.000 a 2 millones de tokens.</dd></div>
+        <div><dt>Lost in the middle</dt><dd>El modelo atiende mejor al principio y al final del contexto; lo del medio se pierde.</dd></div>
+        <div><dt>Prompt engineering</dt><dd>El arte de preguntar: rol, contexto, tarea y formato, más las advertencias y el volcado de contexto.</dd></div>
+        <div><dt>Zero-shot / few-shot</dt><dd>Pedir sin ejemplos o con dos o tres ejemplos de estilo. Los ejemplos valen más que diez adjetivos.</dd></div>
+        <div><dt>Chain of thought</dt><dd>Pedir al modelo que razone paso a paso y muestre cómo llega a su conclusión. Mejora la trazabilidad.</dd></div>
+        <div><dt>Prompts en cadena</dt><dd>Encadenar prompts: estructurar → analizar → criticar → comunicar, revisando entre paso y paso.</dd></div>
+        <div><dt>RAG (retrieval-augmented generation)</dt><dd>Hacer que el modelo responda consultando una base de conocimiento externa (guías, protocolos, PDFs) en vez de su memoria.</dd></div>
+        <div><dt>Modelo de consenso</dt><dd>Plantear la misma pregunta a dos o tres modelos y hacer que cada uno critique al otro para llegar a una conclusión más sólida.</dd></div>
+        <div><dt>Datos sintéticos / paciente sintético</dt><dd>Casos inventados por la IA con fines formativos, para practicar sin datos reales.</dd></div>
+        <div><dt>Pesos abiertos</dt><dd>Modelos cuyos parámetros se publican (Llama, Mistral, Qwen, DeepSeek) y pueden ejecutarse en local.</dd></div>
+        <div><dt>LLM en local</dt><dd>Modelo que corre en tu ordenador (con LM Studio) sin enviar datos a ningún servidor.</dd></div>
+        <div><dt>Versión Enterprise</dt><dd>Licencia corporativa cuyos términos garantizan que tus datos no se usan para entrenar ni salen de la organización.</dd></div>
+        <div><dt>Alucinación / fabulación</dt><dd>Respuesta plausible pero falsa: cifras de ensayos, criterios de visado o referencias inventadas.</dd></div>
+        <div><dt>Conocimiento congelado</dt><dd>El modelo se entrenó hasta una fecha de corte. Para lo reciente: búsqueda web o Deep Research.</dd></div>
+        <div><dt>Human in the loop</dt><dd>La persona siempre en el circuito, con la última voluntad y la responsabilidad.</dd></div>
+        <div><dt>Benchmark / leaderboard</dt><dd>Rankings de modelos (Artificial Analysis, LMArena) por inteligencia, coste, velocidad o preferencia humana. Cambian cada semana.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ================= AUTOEVALUACIÓN ================= -->
+    <section class="block" id="autoevaluacion">
+      <h2 class="block__title">Autoevaluación</h2>
+      <p class="block__lead">Ocho preguntas para fijar ideas</p>
+      <p class="block__desc">No cuenta para la acreditación (el cuestionario oficial es único, al final de los ocho módulos). Elige una opción y verás la explicación.</p>
+
+      <div class="quiz" id="quiz">
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>1</b> ¿Un token equivale a una palabra?</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Sí, siempre</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> No: un token es aproximadamente tres cuartos de palabra y el consumo varía según el idioma</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Solo en inglés</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Las palabras se trocean en partes alícuotas que se convierten en números. Si el inglés vale 1, el español cuesta 1,5 y el telugu 8,8." data-ko="No. Los tokens no equivalen a palabras: son fragmentos (unos tres cuartos de palabra) y cada idioma consume una cantidad distinta."></div>
+        </div>
+
+        <div class="q" data-answer="C">
+          <p class="q__text"><b>2</b> Anthropic es…</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Una herramienta, como Copilot</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Un modelo, como Opus 5.5</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> El fabricante: entrena el modelo Claude Opus 5.5 y lo sirve en la herramienta Claude</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Fabricante (Anthropic) → modelo (Claude Opus 5.5) → herramienta (Claude). Igual que OpenAI → GPT-6.1 → ChatGPT." data-ko="No. Anthropic es el fabricante. El modelo es Claude Opus 5.5 y la herramienta donde lo usas es Claude."></div>
+        </div>
+
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>3</b> Según los cinco niveles de OpenAI, ¿en qué nivel estamos hoy?</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Nivel 1: chatbots conversacionales</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Nivel 3: agentes, sistemas que pueden tomar acciones</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Nivel 5: organizaciones operadas por máquinas</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Chatbots (2023) y razonadores ya están; estamos en la agéntica. Los niveles 4 (innovadores) y 5 (organizaciones) asoman." data-ko="No. Los chatbots (nivel 1) y los razonadores (nivel 2) ya están superados; hoy estamos en el nivel 3, los agentes."></div>
+        </div>
+
+        <div class="q" data-answer="A">
+          <p class="q__text"><b>4</b> ¿Cuál es la diferencia entre un asistente y un agente?</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> El asistente ejecuta una tarea repetitiva que tú defines, sin voluntad propia; el agente tiene autonomía para actuar en tu nombre</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> El asistente es de pago y el agente gratuito</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Son sinónimos</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Resumir un acta siempre con la misma estructura es un asistente. Preparar la ficha de cada paciente antes de la consulta navegando por los sistemas es un agente, y tú lo orquestas." data-ko="No. La diferencia está en la autonomía: el asistente automatiza una tarea que tú defines; el agente actúa por su cuenta en tu nombre."></div>
+        </div>
+
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>5</b> Deep Research es…</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Una búsqueda web rápida que da la primera respuesta</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Un agente que lanza decenas de búsquedas, lee, contrasta fuentes y devuelve un informe estructurado en unos 15 minutos</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Una función exclusiva de ChatGPT</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Y lo tienen ChatGPT, Gemini, Claude y Copilot (Investigador). Úsalo para ponerte al día en un subtema, no para un correo." data-ko="No. Deep Research es un agente que investiga durante minutos y vuelve con un informe citado. Está en casi todos los LLM, no solo en ChatGPT."></div>
+        </div>
+
+        <div class="q" data-answer="C">
+          <p class="q__text"><b>6</b> Antes de subir una fuente a NotebookLM…</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Da igual: la herramienta filtra lo que no sirve</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Solo se pueden subir PDFs</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Hay que validarla: garbage in, garbage out</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. NotebookLM responde solo con tus fuentes: si metes basura, saca basura. Abre cada enlace y decide si entra. Admite PDF, webs, Drive, YouTube y texto." data-ko="No. NotebookLM no filtra la calidad y admite muchos formatos. La validación es tuya, antes de importar: garbage in, garbage out."></div>
+        </div>
+
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>7</b> La línea que más cambia el resultado de un prompt clínico es…</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> "Responde lo más rápido posible"</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> "Si te falta un dato clave, pídemelo antes de contestar"</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> "Sé breve"</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Convierte al modelo de oráculo que rellena huecos con inventos en interlocutor que pregunta lo que un buen consultor preguntaría." data-ko="No. La línea clave es pedirle que pregunte lo que le falta antes de contestar: evita que rellene los huecos con cifras o criterios inventados."></div>
+        </div>
+
+        <div class="q" data-answer="A">
+          <p class="q__text"><b>8</b> ¿Cuándo conviene disparar un razonador en vez del chat normal?</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Con el paciente pluripatológico, los trade-offs, la lectura crítica de un ensayo y donde la evidencia es gris</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Para dudas puntuales y reformatear un texto</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Siempre, porque es más inteligente</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. El razonador se para a pensar entre 30 segundos y 3 minutos: no es preguntar en el pasillo, es sentar al residente ante un folio. Para lo sencillo, el chat normal es más fluido y barato." data-ko="No. El razonador es para el caso en el que todo compite. Para dudas puntuales, borradores y reformateos, el chat normal va más fluido y barato."></div>
+        </div>
+
+        <div class="quiz__score" id="quizScore">
+          <span>Responde las ocho preguntas para ver tu resultado.</span>
+          <button type="button" id="quizReset">Reiniciar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= REFERENCIAS ================= -->
+    <section class="block" id="referencias">
+      <h2 class="block__title">Referencias</h2>
+      <p class="block__lead">Para profundizar</p>
+      <ul class="refs">
+        <li>Vaswani, A. et al. (2017). <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Attention Is All You Need</a>. El paper de los transformers.</li>
+        <li>BMC Gastroenterology (26 oct 2026). <a href="https://doi.org/10.1186/s12876-026-05474-1" target="_blank" rel="noopener">Comparison of large language models in answering early gastric cancer clinical problems and recognizing multimodal endoscopic images</a>.</li>
+        <li>BMC Gastroenterology (1 oct 2026). <a href="https://doi.org/10.1186/s12876-026-05345-9" target="_blank" rel="noopener">Preguntas de pacientes sobre colonoscopia: ChatGPT-4 frente a Bard</a>, valorado por 40 gastroenterólogos.</li>
+        <li>OpenAI (22 abr 2026). <a href="https://openai.com/chatgpt/clinicians/" target="_blank" rel="noopener">ChatGPT for Clinicians</a>.</li>
+        <li>AEEH (2026). Guía de práctica clínica multidisciplinar de manejo de la esteatosis hepática metabólica. Documento usado en las prácticas (<a href="https://aeeh.es" target="_blank" rel="noopener">aeeh.es</a>).</li>
+        <li>Sharma, A. M. (2023). <a href="https://www.thelancet.com/journals/eclinm/article/PIIS2589-5370(23)00112-8/fulltext" target="_blank" rel="noopener">Does this person have obesity?</a> eClinicalMedicine. El artículo usado en el prompt de trabajo con artículos largos.</li>
+        <li>Artificial Analysis. <a href="https://artificialanalysis.ai" target="_blank" rel="noopener">LLM Leaderboard</a> y LMArena. <a href="https://lmarena.ai" target="_blank" rel="noopener">lmarena.ai</a>.</li>
+        <li>OpenAI. <a href="https://platform.openai.com/docs/guides/reasoning-best-practices" target="_blank" rel="noopener">Guía de prompting para modelos razonadores</a> (la anatomía de un prompt o1).</li>
+        <li>Anthropic. <a href="https://platform.claude.com/docs/en/models/overview" target="_blank" rel="noopener">Modelos de Claude</a>, la fuente de la diapositiva "Los modelos de Claude, explicados".</li>
+        <li>Google. <a href="https://support.google.com/notebooklm" target="_blank" rel="noopener">Ayuda de NotebookLM</a>.</li>
+        <li>SPIRIT 2025. <a href="https://www.spirit-statement.org" target="_blank" rel="noopener">Recomendaciones para protocolos de ensayos clínicos</a>.</li>
+      </ul>
+    </section>
+
+    <!-- ================= SIGUIENTE ================= -->
+    <section class="block" id="siguiente">
+      <h2 class="block__title">Siguiente sesión</h2>
+      <p class="block__lead">Prepárate para el Módulo 3</p>
+      <div class="info-grid">
+        <div class="info">
+          <h3>🗓️ Módulo 3 · IA para la investigación · 13 de noviembre</h3>
+          <p>Imparte Javier Fuentes. Modelos de lenguaje para la investigación y el trabajo científico: del protocolo al borrador de un paper en una sesión. Se verán en vivo las herramientas de evidencia (OpenEvidence, Consensus, VeraHealth) y cómo anonimizar datos en local.</p>
+        </div>
+        <div class="info">
+          <h3>🖥️ Qué traer</h3>
+          <ul>
+            <li>Ordenador con dos pantallas si puedes y tu ChatGPT, Gemini o Claude abierto.</li>
+            <li>Un artículo o guía reciente de tu área en PDF para trabajar sobre él.</li>
+            <li>Deberes opcionales: un cuaderno de NotebookLM sobre un tema que te interese.</li>
+          </ul>
+        </div>
+        <div class="info">
+          <h3>💬 Dudas entre sesiones</h3>
+          <p>Formulario de la organización o <a href="mailto:formacion@sepd.es">formacion@sepd.es</a>. La SEPD enviará además una guía detallada de NotebookLM.</p>
+        </div>
+      </div>
+
+      <div class="pager">
+        <a href="modulo-1.html"><small>Anterior</small><strong>Módulo 1 · Fundamentos de la IA</strong></a>
+        <a href="index.html#programa" class="next"><small>Siguiente</small><strong>Módulo 3 · IA para la investigación (13 nov)</strong></a>
+      </div>
+    </section>
+
+  </div><!-- /ficha__main -->
+</div><!-- /ficha -->
+
+<section class="newsletter">
+  <div class="newsletter__text">
+    <p class="newsletter__eyebrow">Mantente al día</p>
+    <img class="newsletter__title" src="assets/sentinel-title.png" alt="The Independent Sentinel">
+    <p class="newsletter__desc">La newsletter de Javier Fuentes con los avances semanales en IA, ciencia de datos y las historias que conectan la tecnología con la cultura.</p>
+    <div class="newsletter__actions">
+      <a class="newsletter__btn" href="https://theindependentsentinel.substack.com/" target="_blank" rel="noopener">Suscribirse →</a>
+      <span class="newsletter__url">theindependentsentinel.substack.com</span>
+    </div>
+  </div>
+  <div class="newsletter__qr">
+    <img src="assets/sentinel-qr.png" alt="QR a The Independent Sentinel">
+    <span>Escanéame</span>
+  </div>
+</section>
+
+<footer class="footer">
+  <div>© 2026 · Material formativo del Curso de IA en Digestivo · SEPD · Elaborado por <a href="https://ncompany.es" target="_blank" rel="noopener">NCompany</a> a partir de la sesión del 30/10/2026</div>
+  <div>Ficha M2 · v1.0</div>
+</footer>
+</main>
+
+<script>
+// ---- Índice lateral ----
+(function () {
+  var links = document.querySelectorAll('.toc a[href^="#"]'), map = {};
+  links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.ficha__main .block'));
+  function update() {
+    var current = sections[0];
+    sections.forEach(function (s) { if (s.getBoundingClientRect().top <= 140) current = s; });
+    links.forEach(function (a) { a.classList.remove('is-active'); });
+    if (current && map[current.id]) map[current.id].classList.add('is-active');
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('load', update);
+})();
+
+// ---- Copiar prompts ----
+(function () {
+  document.querySelectorAll('.prompt__copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var pre = btn.closest('.prompt').querySelector('pre');
+      var text = pre.textContent;
+      function done() { btn.textContent = 'Copiado ✓'; setTimeout(function () { btn.textContent = 'Copiar'; }, 1800); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { fallback(); });
+      } else { fallback(); }
+      function fallback() {
+        var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+})();
+
+// ---- Autoevaluación ----
+(function () {
+  var quiz = document.getElementById('quiz'); if (!quiz) return;
+  var questions = quiz.querySelectorAll('.q'), score = document.getElementById('quizScore'), scoreText = score.querySelector('span'), state = {};
+  function render() {
+    var done = Object.keys(state).length, ok = 0; for (var k in state) if (state[k]) ok++;
+    if (done < questions.length) { scoreText.textContent = done + ' de ' + questions.length + ' respondidas · ' + ok + ' correctas'; }
+    else {
+      var msg = ok === questions.length ? '¡Pleno! Ya sabes preguntar.' : ok >= 6 ? 'Muy bien. Repasa las que fallaste en las ideas fuerza.' : 'Conviene releer el resumen y las ideas fuerza antes del módulo 3.';
+      scoreText.textContent = 'Resultado: ' + ok + ' / ' + questions.length + ' · ' + msg;
+    }
+  }
+  questions.forEach(function (q, i) {
+    var answer = q.getAttribute('data-answer'), fb = q.querySelector('.q__fb');
+    q.querySelectorAll('.q__opt').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (q.classList.contains('is-done')) return;
+        var right = btn.getAttribute('data-k') === answer;
+        q.classList.add('is-done'); btn.classList.add(right ? 'is-right' : 'is-wrong');
+        if (!right) q.querySelector('.q__opt[data-k="' + answer + '"]').classList.add('is-right');
+        fb.textContent = right ? fb.getAttribute('data-ok') : fb.getAttribute('data-ko'); fb.className = 'q__fb ' + (right ? 'ok' : 'ko');
+        state[i] = right; render();
+      });
+    });
+  });
+  document.getElementById('quizReset').addEventListener('click', function () {
+    state = {};
+    questions.forEach(function (q) { q.classList.remove('is-done'); q.querySelectorAll('.q__opt').forEach(function (b) { b.classList.remove('is-right', 'is-wrong'); }); var fb = q.querySelector('.q__fb'); fb.textContent = ''; fb.className = 'q__fb'; });
+    scoreText.textContent = 'Responde las ocho preguntas para ver tu resultado.';
+    quiz.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script>
+</body>
+</html>

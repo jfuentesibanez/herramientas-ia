@@ -19,7 +19,8 @@
       <a href="#programa">Programa</a>
       <a href="#equipo">Equipo docente</a>
       <a href="#como-funciona">Cómo funciona</a>
-      <a href="modulo-1.html" class="is-active">Módulo 1</a>
+      <a href="modulo-1.html">Módulo 1</a>
+      <a href="modulo-2.html" class="is-active">Módulo 2</a>
     </nav>
   </div>
 </header>
@@ -36,7 +37,7 @@
         <span><strong>Asesor clínico</strong> Dr. Javier Mendoza</span>
       </div>
       <div class="hero__actions">
-        <a class="btn btn--primary" href="modulo-1.html">Ficha del Módulo 1 · Fundamentos</a>
+        <a class="btn btn--primary" href="modulo-2.html">Ficha del Módulo 2 · LLMs y prompting</a>
         <a class="btn btn--ghost" href="#programa">Ver el programa</a>
       </div>
     </div>
@@ -53,7 +54,7 @@
     <div class="section__head">
       <h2 class="section__title">Programa formativo</h2>
       <p class="section__lead">Ocho módulos, de los fundamentos a la integración práctica</p>
-      <p class="section__desc">El recorrido va de la intuición (cómo aprende una máquina) a la acción (qué herramienta usar, para qué y con qué cautelas). Las fichas se publican a medida que se imparte cada sesión.</p>
+      <p class="section__desc">El recorrido va de la intuición (cómo aprende una máquina) a la acción (qué herramienta usar, para qué y con qué cautelas). Sesiones en viernes de 16:00 a 19:30; las fichas se publican a medida que se imparte cada módulo.</p>
     </div>
 
     <div class="modules">
@@ -63,26 +64,26 @@
         <p class="module__desc">¿Por qué una máquina puede aprender? Historia, conceptos clave, tipos de aprendizaje, IA generativa, límites, ética y regulación. Práctica: entrenamos un detector de pólipos.</p>
         <div class="module__foot">
           <span class="pill pill--ok">Ficha disponible</span>
-          <span class="module__cta">Abrir ficha</span>
+          <span class="module__cta">18 sep 2026 · Abrir ficha</span>
         </div>
       </a>
 
-      <div class="module module--soon">
+      <a class="module" href="modulo-2.html">
         <div class="module__num">2</div>
-        <h3 class="module__title">LLMs y el arte de preguntar</h3>
-        <p class="module__desc">Qué son los grandes modelos de lenguaje (ChatGPT, Claude, Gemini, Llama…), en qué se diferencian y cómo un buen prompt y el contexto adecuado mejoran las respuestas.</p>
+        <h3 class="module__title">LLMs y Prompt Engineering Médico</h3>
+        <p class="module__desc">Qué es y cómo funciona un modelo de lenguaje, panorama de modelos a octubre de 2026, configuración de ChatGPT, Deep Research, NotebookLM, modelo de consenso, la plantilla Rol · Contexto · Tarea · Formato y LLM en local.</p>
         <div class="module__foot">
-          <span class="pill pill--grey">Próximamente</span>
-          <span class="module__cta">Imparte Consuelo Verdú</span>
+          <span class="pill pill--ok">Ficha disponible</span>
+          <span class="module__cta">30 oct 2026 · Abrir ficha</span>
         </div>
-      </div>
+      </a>
 
       <div class="module module--soon">
         <div class="module__num">3</div>
         <h3 class="module__title">IA para la investigación</h3>
         <p class="module__desc">Herramientas que leen, contrastan y redactan borradores científicos citando bien las fuentes. Objetivo de la sesión: el borrador de un paper de principio a fin. Incluye anonimización de datos.</p>
         <div class="module__foot">
-          <span class="pill pill--grey">Próximamente</span>
+          <span class="pill pill--grey">13 nov 2026</span>
           <span class="module__cta">Imparte Javier Fuentes</span>
         </div>
       </div>
@@ -92,7 +93,7 @@
         <h3 class="module__title">La IA en el diagnóstico</h3>
         <p class="module__desc">Modelos razonadores y de frontera aplicados a casos clínicos anonimizados. Cómo clasifica la IA la actividad inflamatoria a partir de endoscopias. Modelos open source en local.</p>
         <div class="module__foot">
-          <span class="pill pill--grey">Próximamente</span>
+          <span class="pill pill--grey">11 dic 2026</span>
           <span class="module__cta">Con el Dr. Javier Mendoza</span>
         </div>
       </div>
@@ -224,7 +225,23 @@
     </div>
   </section>
 
-  <footer class="footer">
+  <section class="newsletter">
+  <div class="newsletter__text">
+    <p class="newsletter__eyebrow">Mantente al día</p>
+    <img class="newsletter__title" src="assets/sentinel-title.png" alt="The Independent Sentinel">
+    <p class="newsletter__desc">La newsletter de Javier Fuentes con los avances semanales en IA, ciencia de datos y las historias que conectan la tecnología con la cultura.</p>
+    <div class="newsletter__actions">
+      <a class="newsletter__btn" href="https://theindependentsentinel.substack.com/" target="_blank" rel="noopener">Suscribirse →</a>
+      <span class="newsletter__url">theindependentsentinel.substack.com</span>
+    </div>
+  </div>
+  <div class="newsletter__qr">
+    <img src="assets/sentinel-qr.png" alt="QR a The Independent Sentinel">
+    <span>Escanéame</span>
+  </div>
+</section>
+
+<footer class="footer">
     <div>© 2026 · Material formativo del Curso de IA en Digestivo · SEPD · Elaborado por <a href="https://ncompany.es" target="_blank" rel="noopener">NCompany</a></div>
     <div>2ª edición · Actualización continua</div>
   </footer>

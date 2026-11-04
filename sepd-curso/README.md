@@ -8,13 +8,16 @@ Web estática con una ficha por sesión del curso. Sin dependencias: HTML + CSS 
 sitio/sepd-curso/
 ├── index.html              Portada: programa (8 módulos), equipo docente, cómo funciona
 ├── modulo-1.html           Ficha del Módulo 1 · Fundamentos de IA
+├── modulo-2.html           Ficha del Módulo 2 · LLMs y Prompt Engineering Médico
 ├── plantilla-modulo.html   Plantilla para los módulos 2-8 (textos entre [corchetes])
 ├── README.md
 └── assets/
     ├── sepd.css            Estilos compartidos (paleta SEPD: morado #5503B1 · naranja #FFA52B)
     ├── sepd.png            Logo SEPD
+    ├── sentinel-title.png, sentinel-qr.png   Bloque de newsletter The Independent Sentinel (en todas las páginas)
     ├── curso-logo.png      Logo "IA Generativa Digestiva"
     ├── equipo/             Retratos del equipo docente
+    ├── m2/                 Recursos del Módulo 2 (portada, mapa, slide-*.jpg, presentacion-sesion-2.pdf)
     └── m1/                 Recursos del Módulo 1
         ├── portada.jpg, mapa.jpg, slide-*.jpg     Diapositivas clave (renderizadas del PDF)
         ├── presentacion-sesion-1.pdf              Presentación completa (35 MB)
@@ -36,7 +39,7 @@ sitio/sepd-curso/
 
 Secciones de cada ficha (ids fijos para que funcione el índice lateral): `resumen`, `ideas`, `recorrido`,
 `diapositivas` (opcional), `herramientas`, `practica`, `reglas` (opcional), `preguntas`, `glosario`,
-`autoevaluacion`, `referencias` (opcional), `siguiente`.
+`autoevaluacion`, `referencias` (opcional), `siguiente`. El Módulo 2 añade `prompts` (bloques `.prompt` con botón Copiar).
 
 ## Previsualizar en local
 
