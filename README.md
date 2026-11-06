@@ -12,3 +12,4 @@ Listados de herramientas de IA por cliente — talleres NCompany
 - `llyc-gemini-ventas/` — Sesión LLYC · IA aplicada a las ventas: aplicando Gemini al proceso de ventas · 6 oct 2026 (caso Lumina Visión y prompts)
 - `jnj-valladolid/` — Taller J&J · Integración de la IA en la práctica clínica de la EII · Hospital Río Hortega, Valladolid, 2 jun 2026 (buscadores de evidencia y reglas de oro)
 - `roche-zaragoza/` — Taller Roche · IA generativa · Hospital Clínico Universitario Lozano Blesa (Medicina Interna), Zaragoza, 28 oct 2026 (investigación, diagnóstico, oficina, agentes y reglas de oro)
+- `roche-barcelona/` — Taller Roche · IA generativa · Hotel NH Barcelona Constanza, 5 nov 2026 (investigación, diagnóstico, legal, oficina, agentes y reglas de oro)
