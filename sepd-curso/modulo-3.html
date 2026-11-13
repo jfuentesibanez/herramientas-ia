@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 3 · IA para la investigación · Curso de IA en Digestivo · SEPD</title>
+<meta name="description" content="Ficha de la sesión 3 del Curso de IA en Digestivo (SEPD): de la pregunta PICO al borrador de un paper con Perplexity, Consensus, Elicit, Litmaps, Zotero, Deep Research y ChatGPT en Word. Anonimización en local, skills y verificación.">
+<link rel="stylesheet" href="assets/sepd.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="topbar__brand" href="index.html">
+      <img src="assets/sepd.png" alt="SEPD · Sociedad Española de Patología Digestiva">
+      <span>Curso de IA en Digestivo<br>2ª edición · 2026-2027</span>
+    </a>
+    <nav class="topbar__nav" aria-label="Navegación principal">
+      <a href="index.html#programa">Programa</a>
+      <a href="modulo-1.html">Módulo 1</a>
+      <a href="modulo-2.html">Módulo 2</a>
+      <a href="modulo-3.html" class="is-active">Módulo 3</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero__inner">
+    <div>
+      <p class="hero__eyebrow">Módulo 3 de 8 · Taller #3</p>
+      <h1 class="hero__title">IA para la investigación: <em>hagamos un paper</em></h1>
+      <p class="hero__subtitle">Una sola pregunta clínica recorre toda la sesión: de la búsqueda rápida a la evidencia citada, de la exploración de la literatura al informe consolidado y, al final, al borrador de un artículo en Word. Por el camino, cómo anonimizar datos sin que salgan del ordenador, cómo analizar con código que puedas auditar y cómo guardar tu forma de investigar en una skill.</p>
+      <div class="hero__meta">
+        <span><strong>Fecha</strong> 13 de noviembre de 2026</span>
+        <span><strong>Horario</strong> 16:00 – 19:30</span>
+        <span><strong>Ponente</strong> Javier Fuentes (NCompany)</span>
+        <span><strong>Con</strong> José Luis y Rubén, compañeros de la SEPD</span>
+      </div>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#practica">Ir a la práctica</a>
+        <a class="btn btn--ghost" href="#cadena">Ver la cadena de documentos</a>
+      </div>
+    </div>
+    <div class="hero__art">
+      <img src="assets/m3/mapa.jpg" alt="Mapa de la sesión 3: presentación, búsquedas por Internet, búsqueda de evidencias, exploración de literatura, Deep Research, presentaciones efectivas, cierre y futuro">
+    </div>
+  </div>
+</section>
+
+<main class="container">
+<div class="ficha">
+
+  <nav class="toc" aria-label="Índice de la ficha">
+    <div class="toc__label">En esta ficha</div>
+    <a href="#resumen">Resumen</a>
+    <a href="#ideas">Ideas fuerza</a>
+    <a href="#recorrido">Recorrido de la sesión</a>
+    <a href="#cadena">La cadena, documento a documento</a>
+    <a href="#diapositivas">Diapositivas clave</a>
+    <a href="#herramientas">Herramientas</a>
+    <a href="#practica">Práctica guiada</a>
+    <a href="#prompts">Prompts para copiar</a>
+    <a href="#reglas">Reglas de oro</a>
+    <a href="#preguntas">Preguntas del chat</a>
+    <a href="#glosario">Glosario</a>
+    <a href="#autoevaluacion">Autoevaluación</a>
+    <a href="#referencias">Referencias</a>
+    <a href="#siguiente">Siguiente sesión</a>
+    <div class="toc__downloads">
+      <a class="btn btn--ghost no-arrow" href="assets/m3/presentacion-sesion-3.pdf" target="_blank" rel="noopener">📄 Presentación (PDF)</a>
+      <a class="btn btn--ghost no-arrow" href="#cadena">🗂️ Documentos de la sesión</a>
+    </div>
+  </nav>
+
+  <div class="ficha__main">
+
+    <!-- ================= RESUMEN ================= -->
+    <section class="block" id="resumen">
+      <h2 class="block__title">Resumen</h2>
+      <p class="block__lead">La página en blanco es cosa del pasado; la revisión, no</p>
+
+      <div class="facts">
+        <div class="fact"><div class="fact__k">Módulo</div><div class="fact__v">3 · Investigación</div></div>
+        <div class="fact"><div class="fact__k">Formato</div><div class="fact__v">Online · Zoom</div></div>
+        <div class="fact"><div class="fact__k">Nivel</div><div class="fact__v">Práctico · un caso de principio a fin</div></div>
+        <div class="fact"><div class="fact__k">Caso</div><div class="fact__v">Fibrosis en esofagitis eosinofílica</div></div>
+        <div class="fact"><div class="fact__k">Resultado</div><div class="fact__v">Borrador para la REED</div></div>
+      </div>
+
+      <p>Javier Fuentes plantea la sesión como un encargo: "hagamos un paper". De seis preguntas candidatas se elige una, <em>"Esofagitis eosinofílica más allá de los eosinófilos: tratar la fibrosis, no solo la histología"</em>, y se formula en formato PICO. Esa misma pregunta se lanza, tal cual, a una cadena de herramientas con fortalezas distintas: el modo IA de Google y Perplexity para un mapa rápido del tema, Consensus y Elicit para respuestas apoyadas en artículos reales, Litmaps para descubrir por la red de citas lo que se había escapado, y Zotero como biblioteca única de referencias.</p>
+      <p>Con todo lo recopilado guardado en una carpeta, un Deep Research de ChatGPT consolida las respuestas en un informe integrado que contrasta afirmaciones y verifica cifras. Y con ese material como entrada, la extensión de ChatGPT dentro de Word (modelo GPT-6.1 Sol) redacta en inglés el borrador de una revisión narrativa adaptada a las normas de la Revista Española de Enfermedades Digestivas: resumen, puntos clave, tabla de evidencia, referencias con DOI y declaración de uso de IA. Todos esos documentos intermedios están disponibles más abajo.</p>
+      <p>La sesión incluyó dos intervenciones de compañeros de la SEPD. José Luis mostró cómo aplica la IA al diseño de ensayos y al análisis de datos, lo que dio pie a tres recomendaciones de Javier: programar con Claude un anonimizador que se ejecuta en local, usar la IA para generar código de análisis determinista que puedas entender y auditar, y empaquetar tu manera de investigar en una skill. Rubén presentó su "segundo cerebro" para investigar en medicina: una síntesis persistente de la bibliografía de un proyecto para que la IA no tenga que releer todos los PDF cada vez.</p>
+
+      <div class="callout callout--purple">
+        <h4>Si solo te llevas una frase</h4>
+        <p>Lo importante deja de ser el cómo y pasa a ser el qué: qué pregunta quieres responder y cómo vas a comprobar que la respuesta es correcta. Dejaremos de hacer ciertas tareas para convertirnos en revisores de esas tareas.</p>
+      </div>
+    </section>
+
+    <!-- ================= IDEAS FUERZA ================= -->
+    <section class="block" id="ideas">
+      <h2 class="block__title">Ideas fuerza</h2>
+      <p class="block__lead">Doce conceptos para fijar</p>
+      <ol class="ideas">
+        <li><strong>Investigación distribuida: una pregunta, muchas herramientas.</strong><span>Ninguna herramienta lo hace todo bien. Se recoge información de varias con fortalezas distintas y después se consolida. El mapa de la sesión son ocho pasos: búsqueda general, evidencia, exploración, Deep Research, biblioteca, redacción, verificación y difusión.</span></li>
+        <li><strong>Empieza por una buena pregunta, en formato PICO.</strong><span>Población, intervención, comparador y resultado. La misma pregunta, con las mismas palabras, se lanzó a todas las herramientas: así las respuestas son comparables y las discrepancias saltan a la vista.</span></li>
+        <li><strong>Los buscadores generalistas dan el mapa, no la evidencia.</strong><span>El modo IA de Google y Perplexity responden en segundos con enlaces. Sirven para orientarse. En la sesión los dos contestaron "sí" a la pregunta, y dieron cifras distintas para el mismo dato: el riesgo anual de estenosis sin tratamiento fue de un 9 % en uno y un 5 % en otro.</span></li>
+        <li><strong>Las herramientas de evidencia matizan.</strong><span>Consensus y Elicit trabajan sobre artículos reales y gradúan la fuerza de la evidencia. Su respuesta fue más prudente: ningún ensayo ha comparado directamente una estrategia antifibrótica con el control histológico aislado. Consensus lo resumió en un 27 % de estudios que dicen "sí" y un 73 % que dicen "posiblemente".</span></li>
+        <li><strong>Elicit responde con un informe, no con un párrafo.</strong><span>Busca sobre más de 138 millones de artículos, criba por criterios explícitos, extrae datos columna a columna y entrega resumen, diagrama de flujo, tabla de estudios y síntesis. Tiene tres profundidades (rápida, normal y profunda) y también busca ensayos clínicos.</span></li>
+        <li><strong>Explora por la red de citas.</strong><span>Litmaps (que absorbió ResearchRabbit) parte de un artículo semilla, por título, autores, palabras clave o DOI, y dibuja los relacionados: más a la derecha los más recientes, más arriba los más citados. Con filtros por revista, índice H o cuartil. Lo que te convence, a Zotero.</span></li>
+        <li><strong>Deep Research también sirve para consolidar.</strong><span>No solo investiga por su cuenta: adjúntale todo lo que has recopilado y pídele un informe integrado. Irá algo más allá y contrastará cifras. Puede tardar de 5 minutos a varias horas, y revisarlo te llevará mucho más que generarlo.</span></li>
+        <li><strong>Redacta donde escribes: ChatGPT o Claude dentro de Word.</strong><span>La extensión actúa como coctelera: mezcla tus documentos recopilados, tu skill de estilo y, si lo tienes, el Excel con resultados, y escribe el borrador directamente en el documento para que lo coedites. Indícale la revista y pídele que siga sus normas.</span></li>
+        <li><strong>Anonimiza sin que el dato toque la nube.</strong><span>Pasar los datos a Claude para que los anonimice es incorrecto. Lo correcto: le das solo las cabeceras del Excel, te programa una herramienta (un fichero HTML) y la ejecutas en tu ordenador, incluso sin conexión, con los datos reales. Puede generar una clave para revertir.</span></li>
+        <li><strong>Para analizar, código determinista que entiendas.</strong><span>La IA puede analizar un dataset directamente, pero el camino más sólido es que te ayude a escribir el código en Python o R: lo lees, lo ejecutas y siempre da el mismo resultado con la misma entrada. Mantienes el criterio y el control científico, y vas mucho más rápido.</span></li>
+        <li><strong>Una skill es un prompt largo que no quieres repetir.</strong><span>Explícale una vez al modelo, hablando, cómo te gusta investigar o redactar, y guárdalo como habilidad. Están en Claude, en ChatGPT y en Copilot. Claude permite además grabarla: registra tu pantalla y tu voz mientras haces la tarea paso a paso.</span></li>
+        <li><strong>De autores a revisores.</strong><span>El estadístico de un hospital tiene más trabajo que nunca porque recibe más ensayos que nunca. El cuello de botella ya no es producir, es comprobar. Por eso el séptimo paso del mapa es la verificación: cada cita existe y dice lo que afirmas.</span></li>
+      </ol>
+    </section>
+
+    <!-- ================= RECORRIDO ================= -->
+    <section class="block" id="recorrido">
+      <h2 class="block__title">Recorrido de la sesión</h2>
+      <p class="block__lead">De la pregunta al borrador, con dos intervenciones invitadas</p>
+      <p class="block__desc">La presentación sigue el tablero de siete paradas. El hilo conductor es siempre la misma pregunta clínica.</p>
+
+      <div class="timeline">
+
+        <div class="step">
+          <h3><small>Bloque 1</small> Presentación: hagamos un paper</h3>
+          <ul>
+            <li><strong>El contexto.</strong> Sam Altman, en "Abundant Intelligence": con diez gigavatios de cómputo, quizá la IA encuentre cómo curar el cáncer. La investigación es uno de los terrenos donde más se va a notar.</li>
+            <li><strong>Seis preguntas candidatas.</strong> Cinco sobre enfermedad de Crohn de reciente diagnóstico (elección entre terapia convencional y biológica, anti-TNF temprano frente a <em>step-up</em>, biomarcadores predictores, fenotipo inicial, inmunomoduladores concomitantes) y una sexta, la elegida: "Esofagitis eosinofílica más allá de los eosinófilos: tratar la fibrosis, no solo la histología".</li>
+            <li><strong>La pregunta, en PICO.</strong> En pacientes con esofagitis eosinofílica (P), ¿las estrategias terapéuticas que consiguen reducir el remodelado fibrótico esofágico (I), en comparación con aquellas que logran únicamente el control de la inflamación histológica (C), mejoran la función esofágica y reducen las complicaciones fibroestenóticas a largo plazo (O)?</li>
+          </ul>
+          <figure>
+            <img src="assets/m3/slide-preguntas-candidatas.jpg" alt="Diapositiva con las seis preguntas de investigación candidatas; la sexta, sobre esofagitis eosinofílica, en rojo">
+            <figcaption>Las seis preguntas candidatas. La sexta marcó el hilo de toda la sesión.</figcaption>
+          </figure>
+        </div>
+
+        <div class="step">
+          <h3><small>Bloque 2</small> Búsquedas por Internet: la nueva forma de buscar</h3>
+          <ul>
+            <li><strong>Modo IA de Google, Perplexity y ChatGPT.</strong> Buscadores conversacionales que devuelven una respuesta redactada con enlaces. Son el primer paso: un mapa rápido del tema.</li>
+            <li><strong>Lo que contestaron.</strong> Google respondió con un "sí" rotundo, una tabla que compara el control inflamatorio estándar con las estrategias de impacto antifibrótico y una oferta de ayuda para definir desenlaces subrogados. Perplexity respondió "sí, con una matización importante": la evidencia comparativa directa es limitada y la fibrosis establecida solo es parcialmente reversible.</li>
+            <li><strong>La lección.</strong> Los dos citan fuentes, los dos suenan seguros y no coinciden en un dato tan concreto como el aumento anual del riesgo de estenosis. Sirven para arrancar, no para citar.</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h3><small>Bloque 3</small> Búsqueda de evidencias</h3>
+          <ul>
+            <li><strong>Las cinco de la diapositiva.</strong> Claude (con el conector de PubMed activado), Consensus, Elicit, Scite y OpenEvidence. También se mencionó Vera Health.</li>
+            <li><strong>Consensus, dos veces.</strong> La primera respuesta fue una síntesis con la fuerza de la evidencia de cada afirmación. La segunda añadió el medidor de consenso: sobre 11 estudios, 27 % "sí" y 73 % "posiblemente", y ningún "no". Ambas se exportaron a PDF, y Zotero hizo de biblioteca del proyecto.</li>
+            <li><strong>Elicit.</strong> Se dejó trabajando durante el descanso y devolvió un informe de 13 páginas: 50 artículos recuperados, criterios de cribado por población, intervención, desenlaces, comparador, diseño y seguimiento, columnas de extracción de datos y una conclusión clara: con los datos observacionales existentes no se puede determinar si tratar la fibrosis como objetivo propio aporta un beneficio adicional.</li>
+            <li><strong>Tasas de alucinación.</strong> Los modelos se equivocan cada vez menos (en torno al 1-2 % en los mejores), pero una herramienta especializada que enlaza cada afirmación con su artículo permite comprobarla.</li>
+          </ul>
+          <figure>
+            <img src="assets/m3/slide-busqueda-evidencia.jpg" alt="Diapositiva: búsqueda de evidencia con Claude, Consensus, Elicit, Scite y OpenEvidence">
+            <figcaption>Las herramientas de evidencia: Claude con PubMed, Consensus, Elicit, Scite y OpenEvidence.</figcaption>
+          </figure>
+        </div>
+
+        <div class="step step--hi">
+          <h3><small>Intervención invitada</small> José Luis: la IA en el diseño de ensayos y el análisis de datos</h3>
+          <p>Un compañero de la SEPD mostró cómo ha empezado a aplicar la IA a su propia investigación: el tratamiento cuidadoso de los datos, el uso del modelo para generar el código de análisis y un prompt muy largo en el que ha volcado sus criterios y su forma de hacer las cosas. Javier lo subrayó como lo más valioso de la formación: ver a un compañero que ya lo aplica. De esa intervención salieron las recomendaciones del bloque siguiente.</p>
+        </div>
+
+        <div class="step">
+          <h3><small>Tras el descanso</small> Datos, análisis y skills: los consejos de Javier</h3>
+          <ul>
+            <li><strong>Anonimizar en local.</strong> Coge tu Excel, borra los datos y deja las cabeceras. Pásale esa estructura a Claude o ChatGPT y pídele un programa anonimizador que corra en tu ordenador. Te devuelve un fichero HTML: lo abres sin conexión, le pasas el Excel real y anonimiza. Claude solo ha visto la estructura, nunca el dato.</li>
+            <li><strong>Código determinista.</strong> Que la IA te ayude a escribir el análisis en Python o R, no que lo haga a ciegas. Un código que entiendes, que ejecutas y mejoras, y que siempre da el mismo resultado.</li>
+            <li><strong>Hipótesis a partir de un dataset.</strong> Pásale a un modelo frontera un conjunto de datos anonimizado y pregúntale qué experimentación o qué hipótesis podrías plantear. Son muy buenos detectando patrones.</li>
+            <li><strong>Skills.</strong> Un prompt complejo que has construido conversando se guarda como habilidad para no repetirlo. En Claude, además, "grabar una skill": el modelo registra pantalla y voz mientras explicas la tarea como se la explicarías a un residente.</li>
+            <li><strong>Usa el modelo más potente que tengas.</strong> Para investigación y datos, herramientas generalistas (ChatGPT, Claude, Gemini) con su modelo más alto, sobre todo en la primera pregunta. No hace falta configuración especial: basta ponerse a preguntar.</li>
+            <li><strong>Más tiempo al qué y a la comprobación.</strong> Qué quieres comprobar, verificar o invalidar, y cómo sabrás que el resultado es correcto. Repite con IA un análisis que ya hiciste y compara criterios.</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h3><small>Bloque 4</small> Exploración de literatura</h3>
+          <ul>
+            <li><strong>De ResearchRabbit a Litmaps.</strong> ResearchRabbit fue adquirida por Litmaps. Le das palabras clave, un título, autores o un DOI y construye un mapa de artículos relacionados buscando citas y referencias.</li>
+            <li><strong>Cómo leer el mapa.</strong> Eje horizontal: fecha de publicación. Eje vertical: número de citas. Filtros por título, autores, revista, índice H y cuartil.</li>
+            <li><strong>Para qué.</strong> Poblar tu biblioteca de Zotero con lo relevante y usarlo como radar: en los planes de pago avisa cada semana de artículos nuevos sobre tu tema. Tiene plan gratuito. No es IA pura, es una herramienta de exploración.</li>
+          </ul>
+          <figure>
+            <img src="assets/m3/slide-litmaps.jpg" alt="Captura de Litmaps: buscador por palabras clave, títulos, autores o DOI y mapa de artículos relacionados">
+            <figcaption>Litmaps: del artículo semilla al mapa de la literatura relacionada.</figcaption>
+          </figure>
+        </div>
+
+        <div class="step step--hi">
+          <h3><small>Bloque 5</small> Deep Research para consolidar y ChatGPT en Word para redactar</h3>
+          <p>Javier desanda el camino y guarda en una carpeta cada respuesta: la de Google y la de Perplexity pegadas en un documento, las dos de Consensus exportadas a PDF y el informe de Elicit. En ChatGPT activa <em>Investigación avanzada</em>, adjunta los cinco documentos y pide: "ayúdame a consolidar toda esta información en un informe integrado". Mientras trabaja, abre Word, despliega la extensión de ChatGPT, elige GPT-6.1 Sol con razonamiento medio, adjunta los mismos archivos y pide el borrador de una publicación para la Revista Española de Enfermedades Digestivas, siguiendo sus normas y en inglés. El modelo escribe directamente sobre el documento. <a href="#cadena">El resultado, documento a documento, más abajo.</a></p>
+        </div>
+
+        <div class="step step--hi">
+          <h3><small>Intervención invitada</small> Rubén: un segundo cerebro para investigar en medicina</h3>
+          <p>El problema: carpetas llenas de PDF y resúmenes que, un mes después, ya no sabes dónde están; y una IA a la que hay que volver a cargar todos los documentos y pedir el mismo resumen cada vez. La solución que Rubén adoptó, y que usa en una de las tesis que dirige, es un segundo cerebro: una síntesis persistente de la información del proyecto, de modo que la IA parte de esa síntesis en lugar de releer todos los PDF desde cero. Se gana en orden, en continuidad y en consumo de tokens. "El saber no ocupa lugar, pero hay que recordar dónde y cómo lo hemos guardado."</p>
+        </div>
+
+        <div class="step">
+          <h3><small>Bloques 6 y 7</small> Difusión y cierre</h3>
+          <ul>
+            <li><strong>El octavo paso del mapa.</strong> Figuras, póster y presentación con Gamma y Napkin. Se trabajarán con detalle en el módulo de generación multimedia.</li>
+            <li><strong>Chat y Cowork se funden.</strong> La distinción entre conversar y dejar que el modelo use tu ordenador "tiene los días contados": todo será un asistente que, con permiso, accede a tus herramientas y ficheros. Ya existe Copilot Cowork. En hospitales tardará más.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= CADENA ================= -->
+    <section class="block" id="cadena">
+      <h2 class="block__title">La cadena, documento a documento</h2>
+      <p class="block__lead">La misma pregunta, cinco respuestas y un borrador</p>
+      <p class="block__desc">Estos son los documentos reales generados durante la sesión. Léelos en orden: cuanto más rigurosa es la herramienta, más prudente es la respuesta.</p>
+
+      <div class="callout callout--red">
+        <h4>Material de ejemplo generado por IA, sin revisar</h4>
+        <p>Se publican para ver cómo funciona la cadena, no como fuente clínica. Contienen afirmaciones y cifras que nadie ha verificado contra los artículos originales. No los cites ni los uses para tomar decisiones.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="cmp">
+          <thead>
+            <tr><th>Paso</th><th>Herramienta</th><th>Qué respondió a la pregunta PICO</th><th>Documento</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="pill pill--orange">1 · Búsqueda</span></td>
+              <td><strong>Google, modo IA</strong></td>
+              <td><strong>"Sí."</strong> Revertir el remodelado se asocia con mejor distensibilidad y menos complicaciones. Tabla comparativa de enfoques. Cifra el aumento del riesgo de estenosis en un 9 % por año sin tratamiento.</td>
+              <td><a href="assets/m3/docs/01-google-modo-ia.pdf" target="_blank" rel="noopener">PDF</a></td>
+            </tr>
+            <tr>
+              <td><span class="pill pill--orange">1 · Búsqueda</span></td>
+              <td><strong>Perplexity</strong></td>
+              <td><strong>"Sí, con una matización importante."</strong> La evidencia comparativa directa es limitada y la fibrosis establecida es solo parcialmente reversible. Cifra el mismo riesgo en un 5 % por año.</td>
+              <td><a href="assets/m3/docs/02-perplexity.pdf" target="_blank" rel="noopener">PDF</a></td>
+            </tr>
+            <tr>
+              <td><span class="pill pill--purple">2 · Evidencia</span></td>
+              <td><strong>Consensus</strong></td>
+              <td><strong>"La evidencia no permite separar limpiamente ambas estrategias."</strong> Ningún ensayo las ha comparado directamente. Medidor de consenso sobre 11 estudios: sí 27 %, posiblemente 73 %. Fuerza de la evidencia: moderada.</td>
+              <td>No se redistribuye<br><small>(licencia de uso personal)</small></td>
+            </tr>
+            <tr>
+              <td><span class="pill pill--purple">2 · Evidencia</span></td>
+              <td><strong>Elicit</strong></td>
+              <td><strong>"No puede determinarse con los datos observacionales existentes."</strong> El control histológico reduce estenosis (HR 0,232; IC 95 % 0,084-0,64), pero no hay estudios que aíslen el efecto antifibrótico. Informe con diagrama de flujo y tabla de extracción.</td>
+              <td><a href="assets/m3/docs/03-elicit-informe.pdf" target="_blank" rel="noopener">PDF · 13 págs.</a></td>
+            </tr>
+            <tr>
+              <td><span class="pill pill--ok">4 · Deep Research</span></td>
+              <td><strong>ChatGPT, investigación avanzada</strong></td>
+              <td><strong>"Solo se dispone de evidencia indirecta."</strong> Informe integrado que contrasta las cinco fuentes, señala que el HR agrupado de 0,34 tiene un intervalo de 0,08 a 1,49 que incluye la unidad, y añade resultados recientes del ensayo REMODEL con dupilumab.</td>
+              <td><a href="assets/m3/docs/04-deep-research-informe-integrado.pdf" target="_blank" rel="noopener">PDF</a></td>
+            </tr>
+            <tr>
+              <td><span class="pill pill--warn">6 · Redacción</span></td>
+              <td><strong>ChatGPT en Word</strong><br><small>GPT-6.1 Sol</small></td>
+              <td><strong>"La respuesta defendible no es un sí incondicional."</strong> Revisión narrativa en inglés para la REED: resumen de 179 palabras, texto de unas 1.700, resumen para pacientes, puntos clave, tabla de evidencia, 13 referencias con DOI y declaración de uso de IA.</td>
+              <td><a href="assets/m3/docs/05-borrador-paper-chatgpt-word.docx">Word</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-grid" style="margin-top:22px">
+        <div class="info">
+          <h3>🔍 La discrepancia del 9 % y el 5 %</h3>
+          <p>Dos buscadores, la misma pregunta, dos cifras distintas para el mismo dato, las dos con cita. El borrador final, tras contrastar con el estudio original de Schoepfer, evita ambas: dice que la cohorte muestra más estenosis a mayor retraso diagnóstico, pero que no cuantifica el riesgo anual de un paciente concreto.</p>
+        </div>
+        <div class="info">
+          <h3>🧾 Lo que el borrador hace bien</h3>
+          <p>Se declara revisión narrativa y no sistemática, trata los informes de IA como pistas y no como fuentes, deja entre corchetes lo que solo pueden rellenar los autores (afiliaciones, conflictos de interés, contribuciones) e incluye la declaración de uso de IA que hoy exigen las revistas.</p>
+        </div>
+        <div class="info">
+          <h3>⚠️ Lo que queda por hacer</h3>
+          <p>Todo lo importante. Comprobar cada una de las 13 referencias y cada cifra, en especial los resultados de REMODEL, que el modelo incorporó por su cuenta. Limpiar las marcas internas de cita que deja la exportación del Deep Research. Y decidir si la interpretación es la tuya.</p>
+        </div>
+      </div>
+
+      <div class="slides" style="margin-top:22px">
+        <figure><a href="assets/m3/doc-elicit-flujo.png" target="_blank"><img src="assets/m3/doc-elicit-flujo.png" alt="Página del informe de Elicit con el diagrama de flujo y los criterios de cribado" style="aspect-ratio:auto;object-fit:contain"></a><figcaption>Informe de Elicit: búsqueda, cribado y extracción, descritos paso a paso.</figcaption></figure>
+        <figure><a href="assets/m3/doc-informe-integrado.png" target="_blank"><img src="assets/m3/doc-informe-integrado.png" alt="Primera página del informe integrado generado con Deep Research" style="aspect-ratio:auto;object-fit:contain"></a><figcaption>Informe integrado de Deep Research. Observa las marcas de cita internas sin resolver.</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- ================= DIAPOSITIVAS ================= -->
+    <section class="block" id="diapositivas">
+      <h2 class="block__title">Diapositivas clave</h2>
+      <p class="block__lead">Las imágenes que conviene recordar</p>
+      <p class="block__desc">Selección de la presentación de 42 diapositivas. Haz clic para verlas a tamaño completo o descarga el <a href="assets/m3/presentacion-sesion-3.pdf" target="_blank" rel="noopener">PDF íntegro</a>.</p>
+      <div class="slides">
+        <figure><a href="assets/m3/slide-del-buscador-al-paper.jpg" target="_blank"><img src="assets/m3/slide-del-buscador-al-paper.jpg" alt="Del buscador al paper: ocho pasos y sus herramientas"></a><figcaption>Del buscador al paper: herramientas de IA para cada paso de la investigación clínica.</figcaption></figure>
+        <figure><a href="assets/m3/slide-altman-abundant-intelligence.jpg" target="_blank"><img src="assets/m3/slide-altman-abundant-intelligence.jpg" alt="Cita de Sam Altman en Abundant Intelligence"></a><figcaption>Sam Altman, "Abundant Intelligence": cómputo para curar el cáncer.</figcaption></figure>
+        <figure><a href="assets/m3/slide-preguntas-candidatas.jpg" target="_blank"><img src="assets/m3/slide-preguntas-candidatas.jpg" alt="Seis preguntas de investigación candidatas"></a><figcaption>Las seis preguntas de investigación candidatas.</figcaption></figure>
+        <figure><a href="assets/m3/slide-tema-elegido.jpg" target="_blank"><img src="assets/m3/slide-tema-elegido.jpg" alt="Esofagitis eosinofílica más allá de los eosinófilos"></a><figcaption>El tema elegido: tratar la fibrosis, no solo la histología.</figcaption></figure>
+        <figure><a href="assets/m3/slide-perplexity.jpg" target="_blank"><img src="assets/m3/slide-perplexity.jpg" alt="Perplexity"></a><figcaption>Perplexity: la nueva forma de buscar.</figcaption></figure>
+        <figure><a href="assets/m3/slide-busqueda-evidencia.jpg" target="_blank"><img src="assets/m3/slide-busqueda-evidencia.jpg" alt="Búsqueda de evidencia"></a><figcaption>Búsqueda de evidencia y tasas de alucinación.</figcaption></figure>
+        <figure><a href="assets/m3/slide-claude-pubmed.jpg" target="_blank"><img src="assets/m3/slide-claude-pubmed.jpg" alt="Claude con el conector de PubMed activado"></a><figcaption>Claude con el conector de PubMed activado.</figcaption></figure>
+        <figure><a href="assets/m3/slide-consensus.jpg" target="_blank"><img src="assets/m3/slide-consensus.jpg" alt="Consensus"></a><figcaption>Consensus: respuestas apoyadas en artículos, con Deep Search.</figcaption></figure>
+        <figure><a href="assets/m3/slide-elicit.jpg" target="_blank"><img src="assets/m3/slide-elicit.jpg" alt="Elicit"></a><figcaption>Elicit: informe de investigación, revisión sistemática y búsqueda de ensayos.</figcaption></figure>
+        <figure><a href="assets/m3/slide-scite.jpg" target="_blank"><img src="assets/m3/slide-scite.jpg" alt="Scite"></a><figcaption>Scite: respuestas citadas y contexto de cada cita.</figcaption></figure>
+        <figure><a href="assets/m3/slide-openevidence.jpg" target="_blank"><img src="assets/m3/slide-openevidence.jpg" alt="OpenEvidence"></a><figcaption>OpenEvidence: gratuita para profesionales sanitarios, con acceso limitado desde Europa.</figcaption></figure>
+        <figure><a href="assets/m3/slide-litmaps.jpg" target="_blank"><img src="assets/m3/slide-litmaps.jpg" alt="Litmaps"></a><figcaption>Litmaps: explorar por la red de citas.</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- ================= HERRAMIENTAS ================= -->
+    <section class="block" id="herramientas">
+      <h2 class="block__title">Herramientas y recursos</h2>
+      <p class="block__lead">Una herramienta para cada paso</p>
+      <p class="block__desc">Ordenadas según el mapa "Del buscador al paper". Las etiquetas indican el paso y el coste orientativo.</p>
+
+      <div class="tools">
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Perplexity</h3><div class="tool__tags"><span class="pill pill--orange">1 · Búsqueda</span><span class="pill pill--warn">Freemium</span></div></div>
+          <p class="tool__desc">Buscador conversacional que responde con una síntesis y enlaces a las fuentes.</p>
+          <p class="tool__use"><strong>En clase:</strong> respuesta estructurada en PICO con tabla de estrategias y un matiz honesto sobre los límites de la evidencia. Para orientarse, no para citar.</p>
+          <a class="tool__link" href="https://www.perplexity.ai" target="_blank" rel="noopener">perplexity.ai</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Google, modo IA</h3><div class="tool__tags"><span class="pill pill--orange">1 · Búsqueda</span><span class="pill pill--ok">Gratis</span></div></div>
+          <p class="tool__desc">La respuesta generativa del buscador de Google, con citas numeradas y preguntas de seguimiento.</p>
+          <p class="tool__use"><strong>En clase:</strong> punto de partida de la cadena. Respondió con rotundidad y ofreció ayuda para definir desenlaces subrogados y localizar ensayos.</p>
+          <a class="tool__link" href="https://www.google.com" target="_blank" rel="noopener">google.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Consensus</h3><div class="tool__tags"><span class="pill pill--purple">2 · Evidencia</span><span class="pill pill--warn">Freemium</span></div></div>
+          <p class="tool__desc">Buscador científico con IA: sintetiza lo que dicen los artículos, gradúa la fuerza de la evidencia y muestra un medidor de consenso. Exporta a PDF y envía referencias a Zotero.</p>
+          <p class="tool__use"><strong>En clase:</strong> dos consultas con la misma pregunta. La exportación es de uso personal y no puede redistribuirse.</p>
+          <a class="tool__link" href="https://consensus.app" target="_blank" rel="noopener">consensus.app</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Elicit</h3><div class="tool__tags"><span class="pill pill--purple">2 · Evidencia</span><span class="pill pill--warn">Freemium</span></div></div>
+          <p class="tool__desc">Asistente de investigación que devuelve un informe: búsqueda semántica sobre más de 138 millones de artículos, cribado, extracción de datos y síntesis. También hace revisiones sistemáticas y busca ensayos clínicos.</p>
+          <p class="tool__use"><strong>En clase:</strong> informe de 13 páginas en modo rápido durante el descanso. Hay modo normal y profundo.</p>
+          <a class="tool__link" href="https://elicit.com" target="_blank" rel="noopener">elicit.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Scite</h3><div class="tool__tags"><span class="pill pill--purple">2 · Evidencia</span><span class="pill pill--orange">7 · Verificación</span></div></div>
+          <p class="tool__desc">Asistente con respuestas citadas que indica si los artículos posteriores apoyan, contradicen o solo mencionan cada trabajo.</p>
+          <p class="tool__use"><strong>Para qué:</strong> comprobar que una cita dice lo que afirmas y cómo ha sido recibida por la literatura.</p>
+          <a class="tool__link" href="https://scite.ai" target="_blank" rel="noopener">scite.ai</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Claude con PubMed</h3><div class="tool__tags"><span class="pill pill--purple">2 · Evidencia</span><span class="pill pill--warn">Freemium</span></div></div>
+          <p class="tool__desc">Claude permite activar un conector de PubMed para que busque y cite directamente en la base de datos.</p>
+          <p class="tool__use"><strong>Además:</strong> es donde Javier propone programar el anonimizador, generar el código de análisis y crear o grabar skills.</p>
+          <a class="tool__link" href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">OpenEvidence · Vera Health</h3><div class="tool__tags"><span class="pill pill--purple">2 · Evidencia</span><span class="pill pill--ok">Gratis para sanitarios</span></div></div>
+          <p class="tool__desc">Asistentes de evidencia clínica para profesionales. OpenEvidence tiene acuerdos con NEJM y JAMA; Vera Health es la alternativa que varios alumnos recomendaron en el módulo 2.</p>
+          <p class="tool__use"><strong>Matiz:</strong> el acceso a OpenEvidence desde Europa es limitado. Vera Health se mencionó como opción disponible.</p>
+          <a class="tool__link" href="https://www.vera.health" target="_blank" rel="noopener">vera.health</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Litmaps</h3><div class="tool__tags"><span class="pill pill--grey">3 · Exploración</span><span class="pill pill--warn">Freemium</span></div></div>
+          <p class="tool__desc">Mapa visual de artículos relacionados a partir de un artículo semilla, por la red de citas y referencias. Absorbió ResearchRabbit.</p>
+          <p class="tool__use"><strong>En clase:</strong> demo con un artículo sobre la historia natural de la enfermedad. Filtros por revista, índice H y cuartil; avisos semanales en los planes de pago.</p>
+          <a class="tool__link" href="https://www.litmaps.com" target="_blank" rel="noopener">litmaps.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Deep Research</h3><div class="tool__tags"><span class="pill pill--ok">4 · Informe</span></div></div>
+          <p class="tool__desc">El modo de investigación avanzada de ChatGPT, Gemini, Claude y Copilot. Hace búsquedas por su cuenta y devuelve un informe largo con fuentes.</p>
+          <p class="tool__use"><strong>En clase:</strong> usado para consolidar. Se le adjuntaron las cinco respuestas previas y se le pidió un informe integrado. De 5 minutos a varias horas.</p>
+          <a class="tool__link" href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Zotero</h3><div class="tool__tags"><span class="pill pill--grey">5 · Biblioteca</span><span class="pill pill--ok">Gratis</span></div></div>
+          <p class="tool__desc">Gestor de referencias de código abierto. Tus artículos en un solo sitio, organizados por carpetas, con citas automáticas en Word.</p>
+          <p class="tool__use"><strong>En clase:</strong> destino de lo encontrado en Consensus y Litmaps. También sirve para verificar: si la referencia no aparece en ninguna base, sospecha.</p>
+          <a class="tool__link" href="https://www.zotero.org" target="_blank" rel="noopener">zotero.org</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">ChatGPT en Word · Claude en Word</h3><div class="tool__tags"><span class="pill pill--warn">6 · Redacción</span></div></div>
+          <p class="tool__desc">Extensiones que abren el asistente en un panel dentro de Word. Admiten archivos adjuntos y skills, y escriben directamente en el documento.</p>
+          <p class="tool__use"><strong>En clase:</strong> GPT-6.1 Sol con razonamiento medio redactó el borrador para la REED a partir de los cinco documentos recopilados.</p>
+          <a class="tool__link" href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Skills</h3><div class="tool__tags"><span class="pill pill--grey">Transversal</span></div></div>
+          <p class="tool__desc">Habilidades reutilizables: instrucciones detalladas sobre cómo haces una tarea, guardadas para invocarlas cuando quieras. En Claude, ChatGPT y Copilot.</p>
+          <p class="tool__use"><strong>Ejemplos:</strong> tu estilo de redacción científica, tus criterios para diseñar un ensayo, tu forma de limpiar un Excel. En Claude se pueden grabar con pantalla y voz.</p>
+          <a class="tool__link" href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">PubMed</h3><div class="tool__tags"><span class="pill pill--orange">7 · Verificación</span><span class="pill pill--ok">Gratis</span></div></div>
+          <p class="tool__desc">La base de datos de referencia. El último filtro de toda la cadena.</p>
+          <p class="tool__use"><strong>Para qué:</strong> confirmar que cada artículo citado existe, que los autores, el año y el DOI coinciden, y leer al menos el resumen de lo que sostiene tus afirmaciones clave.</p>
+          <a class="tool__link" href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" rel="noopener">pubmed.ncbi.nlm.nih.gov</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Gamma · Napkin</h3><div class="tool__tags"><span class="pill pill--bad">8 · Difusión</span><span class="pill pill--purple">Módulo 5</span></div></div>
+          <p class="tool__desc">Gamma genera presentaciones a partir de un texto; Napkin convierte párrafos en figuras y esquemas.</p>
+          <p class="tool__use"><strong>Para qué:</strong> el resumen visual, el póster y las diapositivas del congreso. Se verán con detalle en el módulo de generación multimedia.</p>
+          <a class="tool__link" href="https://gamma.app" target="_blank" rel="noopener">gamma.app</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PRÁCTICA ================= -->
+    <section class="block" id="practica">
+      <h2 class="block__title">Práctica guiada</h2>
+      <p class="block__lead">De tu pregunta a tu borrador, en una tarde</p>
+      <p class="block__desc">Reproduce la cadena de la sesión con una pregunta de tu área. Bastan las versiones gratuitas para casi todo; el Deep Research y la extensión de Word pueden requerir un plan de pago. No uses datos de pacientes en ningún paso.</p>
+
+      <div class="practice">
+        <div>
+          <h3 style="font-size:16px;margin:0 0 10px">Parte A · Del buscador al borrador</h3>
+          <ol class="steps">
+            <li><strong>Formula tu pregunta en PICO</strong> y escríbela una sola vez. La vas a pegar idéntica en todas las herramientas. Crea una carpeta para el proyecto.</li>
+            <li><strong>Búsqueda general.</strong> Pégala en Perplexity y en el modo IA de Google. Guarda cada respuesta en un documento dentro de la carpeta. Anota en qué coinciden y en qué no.</li>
+            <li><strong>Evidencia.</strong> Pégala en Consensus y exporta la respuesta a PDF. Pégala en Elicit, elige <em>Research report</em> y déjalo trabajar. Guarda el informe.</li>
+            <li><strong>Biblioteca.</strong> Envía a Zotero las referencias que te parezcan relevantes, en una carpeta con el nombre del proyecto.</li>
+            <li><strong>Exploración.</strong> Toma el artículo más importante que haya aparecido, pega su DOI en Litmaps y recorre el mapa. Añade a Zotero lo que se te había escapado.</li>
+            <li><strong>Consolidación.</strong> En ChatGPT, Gemini o Claude activa la investigación avanzada, adjunta todos los documentos de la carpeta y pide un informe integrado que contraste las fuentes y verifique las cifras clave.</li>
+            <li><strong>Redacción.</strong> Abre Word, despliega la extensión de ChatGPT o Claude, adjunta el informe integrado y los documentos, indica la revista de destino y pide el borrador siguiendo sus normas.</li>
+            <li><strong>Verificación.</strong> Para cada referencia del borrador: búscala en PubMed, comprueba autores, año y DOI, y lee el resumen. Para cada cifra: localízala en el artículo original. Lo que no puedas confirmar, fuera.</li>
+          </ol>
+
+          <h3 style="font-size:16px;margin:22px 0 10px">Parte B · Tu anonimizador en local</h3>
+          <ol class="steps">
+            <li>Haz una copia de tu Excel y <strong>borra todas las filas de datos</strong>. Deja solo la fila de cabeceras.</li>
+            <li>Sube esa plantilla vacía a Claude o ChatGPT y pídele un programa anonimizador en un único fichero HTML que funcione sin conexión (tienes el prompt más abajo).</li>
+            <li>Descarga el fichero. Desconecta la wifi si quieres comprobarlo. Ábrelo en el navegador y cárgale el Excel con datos reales.</li>
+            <li>Revisa el resultado: ¿queda algún identificador directo o indirecto (fechas exactas, códigos postales, texto libre)? Si es así, vuelve al modelo con la estructura, nunca con los datos, y pide el ajuste.</li>
+            <li>Guarda en lugar seguro la clave de correspondencia si necesitas poder revertir.</li>
+          </ol>
+
+          <div class="callout">
+            <h4>Lo que pasó en clase</h4>
+            <p>Los dos buscadores generalistas contestaron "sí". Consensus matizó. Elicit concluyó que no puede determinarse. El informe integrado habló de evidencia indirecta. Y el borrador final cerró con que "la respuesta defendible no es un sí incondicional". La cadena no solo acumula información: va afinando la pregunta.</p>
+          </div>
+
+          <div class="practice__downloads">
+            <a class="btn btn--orange no-arrow" href="#cadena">Ver los documentos de la sesión</a>
+            <a class="btn btn--ghost" href="https://elicit.com" target="_blank" rel="noopener">Abrir Elicit</a>
+            <a class="btn btn--ghost" href="https://www.litmaps.com" target="_blank" rel="noopener">Abrir Litmaps</a>
+          </div>
+        </div>
+
+        <aside>
+          <figure>
+            <img src="assets/m3/slide-del-buscador-al-paper.jpg" alt="Del buscador al paper: ocho pasos">
+            <figcaption>El mapa de la práctica: cuatro pasos para buscar y cuatro para escribir.</figcaption>
+          </figure>
+          <div class="callout callout--purple" style="margin-top:16px">
+            <h4>Ideas para ir más lejos</h4>
+            <ul>
+              <li>Repite con IA un análisis estadístico que ya hiciste y compara su planteamiento con el tuyo.</li>
+              <li>Pasa un dataset anonimizado a un modelo frontera y pregúntale qué hipótesis podrías explorar.</li>
+              <li>Convierte en skill tu forma de redactar un apartado de métodos.</li>
+              <li>Monta tu segundo cerebro: una síntesis por proyecto que el modelo consulte antes de abrir ningún PDF.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= PROMPTS ================= -->
+    <section class="block" id="prompts">
+      <h2 class="block__title">Prompts para copiar</h2>
+      <p class="block__lead">Los prompts de la sesión, listos para pegar</p>
+      <p class="block__desc">Redactados a partir de lo que se dijo y se hizo en clase. Sustituye lo que va entre corchetes.</p>
+
+      <div class="prompts">
+        <div class="prompt">
+          <div class="prompt__head"><span>1 · La pregunta PICO de la sesión (modelo para la tuya)</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>En pacientes con esofagitis eosinofílica (P), ¿las estrategias terapéuticas que consiguen reducir el remodelado fibrótico esofágico (I), en comparación con aquellas que logran únicamente el control de la inflamación histológica (C), mejoran la función esofágica y reducen las complicaciones fibroestenóticas a largo plazo (O)?</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>2 · Programar un anonimizador que corre en local</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>Necesito que me ayudes a programar una herramienta de anonimización que pueda ejecutar localmente en mi ordenador, sin conexión a internet.
+
+Te adjunto un Excel SIN DATOS: solo contiene la fila de cabeceras. Ese es exactamente el formato de los ficheros que le pasaré al programa.
+
+Prepárame un único fichero HTML que:
+- Me deje cargar un Excel o CSV con esa estructura.
+- Sustituya los identificadores directos (nombre, apellidos, NHC, DNI, teléfono, correo) por códigos.
+- Generalice los indirectos (fechas a mes/año o a días desde el inicio, edad en tramos, código postal recortado).
+- Me avise de las columnas de texto libre, que tendré que revisar a mano.
+- Me deje descargar el fichero anonimizado y, aparte, una tabla de correspondencia por si necesito revertirlo.
+- No envíe ningún dato a ningún servidor.
+
+Antes de programar, pregúntame qué columnas considero identificadoras y cuáles necesito conservar para el análisis.</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>3 · Hipótesis a partir de un dataset anonimizado</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>Te adjunto un conjunto de datos ANONIMIZADO de [describir: pacientes, periodo, variables principales].
+
+En base a estos datos, ¿qué hipótesis podría plantear y qué tipo de análisis o experimentación me permitirían contrastarlas?
+
+Para cada propuesta indica: la pregunta, las variables implicadas, el análisis adecuado, las limitaciones de este dataset para responderla y qué dato adicional la haría más sólida. Ordénalas de más a menos viable.</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>4 · Código de análisis determinista que pueda auditar</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>Quiero analizar este dataset anonimizado para responder a: [PREGUNTA].
+
+No hagas tú el análisis directamente. Ayúdame a escribir el código en [Python / R] para que yo lo ejecute.
+
+- Explica antes el plan de análisis y por qué eliges cada prueba.
+- Escribe el código comentado, paso a paso, de forma que pueda entender cada decisión.
+- Señala los supuestos de cada prueba y cómo comprobarlos.
+- El código debe dar siempre el mismo resultado con la misma entrada (fija las semillas si hay aleatoriedad).
+- Si te falta información sobre el diseño del estudio, pregúntamela antes de escribir nada.</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>5 · Deep Research para consolidar lo recopilado</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>[Activa "Investigación avanzada" / "Deep Research" y adjunta todos los documentos de la carpeta]
+
+Ayúdame a consolidar toda esta información en un informe integrado. Te adjunto lo que he encontrado en mi investigación con varias herramientas sobre esta pregunta: [PEGAR PREGUNTA PICO].
+
+- Contrasta las afirmaciones de las distintas fuentes y señala dónde discrepan.
+- Verifica las cifras clave contra la literatura primaria.
+- Evalúa la calidad de la evidencia y los posibles sesgos.
+- Distingue lo demostrado, lo asociado y lo que no se ha estudiado.
+- Incluye una tabla comparativa de los estudios principales y la lista de referencias con DOI.</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>6 · Borrador del artículo, dentro de Word</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>[En la extensión de ChatGPT o Claude en Word, con los documentos recopilados adjuntos y, si la tienes, tu skill de estilo]
+
+Hazme el borrador de una publicación sobre esta temática para la revista [NOMBRE DE LA REVISTA]. Asegúrate de seguir las normas de publicación de la revista y hazlo en inglés.
+
+Usa los informes adjuntos como pistas, no como fuentes: cita los artículos originales. Deja entre corchetes todo lo que deban completar los autores (afiliaciones, contribuciones, conflictos de interés, financiación) e incluye la declaración de uso de IA.</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>7 · Crear una skill con tu forma de investigar</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>Quiero crear una skill con mi forma de [redactar artículos científicos / diseñar un ensayo / analizar una base de datos].
+
+Te voy a explicar cómo lo hago, con mis criterios y preferencias: [EXPLICAR, mejor por voz y con todo el detalle posible, como a un residente].
+
+Hazme las preguntas que necesites para que no quede nada ambiguo. Después redacta la skill con: cuándo debe usarse, los pasos en orden, mis criterios de calidad, lo que nunca debe hacer y el formato del resultado. Guárdala para que pueda invocarla en futuras conversaciones.</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>8 · Verificar que cada cita existe y dice lo que afirmas</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>Te adjunto el borrador de mi manuscrito. Revisa las referencias una a una.
+
+Para cada referencia, busca el artículo original y dime:
+1. Si existe y si autores, revista, año, volumen y DOI son correctos.
+2. La frase del manuscrito que se apoya en ella.
+3. Si el artículo sostiene realmente esa afirmación, con la cifra exacta y su intervalo de confianza.
+4. Tu veredicto: correcta / imprecisa / no la sostiene / no he podido comprobarla.
+
+No des por buena ninguna que no hayas podido abrir. Devuélvelo en una tabla y lista aparte las que debo revisar yo personalmente.</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= REGLAS DE ORO ================= -->
+    <section class="block" id="reglas">
+      <h2 class="block__title">Reglas de oro</h2>
+      <p class="block__lead">Investigar con IA sin perder el control científico</p>
+      <div class="rules">
+        <div class="rule"><span class="n">01</span><h4>El dato nunca toca la nube</h4><p>Anonimiza en tu equipo con una herramienta que la IA programó viendo solo las cabeceras. A partir de ahí, solo datos procesados y anonimizados.</p></div>
+        <div class="rule"><span class="n">02</span><h4>Cada cita existe y dice lo que afirmas</h4><p>Comprueba todas las referencias y todas las cifras contra el artículo original. Dos buscadores dieron dos valores distintos para el mismo dato.</p></div>
+        <div class="rule rule--orange"><span class="n">03</span><h4>Código que entiendes</h4><p>Para el análisis, código determinista generado con ayuda de la IA, leído y ejecutado por ti. Mismo dato, mismo resultado.</p></div>
+        <div class="rule rule--orange"><span class="n">04</span><h4>Los informes de IA son pistas</h4><p>Un Deep Research o una respuesta de Consensus te llevan a los artículos. Lo que se cita es el artículo, no el informe.</p></div>
+        <div class="rule"><span class="n">05</span><h4>Declara el uso de IA</h4><p>Las revistas lo exigen. Qué herramienta, para qué, y que la responsabilidad es de los autores humanos.</p></div>
+        <div class="rule"><span class="n">06</span><h4>El modelo más potente para lo más importante</h4><p>En la primera pregunta de una investigación, usa el modelo más alto que tengas. La diferencia se nota.</p></div>
+        <div class="rule rule--orange"><span class="n">07</span><h4>Permisos, con cautela</h4><p>Si das acceso a tu ordenador a un asistente, acótalo a una carpeta y decide herramienta a herramienta. Nada sensible a su alcance.</p></div>
+        <div class="rule rule--orange"><span class="n">08</span><h4>Dedica el tiempo al qué</h4><p>Qué quieres comprobar y cómo sabrás que es correcto. El cómo ya lo acelera la máquina.</p></div>
+      </div>
+    </section>
+
+    <!-- ================= PREGUNTAS ================= -->
+    <section class="block" id="preguntas">
+      <h2 class="block__title">Preguntas del chat</h2>
+      <p class="block__lead">Lo que preguntaron los alumnos y lo que se respondió</p>
+      <div class="faq">
+        <details>
+          <summary>¿El análisis que hacen estos modelos es equiparable al de un estadístico?</summary>
+          <div class="faq__body"><p>"Hace un año te hubiera dicho que no. Ahora te digo que sí, o más." Para un médico que no sea especialista en estadística, lo supera ampliamente, y ya compite con estadísticos especializados en precisión y fiabilidad. Toma decisiones técnicas sofisticadas que se pueden ver en el código que genera. Aun así, no hay que fiarse al cien por cien: que lo revise el estadístico. Prueba a repetir un análisis que ya hiciste y compara.</p></div>
+        </details>
+        <details>
+          <summary>El gran tema es el RGPD. ¿Es segura la anonimización con Claude?</summary>
+          <div class="faq__body"><p>En el método propuesto no hay ningún contacto entre los datos y Claude. Claude solo ve la estructura del Excel, sin datos, y devuelve un programa en HTML. Ese programa se ejecuta en un ordenador que puede estar sin conexión, y es ahí donde se le pasa el Excel real. Claude hace el programa que anonimiza, pero no toca el dato.</p></div>
+        </details>
+        <details>
+          <summary>¿Con Claude y artefactos es mejor el juego de preguntar a los datos?</summary>
+          <div class="faq__body"><p>Para explorar basta con poner los datos y preguntar: no hacen falta artefactos. Los artefactos son útiles cuando pides una representación o una herramienta interactiva. Para la primera pregunta, usa el modelo más sofisticado que tengas.</p></div>
+        </details>
+        <details>
+          <summary>No me aparece Cowork como opción en Claude. ¿Qué diferencia hay con el chat?</summary>
+          <div class="faq__body"><p>Es una distinción con los días contados. Chat y Cowork se van a diluir en una sola plataforma que, cuando lo necesite y con tu permiso, usará herramientas y datos de tu ordenador. En ChatGPT parece que ya se han fusionado; Claude, Gemini y Copilot seguirán. No merece la pena preocuparse por la diferencia.</p></div>
+        </details>
+        <details>
+          <summary>¿Permitir ese acceso al ordenador puede ser peligroso?</summary>
+          <div class="faq__body"><p>Siempre que se da acceso a herramientas o ficheros se corre algún riesgo. Se puede decidir uno a uno: correo sí o no, calendario sí o no, Drive sí o no, y limitar el acceso a una carpeta concreta. Javier lo tiene activado en un ordenador de trabajo sin nada sensible. En el ámbito hospitalario la implantación será más lenta, aunque ya existe Copilot Cowork.</p></div>
+        </details>
+        <details>
+          <summary>¿Qué herramientas usar para la parte de analítica de datos?</summary>
+          <div class="faq__body"><p>Los modelos frontera generalistas: ChatGPT, Claude o Gemini. No hace falta una configuración específica ni conocimientos especiales. Coges datos anonimizados y te pones a preguntar, pedir sugerencias y hacer cálculos, fijándote en cómo responde. Por detrás usan Python para calcular.</p></div>
+        </details>
+        <details>
+          <summary>¿Hacer una skill es difícil?</summary>
+          <div class="faq__body"><p>No. Técnicamente consiste en explicarle al modelo, hablando, cómo quieres hacer una tarea por compleja que sea, y guardarlo. Hace un año ni se mencionaban en el curso y hoy se habla de ellas como si llevaran toda la vida. En Claude, además, se puede grabar una skill con pantalla y voz.</p></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ================= GLOSARIO ================= -->
+    <section class="block" id="glosario">
+      <h2 class="block__title">Glosario</h2>
+      <p class="block__lead">Los términos que aparecieron en la sesión</p>
+      <dl class="glossary">
+        <div><dt>PICO</dt><dd>Formato para preguntas clínicas: población, intervención, comparador y resultado (outcome).</dd></div>
+        <div><dt>Investigación distribuida</dt><dd>Recoger información de varias herramientas con fortalezas distintas y consolidarla después.</dd></div>
+        <div><dt>Modo IA (Google)</dt><dd>Respuesta generativa del buscador, redactada y con enlaces, en lugar de la lista de resultados.</dd></div>
+        <div><dt>Medidor de consenso</dt><dd>Indicador de Consensus que resume qué proporción de los estudios responde sí, posiblemente, mixto o no a una pregunta.</dd></div>
+        <div><dt>Fuerza de la evidencia</dt><dd>Graduación (fuerte, moderada, débil) que una herramienta asigna a cada afirmación según los estudios que la apoyan.</dd></div>
+        <div><dt>Informe de investigación (Elicit)</dt><dd>Documento con resumen, búsqueda, cribado, extracción de datos, resultados y síntesis, generado a partir de una pregunta.</dd></div>
+        <div><dt>Cribado (screening)</dt><dd>Selección de los artículos que cumplen los criterios de inclusión antes de extraer datos.</dd></div>
+        <div><dt>Artículo semilla</dt><dd>El trabajo de partida desde el que Litmaps construye el mapa de artículos relacionados.</dd></div>
+        <div><dt>Red de citas</dt><dd>Relaciones entre artículos según a quién citan y quién los cita. Permite descubrir lo que una búsqueda por palabras no encuentra.</dd></div>
+        <div><dt>DOI</dt><dd>Identificador digital único y permanente de un artículo. La forma más fiable de localizarlo.</dd></div>
+        <div><dt>Índice H y cuartil</dt><dd>Indicadores bibliométricos de un autor o revista, usados como filtros en la exploración.</dd></div>
+        <div><dt>Gestor de referencias</dt><dd>Programa (Zotero) que guarda, organiza y cita tu bibliografía.</dd></div>
+        <div><dt>Deep Research</dt><dd>Modo de investigación avanzada: el modelo busca, lee y contrasta durante minutos u horas y devuelve un informe con fuentes.</dd></div>
+        <div><dt>Consolidación</dt><dd>Unir en un solo informe lo recopilado con varias herramientas, contrastando afirmaciones y cifras.</dd></div>
+        <div><dt>Revisión narrativa</dt><dd>Síntesis crítica de la literatura sin búsqueda exhaustiva ni metaanálisis. Distinta de una revisión sistemática.</dd></div>
+        <div><dt>Declaración de uso de IA</dt><dd>Apartado del manuscrito donde se indica qué herramienta se usó y para qué. La responsabilidad sigue siendo de los autores.</dd></div>
+        <div><dt>Anonimización</dt><dd>Eliminar o transformar los datos que permiten identificar a una persona, de forma directa o indirecta.</dd></div>
+        <div><dt>Identificador indirecto</dt><dd>Dato que por sí solo no identifica pero combinado con otros sí: fecha exacta, código postal, edad, texto libre.</dd></div>
+        <div><dt>Ejecución en local</dt><dd>El programa corre en tu ordenador y no envía datos a ningún servidor. Funciona sin conexión.</dd></div>
+        <div><dt>Código determinista</dt><dd>Programa que con la misma entrada da siempre el mismo resultado, a diferencia de la respuesta de un modelo generativo.</dd></div>
+        <div><dt>Skill (habilidad)</dt><dd>Conjunto de instrucciones reutilizable que describe cómo haces una tarea, guardado para invocarlo cuando quieras.</dd></div>
+        <div><dt>Grabar una skill</dt><dd>Función de Claude que registra tu pantalla y tu voz mientras realizas la tarea y genera la habilidad a partir de ello.</dd></div>
+        <div><dt>Conector</dt><dd>Enlace entre el asistente y una fuente externa (PubMed, Drive, correo) para que busque en ella directamente.</dd></div>
+        <div><dt>Cowork</dt><dd>Modo en que el asistente, con permiso, usa herramientas y ficheros de tu ordenador para completar tareas.</dd></div>
+        <div><dt>Segundo cerebro</dt><dd>Sistema personal de notas y síntesis que conserva el conocimiento de un proyecto para ti y para la IA, sin releer cada fuente.</dd></div>
+        <div><dt>Modelo frontera</dt><dd>Los modelos más capaces del momento. Para investigación y análisis, el más alto que tengas.</dd></div>
+        <div><dt>Hazard ratio e intervalo de confianza</dt><dd>Medida de riesgo relativo en el tiempo y su margen de incertidumbre. Si el intervalo incluye el 1, no hay diferencia demostrada.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ================= AUTOEVALUACIÓN ================= -->
+    <section class="block" id="autoevaluacion">
+      <h2 class="block__title">Autoevaluación</h2>
+      <p class="block__lead">Ocho preguntas para fijar ideas</p>
+      <p class="block__desc">No cuenta para la acreditación (el cuestionario oficial es único, al final de los ocho módulos). Elige una opción y verás la explicación.</p>
+
+      <div class="quiz" id="quiz">
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>1</b> ¿Cuál es la forma correcta de anonimizar un Excel con ayuda de la IA?</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Subirlo a Claude y pedirle que lo anonimice</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Darle solo las cabeceras, que programe un anonimizador y ejecutarlo en local con los datos reales</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> No se puede usar la IA para nada relacionado con anonimizar</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. La IA solo ve la estructura y devuelve un programa. El dato real nunca sale de tu ordenador, que puede estar incluso sin conexión." data-ko="No. Subir los datos para que los anonimice ya es enviarlos a la nube. Lo correcto es que la IA programe la herramienta viendo solo las cabeceras y ejecutarla tú en local."></div>
+        </div>
+
+        <div class="q" data-answer="C">
+          <p class="q__text"><b>2</b> Para el análisis estadístico de tu estudio, el camino más sólido es…</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Pedir al modelo el resultado y copiarlo al manuscrito</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> No usar IA en ningún paso del análisis</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Que la IA te ayude a escribir un código determinista que entiendas, ejecutes y puedas auditar</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Mantienes el criterio y el control científico: el código da siempre el mismo resultado y puedes revisar cada decisión." data-ko="No. Ni copiar a ciegas ni renunciar a la IA. El camino es que te ayude a generar código determinista que tú entiendes y ejecutas."></div>
+        </div>
+
+        <div class="q" data-answer="A">
+          <p class="q__text"><b>3</b> Una skill es…</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Un prompt complejo con tu forma de hacer una tarea, guardado para reutilizarlo</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Un modelo de lenguaje especializado en medicina</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Un plan de pago de Claude</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Se crea explicándole al modelo cómo quieres hacer algo y se guarda. Existen en Claude, ChatGPT y Copilot; en Claude se pueden grabar con pantalla y voz." data-ko="No. Una skill es simplemente un conjunto de instrucciones tuyas, guardado para no tener que repetirlo en cada conversación."></div>
+        </div>
+
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>4</b> ¿Qué hace Litmaps?</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Redacta el borrador del artículo</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> A partir de un artículo semilla, dibuja un mapa de artículos relacionados por la red de citas</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Anonimiza bases de datos</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Más a la derecha, los más recientes; más arriba, los más citados. Sirve para encontrar lo que se te había escapado y como radar de novedades." data-ko="No. Litmaps es una herramienta de exploración: parte de un artículo semilla y muestra los relacionados según citas y referencias."></div>
+        </div>
+
+        <div class="q" data-answer="C">
+          <p class="q__text"><b>5</b> En la sesión, Deep Research se usó sobre todo para…</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Hacer la primera búsqueda rápida del tema</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Gestionar las referencias bibliográficas</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Consolidar en un informe integrado todo lo recopilado con otras herramientas</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Se le adjuntaron las respuestas de Google, Perplexity, Consensus y Elicit y se le pidió un informe que las contrastara. Además, hace búsquedas por su cuenta." data-ko="No. La búsqueda rápida fue con Perplexity y Google, y las referencias van a Zotero. Deep Research sirvió para consolidar lo recopilado."></div>
+        </div>
+
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>6</b> Google respondió que el riesgo de estenosis sube un 9 % por año sin tratamiento y Perplexity que un 5 %. ¿Qué haces?</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Me quedo con la media</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Voy al artículo original y compruebo qué dice exactamente</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Uso la de Google, que es más conocido</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Las dos respuestas llevaban cita y no coincidían. La única salida es la fuente primaria. El borrador final, tras contrastar, evitó dar un riesgo anual." data-ko="No. Ninguna de las dos es fiable por sí sola. Hay que ir al artículo original: cada cita existe y dice lo que afirmas."></div>
+        </div>
+
+        <div class="q" data-answer="A">
+          <p class="q__text"><b>7</b> "El estadístico del hospital tiene más trabajo que nunca." ¿Qué ilustra la anécdota?</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Que con la IA se proponen más estudios y el cuello de botella pasa a ser la revisión</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Que la IA no sirve para estadística</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Que los hospitales han dejado de investigar</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Dejaremos de hacer ciertas tareas y pasaremos a revisarlas. Producir es rápido; comprobar sigue llevando tiempo." data-ko="No. La anécdota muestra lo contrario: los médicos proponen más ensayos apoyados en la IA y lo que escasea es quien los revise."></div>
+        </div>
+
+        <div class="q" data-answer="C">
+          <p class="q__text"><b>8</b> Al redactar con ChatGPT o Claude dentro de Word, ¿qué le pasas para obtener un buen borrador?</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Solo el título del artículo</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> La base de datos con los pacientes sin anonimizar</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Los documentos recopilados, tu skill de estilo, los resultados procesados y la revista de destino con sus normas</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. El modelo actúa como coctelera: cuanto mejor sea lo que mezcla, mejor el borrador. Y escribe sobre el propio documento para que lo coedites." data-ko="No. Con solo el título inventará; y los datos sin anonimizar no deben subirse nunca. Dale el material recopilado, tu estilo, los resultados procesados y la revista."></div>
+        </div>
+
+        <div class="quiz__score" id="quizScore">
+          <span>Responde las ocho preguntas para ver tu resultado.</span>
+          <button type="button" id="quizReset">Reiniciar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= REFERENCIAS ================= -->
+    <section class="block" id="referencias">
+      <h2 class="block__title">Referencias</h2>
+      <p class="block__lead">Para profundizar</p>
+      <ul class="refs">
+        <li>Altman, S. (2025). <a href="https://blog.samaltman.com/abundant-intelligence" target="_blank" rel="noopener">Abundant Intelligence</a>. El texto citado al inicio de la sesión.</li>
+        <li>Revista Española de Enfermedades Digestivas. <a href="https://www.reed.es" target="_blank" rel="noopener">Normas para autores</a>. La revista elegida para orientar el borrador.</li>
+        <li>ICMJE. <a href="https://www.icmje.org/recommendations/" target="_blank" rel="noopener">Recomendaciones</a>, incluido el uso de IA en la preparación de manuscritos.</li>
+        <li>Dellon, E. S. et al. (2025). <a href="https://doi.org/10.14309/ajg.0000000000003194" target="_blank" rel="noopener">ACG Clinical Guideline: Diagnosis and Management of Eosinophilic Esophagitis</a>. Am J Gastroenterol 120:31-59. La guía de referencia que citan todas las herramientas.</li>
+        <li>Schoepfer, A. M. et al. (2013). <a href="https://doi.org/10.1053/j.gastro.2013.08.015" target="_blank" rel="noopener">Delay in diagnosis of eosinophilic esophagitis increases risk for stricture formation in a time-dependent manner</a>. Gastroenterology 145:1230-6. El origen de la cifra discutida.</li>
+        <li>Nicodème, F. et al. (2013). <a href="https://doi.org/10.1016/j.cgh.2013.03.020" target="_blank" rel="noopener">Esophageal distensibility as a measure of disease severity in patients with eosinophilic esophagitis</a>. Clin Gastroenterol Hepatol 11:1101-7.</li>
+        <li><a href="https://www.zotero.org/support/" target="_blank" rel="noopener">Documentación de Zotero</a> y <a href="https://www.litmaps.com" target="_blank" rel="noopener">Litmaps</a>.</li>
+        <li>AEPD. Orientaciones y garantías en los procedimientos de anonimización de datos personales, disponible en <a href="https://www.aepd.es" target="_blank" rel="noopener">aepd.es</a>.</li>
+      </ul>
+    </section>
+
+    <!-- ================= SIGUIENTE ================= -->
+    <section class="block" id="siguiente">
+      <h2 class="block__title">Siguiente sesión</h2>
+      <p class="block__lead">Prepárate para el Módulo 4</p>
+      <div class="info-grid">
+        <div class="info">
+          <h3>🗓️ Módulo 4 · La IA en el diagnóstico · 11 de diciembre</h3>
+          <p>Con el Dr. Javier Mendoza. Modelos razonadores y de frontera aplicados a casos clínicos anonimizados, y aplicaciones en enfermedad inflamatoria intestinal. Se retomará el análisis de datos y se verá cómo usar modelos de código abierto en local.</p>
+        </div>
+        <div class="info">
+          <h3>🖥️ Deberes opcionales</h3>
+          <ul>
+            <li>Recorre la cadena completa con una pregunta de tu área y guarda los documentos.</li>
+            <li>Programa tu anonimizador y pruébalo con una hoja ficticia.</li>
+            <li>Crea tu primera skill.</li>
+          </ul>
+        </div>
+        <div class="info">
+          <h3>💬 Dudas entre sesiones</h3>
+          <p>Formulario de la organización o <a href="mailto:formacion@sepd.es">formacion@sepd.es</a>. Se resuelven al inicio de la siguiente clase.</p>
+        </div>
+      </div>
+
+      <div class="pager">
+        <a href="modulo-2.html"><small>Anterior</small><strong>Módulo 2 · LLMs y Prompt Engineering Médico</strong></a>
+        <a href="index.html#programa" class="next"><small>Siguiente</small><strong>Módulo 4 · La IA en el diagnóstico (11 dic)</strong></a>
+      </div>
+    </section>
+
+  </div><!-- /ficha__main -->
+</div><!-- /ficha -->
+
+<section class="newsletter">
+  <div class="newsletter__text">
+    <p class="newsletter__eyebrow">Mantente al día</p>
+    <img class="newsletter__title" src="assets/sentinel-title.png" alt="The Independent Sentinel">
+    <p class="newsletter__desc">La newsletter de Javier Fuentes con los avances semanales en IA, ciencia de datos y las historias que conectan la tecnología con la cultura.</p>
+    <div class="newsletter__actions">
+      <a class="newsletter__btn" href="https://theindependentsentinel.substack.com/" target="_blank" rel="noopener">Suscribirse →</a>
+      <span class="newsletter__url">theindependentsentinel.substack.com</span>
+    </div>
+  </div>
+  <div class="newsletter__qr">
+    <img src="assets/sentinel-qr.png" alt="QR a The Independent Sentinel">
+    <span>Escanéame</span>
+  </div>
+</section>
+
+<footer class="footer">
+  <div>© 2026 · Material formativo del Curso de IA en Digestivo · SEPD · Elaborado por <a href="https://ncompany.es" target="_blank" rel="noopener">NCompany</a> a partir de la sesión del 13/11/2026</div>
+  <div>Ficha M3 · v1.0</div>
+</footer>
+</main>
+
+<script>
+// ---- Índice lateral ----
+(function () {
+  var links = document.querySelectorAll('.toc a[href^="#"]'), map = {};
+  links.forEach(function (a) { if (!a.closest('.toc__downloads')) map[a.getAttribute('href').slice(1)] = a; });
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.ficha__main .block'));
+  function update() {
+    var current = sections[0];
+    sections.forEach(function (s) { if (s.getBoundingClientRect().top <= 140) current = s; });
+    links.forEach(function (a) { a.classList.remove('is-active'); });
+    if (current && map[current.id]) map[current.id].classList.add('is-active');
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('load', update);
+})();
+
+// ---- Copiar prompts ----
+(function () {
+  document.querySelectorAll('.prompt__copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.closest('.prompt').querySelector('pre').textContent;
+      function done() { btn.textContent = 'Copiado ✓'; setTimeout(function () { btn.textContent = 'Copiar'; }, 1800); }
+      function fallback() {
+        var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(done, fallback); } else { fallback(); }
+    });
+  });
+})();
+
+// ---- Autoevaluación ----
+(function () {
+  var quiz = document.getElementById('quiz'); if (!quiz) return;
+  var questions = quiz.querySelectorAll('.q'), score = document.getElementById('quizScore'), scoreText = score.querySelector('span'), state = {};
+  function render() {
+    var done = Object.keys(state).length, ok = 0; for (var k in state) if (state[k]) ok++;
+    if (done < questions.length) { scoreText.textContent = done + ' de ' + questions.length + ' respondidas · ' + ok + ' correctas'; }
+    else {
+      var msg = ok === questions.length ? '¡Pleno! Ya puedes ponerte con tu paper.' : ok >= 6 ? 'Muy bien. Repasa las que fallaste en las ideas fuerza.' : 'Conviene releer el resumen y las ideas fuerza antes del módulo 4.';
+      scoreText.textContent = 'Resultado: ' + ok + ' / ' + questions.length + ' · ' + msg;
+    }
+  }
+  questions.forEach(function (q, i) {
+    var answer = q.getAttribute('data-answer'), fb = q.querySelector('.q__fb');
+    q.querySelectorAll('.q__opt').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (q.classList.contains('is-done')) return;
+        var right = btn.getAttribute('data-k') === answer;
+        q.classList.add('is-done'); btn.classList.add(right ? 'is-right' : 'is-wrong');
+        if (!right) q.querySelector('.q__opt[data-k="' + answer + '"]').classList.add('is-right');
+        fb.textContent = right ? fb.getAttribute('data-ok') : fb.getAttribute('data-ko'); fb.className = 'q__fb ' + (right ? 'ok' : 'ko');
+        state[i] = right; render();
+      });
+    });
+  });
+  document.getElementById('quizReset').addEventListener('click', function () {
+    state = {};
+    questions.forEach(function (q) { q.classList.remove('is-done'); q.querySelectorAll('.q__opt').forEach(function (b) { b.classList.remove('is-right', 'is-wrong'); }); var fb = q.querySelector('.q__fb'); fb.textContent = ''; fb.className = 'q__fb'; });
+    scoreText.textContent = 'Responde las ocho preguntas para ver tu resultado.';
+    quiz.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script>
+</body>
+</html>

@@ -9,6 +9,7 @@ sitio/sepd-curso/
 ├── index.html              Portada: programa (8 módulos), equipo docente, cómo funciona
 ├── modulo-1.html           Ficha del Módulo 1 · Fundamentos de IA
 ├── modulo-2.html           Ficha del Módulo 2 · LLMs y Prompt Engineering Médico
+├── modulo-3.html           Ficha del Módulo 3 · IA para la investigación (añade la sección `cadena`)
 ├── plantilla-modulo.html   Plantilla para los módulos 2-8 (textos entre [corchetes])
 ├── README.md
 └── assets/
@@ -17,6 +18,7 @@ sitio/sepd-curso/
     ├── sentinel-title.png, sentinel-qr.png   Bloque de newsletter The Independent Sentinel (en todas las páginas)
     ├── curso-logo.png      Logo "IA Generativa Digestiva"
     ├── equipo/             Retratos del equipo docente
+    ├── m3/                 Recursos del Módulo 3 (diapositivas, PDF y docs/ con los documentos generados en la sesión)
     ├── m2/                 Recursos del Módulo 2 (portada, mapa, slide-*.jpg, presentacion-sesion-2.pdf)
     └── m1/                 Recursos del Módulo 1
         ├── portada.jpg, mapa.jpg, slide-*.jpg     Diapositivas clave (renderizadas del PDF)

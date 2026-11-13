@@ -408,6 +408,16 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0
 @media (max-width: 640px) { .newsletter { padding: 28px 24px; } .newsletter__title { max-width: 280px; } }
 @media print { .newsletter { display: none !important; } }
 
+
+/* ---------- Tabla comparativa ---------- */
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); }
+table.cmp { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 640px; }
+table.cmp th { text-align: left; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #fff; background: var(--sepd-purple); padding: 10px 14px; }
+table.cmp td { padding: 12px 14px; border-top: 1px solid var(--border); vertical-align: top; color: var(--ink-soft); }
+table.cmp td strong { color: var(--ink); }
+table.cmp td small { color: var(--ink-mute); font-size: 12px; }
+table.cmp tbody tr:nth-child(even) { background: var(--bg-soft); }
+
 /* Responsive */
 @media (max-width: 960px) {
   .hero__inner { grid-template-columns: 1fr; padding: 40px 24px 36px; }
