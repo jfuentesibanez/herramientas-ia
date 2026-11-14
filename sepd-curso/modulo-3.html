@@ -32,9 +32,9 @@
       <p class="hero__subtitle">Una sola pregunta clínica recorre toda la sesión: de la búsqueda rápida a la evidencia citada, de la exploración de la literatura al informe consolidado y, al final, al borrador de un artículo en Word. Por el camino, cómo anonimizar datos sin que salgan del ordenador, cómo analizar con código que puedas auditar y cómo guardar tu forma de investigar en una skill.</p>
       <div class="hero__meta">
         <span><strong>Fecha</strong> 13 de noviembre de 2026</span>
-        <span><strong>Horario</strong> 16:00 – 19:30</span>
+        <span><strong>Horario</strong> 16:00 – 19:00</span>
         <span><strong>Ponente</strong> Javier Fuentes (NCompany)</span>
-        <span><strong>Con</strong> José Luis y Rubén, compañeros de la SEPD</span>
+        <span><strong>Con</strong> Dr. José Luis Rueda García y Dr. Rubén Díez Rodríguez (SEPD)</span>
       </div>
       <div class="hero__actions">
         <a class="btn btn--primary" href="#practica">Ir a la práctica</a>
@@ -56,6 +56,7 @@
     <a href="#ideas">Ideas fuerza</a>
     <a href="#recorrido">Recorrido de la sesión</a>
     <a href="#cadena">La cadena, documento a documento</a>
+    <a href="#invitados">Ponencias invitadas</a>
     <a href="#diapositivas">Diapositivas clave</a>
     <a href="#herramientas">Herramientas</a>
     <a href="#practica">Práctica guiada</a>
@@ -69,6 +70,8 @@
     <div class="toc__downloads">
       <a class="btn btn--ghost no-arrow" href="assets/m3/presentacion-sesion-3.pdf" target="_blank" rel="noopener">📄 Presentación (PDF)</a>
       <a class="btn btn--ghost no-arrow" href="#cadena">🗂️ Documentos de la sesión</a>
+      <a class="btn btn--ghost no-arrow" href="assets/m3/invitados/jose-luis-rueda-ia-analisis-estadistico.pdf" target="_blank" rel="noopener">📊 Ponencia Dr. Rueda (PDF)</a>
+      <a class="btn btn--ghost no-arrow" href="assets/m3/invitados/ruben-diez-segundo-cerebro.pdf" target="_blank" rel="noopener">🧠 Ponencia Dr. Díez (PDF)</a>
     </div>
   </nav>
 
@@ -89,7 +92,7 @@
 
       <p>Javier Fuentes plantea la sesión como un encargo: "hagamos un paper". De seis preguntas candidatas se elige una, <em>"Esofagitis eosinofílica más allá de los eosinófilos: tratar la fibrosis, no solo la histología"</em>, y se formula en formato PICO. Esa misma pregunta se lanza, tal cual, a una cadena de herramientas con fortalezas distintas: el modo IA de Google y Perplexity para un mapa rápido del tema, Consensus y Elicit para respuestas apoyadas en artículos reales, Litmaps para descubrir por la red de citas lo que se había escapado, y Zotero como biblioteca única de referencias.</p>
       <p>Con todo lo recopilado guardado en una carpeta, un Deep Research de ChatGPT consolida las respuestas en un informe integrado que contrasta afirmaciones y verifica cifras. Y con ese material como entrada, la extensión de ChatGPT dentro de Word (modelo GPT-6.1 Sol) redacta en inglés el borrador de una revisión narrativa adaptada a las normas de la Revista Española de Enfermedades Digestivas: resumen, puntos clave, tabla de evidencia, referencias con DOI y declaración de uso de IA. Todos esos documentos intermedios están disponibles más abajo.</p>
-      <p>La sesión incluyó dos intervenciones de compañeros de la SEPD. José Luis mostró cómo aplica la IA al diseño de ensayos y al análisis de datos, lo que dio pie a tres recomendaciones de Javier: programar con Claude un anonimizador que se ejecuta en local, usar la IA para generar código de análisis determinista que puedas entender y auditar, y empaquetar tu manera de investigar en una skill. Rubén presentó su "segundo cerebro" para investigar en medicina: una síntesis persistente de la bibliografía de un proyecto para que la IA no tenga que releer todos los PDF cada vez.</p>
+      <p>La sesión incluyó dos ponencias de compañeros de la SEPD. El Dr. José Luis Rueda García (Unidad de EII, Hospital Universitario La Paz) explicó cómo usa la IA para diseñar la base de datos de un estudio, limpiarla y hacer el análisis estadístico, con una recomendación central: pedir a la IA el código para tu software habitual, que es lo que después puedes declarar en el artículo. Javier añadió tres consejos: programar con Claude un anonimizador que se ejecuta en local, usar código de análisis determinista que puedas entender y auditar, y empaquetar tu manera de investigar en una skill. El Dr. Rubén Díez Rodríguez (Complejo Asistencial Universitario de León) presentó su "segundo cerebro" para investigar en medicina: una biblioteca de notas enlazadas que la IA construye una vez a partir de tus artículos, para no tener que releer todos los PDF en cada consulta. <a href="#invitados">Las dos ponencias, con sus diapositivas, más abajo.</a></p>
 
       <div class="callout callout--purple">
         <h4>Si solo te llevas una frase</h4>
@@ -162,8 +165,15 @@
         </div>
 
         <div class="step step--hi">
-          <h3><small>Intervención invitada</small> José Luis: la IA en el diseño de ensayos y el análisis de datos</h3>
-          <p>Un compañero de la SEPD mostró cómo ha empezado a aplicar la IA a su propia investigación: el tratamiento cuidadoso de los datos, el uso del modelo para generar el código de análisis y un prompt muy largo en el que ha volcado sus criterios y su forma de hacer las cosas. Javier lo subrayó como lo más valioso de la formación: ver a un compañero que ya lo aplica. De esa intervención salieron las recomendaciones del bloque siguiente.</p>
+          <h3><small>Ponencia invitada</small> Dr. José Luis Rueda García: uso de IA para el análisis estadístico</h3>
+          <p>Un compañero de la SEPD, de la Unidad de EII del Hospital Universitario La Paz, mostró cómo aplica ya la IA a su propia investigación. Avisó de entrada de que es su uso individual, no una recomendación universal.</p>
+          <ul>
+            <li><strong>Base de datos.</strong> Siempre anónima. Se puede pedir a la IA que la diseñe a partir del protocolo y, si usas REDCap, que genere el fichero que se importa como diccionario de datos.</li>
+            <li><strong>Limpieza.</strong> Todo plan de análisis empieza por revisar los datos y cazar los valores erróneos que impiden calcular los endpoints.</li>
+            <li><strong>Análisis.</strong> Mejor pedir el código para R o Stata, lo más simple posible, que dejar que la IA calcule sola. El código se puede declarar y guardar en un repositorio.</li>
+            <li><strong>Límites.</strong> Saber de antemano qué quieres pedir a tus datos y no añadir análisis solo porque la IA los sugiere. Las covariables se deciden con criterio clínico.</li>
+          </ul>
+          <p>Javier lo subrayó como lo más valioso de la formación: ver a un compañero que ya lo aplica. <a href="#invitados">Resumen completo y diapositivas en Ponencias invitadas.</a></p>
         </div>
 
         <div class="step">
@@ -197,8 +207,14 @@
         </div>
 
         <div class="step step--hi">
-          <h3><small>Intervención invitada</small> Rubén: un segundo cerebro para investigar en medicina</h3>
-          <p>El problema: carpetas llenas de PDF y resúmenes que, un mes después, ya no sabes dónde están; y una IA a la que hay que volver a cargar todos los documentos y pedir el mismo resumen cada vez. La solución que Rubén adoptó, y que usa en una de las tesis que dirige, es un segundo cerebro: una síntesis persistente de la información del proyecto, de modo que la IA parte de esa síntesis en lugar de releer todos los PDF desde cero. Se gana en orden, en continuidad y en consumo de tokens. "El saber no ocupa lugar, pero hay que recordar dónde y cómo lo hemos guardado."</p>
+          <h3><small>Ponencia invitada</small> Dr. Rubén Díez Rodríguez: un segundo cerebro para investigar en medicina</h3>
+          <p>El problema: revisas un tema, pides un resumen a la IA y, un mes después, hay que recuperar las fuentes y pedirle que reconstruya el trabajo. No hay una síntesis guardada, la IA vuelve a procesarlo todo y el consumo de tokens sube. La solución que adoptó el Dr. Díez, del Complejo Asistencial Universitario de León, y que usa en una de las tesis que dirige, es un segundo cerebro: una biblioteca de notas en Markdown, enlazadas entre sí, que la IA construye una sola vez a partir de los artículos y que después se consulta, se amplía y se corrige.</p>
+          <ul>
+            <li><strong>Dos herramientas.</strong> Claude Code o Codex leen los artículos y escriben las notas. Obsidian permite leerlas y seguir sus conexiones.</li>
+            <li><strong>Un patrón.</strong> El "LLM Wiki" de Andrej Karpathy, que se adjunta al prompt inicial.</li>
+            <li><strong>Una cautela.</strong> Empezar con un solo artículo y comparar la nota con el PDF antes de añadir más.</li>
+          </ul>
+          <p>«El saber no ocupa lugar… pero conviene recordar dónde y cómo lo hemos guardado». <a href="#invitados">Los cinco pasos y las diapositivas en Ponencias invitadas.</a></p>
         </div>
 
         <div class="step">
@@ -290,6 +306,128 @@
       </div>
     </section>
 
+    <!-- ================= PONENCIAS INVITADAS ================= -->
+    <section class="block" id="invitados">
+      <h2 class="block__title">Ponencias invitadas</h2>
+      <p class="block__lead">Dos compañeros de la SEPD que ya lo aplican</p>
+      <p class="block__desc">Resumen de las dos ponencias a partir de las diapositivas que presentaron sus autores, con el PDF completo de cada una.</p>
+
+      <h3 style="font-size:18px;margin:26px 0 4px">📊 Uso de IA para el análisis estadístico</h3>
+      <p style="margin:0 0 14px;color:var(--ink-soft)"><strong>Dr. José Luis Rueda García</strong> · Unidad de EII, Servicio de Aparato Digestivo, Hospital Universitario La Paz · <a href="assets/m3/invitados/jose-luis-rueda-ia-analisis-estadistico.pdf" target="_blank" rel="noopener">Descargar la presentación (PDF)</a></p>
+
+      <div class="callout">
+        <h4>Aviso del ponente</h4>
+        <p>La presentación refleja su uso individual de la IA en investigación. No son recomendaciones universalmente aplicables.</p>
+      </div>
+
+      <p style="margin-top:16px">Ha usado la IA en cuatro momentos de un estudio: el protocolo, el diseño de la base de datos (en Excel o en REDCap), el análisis de datos y la redacción del manuscrito. La ponencia se centra en los dos del medio.</p>
+
+      <div class="info-grid">
+        <div class="info">
+          <h3>🗃️ Diseñar la base de datos</h3>
+          <ul>
+            <li>Lo fundamental: base anónima, sin nombres, apellidos ni número de historia clínica.</li>
+            <li>Revisa los nombres de las variables si después vas a usar un software de análisis.</li>
+            <li>Se puede generar desde el propio protocolo, con el <a href="#prompts">prompt 9</a>.</li>
+            <li>En REDCap, la IA crea un fichero CSV que se sube en <em>Project setup</em>, <em>Data Dictionary</em>. No hace falta montar el formulario a mano en el <em>Online Designer</em>.</li>
+          </ul>
+        </div>
+        <div class="info">
+          <h3>🧹 Limpiar antes de analizar</h3>
+          <ul>
+            <li>Todo plan de análisis estadístico empieza por una revisión de los datos.</li>
+            <li>Busca los valores erróneos que impiden derivar otras variables: una fecha de nacimiento imposible que da una edad negativa, una suspensión de tratamiento sin fecha.</li>
+            <li>Empieza por las variables de las que depende el cálculo de tus endpoints.</li>
+          </ul>
+        </div>
+        <div class="info">
+          <h3>📈 Dos formas de analizar</h3>
+          <ul>
+            <li><strong>En el entorno de la IA:</strong> subir el cuaderno de recogida de datos y que haga los cálculos. A veces falla, sobre todo con modelos antiguos.</li>
+            <li><strong>Pedir el código o la sintaxis</strong> para el software que ya usas (R, Stata). Es la opción recomendable: se puede declarar en Material y métodos y guardar en un repositorio.</li>
+            <li>Pide siempre el código más simple posible.</li>
+          </ul>
+        </div>
+        <div class="info">
+          <h3>🧭 El plan manda</h3>
+          <ul>
+            <li>Lo ideal es saber de antemano qué quieres pedir a tus datos. Así controlas la "conversación interminable" con la IA.</li>
+            <li>El análisis multivariante ayuda a corregir el sobreajuste, el error principal de los modelos en estudios clínicos.</li>
+            <li>La elección de las covariables del modelo, y de las de un <em>propensity score</em>, sigue siendo clínica.</li>
+          </ul>
+        </div>
+        <div class="info">
+          <h3>🖼️ Tablas y figuras</h3>
+          <ul>
+            <li>Las tablas: facilita mucho la clásica Tabla 1.</li>
+            <li>Las figuras: mejor pedir a la IA la sintaxis y generarlas en tu software. Hay revistas que no aceptan contenido generado por IA.</li>
+          </ul>
+        </div>
+        <div class="info">
+          <h3>💡 Sus consejos</h3>
+          <ul>
+            <li>Automatiza el proceso con una skill en Claude o un GPT en ChatGPT. La suya analiza la base fase a fase, según su plan y con su autorización en cada paso.</li>
+            <li>Pon un límite a lo que preguntas. No hagas análisis no planificados solo porque la IA los propone una y otra vez.</li>
+            <li>En la redacción, pide que "rebaje" el nivel de inglés.</li>
+            <li>Declara siempre el uso responsable de la IA en el artículo. Su ejemplo de agradecimientos indica que se usó para escribir el código del análisis y corregir el estilo.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="slides" style="margin-top:18px">
+        <figure><a href="assets/m3/invitados/rueda-06.jpg" target="_blank"><img src="assets/m3/invitados/rueda-06.jpg" alt="Diapositiva del Dr. Rueda: diseño de la base de datos, anónima y generada desde el protocolo"></a><figcaption>Diseño de la base de datos: anónima y generada desde el protocolo.</figcaption></figure>
+        <figure><a href="assets/m3/invitados/rueda-09.jpg" target="_blank"><img src="assets/m3/invitados/rueda-09.jpg" alt="Diapositiva del Dr. Rueda: limpieza de la base, con ejemplos de valores erróneos"></a><figcaption>Limpieza: los valores erróneos que impiden derivar otras variables.</figcaption></figure>
+        <figure><a href="assets/m3/invitados/rueda-10.jpg" target="_blank"><img src="assets/m3/invitados/rueda-10.jpg" alt="Diapositiva del Dr. Rueda: analizar en el entorno de la IA o pedir código para R o Stata"></a><figcaption>Análisis: pedir el código es la opción recomendable y declarable.</figcaption></figure>
+        <figure><a href="assets/m3/invitados/rueda-11.jpg" target="_blank"><img src="assets/m3/invitados/rueda-11.jpg" alt="Diapositiva del Dr. Rueda: plan de análisis estadístico, multivariante y propensity scores"></a><figcaption>El plan de análisis y las decisiones que siguen siendo clínicas.</figcaption></figure>
+        <figure><a href="assets/m3/invitados/rueda-14.jpg" target="_blank"><img src="assets/m3/invitados/rueda-14.jpg" alt="Diapositiva del Dr. Rueda: consejos para poner límites a la IA"></a><figcaption>Consejos: poner límites a lo que se pregunta a la IA.</figcaption></figure>
+      </div>
+
+      <h3 style="font-size:18px;margin:36px 0 4px">🧠 Un segundo cerebro para investigar en medicina</h3>
+      <p style="margin:0 0 14px;color:var(--ink-soft)"><strong>Dr. Rubén Díez Rodríguez</strong> · Complejo Asistencial Universitario de León · <a href="assets/m3/invitados/ruben-diez-segundo-cerebro.pdf" target="_blank" rel="noopener">Descargar la presentación (PDF)</a></p>
+
+      <p><strong>El problema: repetir el trabajo.</strong> Hoy revisas un tema, entregas varios artículos a la IA y pides un resumen. Dentro de un mes surge otra revisión, lo recuerdas vagamente y toca recuperar las fuentes y pedir a la IA que reconstruya lo ya hecho. Sin una síntesis guardada, la IA procesa toda la información de nuevo y el consumo de tokens aumenta.</p>
+      <p><strong>La solución: una biblioteca de notas enlazadas.</strong> Los artículos originales se conservan en PDF. A partir de ellos, la IA escribe una nota por artículo con su resumen, sus etiquetas y sus enlaces a otras notas. Las notas son ficheros de texto en Markdown, que cualquier editor puede abrir. Es el patrón "LLM Wiki" de Andrej Karpathy: la IA lee tus fuentes una sola vez y construye una base de conocimiento viva.</p>
+
+      <div class="table-wrap" style="margin:16px 0">
+        <table class="cmp" style="min-width:420px">
+          <thead><tr><th>En la carpeta del proyecto</th><th>Qué contiene</th></tr></thead>
+          <tbody>
+            <tr><td><strong>raw</strong></td><td>Los artículos originales en PDF.</td></tr>
+            <tr><td><strong>wiki</strong></td><td>Las notas de lectura y las síntesis por temas.</td></tr>
+            <tr><td><strong>CLAUDE.md</strong></td><td>Las instrucciones para la IA.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Los originales se conservan y la IA trabaja sobre las notas. Claude Code o Codex leen los artículos y preparan y actualizan las notas. Obsidian sirve para leerlas y seguir sus conexiones. Tú eliges las fuentes y revisas lo que escribe la IA.</p>
+
+      <ol class="steps" style="margin-top:14px">
+        <li><strong>Crea las carpetas.</strong> Una carpeta para el proyecto y, dentro, la subcarpeta <em>raw</em> con los PDF. Abre Claude, entra en Code y selecciona esa carpeta como carpeta de trabajo. Empieza con pocos artículos.</li>
+        <li><strong>Lanza el prompt inicial.</strong> Explica quién eres y para qué quieres el segundo cerebro, y pide que te pregunte lo que necesite antes de empezar. Es el <a href="#prompts">prompt 10</a>.</li>
+        <li><strong>Adjunta el patrón LLM Wiki</strong> de Karpathy, para que la IA sepa cómo organizar las notas.</li>
+        <li><strong>Revisa una prueba pequeña.</strong> Un solo artículo, comparando la nota con el PDF. ¿Describe bien la población? ¿Conserva cifras y unidades? ¿Recoge las limitaciones? ¿Puedes localizar la fuente? Después incorpora más.</li>
+        <li><strong>Abre la carpeta en Obsidian</strong> con la opción "Abrir una carpeta como bóveda". El grafo dibuja las notas como puntos y los enlaces como líneas, pero lo útil es llegar al contenido y a sus referencias.</li>
+      </ol>
+
+      <div class="info-grid" style="margin-top:16px">
+        <div class="info"><h3>📌 Usar</h3><p>Referencia el segundo cerebro en tus trabajos para que la IA saque de ahí la información que necesita.</p></div>
+        <div class="info"><h3>➕ Añadir</h3><p>Incorpora los artículos nuevos según aparezcan.</p></div>
+        <div class="info"><h3>✏️ Corregir</h3><p>Pide que revise un dato contra el PDF. Los enlaces llevan del tema a cada artículo y a su fuente.</p></div>
+      </div>
+
+      <div class="callout callout--purple" style="margin-top:16px">
+        <h4>Para terminar</h4>
+        <p>Una síntesis generada por IA sigue siendo un apoyo para la investigación. No sustituye a la validación posterior.</p>
+      </div>
+
+      <div class="slides" style="margin-top:18px">
+        <figure><a href="assets/m3/invitados/diez-04.jpg" target="_blank"><img src="assets/m3/invitados/diez-04.jpg" alt="Diapositiva del Dr. Díez: el problema de repetir el trabajo"></a><figcaption>El problema: repetir el trabajo un mes después.</figcaption></figure>
+        <figure><a href="assets/m3/invitados/diez-08.jpg" target="_blank"><img src="assets/m3/invitados/diez-08.jpg" alt="Diapositiva del Dr. Díez: documentos originales y notas que podemos consultar"></a><figcaption>La solución: documentos originales y notas consultables.</figcaption></figure>
+        <figure><a href="assets/m3/invitados/diez-10.jpg" target="_blank"><img src="assets/m3/invitados/diez-10.jpg" alt="Diapositiva del Dr. Díez: qué guardamos en la carpeta"></a><figcaption>Qué se guarda en la carpeta: raw, wiki y CLAUDE.md.</figcaption></figure>
+        <figure><a href="assets/m3/invitados/diez-14.jpg" target="_blank"><img src="assets/m3/invitados/diez-14.jpg" alt="Diapositiva del Dr. Díez: revisar una prueba pequeña"></a><figcaption>Revisar una prueba pequeña antes de añadir más artículos.</figcaption></figure>
+        <figure><a href="assets/m3/invitados/diez-16.jpg" target="_blank"><img src="assets/m3/invitados/diez-16.jpg" alt="Diapositiva del Dr. Díez: usar, añadir y corregir"></a><figcaption>Usar, añadir y corregir.</figcaption></figure>
+      </div>
+    </section>
+
     <!-- ================= DIAPOSITIVAS ================= -->
     <section class="block" id="diapositivas">
       <h2 class="block__title">Diapositivas clave</h2>
@@ -315,7 +453,7 @@
     <section class="block" id="herramientas">
       <h2 class="block__title">Herramientas y recursos</h2>
       <p class="block__lead">Una herramienta para cada paso</p>
-      <p class="block__desc">Ordenadas según el mapa "Del buscador al paper". Las etiquetas indican el paso y el coste orientativo.</p>
+      <p class="block__desc">Ordenadas según el mapa "Del buscador al paper". Las etiquetas indican el paso y el coste orientativo. Al final, las que presentaron los ponentes invitados.</p>
 
       <div class="tools">
         <div class="tool">
@@ -415,6 +553,34 @@
           <p class="tool__use"><strong>Para qué:</strong> el resumen visual, el póster y las diapositivas del congreso. Se verán con detalle en el módulo de generación multimedia.</p>
           <a class="tool__link" href="https://gamma.app" target="_blank" rel="noopener">gamma.app</a>
         </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">REDCap</h3><div class="tool__tags"><span class="pill pill--purple">Ponencia Dr. Rueda</span><span class="pill pill--ok">Gratis para instituciones sin ánimo de lucro</span></div></div>
+          <p class="tool__desc">Plataforma web para crear y gestionar bases de datos de investigación clínica, habitual en hospitales.</p>
+          <p class="tool__use"><strong>Para qué:</strong> recoger los datos del estudio. La IA puede generar el CSV del diccionario de datos a partir del protocolo, y se importa en <em>Project setup</em>.</p>
+          <a class="tool__link" href="https://projectredcap.org" target="_blank" rel="noopener">projectredcap.org</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">R · Stata</h3><div class="tool__tags"><span class="pill pill--purple">Ponencia Dr. Rueda</span><span class="pill pill--grey">R gratis · Stata de pago</span></div></div>
+          <p class="tool__desc">El software estadístico de siempre. La IA escribe el código o la sintaxis y el cálculo lo hace el programa.</p>
+          <p class="tool__use"><strong>Para qué:</strong> un análisis que puedes declarar en Material y métodos, repetir y guardar en un repositorio. También para las figuras.</p>
+          <a class="tool__link" href="https://www.r-project.org" target="_blank" rel="noopener">r-project.org</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Obsidian</h3><div class="tool__tags"><span class="pill pill--purple">Ponencia Dr. Díez</span><span class="pill pill--ok">Gratis</span></div></div>
+          <p class="tool__desc">Aplicación de notas que trabaja sobre ficheros Markdown guardados en tu ordenador y muestra los enlaces entre ellas como un grafo.</p>
+          <p class="tool__use"><strong>Para qué:</strong> leer el segundo cerebro y seguir sus conexiones, abriendo la carpeta del proyecto como bóveda.</p>
+          <a class="tool__link" href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a>
+        </div>
+
+        <div class="tool">
+          <div class="tool__head"><h3 class="tool__name">Claude Code · Codex</h3><div class="tool__tags"><span class="pill pill--purple">Ponencia Dr. Díez</span><span class="pill pill--warn">Plan de pago</span></div></div>
+          <p class="tool__desc">Los asistentes de Anthropic y OpenAI que trabajan dentro de una carpeta de tu ordenador: leen ficheros, y crean y modifican otros.</p>
+          <p class="tool__use"><strong>Para qué:</strong> leer los artículos de la carpeta <em>raw</em> y escribir y mantener las notas de la carpeta <em>wiki</em>. Solo con artículos, nunca con datos de pacientes.</p>
+          <a class="tool__link" href="https://claude.com/claude-code" target="_blank" rel="noopener">claude.com/claude-code</a>
+        </div>
       </div>
     </section>
 
@@ -481,7 +647,7 @@
     <section class="block" id="prompts">
       <h2 class="block__title">Prompts para copiar</h2>
       <p class="block__lead">Los prompts de la sesión, listos para pegar</p>
-      <p class="block__desc">Redactados a partir de lo que se dijo y se hizo en clase. Sustituye lo que va entre corchetes.</p>
+      <p class="block__desc">Los ocho primeros están redactados a partir de lo que se dijo y se hizo en clase: sustituye lo que va entre corchetes. Los dos últimos son los de las diapositivas de los ponentes invitados, tal como los mostraron: cambia el tema y tu contexto por los tuyos.</p>
 
       <div class="prompts">
         <div class="prompt">
@@ -571,6 +737,16 @@ Para cada referencia, busca el artículo original y dime:
 
 No des por buena ninguna que no hayas podido abrir. Devuélvelo en una tabla y lista aparte las que debo revisar yo personalmente.</pre>
         </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>9 · Diseñar la base de datos desde el protocolo (Dr. Rueda)</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>Desde este protocolo, diseña una base de datos en Excel que recoja todas las variables necesarias para 1) generar una estadística descriptiva completa de las características basales completas de los pacientes 2) permita el cálculo del endpoint primario 3) permita el cálculo de los endpoints secundarios</pre>
+        </div>
+
+        <div class="prompt">
+          <div class="prompt__head"><span>10 · Construir un segundo cerebro con el patrón LLM Wiki (Dr. Díez)</span><button type="button" class="prompt__copy">Copiar</button></div>
+<pre>Aquí abajo tienes el patrón LLM WIKI de Karpathy adjunto. Constrúyeme un segundo cerebro Hígado graso. Contexto: soy hepatólogo y estoy haciendo una tesis doctoral sobre el tema. Crea el hígado_code.md, la estructura y luego lee todos los archivos del raw/ y construye un cerebro sobre el hígado graso. Mi idea es tener a su disposición todos los conocimientos generados para poder usarlos en la elaboración de mi tesis. Párate a preguntarme lo que necesites antes de empezar.</pre>
+        </div>
       </div>
     </section>
 
@@ -657,6 +833,15 @@ No des por buena ninguna que no hayas podido abrir. Devuélvelo en una tabla y l
         <div><dt>Cowork</dt><dd>Modo en que el asistente, con permiso, usa herramientas y ficheros de tu ordenador para completar tareas.</dd></div>
         <div><dt>Segundo cerebro</dt><dd>Sistema personal de notas y síntesis que conserva el conocimiento de un proyecto para ti y para la IA, sin releer cada fuente.</dd></div>
         <div><dt>Modelo frontera</dt><dd>Los modelos más capaces del momento. Para investigación y análisis, el más alto que tengas.</dd></div>
+        <div><dt>SAP (plan de análisis estadístico)</dt><dd>Documento que fija, antes de mirar los datos, qué análisis se van a hacer y cómo.</dd></div>
+        <div><dt>CRD</dt><dd>Cuaderno de recogida de datos: la base donde se registran las variables de cada paciente del estudio.</dd></div>
+        <div><dt>REDCap</dt><dd>Plataforma web para bases de datos de investigación clínica. Su diccionario de datos (Data Dictionary) es un CSV que define todas las variables.</dd></div>
+        <div><dt>Sobreajuste (overfitting)</dt><dd>Modelo estadístico tan ajustado a la muestra que no se sostiene fuera de ella. Suele aparecer con demasiadas variables para pocos pacientes.</dd></div>
+        <div><dt>Propensity score</dt><dd>Probabilidad de recibir un tratamiento según las características del paciente. Se usa para comparar grupos no aleatorizados.</dd></div>
+        <div><dt>Tabla 1</dt><dd>La tabla de características basales de los pacientes con la que empieza casi cualquier artículo clínico.</dd></div>
+        <div><dt>Markdown</dt><dd>Forma sencilla de dar formato a un texto plano con símbolos como almohadillas, guiones y asteriscos. Los ficheros terminan en .md.</dd></div>
+        <div><dt>LLM Wiki</dt><dd>Patrón propuesto por Andrej Karpathy: la IA lee tus fuentes una vez y mantiene una biblioteca de notas Markdown enlazadas.</dd></div>
+        <div><dt>Bóveda (Obsidian)</dt><dd>La carpeta de notas que Obsidian abre como un proyecto. Sus ficheros siguen siendo tuyos y están en tu ordenador.</dd></div>
         <div><dt>Hazard ratio e intervalo de confianza</dt><dd>Medida de riesgo relativo en el tiempo y su margen de incertidumbre. Si el intervalo incluye el 1, no hay diferencia demostrada.</dd></div>
       </dl>
     </section>
@@ -664,7 +849,7 @@ No des por buena ninguna que no hayas podido abrir. Devuélvelo en una tabla y l
     <!-- ================= AUTOEVALUACIÓN ================= -->
     <section class="block" id="autoevaluacion">
       <h2 class="block__title">Autoevaluación</h2>
-      <p class="block__lead">Ocho preguntas para fijar ideas</p>
+      <p class="block__lead">Diez preguntas para fijar ideas</p>
       <p class="block__desc">No cuenta para la acreditación (el cuestionario oficial es único, al final de los ocho módulos). Elige una opción y verás la explicación.</p>
 
       <div class="quiz" id="quiz">
@@ -748,8 +933,28 @@ No des por buena ninguna que no hayas podido abrir. Devuélvelo en una tabla y l
           <div class="q__fb" data-ok="Correcto. El modelo actúa como coctelera: cuanto mejor sea lo que mezcla, mejor el borrador. Y escribe sobre el propio documento para que lo coedites." data-ko="No. Con solo el título inventará; y los datos sin anonimizar no deben subirse nunca. Dale el material recopilado, tu estilo, los resultados procesados y la revista."></div>
         </div>
 
+        <div class="q" data-answer="B">
+          <p class="q__text"><b>9</b> Según la ponencia del Dr. Rueda, ¿cuál es la forma recomendable de hacer el análisis estadístico con IA?</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Subir la base y copiar los resultados que calcule la IA</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Pedirle el código o la sintaxis más simple posible para tu software habitual (R, Stata) y ejecutarlo tú</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Dejar que la IA vaya proponiendo análisis nuevos hasta que salga algo significativo</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. El código es declarable en Material y métodos, se puede guardar en un repositorio y lo ejecuta tu software de siempre." data-ko="No. El cálculo directo a veces falla y no se puede declarar igual, y añadir análisis no planificados porque la IA los sugiere es justo lo que hay que evitar. Lo recomendable es pedir el código para tu software."></div>
+        </div>
+
+        <div class="q" data-answer="C">
+          <p class="q__text"><b>10</b> Estás montando un segundo cerebro con tus artículos. ¿Qué haces antes de cargar toda la bibliografía?</p>
+          <div class="q__opts">
+            <button class="q__opt" data-k="A"><span class="k">A</span> Nada: cuantos más artículos de golpe, mejor síntesis</button>
+            <button class="q__opt" data-k="B"><span class="k">B</span> Borrar los PDF originales, porque ya están resumidos en las notas</button>
+            <button class="q__opt" data-k="C"><span class="k">C</span> Probar con un solo artículo y comparar la nota con el PDF: población, cifras y unidades, limitaciones y fuente</button>
+          </div>
+          <div class="q__fb" data-ok="Correcto. Primero una prueba pequeña revisada contra el original. Los PDF se conservan siempre: la IA trabaja sobre las notas." data-ko="No. Los originales se conservan siempre y, antes de añadir más, se revisa una nota contra su PDF para comprobar que la IA resume con fidelidad."></div>
+        </div>
+
         <div class="quiz__score" id="quizScore">
-          <span>Responde las ocho preguntas para ver tu resultado.</span>
+          <span>Responde las diez preguntas para ver tu resultado.</span>
           <button type="button" id="quizReset">Reiniciar</button>
         </div>
       </div>
@@ -767,6 +972,8 @@ No des por buena ninguna que no hayas podido abrir. Devuélvelo en una tabla y l
         <li>Schoepfer, A. M. et al. (2013). <a href="https://doi.org/10.1053/j.gastro.2013.08.015" target="_blank" rel="noopener">Delay in diagnosis of eosinophilic esophagitis increases risk for stricture formation in a time-dependent manner</a>. Gastroenterology 145:1230-6. El origen de la cifra discutida.</li>
         <li>Nicodème, F. et al. (2013). <a href="https://doi.org/10.1016/j.cgh.2013.03.020" target="_blank" rel="noopener">Esophageal distensibility as a measure of disease severity in patients with eosinophilic esophagitis</a>. Clin Gastroenterol Hepatol 11:1101-7.</li>
         <li><a href="https://www.zotero.org/support/" target="_blank" rel="noopener">Documentación de Zotero</a> y <a href="https://www.litmaps.com" target="_blank" rel="noopener">Litmaps</a>.</li>
+        <li>Karpathy, A. <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">LLM Wiki</a>. El patrón que se adjunta al prompt del segundo cerebro, citado en la ponencia del Dr. Díez.</li>
+        <li><a href="https://obsidian.md" target="_blank" rel="noopener">Obsidian</a> y <a href="https://projectredcap.org" target="_blank" rel="noopener">REDCap</a>, las herramientas de las ponencias invitadas.</li>
         <li>AEPD. Orientaciones y garantías en los procedimientos de anonimización de datos personales, disponible en <a href="https://www.aepd.es" target="_blank" rel="noopener">aepd.es</a>.</li>
       </ul>
     </section>
@@ -821,7 +1028,7 @@ No des por buena ninguna que no hayas podido abrir. Devuélvelo en una tabla y l
 
 <footer class="footer">
   <div>© 2026 · Material formativo del Curso de IA en Digestivo · SEPD · Elaborado por <a href="https://ncompany.es" target="_blank" rel="noopener">NCompany</a> a partir de la sesión del 13/11/2026</div>
-  <div>Ficha M3 · v1.0</div>
+  <div>Ficha M3 · v1.1</div>
 </footer>
 </main>
 
@@ -865,7 +1072,7 @@ No des por buena ninguna que no hayas podido abrir. Devuélvelo en una tabla y l
     var done = Object.keys(state).length, ok = 0; for (var k in state) if (state[k]) ok++;
     if (done < questions.length) { scoreText.textContent = done + ' de ' + questions.length + ' respondidas · ' + ok + ' correctas'; }
     else {
-      var msg = ok === questions.length ? '¡Pleno! Ya puedes ponerte con tu paper.' : ok >= 6 ? 'Muy bien. Repasa las que fallaste en las ideas fuerza.' : 'Conviene releer el resumen y las ideas fuerza antes del módulo 4.';
+      var msg = ok === questions.length ? '¡Pleno! Ya puedes ponerte con tu paper.' : ok >= 8 ? 'Muy bien. Repasa las que fallaste en las ideas fuerza.' : 'Conviene releer el resumen y las ideas fuerza antes del módulo 4.';
       scoreText.textContent = 'Resultado: ' + ok + ' / ' + questions.length + ' · ' + msg;
     }
   }
@@ -885,7 +1092,7 @@ No des por buena ninguna que no hayas podido abrir. Devuélvelo en una tabla y l
   document.getElementById('quizReset').addEventListener('click', function () {
     state = {};
     questions.forEach(function (q) { q.classList.remove('is-done'); q.querySelectorAll('.q__opt').forEach(function (b) { b.classList.remove('is-right', 'is-wrong'); }); var fb = q.querySelector('.q__fb'); fb.textContent = ''; fb.className = 'q__fb'; });
-    scoreText.textContent = 'Responde las ocho preguntas para ver tu resultado.';
+    scoreText.textContent = 'Responde las diez preguntas para ver tu resultado.';
     quiz.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 })();

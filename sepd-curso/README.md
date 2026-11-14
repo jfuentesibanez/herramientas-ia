@@ -18,7 +18,7 @@ sitio/sepd-curso/
     ├── sentinel-title.png, sentinel-qr.png   Bloque de newsletter The Independent Sentinel (en todas las páginas)
     ├── curso-logo.png      Logo "IA Generativa Digestiva"
     ├── equipo/             Retratos del equipo docente
-    ├── m3/                 Recursos del Módulo 3 (diapositivas, PDF y docs/ con los documentos generados en la sesión)
+    ├── m3/                 Recursos del Módulo 3 (diapositivas, PDF, docs/ con los documentos generados en la sesión e invitados/ con las ponencias de los doctores Rueda y Díez)
     ├── m2/                 Recursos del Módulo 2 (portada, mapa, slide-*.jpg, presentacion-sesion-2.pdf)
     └── m1/                 Recursos del Módulo 1
         ├── portada.jpg, mapa.jpg, slide-*.jpg     Diapositivas clave (renderizadas del PDF)
