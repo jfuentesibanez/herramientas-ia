@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller IA · ICO L'Hospitalet</title>
+<meta name="description" content="Herramientas de IA del taller «IA en cáncer de pulmón: manos a la obra» con Roche en el ICO L'Hospitalet (23 de noviembre de 2026): investigación, datos, agentes, diagnóstico, ofimática y reglas de oro.">
+<style>
+:root {
+  color-scheme: light;
+  --jj: #0B41CD;
+  --jj-dark: #022366;
+  --jj-soft: #E8EEFC;
+  --navy: #1E3A5F;
+  --teal: #2A8C9A;
+  --teal-soft: #E8F5F7;
+  --sand: #F3EFE8;
+  --ink: #1C1C1E;
+  --ink-soft: #4A4F57;
+  --ink-mute: #6E737B;
+  --border: #E4E2DE;
+  --bg: #FFFFFF;
+  --bg-soft: #FAF8F5;
+  --code-bg: #1F2329;
+  --code-ink: #F2F2F2;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--jj-dark); }
+.container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+/* HERO */
+.hero { background: var(--sand); border-bottom: 1px solid var(--border); }
+.hero .container { padding-top: 48px; padding-bottom: 48px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; }
+.hero__logo { height: 40px; width: auto; margin-bottom: 28px; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--jj-dark); margin: 0 0 10px; }
+.hero h1 { font-size: clamp(32px, 5vw, 48px); line-height: 1.08; margin: 0 0 16px; letter-spacing: -.02em; }
+.hero h1 span { color: var(--jj); }
+.hero__lead { font-size: 18px; color: var(--ink-soft); margin: 0 0 22px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 13px; background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; color: var(--ink-soft); }
+.hero__img { border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+
+/* NAV */
+.toc { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+.toc .container { display: flex; gap: 4px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+.toc a { white-space: nowrap; text-decoration: none; color: var(--ink-soft); font-size: 14px; font-weight: 600; padding: 6px 12px; border-radius: 8px; }
+.toc a:hover { background: var(--jj-soft); color: var(--jj-dark); }
+.toc a b { color: var(--jj); margin-right: 4px; }
+
+/* SECTIONS */
+section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+section.alt { background: var(--bg-soft); }
+.sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+.sec-num { font-size: 56px; font-weight: 800; line-height: 1; color: var(--jj); }
+h2 { font-size: clamp(26px, 3.6vw, 34px); margin: 0; letter-spacing: -.01em; }
+.sec-intro { color: var(--ink-soft); font-size: 17px; max-width: 760px; margin: 8px 0 32px; }
+h3 { font-size: 21px; margin: 0 0 8px; }
+h4 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-mute); margin: 24px 0 10px; }
+p { margin: 0 0 14px; }
+
+.grid { display: grid; gap: 20px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+.card h3 { font-size: 18px; }
+.card p:last-child { margin-bottom: 0; }
+.card small { color: var(--ink-mute); }
+figure { margin: 0; }
+figure img { border-radius: 10px; border: 1px solid var(--border); background: #fff; }
+figcaption { font-size: 13px; color: var(--ink-mute); margin-top: 8px; }
+.news-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.news-card img { border: 0; border-radius: 0; border-bottom: 1px solid var(--border); aspect-ratio: 16/10; object-fit: cover; object-position: top; width: 100%; }
+.news-card .body { padding: 18px 20px 20px; }
+.news-card .date { font-size: 12px; font-weight: 700; color: var(--jj-dark); text-transform: uppercase; letter-spacing: .08em; }
+
+.callout { border-left: 4px solid var(--jj); background: var(--jj-soft); padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 24px 0; }
+.callout p:last-child { margin: 0; }
+.callout.teal { border-color: var(--teal); background: var(--teal-soft); }
+
+/* Gemini basics list */
+.tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+.tool { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+.tool strong { display: block; font-size: 15px; margin-bottom: 4px; }
+.tool span { font-size: 14px; color: var(--ink-soft); }
+.tool em { font-style: normal; font-size: 12px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: .06em; }
+
+/* Case */
+.case-intro { display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; align-items: start; }
+.lumina-logo { background: #F1F1F1; border-radius: 14px; padding: 28px; margin-bottom: 18px; }
+.lumina-logo img { border: 0; }
+.facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.fact { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+.fact b { display: block; font-size: 22px; color: var(--navy); }
+.fact span { font-size: 13px; color: var(--ink-soft); }
+.people { margin: 0; padding: 0; list-style: none; }
+.people li { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+.people li:last-child { border: 0; }
+.people b { color: var(--navy); }
+
+.phase { border: 1px solid var(--border); border-radius: 16px; background: #fff; margin: 28px 0; overflow: hidden; }
+.phase__head { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; padding: 22px 26px; color: #fff; }
+.phase__n { font-size: 13px; font-weight: 800; letter-spacing: .12em; background: rgba(255,255,255,.18); border-radius: 8px; padding: 8px 10px; text-align: center; line-height: 1.2; }
+.phase__n b { display: block; font-size: 26px; letter-spacing: 0; }
+.phase__head h3 { margin: 0; font-size: 22px; color: #fff; }
+.phase__head p { margin: 2px 0 0; opacity: .85; font-size: 15px; }
+.phase__body { padding: 24px 26px 28px; }
+.ph1 .phase__head { background: #1F3A5C; }
+.ph2 .phase__head { background: #24506C; }
+.ph3 .phase__head { background: #27657B; }
+.ph4 .phase__head { background: #297A8A; }
+.ph5 .phase__head { background: #2B8E99; }
+.phase__meta { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 8px; }
+.phase__meta div { background: var(--bg-soft); border-radius: 10px; padding: 12px 16px; font-size: 14px; }
+.phase__meta div b { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-mute); margin-bottom: 4px; }
+.q { font-style: italic; color: var(--jj-dark); font-weight: 600; font-size: 15px; }
+
+/* Prompt blocks */
+.prompt { margin: 18px 0; border-radius: 12px; overflow: hidden; border: 1px solid #2c3138; }
+.prompt__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #2A2F36; color: #E6E6E6; padding: 9px 12px 9px 16px; font-size: 13px; font-weight: 600; }
+.prompt__bar .tag { color: #9DB8FF; margin-right: 8px; text-transform: uppercase; letter-spacing: .08em; font-size: 11px; }
+.copy { appearance: none; border: 1px solid #4A515A; background: transparent; color: #fff; font: inherit; font-size: 12px; padding: 5px 12px; border-radius: 7px; cursor: pointer; flex-shrink: 0; }
+.copy:hover { background: var(--jj); border-color: var(--jj); }
+.copy.ok { background: #2F9E62; border-color: #2F9E62; }
+.prompt pre { margin: 0; padding: 18px 20px; background: var(--code-bg); color: var(--code-ink); font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13.5px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; overflow-x: auto; }
+.note { font-size: 14px; color: var(--ink-soft); }
+.steps { margin: 6px 0 0; padding-left: 20px; font-size: 15px; }
+.steps li { margin-bottom: 6px; }
+.badge { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: 3px 8px; border-radius: 6px; background: var(--teal-soft); color: var(--teal); vertical-align: middle; }
+.badge.warn { background: #FFF4E0; color: #A3620A; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-mute); background: var(--bg-soft); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: #fff; }
+
+/* Downloads */
+.dl { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.dl a { display: flex; gap: 14px; align-items: center; text-decoration: none; color: var(--ink); background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; transition: border-color .15s, transform .15s; }
+.dl a:hover { border-color: var(--jj); transform: translateY(-1px); }
+.dl .ico { width: 40px; height: 40px; border-radius: 10px; background: var(--jj-soft); color: var(--jj-dark); display: grid; place-items: center; font-weight: 800; font-size: 12px; flex-shrink: 0; }
+.dl small { display: block; color: var(--ink-mute); font-size: 13px; }
+
+
+footer { padding: 36px 0 48px; color: var(--ink-mute); font-size: 14px; }
+footer .container { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+footer img { height: 22px; width: auto; }
+
+/* Newsletter */
+.newsletter {
+  position: relative;
+  border-radius: 14px;
+  padding: 36px 40px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  justify-content: space-between;
+  align-items: center;
+  color: #FDF6E3;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(255, 140, 60, 0.45), transparent 55%),
+    radial-gradient(circle at 15% 85%, rgba(220, 60, 80, 0.35), transparent 50%),
+    linear-gradient(135deg, #1a0e08 0%, #2d1410 45%, #4a1d1a 100%);
+  box-shadow: 0 10px 30px rgba(74, 29, 26, 0.25), inset 0 0 60px rgba(0,0,0,0.35);
+  isolation: isolate;
+}
+.newsletter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(255, 180, 100, 0.18), transparent 40%);
+  z-index: -1;
+}
+.newsletter__text { flex: 1; min-width: 260px; }
+.newsletter__eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #F2B872;
+  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.newsletter__eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, #F2B872, transparent);
+}
+.newsletter__title {
+  margin: 0 0 12px;
+  display: block;
+  max-width: 380px;
+  width: 100%;
+  height: auto;
+  filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.45));
+}
+.newsletter__desc {
+  margin: 0 0 18px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: rgba(253, 246, 227, 0.82);
+  max-width: 480px;
+}
+.newsletter__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.newsletter__btn {
+  background: linear-gradient(135deg, #FFB347 0%, #FF7E47 100%);
+  color: #1a0e08;
+  text-decoration: none;
+  padding: 12px 22px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(255, 126, 71, 0.4);
+  transition: transform .15s ease, box-shadow .15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.newsletter__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 126, 71, 0.55);
+}
+.newsletter__url {
+  font-family: "SF Mono", "Menlo", "Monaco", monospace;
+  font-size: 12px;
+  color: rgba(253, 246, 227, 0.65);
+  letter-spacing: 0.02em;
+}
+.newsletter__qr {
+  flex-shrink: 0;
+  background: #FFF4E0;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  text-align: center;
+}
+.newsletter__qr img {
+  display: block;
+  width: 130px;
+  height: 130px;
+  border-radius: 4px;
+}
+.newsletter__qr span {
+  display: block;
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4a1d1a;
+}
+@media (max-width: 640px) {
+  .newsletter { padding: 28px 24px; }
+  .newsletter__title { max-width: 280px; }
+}
+
+@media (max-width: 860px) {
+  .hero .container, .case-intro { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 620px) {
+  .container { padding: 0 16px; }
+  .grid-2, .grid-3, .phase__meta { grid-template-columns: 1fr; }
+  section { padding: 44px 0; }
+  .sec-num { font-size: 40px; }
+  .phase__head, .phase__body { padding-left: 18px; padding-right: 18px; }
+}
+@media print {
+  .toc, .copy { display: none; }
+  .prompt pre { max-height: none; background: #f4f4f4; color: #111; }
+  section { break-inside: avoid-page; }
+}
+</style>
+
+<style>
+/* Shared additions */
+.brand { font-weight: 800; font-size: 15px; letter-spacing: .02em; color: var(--jj); margin-bottom: 26px; }
+.brand span { color: var(--ink-mute); font-weight: 600; }
+.rule { background: var(--navy); color: #fff; border-radius: 14px; padding: 22px 26px; display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; margin-top: 28px; }
+.rule b { font-size: 22px; line-height: 1.2; }
+.rule p { margin: 0; opacity: .88; font-size: 15px; }
+.patient { display: grid; grid-template-columns: 1fr 1.25fr; gap: 28px; align-items: start; }
+.timeline { list-style: none; margin: 0; padding: 0 0 0 22px; border-left: 2px solid var(--jj-soft); }
+.timeline li { position: relative; padding: 0 0 18px 14px; font-size: 15px; }
+.timeline li::before { content: ""; position: absolute; left: -29px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--jj); border: 3px solid #fff; box-shadow: 0 0 0 1px var(--jj); }
+.timeline li b { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--jj-dark); }
+.ph1 .phase__head { background: #7A0D00; }
+.ph2 .phase__head { background: #8E1000; }
+.ph3 .phase__head { background: #A31300; }
+.ph4 .phase__head { background: #B81500; }
+.ph5 .phase__head { background: #C91600; }
+.ph6 .phase__head { background: #D71600; }
+.phb .phase__head { background: var(--navy); }
+.decision { border: 1px dashed var(--border); border-radius: 10px; padding: 12px 16px; font-size: 14px; background: var(--bg-soft); margin-top: 14px; }
+.decision b { color: var(--teal); }
+.tool-card { display: flex; flex-direction: column; }
+.tool-card .kind { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--teal); }
+.tool-card h3 { margin-top: 4px; }
+.tool-card p { font-size: 15px; color: var(--ink-soft); flex: 1; }
+.tool-card a.btn { align-self: flex-start; text-decoration: none; font-size: 14px; font-weight: 700; border: 1px solid var(--jj); color: var(--jj-dark); padding: 6px 14px; border-radius: 8px; }
+.tool-card a.btn:hover { background: var(--jj-soft); }
+.tool-card .btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.tool-card a.btn--main { background: var(--jj); color: #fff; }
+.tool-card a.btn--main:hover { background: var(--jj-dark); }
+.golden { counter-reset: g; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.golden li { counter-increment: g; position: relative; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px 14px 56px; font-size: 15px; }
+.golden li::before { content: counter(g); position: absolute; left: 16px; top: 13px; width: 28px; height: 28px; border-radius: 50%; background: var(--jj); color: #fff; font-weight: 800; display: grid; place-items: center; font-size: 14px; }
+.hero--solo .container { grid-template-columns: 1fr; }
+.hero--solo .hero__lead { max-width: 760px; }
+.disclosure { font-size: 13px; color: var(--ink-mute); }
+@media (max-width: 860px) { .patient { grid-template-columns: 1fr; } }
+@media (max-width: 620px) { .golden { grid-template-columns: 1fr; } .rule { grid-template-columns: 1fr; } }
+</style>
+<style>
+/* Additions for Roche Zaragoza / Barcelona */
+.block-tools { display: flex; flex-wrap: wrap; gap: 6px; margin: -18px 0 28px; }
+.block-tools .chip { background: var(--jj-soft); border-color: transparent; color: var(--jj-dark); font-weight: 600; }
+.video-card { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: center; }
+.video-card video { width: 100%; border-radius: 12px; background: #000; aspect-ratio: 9/16; object-fit: cover; }
+.sub { font-size: 17px; margin: 36px 0 14px; color: var(--navy); }
+@media (max-width: 620px) { .video-card { grid-template-columns: 1fr; } .video-card video { max-width: 240px; } }
+</style>
+<style>
+/* Additions for Roche ICO */
+a.tool { display: block; text-decoration: none; color: inherit; transition: border-color .15s, transform .15s; }
+a.tool:hover { border-color: var(--jj); transform: translateY(-1px); }
+a.tool strong::after { content: " ↗"; color: var(--jj); font-weight: 600; }
+.step { margin-top: 44px; padding-top: 32px; border-top: 1px solid var(--border); }
+.step__n { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; background: var(--jj); color: #fff; border-radius: 6px; padding: 4px 9px; margin-bottom: 10px; }
+.step__n.alt { background: var(--navy); }
+.step h3 { font-size: 23px; margin-bottom: 6px; }
+.step > p { color: var(--ink-soft); max-width: 760px; margin-bottom: 18px; }
+.pico { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
+.pico div { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; font-size: 14px; }
+.pico b { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--jj-dark); margin-bottom: 4px; }
+.question { background: var(--navy); color: #fff; border-radius: 14px; padding: 24px 28px; font-size: 19px; line-height: 1.4; font-weight: 600; }
+.question small { display: block; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .7; margin-bottom: 8px; }
+.hero__cta { display: inline-block; margin-top: 22px; text-decoration: none; font-weight: 700; font-size: 15px; background: var(--jj); color: #fff; padding: 10px 18px; border-radius: 9px; }
+.hero__cta:hover { background: var(--jj-dark); }
+.monday { background: var(--jj-soft); border-radius: 14px; padding: 22px 26px; margin-top: 24px; font-size: 17px; }
+.monday b { color: var(--jj-dark); }
+@media (max-width: 860px) { .pico { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 620px) { .pico { grid-template-columns: 1fr; } }
+</style>
+<body>
+
+<header class="hero hero--solo">
+  <div class="container">
+    <div>
+      <div class="brand">Roche <span>· Taller de IA generativa</span></div>
+      <p class="eyebrow">Taller práctico · ICO L'Hospitalet</p>
+      <h1><span>IA</span> en cáncer de pulmón: manos a la obra</h1>
+      <p class="hero__lead">Las herramientas del taller, en el orden en que las usamos: de la pregunta de investigación al borrador, un caso clínico con un modelo de frontera, y la IA dentro de Excel, PowerPoint y el vídeo. Con cada prompt listo para copiar y las reglas de oro para llevar.</p>
+      <div class="meta">
+        <span class="chip">Lunes, 23 de noviembre de 2026</span>
+        <span class="chip">Institut Català d'Oncologia · L'Hospitalet</span>
+        <span class="chip">Javier Fuentes · N Company</span>
+      </div>
+      <a class="hero__cta" href="https://jfuentesibanez.github.io/roche-ico-2026/" target="_blank" rel="noopener">Ver la presentación del taller ↗</a>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Índice">
+  <div class="container">
+    <a href="#investigacion"><b>1</b>Investigación</a>
+    <a href="#datos"><b>2</b>Datos y método</a>
+    <a href="#agente"><b>3</b>El agente</a>
+    <a href="#diagnostico"><b>4</b>Diagnóstico</a>
+    <a href="#ofimatica"><b>5</b>Ofimática y avatares</a>
+    <a href="#reglas"><b>6</b>Reglas de oro</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- 1 · INVESTIGACIÓN -->
+<section id="investigacion">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">1</span><h2>Investigación: de la pregunta al borrador</h2></div>
+    <p class="sec-intro">Una pregunta, muchas herramientas. Ninguna lo hace todo bien: se recoge de varias, se contrasta y se consolida. Cinco pasos; cada cifra, a su fuente.</p>
+
+    <div class="question"><small>La pregunta de investigación</small>¿Cuál sería el perfil del paciente largo superviviente que recibe inmunoterapia con cáncer de pulmón y cáncer de cabeza y cuello?</div>
+    <div class="pico">
+      <div><b>P · Población</b>Cáncer de pulmón y cáncer de cabeza y cuello avanzados.</div>
+      <div><b>I · Intervención</b>Inmunoterapia (inhibidores de PD-1/PD-L1).</div>
+      <div><b>C · Comparador</b>Pacientes que no alcanzan el largo plazo.</div>
+      <div><b>O · Resultado</b>Perfil del largo superviviente: clínico, tumoral y de respuesta.</div>
+    </div>
+
+    <!-- Paso 01 -->
+    <div class="step">
+      <span class="step__n">Paso 01 · Búsqueda general</span>
+      <h3>Empieza por la pregunta</h3>
+      <p>Lanza la misma pregunta, con las mismas palabras, a varios buscadores. Es el primer mapa del tema: todavía no es una fuente para citar.</p>
+      <div class="tools">
+        <a class="tool" href="https://www.google.com/aimode" target="_blank" rel="noopener"><em>Buscador con IA</em><strong>Google · modo IA</strong><span>La búsqueda de Google respondida por Gemini, con enlaces a las páginas de origen.</span></a>
+        <a class="tool" href="https://www.perplexity.ai" target="_blank" rel="noopener"><em>Buscador con IA</em><strong>Perplexity</strong><span>Síntesis rápida y estructurada con citas numeradas. Revisa cada una antes de darla por buena.</span></a>
+        <a class="tool" href="https://chatgpt.com" target="_blank" rel="noopener"><em>Buscador con IA</em><strong>ChatGPT · búsqueda</strong><span>ChatGPT con la búsqueda web activada: responde y enlaza las fuentes que ha consultado.</span></a>
+      </div>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Prompt</span>La misma pregunta a todos</span><button class="copy" type="button">Copiar</button></div>
+<pre>¿Cuál sería el perfil del paciente largo superviviente que recibe inmunoterapia con cáncer de pulmón y cáncer de cabeza y cuello?</pre>
+      </div>
+      <div class="callout"><p><b>Fíjate:</b> ¿dan la misma cifra a 5 años? Apunta las dos. Sirven para el mapa, no para citar.</p></div>
+      <h4>Lo que respondió en el taller</h4>
+      <div class="dl">
+        <a href="assets/informes/largo-superviviente-perplexity.pdf" target="_blank" rel="noopener"><span class="ico">PDF</span><span><b>Respuesta de Perplexity</b><small>3 páginas</small></span></a>
+      </div>
+    </div>
+
+    <!-- Paso 02 -->
+    <div class="step">
+      <span class="step__n">Paso 02 · Evidencia</span>
+      <h3>Vuelve al artículo original</h3>
+      <p>La misma pregunta, a herramientas que solo responden con artículos. ¿De dónde sale cada cifra? ¿Qué fuerza tiene la evidencia?</p>
+      <div class="tools">
+        <a class="tool" href="https://www.openevidence.com" target="_blank" rel="noopener"><em>IA médica</em><strong>OpenEvidence</strong><span>Respuesta clínica apoyada en ensayos y revistas de referencia. Gratuita para profesionales sanitarios.</span></a>
+        <a class="tool" href="https://consensus.app" target="_blank" rel="noopener"><em>Buscador de artículos</em><strong>Consensus</strong><span>Busca solo en literatura revisada por pares e indica la fuerza de la evidencia de cada hallazgo.</span></a>
+        <a class="tool" href="https://elicit.com" target="_blank" rel="noopener"><em>Revisión de literatura</em><strong>Elicit</strong><span>Informe tipo <i>paper</i> con tabla de estudios. Déjalo trabajando en modo profundo y recógelo después.</span></a>
+        <a class="tool" href="https://claude.com/connectors/pubmed" target="_blank" rel="noopener"><em>Conector</em><strong>Claude + PubMed</strong><span>Claude con el conector de PubMed: busca y lee directamente en la base de datos, con PMID y DOI.</span></a>
+      </div>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Prompt</span>Graduar la evidencia</span><button class="copy" type="button">Copiar</button></div>
+<pre>[Pega la pregunta anterior] Gradúa la fuerza de la evidencia de cada afirmación, distingue ensayo aleatorizado, análisis exploratorio y extensión de seguimiento, y enlaza cada cifra a su artículo.</pre>
+      </div>
+      <div class="callout"><p><b>Fíjate:</b> las herramientas de evidencia matizan. ¿Cuál es más prudente?</p></div>
+      <h4>Lo que respondieron en el taller</h4>
+      <div class="dl">
+        <a href="assets/informes/largo-superviviente-openevidence.pdf" target="_blank" rel="noopener"><span class="ico">PDF</span><span><b>Respuesta de OpenEvidence</b><small>5 páginas · con figura del estudio citado</small></span></a>
+        <a href="assets/informes/largo-superviviente-elicit.pdf" target="_blank" rel="noopener"><span class="ico">PDF</span><span><b>Informe de Elicit</b><small>16 páginas · no encontró datos de cabeza y cuello</small></span></a>
+      </div>
+    </div>
+
+    <!-- Paso 03 -->
+    <div class="step">
+      <span class="step__n">Paso 03 · Exploración y biblioteca</span>
+      <h3>Reúne fuentes que puedas auditar</h3>
+      <p>Parte de un artículo semilla, sigue la red de citas y guarda los originales. Después sube tus documentos y pide una tabla que puedas comprobar dato a dato.</p>
+      <div class="tools">
+        <a class="tool" href="https://www.litmaps.com" target="_blank" rel="noopener"><em>Mapa de literatura</em><strong>Litmaps</strong><span>Dibuja la red de trabajos relacionados con un artículo: a la derecha, lo más reciente; arriba, lo más citado.</span></a>
+        <a class="tool" href="https://www.zotero.org" target="_blank" rel="noopener"><em>Gestor de referencias</em><strong>Zotero</strong><span>Tu biblioteca: guarda los PDF originales y sus metadatos, y cita desde Word. Gratuito y de código abierto.</span></a>
+        <a class="tool" href="https://notebooklm.google.com" target="_blank" rel="noopener"><em>Cuaderno con tus fuentes</em><strong>NotebookLM</strong><span>Responde solo con los documentos que subes y enlaza cada frase al fragmento exacto.</span></a>
+        <a class="tool" href="https://claude.ai" target="_blank" rel="noopener"><em>Proyecto con tus fuentes</em><strong>Claude · Proyecto</strong><span>Un espacio con tus documentos e instrucciones fijas, compartido entre todas las conversaciones.</span></a>
+        <a class="tool" href="https://chatgpt.com" target="_blank" rel="noopener"><em>Proyecto con tus fuentes</em><strong>ChatGPT · Proyecto</strong><span>Lo mismo en ChatGPT: archivos, instrucciones y conversaciones reunidos por tema.</span></a>
+        <a class="tool" href="https://m365.cloud.microsoft" target="_blank" rel="noopener"><em>Corporativo</em><strong>Copilot</strong><span>El asistente de Microsoft 365: trabaja con los documentos de tu OneDrive y SharePoint.</span></a>
+      </div>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Semilla</span>Artículo de partida para Litmaps</span><button class="copy" type="button">Copiar</button></div>
+<pre>Horn L, et al. First-Line Atezolizumab plus Chemotherapy in Extensive-Stage Small-Cell Lung Cancer. N Engl J Med. 2018. DOI: 10.1056/NEJMoa1809064</pre>
+      </div>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Prompt</span>Tabla de evidencia auditable</span><button class="copy" type="button">Copiar</button></div>
+<pre>Usa solo los documentos cargados. Construye una tabla con: estudio, diseño, n, población, brazos, SG mediana, SG a 3, 5 y 7 años, y la página o diapositiva exacta de cada dato. Si un dato no aparece, escribe «no consta». Después, dime en qué se contradicen los documentos.</pre>
+      </div>
+      <div class="callout"><p><b>Fíjate:</b> elige dos cifras al azar y búscalas tú en el PDF. Si no están donde dice, no está bien.</p></div>
+    </div>
+
+    <!-- Paso 04 -->
+    <div class="step">
+      <span class="step__n">Paso 04 · Consolidación y redacción</span>
+      <h3>De las fuentes al borrador</h3>
+      <p>Junta todo lo recopilado y que lo consolide por ti. Después, redacta donde escribes: con la IA dentro de Word.</p>
+      <h4>Consolidar</h4>
+      <div class="tools">
+        <a class="tool" href="https://notebooklm.google.com" target="_blank" rel="noopener"><em>Dentro de tus fuentes</em><strong>NotebookLM</strong><span>Se queda en lo que has subido y enlaza cada frase a su origen.</span></a>
+        <a class="tool" href="https://chatgpt.com" target="_blank" rel="noopener"><em>Investigación profunda</em><strong>ChatGPT · investigación avanzada</strong><span>Dedica varios minutos a buscar y leer decenas de fuentes y entrega un informe largo y citado.</span></a>
+        <a class="tool" href="https://gemini.google.com" target="_blank" rel="noopener"><em>Investigación profunda</em><strong>Gemini · Deep Research</strong><span>El mismo modo en Gemini: plan de búsqueda, lectura e informe.</span></a>
+        <a class="tool" href="https://claude.ai" target="_blank" rel="noopener"><em>Investigación profunda</em><strong>Claude · Research</strong><span>El mismo modo en Claude, que además puede usar tus conectores (PubMed, Drive).</span></a>
+      </div>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Prompt</span>Informe integrado</span><button class="copy" type="button">Copiar</button></div>
+<pre>Te adjunto todo lo que he recopilado sobre esta pregunta: [pregunta]. Las respuestas de los buscadores, los informes de Consensus y Elicit, y mis documentos. Consolídalo en un informe integrado. Contrasta las cifras que no coinciden entre fuentes, di cuál es la fuente primaria de cada una y señala qué afirmaciones no tienen respaldo en un artículo.</pre>
+      </div>
+      <div class="callout"><p><b>Fíjate:</b> NotebookLM se queda dentro de tus fuentes y enlaza cada frase. Deep Research sale a buscar más: tarda más y hay que revisar más.</p></div>
+      <h4>El informe consolidado del taller</h4>
+      <div class="dl">
+        <a href="assets/informes/largo-superviviente-informe-integrado.pdf" target="_blank" rel="noopener"><span class="ico">PDF</span><span><b>Informe integrado (ChatGPT Deep Research)</b><small>6 páginas · contrasta los informes anteriores y señala sus errores</small></span></a>
+      </div>
+      <h4>Redactar</h4>
+      <div class="tools">
+        <a class="tool" href="https://chatgpt.com" target="_blank" rel="noopener"><em>Dentro de Word</em><strong>ChatGPT en Word</strong><span>ChatGPT trabajando sobre el propio documento de Word.</span></a>
+        <a class="tool" href="https://claude.com/claude-for-microsoft-365" target="_blank" rel="noopener"><em>Dentro de Word</em><strong>Claude en Word</strong><span>Complemento de Microsoft 365: Claude en un panel lateral, escribiendo y revisando sobre tu documento.</span></a>
+        <a class="tool" href="https://m365.cloud.microsoft" target="_blank" rel="noopener"><em>Dentro de Word</em><strong>Copilot en Word</strong><span>El asistente integrado de Microsoft 365, si tu centro lo tiene contratado.</span></a>
+      </div>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Prompt</span>Borrador de revisión narrativa</span><button class="copy" type="button">Copiar</button></div>
+<pre>Con los documentos adjuntos, redacta en inglés el borrador de una revisión narrativa para Clinical and Translational Oncology, siguiendo sus normas para autores: resumen, puntos clave, tabla de evidencia, referencias con DOI y declaración de uso de IA. Deja entre corchetes lo que solo pueden rellenar los autores.</pre>
+      </div>
+      <div class="callout"><p><b>Fíjate:</b> escribe sobre el documento para que lo coedites. Es un borrador, no un artículo.</p></div>
+    </div>
+
+    <!-- Paso 05 -->
+    <div class="step">
+      <span class="step__n">Paso 05 · Verificación</span>
+      <h3>Cada cita existe. Y dice lo que afirmas</h3>
+      <p>Comprueba el DOI, el dato y la página. La comprobación final es tuya.</p>
+      <div class="tools">
+        <a class="tool" href="https://claude.com/connectors/pubmed" target="_blank" rel="noopener"><em>Conector</em><strong>Claude + PubMed</strong><span>Comprueba referencia por referencia contra PubMed y te devuelve la tabla de lo que ha podido confirmar.</span></a>
+        <a class="tool" href="https://scite.ai" target="_blank" rel="noopener"><em>Verificación de citas</em><strong>Scite</strong><span>Muestra si los trabajos posteriores apoyan, contradicen o solo mencionan cada artículo.</span></a>
+        <a class="tool" href="https://www.zotero.org" target="_blank" rel="noopener"><em>Gestor de referencias</em><strong>Zotero</strong><span>Si la referencia está en tu biblioteca con su PDF, existe. Y puedes abrir la página.</span></a>
+      </div>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Prompt</span>Revisión referencia por referencia</span><button class="copy" type="button">Copiar</button></div>
+<pre>Revisa este borrador referencia por referencia. Para cada una: comprueba que el DOI existe, que la cifra citada aparece en el artículo y en qué página, y dame una tabla con: afirmación, referencia, ¿lo dice?, página. Marca en rojo lo que no puedas comprobar.</pre>
+      </div>
+      <div class="callout"><p><b>Fíjate:</b> el cuello de botella ya no es producir. Es comprobar. Este paso es tuyo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · DATOS Y MÉTODO -->
+<section id="datos" class="alt">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">2</span><h2>Datos y método: sin sacar el dato del hospital</h2></div>
+    <p class="sec-intro">Tres ideas para trabajar con datos de pacientes y no repetirte: la IA ve solo la estructura, le pides el código y no el resultado, y lo que explicas una vez lo guardas como skill.</p>
+
+    <div class="dl" style="margin-bottom:8px">
+      <a href="assets/pacientes-ficticios-cpcp.xlsx" download><span class="ico">XLSX</span><span><b>Excel de ejemplo</b><small>200 pacientes ficticios de CPCP · para practicar</small></span></a>
+    </div>
+
+    <div class="step">
+      <span class="step__n alt">Datos de pacientes</span>
+      <h3>El dato no sale del hospital. Sale solo la estructura</h3>
+      <p>Pásale a la IA únicamente las cabeceras de tu Excel y pídele una herramienta que anonimice en tu propio ordenador, sin conexión.</p>
+      <div class="tools">
+        <a class="tool" href="https://claude.ai" target="_blank" rel="noopener"><em>Mini-aplicaciones</em><strong>Claude · artefactos</strong><span>Claude programa una pequeña aplicación web que puedes descargar como un único fichero HTML.</span></a>
+        <a class="tool" href="https://chatgpt.com" target="_blank" rel="noopener"><em>Mini-aplicaciones</em><strong>ChatGPT · Canvas</strong><span>El equivalente en ChatGPT: escribe y ejecuta el código en un panel junto a la conversación.</span></a>
+      </div>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Prompt</span>Anonimizador sin conexión</span><button class="copy" type="button">Copiar</button></div>
+<pre>Te paso solo las cabeceras de mi Excel: NHC, nombre, fecha_nacimiento, fecha_diagnostico, estadio, linea_tratamiento, fecha_progresion, fecha_ultimo_contacto, exitus. Prográmame un único fichero HTML que funcione sin conexión, lea el Excel en el navegador, sustituya los identificadores por códigos, convierta las fechas en días desde el diagnóstico y genere aparte una clave de reversión.</pre>
+      </div>
+      <div class="callout"><p><b>Fíjate:</b> la IA solo ha visto las cabeceras. El Excel real lo abres tú, en tu ordenador, sin conexión.</p></div>
+    </div>
+
+    <div class="step">
+      <span class="step__n alt">Análisis</span>
+      <h3>Pide el código, no el resultado</h3>
+      <p>Un resultado que te da el chat no se puede reproducir. Un código en R o Python, sí.</p>
+      <div class="tools">
+        <a class="tool" href="https://claude.ai" target="_blank" rel="noopener"><em>Modelo</em><strong>Claude</strong><span>Escribe y comenta el código del análisis para que lo entienda un clínico.</span></a>
+        <a class="tool" href="https://chatgpt.com" target="_blank" rel="noopener"><em>Modelo</em><strong>ChatGPT</strong><span>Lo mismo, y puede ejecutar el código sobre datos sintéticos para enseñarte la curva.</span></a>
+        <a class="tool" href="https://posit.co/download/rstudio-desktop/" target="_blank" rel="noopener"><em>En tu ordenador</em><strong>R / Python</strong><span>El código se ejecuta en tu equipo (por ejemplo, con RStudio), sobre el dato real, sin subirlo a ningún sitio.</span></a>
+      </div>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Prompt</span>Kaplan-Meier comentado</span><button class="copy" type="button">Copiar</button></div>
+<pre>Genera un dataset sintético de 200 pacientes con CPCP en estadio extendido con las columnas anonimizadas del paso anterior. Después escribe el código en R para la curva de Kaplan-Meier, la SG mediana con IC 95 % y la proporción viva a 3, 5 y 7 años. Comenta cada línea para que lo entienda un clínico.</pre>
+      </div>
+      <div class="callout"><p><b>Fíjate:</b> mismo código, mismo dato, mismo resultado. Eso se puede declarar en el artículo.</p></div>
+    </div>
+
+    <div class="step">
+      <span class="step__n alt">Skills</span>
+      <h3>Lo que explicas una vez, no lo repitas</h3>
+      <p>Una skill es un prompt largo que no quieres repetir: tu manera de leer un ensayo, guardada para reutilizarla. El agente del siguiente bloque la puede usar.</p>
+      <div class="tools">
+        <a class="tool" href="https://claude.com/skills" target="_blank" rel="noopener"><em>Instrucciones reutilizables</em><strong>Claude · Skills</strong><span>Instrucciones y recursos que Claude carga cuando la tarea lo pide.</span></a>
+        <a class="tool" href="https://chatgpt.com/gpts" target="_blank" rel="noopener"><em>Instrucciones reutilizables</em><strong>ChatGPT · GPTs</strong><span>Un ChatGPT a medida con tus instrucciones y documentos, que puedes compartir con el servicio.</span></a>
+        <a class="tool" href="https://m365.cloud.microsoft" target="_blank" rel="noopener"><em>Instrucciones reutilizables</em><strong>Copilot · agentes</strong><span>El equivalente en Microsoft 365, sobre los documentos de tu organización.</span></a>
+      </div>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Prompt</span>Crear una skill de lectura de ensayos</span><button class="copy" type="button">Copiar</button></div>
+<pre>Quiero crear una skill. Te voy a explicar cómo leo yo un ensayo de oncología torácica: qué miro primero, qué me hace desconfiar y cómo resumo para mi servicio. Hazme las preguntas que necesites, una a una. Al final, redáctalo como instrucciones reutilizables y guárdalo como skill.</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · AGENTE -->
+<section id="agente">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">3</span><h2>El agente: todo lo anterior, en una sola instrucción</h2></div>
+    <p class="sec-intro">Los cinco pasos nos llevaron la primera parte de la tarde. Un agente los encadena solo: una carpeta, una instrucción y un borrador listo para comprobar. El agente lo prepara; tú lo compruebas.</p>
+
+    <div class="grid grid-3">
+      <div class="card tool-card">
+        <span class="kind">Agente en tu ordenador</span>
+        <h3>Claude Cowork</h3>
+        <p>El agente de Claude en la aplicación de escritorio: le das acceso a una carpeta y le encargas la tarea completa. Usa tus skills y conectores, y pide permiso antes de borrar o enviar nada.</p>
+        <div class="btns"><a class="btn btn--main" href="https://claude.com/product/cowork" target="_blank" rel="noopener">Ir a Claude Cowork ↗</a></div>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Agente</span>
+        <h3>ChatGPT · agente</h3>
+        <p>El modo agente de ChatGPT: planifica, navega, lee tus archivos y entrega documentos terminados, enseñándote cada paso para que lo revises.</p>
+        <div class="btns"><a class="btn btn--main" href="https://chatgpt.com" target="_blank" rel="noopener">Ir a chatgpt.com ↗</a></div>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Agente corporativo</span>
+        <h3>Copilot Cowork</h3>
+        <p>El agente de Microsoft 365 Copilot: trabaja sobre tu correo, tu OneDrive y tus documentos de Office dentro del entorno de tu organización.</p>
+        <div class="btns"><a class="btn btn--main" href="https://m365.cloud.microsoft" target="_blank" rel="noopener">Ir a Microsoft 365 ↗</a></div>
+      </div>
+    </div>
+
+    <div class="prompt" style="margin-top:28px">
+      <div class="prompt__bar"><span><span class="tag">Prompt</span>Una carpeta y una instrucción</span><button class="copy" type="button">Copiar</button></div>
+<pre>En la carpeta «Taller ICO» están los documentos de Roche y mi skill de lectura de ensayos. Responde a esta pregunta de investigación: [pregunta]. 1) Busca evidencia en PubMed y ClinicalTrials.gov. 2) Lee los PDF de la carpeta. 3) Construye la tabla de evidencia con página. 4) Redacta en Word el borrador de revisión narrativa. 5) Verifica cada referencia y dame la lista de lo que no has podido comprobar. Pregúntame antes de enviar o publicar nada.</pre>
+    </div>
+    <div class="callout"><p><b>Fíjate:</b> déjalo trabajar mientras sigues con otra cosa. Al volver: ¿qué ha construido? ¿Qué comprobarías antes de firmarlo?</p></div>
+  </div>
+</section>
+
+<!-- 4 · DIAGNÓSTICO -->
+<section id="diagnostico" class="alt">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">4</span><h2>Diagnóstico: un caso con un modelo de frontera</h2></div>
+    <p class="sec-intro">Caso ficticio, ningún dato real de paciente. Usa el modelo más potente que tengas, con el razonamiento al máximo, y dale el caso por fases, como en el comité.</p>
+
+    <div class="grid grid-3">
+      <div class="card tool-card">
+        <span class="kind">Modelo de razonamiento</span>
+        <h3>ChatGPT · razonamiento máximo</h3>
+        <p>Elige el modelo más avanzado del selector y el nivel de razonamiento más alto. Tarda más, y se nota en los casos difíciles.</p>
+        <div class="btns"><a class="btn btn--main" href="https://chatgpt.com" target="_blank" rel="noopener">Ir a chatgpt.com ↗</a></div>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Modelo de razonamiento</span>
+        <h3>Claude · razonamiento extendido</h3>
+        <p>Activa el razonamiento extendido en el modelo más potente. Muy sólido explicando por qué descarta cada alternativa.</p>
+        <div class="btns"><a class="btn btn--main" href="https://claude.ai" target="_blank" rel="noopener">Ir a claude.ai ↗</a></div>
+      </div>
+      <div class="card tool-card">
+        <span class="kind">Modelo de razonamiento</span>
+        <h3>Gemini · Deep Think</h3>
+        <p>El modo de razonamiento profundo de Gemini: explora varias hipótesis en paralelo antes de responder.</p>
+        <div class="btns"><a class="btn btn--main" href="https://gemini.google.com" target="_blank" rel="noopener">Ir a gemini.google.com ↗</a></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="step__n">Razonamiento por fases</span>
+      <h3>Que razone como en el comité: una fase cada vez</h3>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Prompt</span>Caso por fases</span><button class="copy" type="button">Copiar</button></div>
+<pre>Eres oncólogo torácico en un comité de tumores. Te voy a dar un caso por fases. En cada fase dame: diagnóstico diferencial con probabilidad aproximada, la siguiente prueba que pedirías y por qué, y qué dato te haría cambiar de opinión. No avances hasta que te dé la siguiente fase. Fase 1: varón de 64 años, exfumador de 45 paquetes-año, con tos, disnea de esfuerzo y pérdida de 7 kg en dos meses.</pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Fase</th><th>Qué le das (caso ficticio)</th></tr></thead>
+          <tbody>
+            <tr><td><b>1 · Consulta</b></td><td>Varón de 64 años, exfumador de 45 paquetes-año. Tos, disnea de esfuerzo y 7 kg menos en dos meses.</td></tr>
+            <tr><td><b>2 · Analítica</b></td><td>Sodio 124 mmol/L con osmolalidad urinaria alta. LDH elevada.</td></tr>
+            <tr><td><b>3 · TC</b></td><td>Masa hiliar derecha de 6 cm, adenopatías mediastínicas bilaterales y dos lesiones hepáticas.</td></tr>
+            <tr><td><b>4 · EBUS</b></td><td>Células pequeñas. Sinaptofisina y TTF-1 positivos. Ki-67 del 85 %.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><p><b>Fíjate:</b> ¿en qué fase acierta? ¿Interpreta la hiponatremia? ¿Pide RM cerebral para estadificar?</p></div>
+    </div>
+
+    <div class="step">
+      <span class="step__n">Decisión terapéutica</span>
+      <h3>Diagnóstico confirmado. Ahora, con evidencia</h3>
+      <p>Pregunta al mismo modelo y contrasta con <a href="https://www.openevidence.com" target="_blank" rel="noopener">OpenEvidence</a>.</p>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Prompt</span>Opciones de primera línea</span><button class="copy" type="button">Copiar</button></div>
+<pre>Con el diagnóstico confirmado, ¿qué opciones de primera línea tiene este paciente? Para cada una: el ensayo pivotal, el beneficio absoluto en supervivencia global, la toxicidad relevante y lo que dicen las guías ESMO y NCCN. Separa lo que sabes con certeza de lo que no, y dime qué datos del paciente cambiarían la recomendación.</pre>
+      </div>
+      <div class="callout"><p><b>Fíjate:</b> contrasta sus cifras con la tabla de evidencia del bloque de investigación. ¿Coinciden?</p></div>
+    </div>
+
+    <div class="step">
+      <span class="step__n">Segunda opinión</span>
+      <h3>Pasa la respuesta de un modelo a otro</h3>
+      <p>ChatGPT ⇄ Claude ⇄ Gemini. Busca dónde discrepan.</p>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Prompt</span>Segunda opinión entre modelos</span><button class="copy" type="button">Copiar</button></div>
+<pre>Este es el razonamiento de otro especialista sobre el mismo caso: [pega la respuesta del otro modelo]. ¿En qué discrepas y por qué? ¿Qué ha pasado por alto? ¿Qué le preguntarías antes de aceptar su recomendación?</pre>
+      </div>
+      <div class="callout"><p><b>Fíjate:</b> donde dos modelos discrepan, está tu trabajo.</p></div>
+    </div>
+
+    <div class="rule"><b>El modelo no firma el informe. Tú sí.</b><p>Brillante y poco fiable, en el mismo minuto. Por eso el caso va por fases y la segunda opinión es otro modelo.</p></div>
+  </div>
+</section>
+
+<!-- 5 · OFIMÁTICA -->
+<section id="ofimatica">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">5</span><h2>Ofimática, presentaciones y avatares</h2></div>
+    <p class="sec-intro">La IA dentro de las herramientas que ya usas cada día: la hoja de cálculo, las diapositivas y un vídeo que no has grabado.</p>
+
+    <div class="step" style="margin-top:0;padding-top:0;border-top:0">
+      <span class="step__n">Excel</span>
+      <h3>Tu hoja de cálculo, en lenguaje natural</h3>
+      <p>Prueba con el <a href="assets/pacientes-ficticios-cpcp.xlsx" download>Excel de ejemplo de 200 pacientes ficticios</a>.</p>
+      <div class="tools">
+        <a class="tool" href="https://claude.com/claude-for-microsoft-365" target="_blank" rel="noopener"><em>Dentro de Excel</em><strong>Claude en Excel</strong><span>Complemento de Microsoft 365: lee la hoja, escribe fórmulas, crea tablas dinámicas y gráficos, y explica lo que hace.</span></a>
+        <a class="tool" href="https://m365.cloud.microsoft" target="_blank" rel="noopener"><em>Dentro de Excel</em><strong>Copilot en Excel</strong><span>El asistente integrado de Microsoft 365.</span></a>
+        <a class="tool" href="https://chatgpt.com" target="_blank" rel="noopener"><em>Dentro de Excel</em><strong>ChatGPT en Excel</strong><span>ChatGPT trabajando sobre la propia hoja de cálculo.</span></a>
+      </div>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Prompt</span>Tabla dinámica, gráfico y control de calidad</span><button class="copy" type="button">Copiar</button></div>
+<pre>En esta hoja de pacientes anonimizados: añade una columna con la edad al diagnóstico, crea una tabla dinámica por estadio y línea de tratamiento, y un gráfico listo para la sesión del servicio. Explícame cada fórmula y dime qué filas tienen valores imposibles.</pre>
+      </div>
+      <div class="callout"><p><b>Fíjate:</b> hay seis valores imposibles escondidos. ¿Los encuentra? Pide que te explique las fórmulas: si no las entiendes, no las uses.</p></div>
+    </div>
+
+    <div class="step">
+      <span class="step__n">Presentaciones</span>
+      <h3>Del póster a la sesión clínica</h3>
+      <p>De un póster de congreso (en el taller, el de IMbrella) a seis diapositivas para el servicio.</p>
+      <div class="tools">
+        <a class="tool" href="https://gamma.app" target="_blank" rel="noopener"><em>Presentaciones</em><strong>Gamma</strong><span>Convierte un texto o un PDF en una presentación con estructura y diseño. Exporta a PowerPoint.</span></a>
+        <a class="tool" href="https://claude.com/claude-for-microsoft-365" target="_blank" rel="noopener"><em>Dentro de PowerPoint</em><strong>Claude · PowerPoint</strong><span>Crea y edita diapositivas y gráficos nativos respetando tu plantilla.</span></a>
+        <a class="tool" href="https://m365.cloud.microsoft" target="_blank" rel="noopener"><em>Dentro de PowerPoint</em><strong>Copilot en PowerPoint</strong><span>El asistente integrado de Microsoft 365.</span></a>
+        <a class="tool" href="https://www.napkin.ai" target="_blank" rel="noopener"><em>Infografía</em><strong>Napkin</strong><span>Pega un párrafo y propone esquemas y diagramas que lo explican.</span></a>
+      </div>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Prompt</span>De póster a presentación</span><button class="copy" type="button">Copiar</button></div>
+<pre>Convierte este póster en una presentación de 6 diapositivas para la sesión del servicio: una idea por diapositiva, una figura en cada una, mensajes que no exageren el dato y notas del orador. Añade al final una versión de 150 palabras para pacientes y familias, en castellano y en catalán. Exporta a PowerPoint.</pre>
+      </div>
+      <div class="callout"><p><b>Fíjate:</b> ¿promete más de lo que dice el dato? Estar vivo a 7 años no es estar curado.</p></div>
+    </div>
+
+    <div class="step">
+      <span class="step__n">Avatares</span>
+      <h3>Un vídeo mío para vosotros. Que yo no he grabado</h3>
+      <p>Un avatar con tu imagen y tu voz, generado a partir de un guion.</p>
+      <div class="tools">
+        <a class="tool" href="https://www.heygen.com" target="_blank" rel="noopener"><em>Vídeo con avatar</em><strong>HeyGen</strong><span>Crea tu avatar y genera vídeos a partir de un texto, en decenas de idiomas.</span></a>
+        <a class="tool" href="https://claude.ai" target="_blank" rel="noopener"><em>Conector</em><strong>Claude + conector HeyGen</strong><span>Claude escribe el guion a partir de tus documentos y encarga el vídeo a HeyGen sin salir de la conversación.</span></a>
+      </div>
+      <div class="prompt">
+        <div class="prompt__bar"><span><span class="tag">Prompt</span>Vídeo con avatar desde Claude</span><button class="copy" type="button">Copiar</button></div>
+<pre>Con el conector de HeyGen, crea un vídeo de unos 40 segundos con el avatar de Javier Fuentes. Que salude a los oncólogos del ICO de L'Hospitalet y les cuente el dato que te parezca más relevante de uno de los documentos de Roche, citando el estudio. Tono cercano, en castellano. Antes de generarlo, enséñame el guion para aprobarlo.</pre>
+      </div>
+      <div class="callout"><p><b>Fíjate:</b> ¿el dato es correcto? ¿Lo dirías tú así? Un avatar habla en tu nombre: revisa el guion como si lo firmaras.</p></div>
+      <div class="rule"><b>Nadie grabó ese vídeo. Y sonaba a mí.</b><p>Si un vídeo puede hablar en mi nombre, verifica la fuente antes de creerlo. Y la identidad antes de actuar.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · REGLAS DE ORO -->
+<section id="reglas" class="alt" style="border-bottom:0">
+  <div class="container">
+    <div class="sec-head"><span class="sec-num">6</span><h2>Reglas de oro</h2></div>
+    <p class="sec-intro">Cuatro reglas para llevar.</p>
+    <ol class="golden">
+      <li><b>Ningún dato identificable</b> en una herramienta que tu centro no haya aprobado.</li>
+      <li><b>Cada cifra, a su fuente.</b> Con página.</li>
+      <li><b>Usa el modelo más potente que tengas.</b></li>
+      <li><b>Declara el uso de IA.</b> Y firma tú.</li>
+    </ol>
+    <div class="monday"><b>El lunes:</b> elige una tarea que hagas cada semana. Hazla una vez con IA. Y compara.</div>
+  </div>
+</section>
+
+</main>
+
+<div class="container" style="padding-top:8px;padding-bottom:16px">
+  <aside class="newsletter">
+    <div class="newsletter__text">
+      <p class="newsletter__eyebrow">Mantente al día</p>
+      <img class="newsletter__title" src="assets/sentinel-title.png" alt="The Independent Sentinel">
+      <p class="newsletter__desc">La newsletter de Javier Fuentes con los avances semanales en IA, ciencia de datos y las historias que conectan la tecnología con la cultura.</p>
+      <div class="newsletter__actions">
+        <a class="newsletter__btn" href="https://theindependentsentinel.substack.com/" target="_blank" rel="noopener">Suscribirse →</a>
+        <span class="newsletter__url">theindependentsentinel.substack.com</span>
+      </div>
+    </div>
+    <div class="newsletter__qr">
+      <img src="assets/sentinel-qr.png" alt="QR a The Independent Sentinel">
+      <span>Escanéame</span>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="container">
+    <span>Taller de IA generativa · ICO L'Hospitalet · 23 de noviembre de 2026 · Javier Fuentes</span>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.prompt').forEach(function (box) {
+  var btn = box.querySelector('.copy');
+  var pre = box.querySelector('pre');
+  btn.addEventListener('click', function () {
+    var text = pre.innerText;
+    var done = function () {
+      btn.textContent = 'Copiado ✓'; btn.classList.add('ok');
+      setTimeout(function () { btn.textContent = 'Copiar'; btn.classList.remove('ok'); }, 1800);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+  });
+});
+</script>
+</body>
+</html>
